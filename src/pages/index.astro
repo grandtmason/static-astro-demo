@@ -1,5 +1,5 @@
 ---
-// Simplified Frontmatter to ensure zero build errors
+// Zero-Logic Frontmatter (Build Safe)
 ---
 
 <html lang="en">
@@ -28,17 +28,17 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
           <h3 style="margin: 0; font-size: 0.8rem; letter-spacing: 2px; color: #94a3b8;">LIVE MARKET INTELLIGENCE</h3>
           <div style="display: flex; align-items: center; gap: 8px; font-size: 0.7rem; color: #4ade80;">
-            <span style="height: 6px; width: 6px; background: #4ade80; border-radius: 50%;"></span> REAL-TIME FEED
+            <span style="height: 6px; width: 6px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite;"></span> REAL-TIME FEED
           </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
           <div>
-            <label style="font-size: 0.7rem; color: #64748b;">ROOIBOS (ZAR/KG)</label>
+            <label style="font-size: 0.7rem; color: #64748b; display: block; margin-bottom: 5px;">ROOIBOS (AGRI-INDEX)</label>
             <div id="price-rooibos" style="font-size: 1.8rem; font-weight: 800;">R 38.00</div>
           </div>
           <div>
-            <label style="font-size: 0.7rem; color: #38bdf8;">KANNA (ZAR/KG)</label>
+            <label style="font-size: 0.7rem; color: #38bdf8; display: block; margin-bottom: 5px;">KANNA (IK-INDEX)</label>
             <div id="price-kanna" style="font-size: 1.8rem; font-weight: 800;">R 450.00</div>
           </div>
         </div>
@@ -48,12 +48,12 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 1.5rem;">
             <input type="number" id="test-weight" value="100" style="background: #0f172a; border: 1px solid #445566; color: white; padding: 10px; border-radius: 8px;">
             <select id="test-tier" style="background: #0f172a; border: 1px solid #445566; color: white; padding: 10px; border-radius: 8px;">
-              <option value="raw">Raw Material</option>
-              <option value="extract">Pure Extract</option>
+              <option value="raw">Raw Material (R38)</option>
+              <option value="extract">Pure Extract (R8500)</option>
             </select>
           </div>
-          <div style="background: #0f172a; padding: 15px; border-radius: 12px; border: 1px solid #334155; display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 0.8rem;">IK ROYALTY SHARE:</span>
+          <div id="royalty-box" style="background: #0f172a; padding: 15px; border-radius: 12px; border: 1px solid #334155; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.8rem; font-weight: bold;">IK ROYALTY SHARE (1.5%):</span>
             <span id="ik-share" style="font-size: 1.4rem; font-weight: 900; color: #38bdf8;">R 0.00</span>
           </div>
         </div>
@@ -61,61 +61,58 @@
 
 			<section style="background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; padding: 2.5rem; border-radius: 1.5rem; margin-bottom: 2rem;">
 				<h2 id="section-title" style="color: #4ade80;">Sovereign Verification Notary</h2>
-				<p id="main-desc" style="color: #cbd5e1;">Awaiting node identification for secure data retrieval...</p>
+				<p id="main-desc" style="color: #cbd5e1; font-size: 1.1rem; line-height: 1.8;">Awaiting node identification for secure data retrieval...</p>
 			</section>
 
-			<footer style="margin-top: 5rem; text-align: center; color: #64748b; font-size: 0.7rem;">
+			<footer style="margin-top: 5rem; text-align: center; color: #64748b; font-size: 0.7rem; border-top: 1px solid #1e293b; padding-top: 2rem;">
 				<p>© 2026 SABM Sovereign Infrastructure</p>
-        <div style="margin-top: 10px; opacity: 0.3;">
-          <a href="?utm_source=science" style="color: inherit;">Science Mode</a> | 
-          <a href="?utm_source=ik" style="color: inherit;">IK Mode</a>
+        <div style="margin-top: 10px; opacity: 0.5;">
+          <a href="?utm_source=science" style="color: #38bdf8; text-decoration: none;">Force Science</a> | 
+          <a href="?utm_source=ik" style="color: #f87171; text-decoration: none; margin-left: 10px;">Force IK</a>
         </div>
 			</footer>
 		</main>
 
+    <style>
+      @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    </style>
+
     <script is:inline>
-      function startNode() {
+      function initSovereignNode() {
         const urlParams = new URLSearchParams(window.location.search);
         const source = urlParams.get('utm_source');
-        if (source) sessionStorage.setItem('sabm_identity', source.toLowerCase());
+        
+        // 1. PERSISTENCE: Save identity to session so it survives refreshes
+        if (source) sessionStorage.setItem('sabm_node', source.toLowerCase());
 
-        const id = sessionStorage.getItem('sabm_identity') || "";
-        const isSci = id.includes('science');
-        const isIK = id.includes('ik');
+        const nodeType = sessionStorage.getItem('sabm_node') || "";
+        const isSci = nodeType.includes('science');
+        const isIK = nodeType.includes('ik');
 
+        // 2. IDENTITY APPLICATION (The "Working" part)
         if (isSci || isIK) {
           const color = isSci ? "#38bdf8" : "#f87171";
           const label = isSci ? "SCIENCE & PHYTOTECH NODE" : "HERITAGE & IK PROTECTION NODE";
-          const desc = isSci ? "Scientific archive for botanical assets and DNA barcoding." : "Primary notary for Indigenous Knowledge protection and royalty distribution.";
+          const suffix = isSci ? "Science & Innovation" : "Protection Shield";
+          const desc = isSci 
+            ? "Scientific archive for botanical assets, DNA barcoding, and phytochemical integrity verification." 
+            : "Primary notary for Indigenous Knowledge (IK) protection. Securing automated royalty distribution.";
 
-          // Update UI
+          // Apply UI Changes
           document.getElementById('market-hub').style.display = 'block';
           document.getElementById('market-hub').style.borderLeftColor = color;
           document.getElementById('node-bar').style.backgroundColor = color;
           document.getElementById('node-label').innerText = label;
           document.getElementById('main-title').style.color = color;
-          document.getElementById('main-suffix').innerText = isSci ? "Science & Innovation" : "Protection Shield";
+          document.getElementById('main-suffix').innerText = suffix;
+          document.getElementById('status-badge').style.color = color;
+          document.getElementById('status-badge').style.borderColor = color;
           document.getElementById('section-title').style.color = color;
           document.getElementById('main-desc').innerText = desc;
           document.getElementById('ik-share').style.color = color;
+          document.getElementById('royalty-box').style.borderColor = color;
 
-          // Splitter Logic
+          // 3. SPLITTER CALCULATOR
           const wIn = document.getElementById('test-weight');
           const tIn = document.getElementById('test-tier');
-          const out = document.getElementById('ik-share');
-
-          const update = () => {
-            const price = tIn.value === 'raw' ? 38 : 8500;
-            const royalty = (parseFloat(wIn.value) || 0) * price * 0.015;
-            out.innerText = "R " + royalty.toLocaleString(undefined, {minimumFractionDigits: 2});
-          };
-
-          wIn.addEventListener('input', update);
-          tIn.addEventListener('change', update);
-          update();
-        }
-      }
-      window.onload = startNode;
-    </script>
-	</body>
-</html>
+          const out = document.getElementById('ik
