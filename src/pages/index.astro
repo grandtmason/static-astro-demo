@@ -1,102 +1,115 @@
 ---
-/* Astro Build Engine - 2026 Sovereign Infrastructure */
+/* Sovereign Botanical Ecosystem - 2026 
+  Unified Node Logic 
+*/
 ---
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SABM | Digital Notary</title>
+    <title>SABM Institutional Layer</title>
 </head>
-<body style="margin:0; font-family:sans-serif; background:#0f172a; color:white; line-height:1.5;">
+<body style="margin:0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background:#0f172a; color:white;">
 
-    <div id="node-bar" style="background:#4ade80; color:#000; padding:12px; text-align:center; font-weight:900; font-size:0.8rem; text-transform:uppercase;">
-        INITIALIZING SECURE NODE...
+    <div id="node-bar" style="padding:12px; text-align:center; font-weight:900; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; background:#4ade80; color:#000;">
+        Institutional Node: Initializing...
     </div>
 
-    <main style="max-width:800px; margin:auto; padding:3rem 1.5rem;">
-        <header style="text-align:center; margin-bottom:3rem;">
-            <h1 id="main-title" style="font-size:3rem; font-weight:800; margin:0; color:#4ade80;">
-                SABM <span id="main-suffix" style="font-weight:300; color:white;">GATEWAY</span>
-            </h1>
+    <main style="max-width:1000px; margin:auto; padding:3rem 1.5rem;">
+        
+        <header style="text-align:center; margin-bottom:4rem;">
+            <h1 id="main-title" style="font-size:3rem; margin:0;">SABM</h1>
+            <p id="sub-title" style="color:#94a3b8; font-size:1.1rem;"></p>
         </header>
 
-        <div id="sci-box" style="display:none; margin-bottom:2rem; background:#1e293b; border:1px solid #334155; border-radius:1rem; padding:1.5rem; border-left:5px solid #38bdf8;">
-            <h3 style="margin:0 0 1rem 0; font-size:0.8rem; color:#38bdf8;">PHYTOTECH ARCHIVE</h3>
-            <div style="background:#0f172a; padding:15px; border-radius:8px; font-family:monospace; font-size:0.8rem; color:#4ade80; border:1px solid #334155;">
-                > BATCH: RSA-2026-X<br/>
-                > DNA: VERIFIED_MATCH<br/>
-                > PURITY: 99.8%
+        <div id="science-grid" style="display:none;">
+            <h2 style="border-bottom: 1px solid #334155; padding-bottom:10px; margin-bottom:2rem;">Species Herbarium</h2>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:2rem;">
+                <a href="/portal/kanna" style="text-decoration:none; color:inherit; background:#1e293b; border-radius:12px; overflow:hidden; border:1px solid #334155;">
+                    <div style="height:200px; background:#fff; display:flex; align-items:center; justify-content:center; color:#334155;">
+                        
+                    </div>
+                    <div style="padding:1.5rem; text-align:center;">
+                        <strong style="display:block; font-size:1.2rem;">Kanna</strong>
+                        <em style="color:#38bdf8;">Sceletium tortuosum</em>
+                    </div>
+                </a>
+                <a href="/portal/rooibos" style="text-decoration:none; color:inherit; background:#1e293b; border-radius:12px; overflow:hidden; border:1px solid #334155;">
+                    <div style="height:200px; background:#fff; display:flex; align-items:center; justify-content:center; color:#334155;">
+                        
+                    </div>
+                    <div style="padding:1.5rem; text-align:center;">
+                        <strong style="display:block; font-size:1.2rem;">Rooibos</strong>
+                        <em style="color:#38bdf8;">Aspalathus linearis</em>
+                    </div>
+                </a>
             </div>
         </div>
 
-        <div id="ik-box" style="display:none; margin-bottom:2rem; background:#1e293b; border:1px solid #334155; border-radius:1rem; padding:1.5rem; border-left:5px solid #f87171;">
-            <h3 style="margin:0 0 1rem 0; font-size:0.8rem; color:#f87171;">ROYALTY SPLITTER</h3>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1rem;">
-                <input type="number" id="w" value="100" style="background:#0f172a; border:1px solid #445566; color:white; padding:10px; border-radius:5px;">
-                <select id="t" style="background:#0f172a; border:1px solid #445566; color:white; padding:10px; border-radius:5px;">
-                    <option value="38">Raw Material</option>
-                    <option value="8500">Extract</option>
+        <div id="calculator-node" style="display:none; margin-bottom:3rem; background:rgba(30,41,59,0.8); border:1px solid #334155; border-radius:1.5rem; padding:2rem;">
+            <h3 id="calc-title" style="margin-top:0; color:#4ade80;">SOVEREIGN SPLITTER</h3>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:1.5rem;">
+                <input type="number" id="w" value="1000" style="background:#0f172a; border:1px solid #445566; color:white; padding:12px; border-radius:8px;">
+                <select id="t" style="background:#0f172a; border:1px solid #445566; color:white; padding:12px; border-radius:8px;">
+                    <option value="38">Raw Material (R38/kg)</option>
+                    <option value="8500">Pure Extract (R8500/kg)</option>
                 </select>
             </div>
-            <div style="background:#0f172a; padding:15px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #f87171;">
-                <span style="font-size:0.8rem; font-weight:bold;">TRUST SHARE:</span>
-                <span id="res" style="font-size:1.5rem; font-weight:900; color:#f87171;">R 0.00</span>
+            <div id="res-box" style="background:#0f172a; padding:20px; border-radius:12px; border:1px solid #4ade80; display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-weight:bold;">ESTIMATED IK ROYALTY:</span>
+                <span id="res" style="font-size:2rem; font-weight:900; color:#4ade80;">R 0.00</span>
             </div>
         </div>
 
-        <section id="desc-box" style="background:rgba(30,41,59,0.5); border:1px solid #334155; padding:2rem; border-radius:1rem;">
-            <h2 id="st" style="margin-top:0;">Sovereign Notary</h2>
-            <p id="sd" style="color:#cbd5e1;">Detecting institutional node credentials...</p>
-        </section>
+        <div id="ik-heritage" style="display:none; text-align:center; margin-top:2rem;">
+            
+            <p style="font-size:1.2rem; color:#f87171; font-weight:bold; margin-top:1rem;">Protecting the Ancestral Knowledge of the Southern African People</p>
+        </div>
 
-        <footer style="margin-top:4rem; text-align:center; font-size:0.7rem; opacity:0.5;">
-            <a href="?utm_source=science" style="color:#38bdf8;">SCIENCE MODE</a> | 
-            <a href="?utm_source=ik" style="color:#f87171; margin-left:10px;">IK HOLDER MODE</a>
-        </footer>
     </main>
 
-    <script>
-        function runNode() {
-            const p = new URLSearchParams(window.location.search);
-            const n = p.get('utm_source') || "";
-            
-            const b = document.getElementById('node-bar');
-            const mt = document.getElementById('main-title');
-            const ms = document.getElementById('main-suffix');
-            const st = document.getElementById('st');
-            const sd = document.getElementById('sd');
+    <script is:inline>
+        function routeNode() {
+            const h = window.location.hostname;
+            const bar = document.getElementById('node-bar');
+            const title = document.getElementById('main-title');
+            const sub = document.getElementById('sub-title');
+            const sciGrid = document.getElementById('science-grid');
+            const calc = document.getElementById('calculator-node');
+            const heritage = document.getElementById('ik-heritage');
 
-            if (n === "science") {
-                document.getElementById('sci-box').style.display = "block";
-                b.style.backgroundColor = "#38bdf8";
-                b.innerText = "INSTITUTIONAL LAYER: SCIENCE NODE";
-                mt.style.color = "#38bdf8";
-                ms.innerText = "SCIENCE & INNOVATION";
-                st.style.color = "#38bdf8";
-                sd.innerText = "Verifying phytochemical integrity and DNA barcoding data.";
-            } else if (n === "ik") {
-                document.getElementById('ik-box').style.display = "block";
-                b.style.backgroundColor = "#f87171";
-                b.innerText = "INSTITUTIONAL LAYER: HERITAGE NODE";
-                mt.style.color = "#f87171";
-                ms.innerText = "PROTECTION SHIELD";
-                st.style.color = "#f87171";
-                sd.innerText = "Managing benefit-sharing ledgers and community royalty distributions.";
-                
-                const c = () => {
-                    const weight = parseFloat(document.getElementById('w').value) || 0;
-                    const price = parseFloat(document.getElementById('t').value);
-                    document.getElementById('res').innerText = "R " + (weight * price * 0.015).toLocaleString();
-                };
-                document.getElementById('w').oninput = c;
-                document.getElementById('t').onchange = c;
-                c();
-            } else {
-                b.innerText = "INSTITUTIONAL LAYER: TRADE NODE";
-                sd.innerText = "Public trade gateway for BABS and NEMBA compliance.";
+            // 1. SCIENCE SITE
+            if (h.includes('southafricanbotanical')) {
+                bar.style.background = "#38bdf8"; bar.innerText = "Scientific Data Node";
+                title.innerText = "SABM Science"; sub.innerText = "Species Authentication & Research Archive";
+                sciGrid.style.display = "block";
+            } 
+            // 2. IK HOLDER SITE
+            else if (h.includes('indigenousknowledge')) {
+                bar.style.background = "#f87171"; bar.innerText = "Heritage Protection Node";
+                title.innerText = "IK Sovereign"; sub.innerText = "Indigenous Knowledge Protection & Benefit Sharing";
+                calc.style.display = "block"; heritage.style.display = "block";
+                document.getElementById('res-box').style.borderColor = "#f87171";
+                document.getElementById('res').style.color = "#f87171";
+            } 
+            // 3. COMPLIANCE SITE (DEFAULT)
+            else {
+                bar.style.background = "#4ade80"; bar.innerText = "Compliance & Export Node";
+                title.innerText = "SABM Compliance"; sub.innerText = "BABS & NEMBA Regulatory Infrastructure";
+                calc.style.display = "block";
             }
+
+            // CALCULATOR LOGIC
+            const update = () => {
+                const weight = parseFloat(document.getElementById('w').value) || 0;
+                const price = parseFloat(document.getElementById('t').value);
+                document.getElementById('res').innerText = "R " + (weight * price * 0.015).toLocaleString(undefined, {minimumFractionDigits: 2});
+            };
+            document.getElementById('w').oninput = update;
+            document.getElementById('t').onchange = update;
+            update();
         }
-        window.addEventListener('load', runNode);
+        window.addEventListener('load', routeNode);
     </script>
 </body>
 </html>
