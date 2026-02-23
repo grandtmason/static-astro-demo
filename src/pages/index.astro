@@ -1,101 +1,121 @@
 ---
-// 1. Unified Node Detection (Server-Side)
-const url = Astro.url;
-const params = url.searchParams;
-const source = params.get('utm_source')?.toLowerCase() || "";
-const domain = url.hostname.toLowerCase();
-
-// Identify Node Type
-const isScience = domain.includes('southafricanbotanical') || source.includes('science') || source.includes('org.za');
-const isIK = domain.includes('indigenousknowledge') || source.includes('ik') || source.includes('mesembrine');
-
-let identity = {
-  title: "SABM",
-  suffix: "Compliance Gateway",
-  label: "TRADE & EXPORT NODE",
-  color: "#4ade80", 
-  accent: "rgba(34, 197, 94, 0.1)",
-  description: "This gateway facilitates BABS & NEMBA compliance for the South African botanical supply chain. We provide the digital 'Toll-Booth' infrastructure for frictionless trade."
-};
-
-if (isIK) {
-  identity = {
-    title: "IK",
-    suffix: "Protection Shield",
-    label: "HERITAGE & IK PROTECTION NODE",
-    color: "#f87171", 
-    accent: "rgba(248, 113, 113, 0.1)",
-    description: "The primary notary for Indigenous Knowledge (IK) protection. This node secures the automated royalty splitter for traditional holders."
-  };
-} else if (isScience) {
-  identity = {
-    title: "SABM",
-    suffix: "Science & Innovation",
-    label: "SCIENCE & PHYTOTECH NODE",
-    color: "#38bdf8", 
-    accent: "rgba(56, 189, 248, 0.1)",
-    description: "Scientific archive for botanical assets, DNA barcoding, and phytochemical integrity verification."
-  };
-}
+// Simplified Frontmatter to ensure zero build errors
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<title>{identity.title} {identity.suffix} | Official Notary</title>
+		<title>SABM | Sovereign Notary</title>
 	</head>
 	<body style="margin: 0; font-family: system-ui, sans-serif; background: #0f172a; color: white; line-height: 1.5;">
 		
-    <div id="node-bar" style={`background: ${identity.color}; color: #000; padding: 12px; text-align: center; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem;`}>
-      INSTITUTIONAL LAYER: {identity.label}
+    <div id="node-bar" style="background: #4ade80; color: #000; padding: 12px; text-align: center; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem;">
+      INSTITUTIONAL LAYER: <span id="node-label">TRADE & EXPORT NODE</span>
     </div>
 
     <main style="max-width: 800px; margin: auto; padding: 4rem 2rem; min-height: 100vh;">
 			<header style="text-align: center; margin-bottom: 4rem; border-bottom: 1px solid #334155; padding-bottom: 2rem;">
-				<h1 id="main-title" style={`font-size: 3.5rem; font-weight: 800; margin: 0; color: ${identity.color};`}>
-					{identity.title} <span style="font-weight: 300; color: white;">{identity.suffix}</span>
+				<h1 id="main-title" style="font-size: 3.5rem; font-weight: 800; margin: 0; color: #4ade80;">
+					SABM <span id="main-suffix" style="font-weight: 300; color: white;">Compliance Gateway</span>
 				</h1>
-				<div id="status-badge" style={`display: inline-block; background: ${identity.accent}; border: 1px solid ${identity.color}; color: ${identity.color}; padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; margin-top: 1.5rem;`}>
+				<div id="status-badge" style="display: inline-block; background: rgba(74, 222, 128, 0.1); border: 1px solid #4ade80; color: #4ade80; padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; margin-top: 1.5rem;">
 					● SYSTEM OPERATIONAL
 				</div>
 			</header>
 
-      <div id="market-hub" style="display:none; margin-bottom: 3rem; background: rgba(30, 41, 59, 0.8); border: 1px solid #334155; border-radius: 1.5rem; padding: 2rem;">
+      <div id="market-hub" style="display:none; margin-bottom: 3rem; background: rgba(30, 41, 59, 0.8); border: 1px solid #334155; border-radius: 1.5rem; padding: 2rem; border-left: 5px solid #38bdf8;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
           <h3 style="margin: 0; font-size: 0.8rem; letter-spacing: 2px; color: #94a3b8;">LIVE MARKET INTELLIGENCE</h3>
           <div style="display: flex; align-items: center; gap: 8px; font-size: 0.7rem; color: #4ade80;">
-            <span style="height: 6px; width: 6px; background: #4ade80; border-radius: 50%;"></span> LIVE FEED
+            <span style="height: 6px; width: 6px; background: #4ade80; border-radius: 50%;"></span> REAL-TIME FEED
           </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
           <div>
-            <label style="font-size: 0.7rem; color: #64748b; display: block;">ROOIBOS (AGRI)</label>
-            <div id="price-rooibos" style="font-size: 1.8rem; font-weight: 800;">R 38.50</div>
-            <div id="levy-rooibos" style="font-size: 0.8rem; color: #f87171;">Levy: 1.5%</div>
+            <label style="font-size: 0.7rem; color: #64748b;">ROOIBOS (ZAR/KG)</label>
+            <div id="price-rooibos" style="font-size: 1.8rem; font-weight: 800;">R 38.00</div>
           </div>
           <div>
-            <label style="font-size: 0.7rem; color: #38bdf8; display: block;">KANNA (IK)</label>
-            <div id="price-kanna" style="font-size: 1.8rem; font-weight: 800;">R 455.00</div>
-            <div id="levy-kanna" style="font-size: 0.8rem; color: #f87171;">Royalty: 1.0%</div>
+            <label style="font-size: 0.7rem; color: #38bdf8;">KANNA (ZAR/KG)</label>
+            <div id="price-kanna" style="font-size: 1.8rem; font-weight: 800;">R 450.00</div>
           </div>
         </div>
 
         <div style="border-top: 1px solid #334155; padding-top: 1.5rem;">
-          <h4 style="color: #94a3b8; font-size: 0.7rem; margin-bottom: 1rem;">SPLITTER SIMULATOR</h4>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem;">
-            <input type="number" id="test-weight" value="100" style="background: #0f172a; border: 1px solid #445566; color: white; padding: 8px; border-radius: 6px;">
-            <select id="test-tier" style="background: #0f172a; border: 1px solid #445566; color: white; padding: 8px; border-radius: 6px;">
-              <option value="raw">Raw (R38)</option>
-              <option value="extract">Extract (R8500)</option>
+          <h4 style="color: #94a3b8; font-size: 0.7rem; margin-bottom: 1rem;">SOVEREIGN SPLITTER SIMULATOR</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 1.5rem;">
+            <input type="number" id="test-weight" value="100" style="background: #0f172a; border: 1px solid #445566; color: white; padding: 10px; border-radius: 8px;">
+            <select id="test-tier" style="background: #0f172a; border: 1px solid #445566; color: white; padding: 10px; border-radius: 8px;">
+              <option value="raw">Raw Material</option>
+              <option value="extract">Pure Extract</option>
             </select>
           </div>
-          <div style="background: #0f172a; padding: 12px; border-radius: 10px; border: 1px solid #334155; display: flex; justify-content: space-between;">
-            <span style="font-size: 0.7rem; color: #cbd5e1;">IK ROYALTY:</span>
-            <span id="ik-share" style="font-weight: 900; color: #f87171;">R 0.00</span>
+          <div style="background: #0f172a; padding: 15px; border-radius: 12px; border: 1px solid #334155; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.8rem;">IK ROYALTY SHARE:</span>
+            <span id="ik-share" style="font-size: 1.4rem; font-weight: 900; color: #38bdf8;">R 0.00</span>
           </div>
         </div>
       </div>
 
-			<section style="background: rgba(30, 41, 59, 0.5); border: 1
+			<section style="background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; padding: 2.5rem; border-radius: 1.5rem; margin-bottom: 2rem;">
+				<h2 id="section-title" style="color: #4ade80;">Sovereign Verification Notary</h2>
+				<p id="main-desc" style="color: #cbd5e1;">Awaiting node identification for secure data retrieval...</p>
+			</section>
+
+			<footer style="margin-top: 5rem; text-align: center; color: #64748b; font-size: 0.7rem;">
+				<p>© 2026 SABM Sovereign Infrastructure</p>
+        <div style="margin-top: 10px; opacity: 0.3;">
+          <a href="?utm_source=science" style="color: inherit;">Science Mode</a> | 
+          <a href="?utm_source=ik" style="color: inherit;">IK Mode</a>
+        </div>
+			</footer>
+		</main>
+
+    <script is:inline>
+      function startNode() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const source = urlParams.get('utm_source');
+        if (source) sessionStorage.setItem('sabm_identity', source.toLowerCase());
+
+        const id = sessionStorage.getItem('sabm_identity') || "";
+        const isSci = id.includes('science');
+        const isIK = id.includes('ik');
+
+        if (isSci || isIK) {
+          const color = isSci ? "#38bdf8" : "#f87171";
+          const label = isSci ? "SCIENCE & PHYTOTECH NODE" : "HERITAGE & IK PROTECTION NODE";
+          const desc = isSci ? "Scientific archive for botanical assets and DNA barcoding." : "Primary notary for Indigenous Knowledge protection and royalty distribution.";
+
+          // Update UI
+          document.getElementById('market-hub').style.display = 'block';
+          document.getElementById('market-hub').style.borderLeftColor = color;
+          document.getElementById('node-bar').style.backgroundColor = color;
+          document.getElementById('node-label').innerText = label;
+          document.getElementById('main-title').style.color = color;
+          document.getElementById('main-suffix').innerText = isSci ? "Science & Innovation" : "Protection Shield";
+          document.getElementById('section-title').style.color = color;
+          document.getElementById('main-desc').innerText = desc;
+          document.getElementById('ik-share').style.color = color;
+
+          // Splitter Logic
+          const wIn = document.getElementById('test-weight');
+          const tIn = document.getElementById('test-tier');
+          const out = document.getElementById('ik-share');
+
+          const update = () => {
+            const price = tIn.value === 'raw' ? 38 : 8500;
+            const royalty = (parseFloat(wIn.value) || 0) * price * 0.015;
+            out.innerText = "R " + royalty.toLocaleString(undefined, {minimumFractionDigits: 2});
+          };
+
+          wIn.addEventListener('input', update);
+          tIn.addEventListener('change', update);
+          update();
+        }
+      }
+      window.onload = startNode;
+    </script>
+	</body>
+</html>
