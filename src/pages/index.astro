@@ -63,4 +63,53 @@ if (isIK) {
 	</head>
 	<body style="margin: 0; font-family: system-ui, sans-serif; background: #0f172a; color: white; line-height: 1.5;">
 		
-    <div id="node-bar" style={`background: ${identity.color}; color: #000; padding: 12px; text-align: center; font-weight: 900; letter-spacing: 1px; text-
+    <div id="node-bar" style={`background: ${identity.color}; color: #000; padding: 12px; text-align: center; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem;`}>
+      INSTITUTIONAL LAYER: {identity.label}
+    </div>
+
+    <main style="max-width: 800px; margin: auto; padding: 4rem 2rem; min-height: 100vh;">
+			<header style="text-align: center; margin-bottom: 4rem; border-bottom: 1px solid #334155; padding-bottom: 2rem;">
+				<h1 id="main-title" style={`font-size: 3.5rem; font-weight: 800; margin: 0; color: ${identity.color};`}>
+					{identity.title} <span style="font-weight: 300; color: white;">{identity.suffix}</span>
+				</h1>
+				<div id="status-badge" style={`display: inline-block; background: ${identity.accent}; border: 1px solid ${identity.color}; color: ${identity.color}; padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; margin-top: 1.5rem;`}>
+					● SYSTEM OPERATIONAL
+				</div>
+			</header>
+
+      <div id="market-hub" style="display:none; margin-bottom: 3rem; background: rgba(30, 41, 59, 0.8); border: 1px solid #334155; border-radius: 1.5rem; padding: 2rem; border-left: 5px solid #f87171;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h3 style="margin: 0; font-size: 0.8rem; letter-spacing: 2px; color: #94a3b8;">LIVE MARKET INTELLIGENCE HUB</h3>
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 0.7rem; color: #4ade80;">
+            <span style="height: 6px; width: 6px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite;"></span> REAL-TIME DATA FEED
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+          <div>
+            <label style="font-size: 0.7rem; color: #64748b; display: block; margin-bottom: 5px;">ROOIBOS (AGRI-INDEX)</label>
+            <div id="price-rooibos" style="font-size: 1.8rem; font-weight: 800;">R 38.00</div>
+            <div id="levy-rooibos" style="font-size: 0.8rem; color: #f87171;">Levy: R 0.57 (1.5%)</div>
+          </div>
+          <div>
+            <label style="font-size: 0.7rem; color: #38bdf8; display: block; margin-bottom: 5px;">KANNA (NEGOTIATED INDEX)</label>
+            <div id="price-kanna" style="font-size: 1.8rem; font-weight: 800;">R 450.00</div>
+            <div id="levy-kanna" style="font-size: 0.8rem; color: #f87171;">IK-B: R 4.50 (1.0%)</div>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid #334155; padding-top: 1.5rem;">
+          <h4 style="color: #94a3b8; font-size: 0.7rem; margin-bottom: 1rem; letter-spacing: 1px;">SOVEREIGN SPLITTER SIMULATOR</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 1.5rem;">
+            <div style="flex:1">
+               <label style="font-size: 0.6rem; color: #64748b;">TONNAGE (KG)</label>
+               <input type="number" id="test-weight" value="100" style="width: 100%; background: #0f172a; border: 1px solid #445566; color: white; padding: 10px; border-radius: 8px; margin-top: 4px;">
+            </div>
+            <div style="flex:1">
+               <label style="font-size: 0.6rem; color: #64748b;">VALUE STATE</label>
+               <select id="test-tier" style="width: 100%; background: #0f172a; border: 1px solid #445566; color: white; padding: 10px; border-radius: 8px; margin-top: 4px;">
+                 <option value="raw">Raw Farm-gate (R38/kg)</option>
+                 <option value="extract">Phyto-Extract (R8,500/kg)</option>
+               </select>
+            </div>
+          </div>
