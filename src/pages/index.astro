@@ -65,5 +65,21 @@ const schemaData = {
 				<p>Connected Nodes: 92 | Security Status: DNSSEC Verified</p>
 			</footer>
 		</main>
+<script>
+      // 1. Get the source from the URL (?utm_source=...)
+      const params = new URLSearchParams(window.location.search);
+      const source = params.get('utm_source');
+      
+      // 2. If a visitor comes from one of your 93 domains, update the UI
+      if (source) {
+        // Find the 'SYSTEM OPERATIONAL' badge and update it
+        const badge = document.querySelector('header div');
+        if (badge) {
+          badge.innerHTML = `● VERIFYING SOURCE: ${source.toUpperCase()}`;
+          badge.style.borderColor = "#4ade80";
+        }
+        console.log(`Node Authenticated: ${source}`);
+      }
+    </script>
 	</body>
 </html>
