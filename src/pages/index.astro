@@ -1,7 +1,8 @@
 ---
-// Node 1: The Mother Ship (southafricanbotanical.org.za)
-// Integrating the 92-Domain "Truth Chain" for R56.3M Valuation
+// Node Detection & Identity Management Logic
+const domain = Astro.url.hostname;
 
+// 1. Unified Institutional Schema (The Valuation Core)
 const schemaData = {
   "@context": "https://schema.org",
   "@type": "GovernmentService",
@@ -10,6 +11,7 @@ const schemaData = {
   "url": "https://southafricanbotanical.org.za",
   "sameAs": [
     "https://botanicalcompliance.africa",
+    "https://indigenousknowledge.science",
     "https://mesembrine.science",
     "https://africanginger.health",
     "https://aloeferox.science",
@@ -20,66 +22,15 @@ const schemaData = {
     "https://warburgia.science"
   ]
 };
----
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>SABM Compliance Gateway | Official Regulatory Notary</title>
-		<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
-	</head>
-	<body style="margin: 0; font-family: system-ui, sans-serif; background: #0f172a; color: white; line-height: 1.5;">
-		<main style="margin: auto; padding: 2rem; width: 800px; max-width: calc(100% - 2rem); min-height: 100vh;">
-			
-			<header style="text-align: center; margin-bottom: 4rem; border-bottom: 1px solid #334155; padding-bottom: 2rem;">
-				<h1 style="font-size: 3rem; font-weight: 800; margin: 0; background: linear-gradient(to right, #4ade80, #22c55e); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-					SABM <span style="font-weight: 300; color: white; -webkit-text-fill-color: white;">Compliance Gateway</span>
-				</h1>
-				<p style="color: #94a3b8; font-size: 1.2rem; margin-top: 0.5rem;">Sovereign Infrastructure for South African Botanical Trade</p>
-				<div style="display: inline-block; background: rgba(34, 197, 94, 0.1); border: 1px solid #22c55e; color: #4ade80; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; margin-top: 1rem;">
-					● SYSTEM OPERATIONAL
-				</div>
-			</header>
+// 2. Identity Switcher (Dynamic Branding)
+let identity = {
+  title: "SABM",
+  suffix: "Compliance Gateway",
+  subtitle: "Sovereign Infrastructure for South African Botanical Trade",
+  color: "#4ade80", // Standard Green (Trade/General)
+  accent: "rgba(34, 197, 94, 0.1)",
+  description: "This gateway facilitates BABS & NEMBA compliance for the South African botanical supply chain. We provide the digital 'Toll-Booth' infrastructure for frictionless, legal export trade, ensuring all IK (Indigenous Knowledge) royalties are captured and verified."
+};
 
-			<section style="background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; padding: 2rem; border-radius: 1rem; margin-bottom: 2rem;">
-				<h2 style="color: #4ade80; margin-top: 0;">Verification & Regulatory Notary</h2>
-				<p style="line-height: 1.8; color: #cbd5e1;">
-					This gateway facilitates <strong>BABS & NEMBA compliance</strong> for the South African botanical supply chain. We provide the digital "Toll-Booth" infrastructure for frictionless, legal export trade, ensuring all IK (Indigenous Knowledge) royalties are captured and verified.
-				</p>
-			</section>
-
-			<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-				<div style="padding: 1.5rem; border: 1px solid #334155; border-radius: 0.75rem; background: #1e293b;">
-					<h3 style="margin-top: 0; color: #4ade80;">Exporter Validation</h3>
-					<p style="font-size: 0.95rem; color: #94a3b8;">Generate instant compliance certificates (SBTs) for Honeybush, Sceletium, and Rooibos shipments.</p>
-				</div>
-				<div style="padding: 1.5rem; border: 1px solid #334155; border-radius: 0.75rem; background: #1e293b;">
-					<h3 style="margin-top: 0; color: #4ade80;">IK Automated Splitter</h3>
-					<p style="font-size: 0.95rem; color: #94a3b8;">Automated 1% levy distribution to IK holders at point-of-sale. Reducing audit friction and manual overhead.</p>
-				</div>
-			</div>
-
-			<footer style="margin-top: 4rem; text-align: center; color: #64748b; font-size: 0.875rem; border-top: 1px solid #334155; padding-top: 2rem;">
-				<p>© 2026 South African Botanical Management. Authorized Sovereign Infrastructure.</p>
-				<p>Connected Nodes: 92 | Security Status: DNSSEC Verified</p>
-			</footer>
-		</main>
-<script>
-      // 1. Get the source from the URL (?utm_source=...)
-      const params = new URLSearchParams(window.location.search);
-      const source = params.get('utm_source');
-      
-      // 2. If a visitor comes from one of your 93 domains, update the UI
-      if (source) {
-        // Find the 'SYSTEM OPERATIONAL' badge and update it
-        const badge = document.querySelector('header div');
-        if (badge) {
-          badge.innerHTML = `● VERIFYING SOURCE: ${source.toUpperCase()}`;
-          badge.style.borderColor = "#4ade80";
-        }
-        console.log(`Node Authenticated: ${source}`);
-      }
-    </script>
-	</body>
-</html>
+if (domain.includes
