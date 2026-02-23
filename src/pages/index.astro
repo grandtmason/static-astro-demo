@@ -1,32 +1,102 @@
 ---
-// Build-Safe Frontmatter: No complex server-side logic to prevent deployment failure.
+/* Astro Build Engine - 2026 Sovereign Infrastructure */
 ---
-
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>SABM Sovereign Infrastructure</title>
-	</head>
-	<body style="margin: 0; font-family: system-ui, sans-serif; background: #0f172a; color: white; line-height: 1.5;">
-		
-    <div id="node-bar" style="background: #4ade80; color: #000; padding: 12px; text-align: center; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem;">
-      SYSTEM LOG: <span id="node-label">NODE INITIALIZING...</span>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SABM | Digital Notary</title>
+</head>
+<body style="margin:0; font-family:sans-serif; background:#0f172a; color:white; line-height:1.5;">
+
+    <div id="node-bar" style="background:#4ade80; color:#000; padding:12px; text-align:center; font-weight:900; font-size:0.8rem; text-transform:uppercase;">
+        INITIALIZING SECURE NODE...
     </div>
 
-    <main style="max-width: 800px; margin: auto; padding: 4rem 2rem; min-height: 100vh;">
-			<header style="text-align: center; margin-bottom: 4rem; border-bottom: 1px solid #334155; padding-bottom: 2rem;">
-				<h1 id="main-title" style="font-size: 3.5rem; font-weight: 800; margin: 0; color: #4ade80;">
-					SABM <span id="main-suffix" style="font-weight: 300; color: white;">Gateway</span>
-				</h1>
-				<div id="status-badge" style="display: inline-block; background: rgba(74, 222, 128, 0.1); border: 1px solid #4ade80; color: #4ade80; padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; margin-top: 1.5rem;">
-					● SYSTEM OPERATIONAL
-				</div>
-			</header>
+    <main style="max-width:800px; margin:auto; padding:3rem 1.5rem;">
+        <header style="text-align:center; margin-bottom:3rem;">
+            <h1 id="main-title" style="font-size:3rem; font-weight:800; margin:0; color:#4ade80;">
+                SABM <span id="main-suffix" style="font-weight:300; color:white;">GATEWAY</span>
+            </h1>
+        </header>
 
-      <div id="science-archive" style="display:none; margin-bottom: 3rem; background: rgba(30, 41, 59, 0.8); border: 1px solid #334155; border-radius: 1.5rem; padding: 2rem; border-left: 5px solid #38bdf8;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-          <h3 style="margin: 0; font-size: 0.8rem; letter-spacing: 2px; color: #38bdf8;">PHYTOTECH VERIFICATION ARCHIVE</h3>
-          <div style="font-size: 0.7rem; color: #38bdf8; font-family: monospace;">SECURE_DATA_FEED_ACTIVE</div>
+        <div id="sci-box" style="display:none; margin-bottom:2rem; background:#1e293b; border:1px solid #334155; border-radius:1rem; padding:1.5rem; border-left:5px solid #38bdf8;">
+            <h3 style="margin:0 0 1rem 0; font-size:0.8rem; color:#38bdf8;">PHYTOTECH ARCHIVE</h3>
+            <div style="background:#0f172a; padding:15px; border-radius:8px; font-family:monospace; font-size:0.8rem; color:#4ade80; border:1px solid #334155;">
+                > BATCH: RSA-2026-X<br/>
+                > DNA: VERIFIED_MATCH<br/>
+                > PURITY: 99.8%
+            </div>
         </div>
-        <div style="background: #0f172a; padding: 20px; border-radius: 12px; font-family: 'Courier New', monospace; font-size: 0.85rem; border: 1px solid #1e293b; color: #4
+
+        <div id="ik-box" style="display:none; margin-bottom:2rem; background:#1e293b; border:1px solid #334155; border-radius:1rem; padding:1.5rem; border-left:5px solid #f87171;">
+            <h3 style="margin:0 0 1rem 0; font-size:0.8rem; color:#f87171;">ROYALTY SPLITTER</h3>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1rem;">
+                <input type="number" id="w" value="100" style="background:#0f172a; border:1px solid #445566; color:white; padding:10px; border-radius:5px;">
+                <select id="t" style="background:#0f172a; border:1px solid #445566; color:white; padding:10px; border-radius:5px;">
+                    <option value="38">Raw Material</option>
+                    <option value="8500">Extract</option>
+                </select>
+            </div>
+            <div style="background:#0f172a; padding:15px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid #f87171;">
+                <span style="font-size:0.8rem; font-weight:bold;">TRUST SHARE:</span>
+                <span id="res" style="font-size:1.5rem; font-weight:900; color:#f87171;">R 0.00</span>
+            </div>
+        </div>
+
+        <section id="desc-box" style="background:rgba(30,41,59,0.5); border:1px solid #334155; padding:2rem; border-radius:1rem;">
+            <h2 id="st" style="margin-top:0;">Sovereign Notary</h2>
+            <p id="sd" style="color:#cbd5e1;">Detecting institutional node credentials...</p>
+        </section>
+
+        <footer style="margin-top:4rem; text-align:center; font-size:0.7rem; opacity:0.5;">
+            <a href="?utm_source=science" style="color:#38bdf8;">SCIENCE MODE</a> | 
+            <a href="?utm_source=ik" style="color:#f87171; margin-left:10px;">IK HOLDER MODE</a>
+        </footer>
+    </main>
+
+    <script>
+        function runNode() {
+            const p = new URLSearchParams(window.location.search);
+            const n = p.get('utm_source') || "";
+            
+            const b = document.getElementById('node-bar');
+            const mt = document.getElementById('main-title');
+            const ms = document.getElementById('main-suffix');
+            const st = document.getElementById('st');
+            const sd = document.getElementById('sd');
+
+            if (n === "science") {
+                document.getElementById('sci-box').style.display = "block";
+                b.style.backgroundColor = "#38bdf8";
+                b.innerText = "INSTITUTIONAL LAYER: SCIENCE NODE";
+                mt.style.color = "#38bdf8";
+                ms.innerText = "SCIENCE & INNOVATION";
+                st.style.color = "#38bdf8";
+                sd.innerText = "Verifying phytochemical integrity and DNA barcoding data.";
+            } else if (n === "ik") {
+                document.getElementById('ik-box').style.display = "block";
+                b.style.backgroundColor = "#f87171";
+                b.innerText = "INSTITUTIONAL LAYER: HERITAGE NODE";
+                mt.style.color = "#f87171";
+                ms.innerText = "PROTECTION SHIELD";
+                st.style.color = "#f87171";
+                sd.innerText = "Managing benefit-sharing ledgers and community royalty distributions.";
+                
+                const c = () => {
+                    const weight = parseFloat(document.getElementById('w').value) || 0;
+                    const price = parseFloat(document.getElementById('t').value);
+                    document.getElementById('res').innerText = "R " + (weight * price * 0.015).toLocaleString();
+                };
+                document.getElementById('w').oninput = c;
+                document.getElementById('t').onchange = c;
+                c();
+            } else {
+                b.innerText = "INSTITUTIONAL LAYER: TRADE NODE";
+                sd.innerText = "Public trade gateway for BABS and NEMBA compliance.";
+            }
+        }
+        window.addEventListener('load', runNode);
+    </script>
+</body>
+</html>
