@@ -1,44 +1,40 @@
 ---
-// 1. Node Detection Logic
+// 1. Server-Side Brain
 const url = Astro.url;
 const params = url.searchParams;
-const sourceTag = params.get('utm_source') || "";
+const source = params.get('utm_source')?.toLowerCase() || "";
 const domain = url.hostname.toLowerCase();
 
-// Hybrid Detection
-const isIKNode = domain.includes('indigenousknowledge') || sourceTag.includes('indigenousknowledge') || sourceTag.includes('kanna');
-const isScienceNode = domain.includes('southafricanbotanical') || sourceTag.includes('science');
+// Check for Science or IK markers
+const isScience = domain.includes('southafricanbotanical') || source.includes('science') || source.includes('org.za');
+const isIK = domain.includes('indigenousknowledge') || source.includes('ik') || source.includes('mesembrine');
 
-// 2. Identity Switcher
 let identity = {
   title: "SABM",
   suffix: "Compliance Gateway",
-  subtitle: "Sovereign Infrastructure for South African Botanical Trade",
+  label: "TRADE & EXPORT NODE",
   color: "#4ade80", 
   accent: "rgba(34, 197, 94, 0.1)",
-  label: "TRADE & EXPORT NODE",
-  description: "This gateway facilitates BABS & NEMBA compliance for the South African botanical supply chain."
+  description: "Digital infrastructure for South African botanical export trade compliance."
 };
 
-if (isIKNode) {
+if (isIK) {
   identity = {
     title: "IK",
     suffix: "Protection Shield",
-    subtitle: "Sovereign Repository for Benefit Sharing & Heritage",
+    label: "HERITAGE & IK PROTECTION NODE",
     color: "#f87171", 
     accent: "rgba(248, 113, 113, 0.1)",
-    label: "HERITAGE & IK PROTECTION NODE",
-    description: "The primary notary for Indigenous Knowledge (IK) protection and royalty management."
+    description: "Sovereign repository securing the 1% automated royalty splitter for traditional holders."
   };
-} else if (isScienceNode) {
+} else if (isScience) {
   identity = {
     title: "SABM",
     suffix: "Science & Innovation",
-    subtitle: "Institutional Repository for Phytochemical Integrity",
+    label: "SCIENCE & PHYTOTECH NODE",
     color: "#38bdf8", 
     accent: "rgba(56, 189, 248, 0.1)",
-    label: "SCIENCE & PHYTOTECH NODE",
-    description: "The scientific archive for South African botanical assets and DNA barcoding."
+    description: "Scientific archive for botanical assets, DNA barcoding, and phytochemical integrity."
   };
 }
 ---
@@ -49,28 +45,63 @@ if (isIKNode) {
 		<meta name="viewport" content="width=device-width" />
 		<title>{identity.title} {identity.suffix}</title>
 	</head>
-	<body style="margin: 0; font-family: sans-serif; background: #0f172a; color: white;">
+	<body style="margin: 0; font-family: system-ui, sans-serif; background: #0f172a; color: white; transition: all 0.5s ease;">
 		
-    <div style={`background: ${identity.color}; color: #000; padding: 10px; text-align: center; font-weight: bold;`}>
+    <div id="node-bar" style={`background: ${identity.color}; color: #000; padding: 12px; text-align: center; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem;`}>
       INSTITUTIONAL LAYER: {identity.label}
     </div>
 
-    <main style="max-width: 800px; margin: auto; padding: 40px; text-align: center;">
-			<header style="margin-bottom: 50px;">
-				<h1 style={`font-size: 3rem; color: ${identity.color};`}>
-					{identity.title} {identity.suffix}
+    <main style="max-width: 800px; margin: auto; padding: 60px 20px; text-align: center;">
+			<header style="margin-bottom: 4rem;">
+				<h1 id="main-title" style={`font-size: 3.5rem; font-weight: 800; margin: 0; color: ${identity.color};`}>
+					{identity.title} <span style="font-weight: 300; color: white;">{identity.suffix}</span>
 				</h1>
-				<p style="color: #94a3b8;">{identity.subtitle}</p>
+				<div id="status-badge" style={`display: inline-block; background: ${identity.accent}; border: 1px solid ${identity.color}; color: ${identity.color}; padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; margin-top: 1.5rem;`}>
+					● SYSTEM OPERATIONAL
+				</div>
 			</header>
 
-			<section style="background: #1e293b; padding: 30px; border-radius: 10px; border: 1px solid #334155;">
-				<p>{identity.description}</p>
+			<section style="background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; padding: 2.5rem; border-radius: 1.5rem;">
+				<p id="main-desc" style="font-size: 1.25rem; line-height: 1.7; color: #cbd5e1; margin: 0;">
+          {identity.description}
+        </p>
 			</section>
 
-			<footer style="margin-top: 50px; color: #64748b; font-size: 0.8rem;">
-				<p>© 2026 South African Botanical Management.</p>
-        <p>Active Domain: {domain}</p>
+			<footer style="margin-top: 5rem; color: #64748b; font-size: 0.8rem; border-top: 1px solid #1e293b; padding-top: 2rem;">
+				<p>© 2026 South African Botanical Management. Authorized Sovereign Infrastructure.</p>
+        <p style="opacity: 0.4;">Node Detect: {domain} | Path: {source || "Direct"}</p>
 			</footer>
 		</main>
+
+    <script is:inline>
+      const rawUrl = window.location.href.toLowerCase();
+      const nodeBar = document.getElementById('node-bar');
+      const mainTitle = document.getElementById('main-title');
+      const mainDesc = document.getElementById('main-desc');
+      const statusBadge = document.getElementById('status-badge');
+
+      // If browser detects Science domain or science tag
+      if (rawUrl.includes('southafricanbotanical') || rawUrl.includes('science')) {
+          const scienceColor = "#38bdf8";
+          nodeBar.style.backgroundColor = scienceColor;
+          nodeBar.textContent = "INSTITUTIONAL LAYER: SCIENCE & PHYTOTECH NODE";
+          mainTitle.style.color = scienceColor;
+          statusBadge.style.color = scienceColor;
+          statusBadge.style.borderColor = scienceColor;
+          statusBadge.style.backgroundColor = "rgba(56, 189, 248, 0.1)";
+          mainDesc.textContent = "Scientific archive for botanical assets, DNA barcoding, and phytochemical integrity.";
+      } 
+      // If browser detects IK domain or ik tag
+      else if (rawUrl.includes('indigenousknowledge') || rawUrl.includes('ik')) {
+          const ikColor = "#f87171";
+          nodeBar.style.backgroundColor = ikColor;
+          nodeBar.textContent = "INSTITUTIONAL LAYER: HERITAGE & IK PROTECTION NODE";
+          mainTitle.style.color = ikColor;
+          statusBadge.style.color = ikColor;
+          statusBadge.style.borderColor = ikColor;
+          statusBadge.style.backgroundColor = "rgba(248, 113, 113, 0.1)";
+          mainDesc.textContent = "Sovereign repository securing the 1% automated royalty splitter for traditional holders.";
+      }
+    </script>
 	</body>
 </html>
