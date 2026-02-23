@@ -1,46 +1,23 @@
 ---
-// 1. Node Detection & Hybrid Identity Logic
+// 1. Node Detection Logic
 const url = Astro.url;
 const params = url.searchParams;
-
-// This checks BOTH the real domain AND the URL tag (for when hosting redirects)
-const sourceTag = params.get('utm_source')?.toLowerCase() || "";
+const sourceTag = params.get('utm_source') || "";
 const domain = url.hostname.toLowerCase();
 
-// Hybrid Check: Does the domain OR the tag mention the specific node?
+// Hybrid Detection
 const isIKNode = domain.includes('indigenousknowledge') || sourceTag.includes('indigenousknowledge') || sourceTag.includes('kanna');
-const isScienceNode = domain.includes('southafricanbotanical') || sourceTag.includes('science') || sourceTag.includes('research');
+const isScienceNode = domain.includes('southafricanbotanical') || sourceTag.includes('science');
 
-// 2. Unified Institutional Schema (The Valuation Core)
-const schemaData = {
-  "@context": "https://schema.org",
-  "@type": "GovernmentService",
-  "name": "SABM Compliance Gateway",
-  "alternateName": "South African Botanical Management",
-  "url": "https://southafricanbotanical.org.za",
-  "sameAs": [
-    "https://botanicalcompliance.africa",
-    "https://indigenousknowledge.science",
-    "https://mesembrine.science",
-    "https://africanginger.health",
-    "https://aloeferox.science",
-    "https://kannawholesale.co.za",
-    "https://rooibostrust.org",
-    "https://honeybushresearch.health",
-    "https://siphonochilus.institute",
-    "https://warburgia.science"
-  ]
-};
-
-// 3. Identity Switcher (Dynamic Branding)
+// 2. Identity Switcher
 let identity = {
   title: "SABM",
   suffix: "Compliance Gateway",
   subtitle: "Sovereign Infrastructure for South African Botanical Trade",
-  color: "#4ade80", // Trade Green
+  color: "#4ade80", 
   accent: "rgba(34, 197, 94, 0.1)",
   label: "TRADE & EXPORT NODE",
-  description: "This gateway facilitates BABS & NEMBA compliance for the South African botanical supply chain. We provide the digital 'Toll-Booth' infrastructure for frictionless trade."
+  description: "This gateway facilitates BABS & NEMBA compliance for the South African botanical supply chain."
 };
 
 if (isIKNode) {
@@ -48,20 +25,20 @@ if (isIKNode) {
     title: "IK",
     suffix: "Protection Shield",
     subtitle: "Sovereign Repository for Benefit Sharing & Heritage",
-    color: "#f87171", // Heritage Red
+    color: "#f87171", 
     accent: "rgba(248, 113, 113, 0.1)",
     label: "HERITAGE & IK PROTECTION NODE",
-    description: "The primary notary for Indigenous Knowledge (IK) protection. This node secures the 1% automated royalty splitter for traditional holders."
+    description: "The primary notary for Indigenous Knowledge (IK) protection and royalty management."
   };
 } else if (isScienceNode) {
   identity = {
     title: "SABM",
     suffix: "Science & Innovation",
     subtitle: "Institutional Repository for Phytochemical Integrity",
-    color: "#38bdf8", // Science Blue
+    color: "#38bdf8", 
     accent: "rgba(56, 189, 248, 0.1)",
     label: "SCIENCE & PHYTOTECH NODE",
-    description: "The scientific archive for South African botanical assets. Standardizing Lab COAs and DNA barcoding to protect regional biodiversity."
+    description: "The scientific archive for South African botanical assets and DNA barcoding."
   };
 }
 ---
@@ -70,10 +47,30 @@ if (isIKNode) {
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<title>{identity.title} {identity.suffix} | Official Regulatory Notary</title>
-		<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+		<title>{identity.title} {identity.suffix}</title>
 	</head>
-	<body style="margin: 0; font-family: system-ui, sans-serif; background: #0f172a; color: white; line-height: 1.5;">
+	<body style="margin: 0; font-family: sans-serif; background: #0f172a; color: white;">
 		
-    <div style={`background: ${identity.color}; color: #000; padding: 0.5rem; text-align: center; font-size: 0.75rem; font-weight: 900; letter-spacing: 0.1rem;`}>
-      INSTITUTIONAL LAYER: {identity.
+    <div style={`background: ${identity.color}; color: #000; padding: 10px; text-align: center; font-weight: bold;`}>
+      INSTITUTIONAL LAYER: {identity.label}
+    </div>
+
+    <main style="max-width: 800px; margin: auto; padding: 40px; text-align: center;">
+			<header style="margin-bottom: 50px;">
+				<h1 style={`font-size: 3rem; color: ${identity.color};`}>
+					{identity.title} {identity.suffix}
+				</h1>
+				<p style="color: #94a3b8;">{identity.subtitle}</p>
+			</header>
+
+			<section style="background: #1e293b; padding: 30px; border-radius: 10px; border: 1px solid #334155;">
+				<p>{identity.description}</p>
+			</section>
+
+			<footer style="margin-top: 50px; color: #64748b; font-size: 0.8rem;">
+				<p>© 2026 South African Botanical Management.</p>
+        <p>Active Domain: {domain}</p>
+			</footer>
+		</main>
+	</body>
+</html>
