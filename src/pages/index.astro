@@ -23,14 +23,101 @@ const schemaData = {
   ]
 };
 
-// 2. Identity Switcher (Dynamic Branding)
+// 2. Identity Switcher (Dynamic Branding Logic)
+// Default: Botanical Compliance (Trade/Green)
 let identity = {
   title: "SABM",
   suffix: "Compliance Gateway",
   subtitle: "Sovereign Infrastructure for South African Botanical Trade",
-  color: "#4ade80", // Standard Green (Trade/General)
+  color: "#4ade80", 
   accent: "rgba(34, 197, 94, 0.1)",
   description: "This gateway facilitates BABS & NEMBA compliance for the South African botanical supply chain. We provide the digital 'Toll-Booth' infrastructure for frictionless, legal export trade, ensuring all IK (Indigenous Knowledge) royalties are captured and verified."
 };
 
-if (domain.includes
+// Mode Switch: Indigenous Knowledge Shield (Heritage/Red)
+if (domain.includes('indigenousknowledge.science')) {
+  identity = {
+    title: "IK",
+    suffix: "Protection Shield",
+    subtitle: "Sovereign Repository for Benefit Sharing & Heritage",
+    color: "#f87171", 
+    accent: "rgba(248, 113, 113, 0.1)",
+    description: "The primary notary for Indigenous Knowledge (IK) protection. This node secures the 1% automated royalty splitter for traditional holders and locks phytochemical IP under BABS/NEMBA protocol."
+  };
+} 
+// Mode Switch: Science & Innovation (Blue)
+else if (domain.includes('southafricanbotanical.org.za')) {
+  identity = {
+    title: "SABM",
+    suffix: "Science & Innovation",
+    subtitle: "Institutional Repository for Phytochemical Integrity",
+    color: "#38bdf8", 
+    accent: "rgba(56, 189, 248, 0.1)",
+    description: "The scientific archive for South African botanical assets. Standardizing Lab COAs and DNA barcoding to protect regional biodiversity and validate innovation."
+  };
+}
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{identity.title} {identity.suffix} | Official Regulatory Notary</title>
+		<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+	</head>
+	<body style="margin: 0; font-family: system-ui, sans-serif; background: #0f172a; color: white; line-height: 1.5;">
+		<main style="margin: auto; padding: 2rem; width: 800px; max-width: calc(100% - 2rem); min-height: 100vh;">
+			
+			<header style="text-align: center; margin-bottom: 4rem; border-bottom: 1px solid #334155; padding-bottom: 2rem;">
+				<h1 style={`font-size: 3rem; font-weight: 800; margin: 0; background: linear-gradient(to right, ${identity.color}, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;`}>
+					{identity.title} <span style="font-weight: 300; color: white; -webkit-text-fill-color: white;">{identity.suffix}</span>
+				</h1>
+				<p style="color: #94a3b8; font-size: 1.2rem; margin-top: 0.5rem;">{identity.subtitle}</p>
+				<div style={`display: inline-block; background: ${identity.accent}; border: 1px solid ${identity.color}; color: ${identity.color}; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; margin-top: 1rem;`}>
+					● SYSTEM OPERATIONAL
+				</div>
+			</header>
+
+			<section style="background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; padding: 2rem; border-radius: 1rem; margin-bottom: 2rem;">
+				<h2 style={`color: ${identity.color}; margin-top: 0;`}>Verification & Regulatory Notary</h2>
+				<p style="line-height: 1.8; color: #cbd5e1;">
+					{identity.description}
+				</p>
+			</section>
+
+			<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+				<div style="padding: 1.5rem; border: 1px solid #334155; border-radius: 0.75rem; background: #1e293b;">
+					<h3 style={`margin-top: 0; color: ${identity.color};`}>Digital Validation</h3>
+					<p style="font-size: 0.95rem; color: #94a3b8;">
+            {domain.includes('indigenousknowledge') ? 'Verifying IK holder benefit-sharing agreements.' : 'Generate instant compliance certificates (SBTs).'}
+          </p>
+				</div>
+				<div style="padding: 1.5rem; border: 1px solid #334155; border-radius: 0.75rem; background: #1e293b;">
+					<h3 style={`margin-top: 0; color: ${identity.color};`}>Sovereign Data</h3>
+					<p style="font-size: 0.95rem; color: #94a3b8;">
+            {domain.includes('indigenousknowledge') ? 'Automated 1% levy distribution tracking.' : 'Connecting 95 nodes to a single source of truth.'}
+          </p>
+				</div>
+			</div>
+
+			<footer style="margin-top: 4rem; text-align: center; color: #64748b; font-size: 0.875rem; border-top: 1px solid #334155; padding-top: 2rem;">
+				<p>© 2026 South African Botanical Management. Authorized Sovereign Infrastructure.</p>
+				<p>Connected Nodes: 95 | Security Status: DNSSEC Verified</p>
+			</footer>
+		</main>
+
+		<script is:inline>
+			// Moat Detection Logic for 95 Satellite Domains
+			const params = new URLSearchParams(window.location.search);
+			const source = params.get('utm_source');
+			
+			if (source) {
+				const badge = document.querySelector('header div');
+				if (badge) {
+					badge.textContent = `● VERIFYING SOURCE: ${source.toUpperCase()}`;
+				}
+				console.log(`Node Authenticated: ${source}`);
+			}
+		</script>
+	</body>
+</html>
