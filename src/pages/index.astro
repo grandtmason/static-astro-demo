@@ -40,7 +40,7 @@ if (isIK) {
     label: "HERITAGE & IK PROTECTION NODE",
     color: "#f87171", 
     accent: "rgba(248, 113, 113, 0.1)",
-    description: "The primary notary for Indigenous Knowledge (IK) protection. This node secures the 1% automated royalty splitter for traditional holders."
+    description: "The primary notary for Indigenous Knowledge (IK) protection. This node secures the automated royalty splitter for traditional holders based on live market flux."
   };
 } else if (isScience) {
   identity = {
@@ -72,54 +72,4 @@ if (isIK) {
 				<h1 id="main-title" style={`font-size: 3.5rem; font-weight: 800; margin: 0; color: ${identity.color};`}>
 					{identity.title} <span style="font-weight: 300; color: white;">{identity.suffix}</span>
 				</h1>
-				<div id="status-badge" style={`display: inline-block; background: ${identity.accent}; border: 1px solid ${identity.color}; color: ${identity.color}; padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; margin-top: 1.5rem;`}>
-					● SYSTEM OPERATIONAL
-				</div>
-			</header>
-
-			<section style="background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; padding: 2.5rem; border-radius: 1.5rem; margin-bottom: 2rem;">
-				<h2 id="section-title" style={`color: ${identity.color}; margin-top: 0;`}>Verification & Regulatory Notary</h2>
-				<p id="main-desc" style="line-height: 1.8; color: #cbd5e1; font-size: 1.1rem;">
-					{identity.description}
-				</p>
-			</section>
-
-			<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-				<div style="padding: 1.5rem; border: 1px solid #334155; border-radius: 1rem; background: #1e293b;">
-					<h3 id="card-1-title" style={`margin-top: 0; color: ${identity.color};`}>Digital Validation</h3>
-					<p id="card-1-text" style="font-size: 0.95rem; color: #94a3b8;">
-            {isIK ? 'Verifying IK holder benefit-sharing agreements.' : 'Generate instant compliance certificates (SBTs).'}
-          </p>
-				</div>
-				<div style="padding: 1.5rem; border: 1px solid #334155; border-radius: 1rem; background: #1e293b;">
-					<h3 id="card-2-title" style={`margin-top: 0; color: ${identity.color};`}>Sovereign Data</h3>
-					<p id="card-2-text" style="font-size: 0.95rem; color: #94a3b8;">
-            {isIK ? 'Automated 1% levy distribution tracking.' : 'Connecting 95 nodes to a single source of truth.'}
-          </p>
-				</div>
-			</div>
-
-			<footer style="margin-top: 5rem; text-align: center; color: #64748b; font-size: 0.8rem; border-top: 1px solid #1e293b; padding-top: 2rem;">
-				<p>© 2026 South African Botanical Management. Authorized Sovereign Infrastructure.</p>
-        <p id="debug-footer" style="opacity: 0.4;">Node Status: Active | DNSSEC Verified</p>
-			</footer>
-		</main>
-
-    <script is:inline>
-      const rawUrl = window.location.href.toLowerCase();
-      const nodeBar = document.getElementById('node-bar');
-      const mainTitle = document.getElementById('main-title');
-      const mainDesc = document.getElementById('main-desc');
-      const secTitle = document.getElementById('section-title');
-      const card1T = document.getElementById('card-1-title');
-      const card2T = document.getElementById('card-2-title');
-      const card1X = document.getElementById('card-1-text');
-      const card2X = document.getElementById('card-2-text');
-      const badge = document.getElementById('status-badge');
-
-      if (rawUrl.includes('southafricanbotanical') || rawUrl.includes('science')) {
-          const c = "#38bdf8";
-          nodeBar.style.backgroundColor = c;
-          nodeBar.textContent = "INSTITUTIONAL LAYER: SCIENCE & PHYTOTECH NODE";
-          mainTitle.style.color = c;
-          secTitle.
+				<div id="status-badge" style={`display: inline-block; background: ${identity.accent}; border: 1px solid ${identity
