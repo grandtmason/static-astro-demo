@@ -1,5 +1,5 @@
 ---
-/* SABM NODE 1: THE SOVEREIGN 18 STRATEGIC ASSET LEDGER */
+/* NODE 1: SABR - MAIN GALLERY (FINAL LINKED VERSION) */
 const plants = [
   { name: "African Ginger", sci: "Siphonochilus aethiopicus" },
   { name: "African Potato", sci: "Hypoxis hemerocallidea" },
@@ -20,43 +20,47 @@ const plants = [
   { name: "Uzara", sci: "Xysmalobium undulatum" },
   { name: "Wild Apricot", sci: "Ximenia americana" }
 ];
+
+const forestBlack = "#06160c"; 
+const stoneSage = "#a8a29e";  
 ---
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SABM | The Sovereign Herbarium</title>
+    <title>SABR | South African Botanical Registry</title>
 </head>
 <body style="margin:0; background-color:#ffffff; color:#1c1917; font-family:sans-serif;">
     <nav style="border-bottom:1px solid #f5f5f4; padding:40px 60px; display:flex; justify-content:space-between; align-items:center;">
-        <div style="font-size:24px; font-weight:bold; font-family:serif; letter-spacing:-1px;">SABM</div>
-        <div style="text-transform:uppercase; letter-spacing:0.3em; font-size:10px; color:#a8a29e; font-weight:900;">Taxonomy &nbsp; Oracles &nbsp; Heritage</div>
+        <div style={`font-size:28px; font-weight:bold; font-family:serif; color:${forestBlack}; letter-spacing:-1px;`}>SABR</div>
+        <div style={`text-transform:uppercase; letter-spacing:0.3em; font-size:10px; color:${stoneSage}; font-weight:900;`}>
+            <a href="/compliance" style={`text-decoration:none; color:${stoneSage}; margin-right:30px;`}>Taxonomy</a>
+            <span style="margin-right:30px;">Oracles</span>
+            <span>Heritage</span>
+        </div>
     </nav>
 
     <div style="max-width:1400px; margin:0 auto; padding:80px 40px;">
-        <div style="text-transform:uppercase; letter-spacing:0.5em; font-size:10px; color:#a8a29e; margin-bottom:16px; font-weight:900;">Established 2026</div>
-        <h1 style="font-family:serif; font-size:64px; font-weight:300; margin:0 0 80px 0; line-height:1.1;">The <i>Sovereign</i> Herbarium.</h1>
+        <div style={`text-transform:uppercase; letter-spacing:0.5em; font-size:10px; color:${stoneSage}; margin-bottom:16px; font-weight:900;`}>Established 2026</div>
+        <h1 style={`font-family:serif; font-size:64px; font-weight:300; margin:0 0 80px 0; line-height:1.1; color:${forestBlack};`}>The <i>Sovereign</i> Herbarium</h1>
         
         <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:80px 40px;">
             {plants.map((plant) => (
                 <div style="display:flex; flex-direction:column;">
-                    <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:30px; position:relative;">
-                        <div style="text-align:center;">
-                            <div style="font-size:10px; letter-spacing:0.2em; color:#d6d3d1; margin-bottom:10px;">ARCHIVE SPECIMEN</div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sceletium_tortuosum_botanical.jpg/800px-Sceletium_tortuosum_botanical.jpg" style="max-width:80%; height:auto; mix-blend-mode:multiply; opacity:0.6;" />
-                        </div>
+                    <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:30px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sceletium_tortuosum_botanical.jpg/800px-Sceletium_tortuosum_botanical.jpg" style="max-width:80%; height:auto; mix-blend-mode:multiply; opacity:0.6;" />
                     </div>
-                    <div style="font-family:serif; font-style:italic; font-size:28px; margin:25px 0 5px 0; color:#1c1917;">{plant.name}</div>
-                    <div style="text-transform:uppercase; letter-spacing:0.2em; font-size:10px; color:#a8a29e; font-weight:900; margin-bottom:20px;">{plant.sci}</div>
-                    <div style="width:30px; height:1px; background:#e7e5e4; margin-bottom:25px;"></div>
-                    <a href="mailto:governance@sabm.org.za" style="display:inline-block; align-self:flex-start; background:#1c1917; color:white; padding:15px 30px; text-decoration:none; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:0.2em;">Connect with Farmers</a>
+                    <div style={`font-family:serif; font-style:italic; font-size:28px; margin:25px 0 5px 0; color:${forestBlack};`}>{plant.name}</div>
+                    <div style={`text-transform:uppercase; letter-spacing:0.2em; font-size:10px; color:${stoneSage}; font-weight:900; margin-bottom:20px;`}>{plant.sci}</div>
+                    
+                    <a href="mailto:governance@sabr.org.za" style={`display:inline-block; align-self:flex-start; background:${stoneSage}; color:${forestBlack}; padding:15px 30px; text-decoration:none; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:0.2em;`}>Connect with Farmers</a>
                 </div>
             ))}
         </div>
     </div>
 
     <footer style="margin-top:100px; padding:60px; border-top:1px solid #f5f5f4; text-align:center;">
-        <div style="text-transform:uppercase; letter-spacing:0.5em; font-size:9px; color:#a8a29e; font-weight:900;">© 2026 South African Botanical Management</div>
+        <div style={`text-transform:uppercase; letter-spacing:0.5em; font-size:9px; color:${stoneSage}; font-weight:900;`}>© 2026 South African Botanical Registry</div>
     </footer>
 </body>
 </html>
