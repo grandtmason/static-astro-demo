@@ -1,24 +1,24 @@
 ---
 /* SABR NODE 1: THE SOVEREIGN REGISTRY MASTER */
 const plants = [
-  { id: "ginger", name: "African Ginger", sci: "Siphonochilus aethiopicus" },
-  { id: "potato", name: "African Potato", sci: "Hypoxis hemerocallidea" },
-  { id: "ferox", name: "Aloe Ferox", sci: "Aloe ferox" },
-  { id: "artemisia", name: "Artemisia afra", sci: "Artemisia afra" },
-  { id: "athrixia", name: "Athrixia (Bush Tea)", sci: "Athrixia phylicoides" },
-  { id: "baobab", name: "Baobab", sci: "Adansonia digitata" },
-  { id: "buchu", name: "Buchu", sci: "Agathosma betulina" },
-  { id: "devilsclaw", name: "Devil's Claw", sci: "Harpagophytum procumbens" },
-  { id: "honeybush", name: "Honeybush", sci: "Cyclopia spp." },
-  { id: "hoodia", name: "Hoodia", sci: "Hoodia gordonii" },
-  { id: "kanna", name: "Kanna / Mesembrine", sci: "Sceletium tortuosum" },
-  { id: "kigelia", name: "Kigelia (Sausage Tree)", sci: "Kigelia africana" },
-  { id: "mphepho", name: "Mphepho", sci: "Helichrysum odoratissimum" },
-  { id: "pelargonium", name: "Pelargonium / Sidoides", sci: "Pelargonium sidoides" },
-  { id: "warburgia", name: "Pepper-bark Tree", sci: "Warburgia salutaris" },
-  { id: "rooibos", name: "Rooibos", sci: "Aspalathus linearis" },
-  { id: "uzara", name: "Uzara", sci: "Xysmalobium undulatum" },
-  { id: "ximenia", name: "Wild Apricot", sci: "Ximenia americana" }
+  { id: "ginger", name: "African Ginger", sci: "Siphonochilus aethiopicus", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Siphonochilus_aethiopicus_126-1.jpg/800px-Siphonochilus_aethiopicus_126-1.jpg" },
+  { id: "potato", name: "African Potato", sci: "Hypoxis hemerocallidea", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Hypoxis_obtusa_-_Curtis_118_pl_7109_%281890%29.jpg/800px-Hypoxis_obtusa_-_Curtis_118_pl_7109_%281890%29.jpg" },
+  { id: "ferox", name: "Aloe Ferox", sci: "Aloe ferox", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Aloe_ferox_-_Curtis_34_pl_1413_%281811%29.jpg/800px-Aloe_ferox_-_Curtis_34_pl_1413_%281811%29.jpg" },
+  { id: "artemisia", name: "Artemisia Afra", sci: "Artemisia afra", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Artemisia_afra_botanical.jpg/800px-Artemisia_afra_botanical.jpg" },
+  { id: "athrixia", name: "Athrixia (Bush Tea)", sci: "Athrixia phylicoides", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Athrixia_phylicoides_drawing.jpg/800px-Athrixia_phylicoides_drawing.jpg" },
+  { id: "baobab", name: "Baobab", sci: "Adansonia digitata", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Adansonia_digitata_-_Koehler%E2%80%93s_Medizinal-Pflanzen-004.jpg/800px-Adansonia_digitata_-_Koehler%E2%80%93s_Medizinal-Pflanzen-004.jpg" },
+  { id: "buchu", name: "Buchu", sci: "Agathosma betulina", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Agathosma_betulina_-_Koehler%E2%80%93s_Medizinal-Pflanzen-011.jpg/800px-Agathosma_betulina_-_Koehler%E2%80%93s_Medizinal-Pflanzen-011.jpg" },
+  { id: "devilsclaw", name: "Devil's Claw", sci: "Harpagophytum procumbens", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Harpagophytum_procumbens_botanical.jpg/800px-Harpagophytum_procumbens_botanical.jpg" },
+  { id: "honeybush", name: "Honeybush", sci: "Cyclopia spp.", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Cyclopia_genistoides_botanical.jpg/800px-Cyclopia_genistoides_botanical.jpg" },
+  { id: "hoodia", name: "Hoodia", sci: "Hoodia gordonii", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Hoodia_gordonii_botanical.jpg/800px-Hoodia_gordonii_botanical.jpg" },
+  { id: "kanna", name: "Kanna / Mesembrine", sci: "Sceletium tortuosum", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sceletium_tortuosum_botanical.jpg/800px-Sceletium_tortuosum_botanical.jpg" },
+  { id: "kigelia", name: "Kigelia (Sausage Tree)", sci: "Kigelia africana", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Kigelia_africana_botanical.jpg/800px-Kigelia_africana_botanical.jpg" },
+  { id: "mphepho", name: "Mphepho", sci: "Helichrysum odoratissimum", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Helichrysum_odoratissimum_drawing.jpg/800px-Helichrysum_odoratissimum_drawing.jpg" },
+  { id: "pelargonium", name: "Pelargonium / Sidoides", sci: "Pelargonium sidoides", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Pelargonium_sidoides_botanical.jpg/800px-Pelargonium_sidoides_botanical.jpg" },
+  { id: "warburgia", name: "Pepper-bark Tree", sci: "Warburgia salutaris", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Warburgia_salutaris_drawing.jpg/800px-Warburgia_salutaris_drawing.jpg" },
+  { id: "rooibos", name: "Rooibos", sci: "Aspalathus linearis", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Aspalathus_linearis_botanical.jpg/800px-Aspalathus_linearis_botanical.jpg" },
+  { id: "uzara", name: "Uzara", sci: "Xysmalobium undulatum", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Xysmalobium_undulatum_drawing.jpg/800px-Xysmalobium_undulatum_drawing.jpg" },
+  { id: "ximenia", name: "Wild Apricot", sci: "Ximenia americana", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Ximenia_americana_-_Koehler%E2%80%93s_Medizinal-Pflanzen-281.jpg/800px-Ximenia_americana_-_Koehler%E2%80%93s_Medizinal-Pflanzen-281.jpg" }
 ];
 
 const forestBlack = "#06160c"; 
@@ -48,8 +48,12 @@ const stoneSage = "#a8a29e";
         <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:80px 40px;">
             {plants.map((plant) => (
                 <div id={plant.id} style="display:flex; flex-direction:column; scroll-margin-top: 40px;">
-                    <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:30px;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sceletium_tortuosum_botanical.jpg/800px-Sceletium_tortuosum_botanical.jpg" style="max-width:80%; height:auto; mix-blend-mode:multiply; opacity:0.6;" />
+                    <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:30px; overflow:hidden;">
+                        <img 
+                            src={plant.img} 
+                            alt={plant.name}
+                            style="max-width:90%; height:auto; mix-blend-mode:multiply; opacity:0.8; filter: contrast(1.1);" 
+                        />
                     </div>
                     <div style={`font-family:serif; font-style:italic; font-size:28px; margin:25px 0 5px 0; color:${forestBlack};`}>{plant.name}</div>
                     <div style={`text-transform:uppercase; letter-spacing:0.2em; font-size:10px; color:${stoneSage}; font-weight:900; margin-bottom:20px;`}>{plant.sci}</div>
