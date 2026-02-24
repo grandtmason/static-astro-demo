@@ -1,113 +1,135 @@
 ---
-/* Sovereign Botanical Ecosystem - 2026 
-  Unified Node Logic 
+/* SABM PRODUCTION NODE: botanicalcompliance.africa
+  Version: 23.02.26.FINAL
+  Stakeholders: Farmers, Regulators, Buyers, IK Holders
 */
 ---
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SABM Institutional Layer</title>
+    <title>Botanical Compliance | Sovereign Trade Gateway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
 </head>
-<body style="margin:0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background:#0f172a; color:white;">
+<body class="bg-[#0f172a] text-slate-200 font-['Inter'] antialiased">
 
-    <div id="node-bar" style="padding:12px; text-align:center; font-weight:900; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; background:#4ade80; color:#000;">
-        Institutional Node: Initializing...
-    </div>
+    <nav class="border-b border-white/5 bg-white/5 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-black font-black text-xs">BC</div>
+                <span class="font-black tracking-tighter text-xl uppercase italic text-white">SABM <span class="font-light text-emerald-400">Compliance</span></span>
+            </div>
+            <div class="hidden md:flex gap-8 text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">
+                <a href="#" class="hover:text-emerald-400 transition-colors">Digital Notary</a>
+                <a href="#" class="hover:text-emerald-400 transition-colors">Recipe Vault</a>
+                <a href="#" class="hover:text-emerald-400 transition-colors">Trust Ledger</a>
+            </div>
+            <button class="bg-white/10 hover:bg-white/20 border border-white/10 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest text-white transition-all">
+                Access Oracle
+            </button>
+        </div>
+    </nav>
 
-    <main style="max-width:1000px; margin:auto; padding:3rem 1.5rem;">
+    <main class="max-w-5xl mx-auto px-6 py-20">
         
-        <header style="text-align:center; margin-bottom:4rem;">
-            <h1 id="main-title" style="font-size:3rem; margin:0;">SABM</h1>
-            <p id="sub-title" style="color:#94a3b8; font-size:1.1rem;"></p>
+        <header class="text-center mb-20">
+            <h1 class="font-['Playfair_Display'] text-5xl md:text-7xl text-white mb-6">
+                Protecting <span class="italic text-emerald-400">Sovereign</span> Purity.
+            </h1>
+            <p class="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                Automating BABS and NEMBA compliance for South Africa's botanical exports. 
+                Securing the 1.5% indigenous royalty through high-fidelity digital notary.
+            </p>
         </header>
 
-        <div id="science-grid" style="display:none;">
-            <h2 style="border-bottom: 1px solid #334155; padding-bottom:10px; margin-bottom:2rem;">Species Herbarium</h2>
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:2rem;">
-                <a href="/portal/kanna" style="text-decoration:none; color:inherit; background:#1e293b; border-radius:12px; overflow:hidden; border:1px solid #334155;">
-                    <div style="height:200px; background:#fff; display:flex; align-items:center; justify-content:center; color:#334155;">
-                        
-                    </div>
-                    <div style="padding:1.5rem; text-align:center;">
-                        <strong style="display:block; font-size:1.2rem;">Kanna</strong>
-                        <em style="color:#38bdf8;">Sceletium tortuosum</em>
-                    </div>
-                </a>
-                <a href="/portal/rooibos" style="text-decoration:none; color:inherit; background:#1e293b; border-radius:12px; overflow:hidden; border:1px solid #334155;">
-                    <div style="height:200px; background:#fff; display:flex; align-items:center; justify-content:center; color:#334155;">
-                        
-                    </div>
-                    <div style="padding:1.5rem; text-align:center;">
-                        <strong style="display:block; font-size:1.2rem;">Rooibos</strong>
-                        <em style="color:#38bdf8;">Aspalathus linearis</em>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <div id="calculator-node" style="display:none; margin-bottom:3rem; background:rgba(30,41,59,0.8); border:1px solid #334155; border-radius:1.5rem; padding:2rem;">
-            <h3 id="calc-title" style="margin-top:0; color:#4ade80;">SOVEREIGN SPLITTER</h3>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:1.5rem;">
-                <input type="number" id="w" value="1000" style="background:#0f172a; border:1px solid #445566; color:white; padding:12px; border-radius:8px;">
-                <select id="t" style="background:#0f172a; border:1px solid #445566; color:white; padding:12px; border-radius:8px;">
-                    <option value="38">Raw Material (R38/kg)</option>
-                    <option value="8500">Pure Extract (R8500/kg)</option>
-                </select>
-            </div>
-            <div id="res-box" style="background:#0f172a; padding:20px; border-radius:12px; border:1px solid #4ade80; display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-weight:bold;">ESTIMATED IK ROYALTY:</span>
-                <span id="res" style="font-size:2rem; font-weight:900; color:#4ade80;">R 0.00</span>
-            </div>
-        </div>
-
-        <div id="ik-heritage" style="display:none; text-align:center; margin-top:2rem;">
+        <section class="relative group">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all"></div>
             
-            <p style="font-size:1.2rem; color:#f87171; font-weight:bold; margin-top:1rem;">Protecting the Ancestral Knowledge of the Southern African People</p>
+            <div class="relative bg-white/5 border border-white/10 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 shadow-2xl">
+                <div class="flex flex-col md:flex-row justify-between gap-12">
+                    
+                    <div class="flex-1 space-y-8">
+                        <div>
+                            <h2 class="text-xs uppercase tracking-[0.3em] text-emerald-400 font-black mb-6">Sovereign Splitter v1.0</h2>
+                            <div class="grid grid-cols-1 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-2">Batch Tonnage (KG)</label>
+                                    <input type="number" id="weight" value="1000" class="w-full bg-[#0f172a] border border-white/5 rounded-2xl px-6 py-4 text-2xl font-black focus:border-emerald-500 focus:outline-none transition-all" />
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-2">Phytochemical State</label>
+                                    <select id="tier" class="w-full bg-[#0f172a] border border-white/5 rounded-2xl px-6 py-4 text-white appearance-none focus:border-emerald-500 focus:outline-none transition-all">
+                                        <option value="38">Raw Material (R38/kg)</option>
+                                        <option value="8500">Phyto-Extract (R8500/kg)</option>
+                                        <option value="25000">Clinical Formulation (R25000/kg)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 bg-emerald-500/5 rounded-[2rem] p-8 border border-emerald-500/20 flex flex-col justify-between min-h-[300px]">
+                        <div class="space-y-4 text-center">
+                            <span class="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-400">Total IK Royalty</span>
+                            <div id="res" class="text-6xl font-black text-white">R 0.00</div>
+                            <p class="text-[10px] text-slate-500 px-8">1.5% Sovereign Levy (1.0% IK Org | 0.5% SABM Notary Fee)</p>
+                        </div>
+                        
+                        <button id="payBtn" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-[0.2em] text-[12px] py-5 rounded-2xl transition-all transform active:scale-95 shadow-lg shadow-emerald-500/20">
+                            Generate Compliance SBT
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="grid md:grid-cols-3 gap-6 mt-20">
+            <div class="bg-white/5 border border-white/5 p-8 rounded-3xl hover:border-emerald-500/50 transition-all group">
+                <div class="h-12 w-12 bg-emerald-500/10 rounded-xl mb-6 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-black transition-all">✓</div>
+                <h4 class="text-white font-bold mb-2 uppercase text-xs tracking-widest">For Farmers</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">Instant BABS export authorization with guaranteed fair-trade pricing.</p>
+            </div>
+            <div class="bg-white/5 border border-white/5 p-8 rounded-3xl hover:border-emerald-500/50 transition-all group">
+                <div class="h-12 w-12 bg-emerald-500/10 rounded-xl mb-6 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-black transition-all">▣</div>
+                <h4 class="text-white font-bold mb-2 uppercase text-xs tracking-widest">For Buyers</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">Phytochemical "Soulbound" tokens verify genetic purity and legal origin.</p>
+            </div>
+            <div class="bg-white/5 border border-white/5 p-8 rounded-3xl hover:border-emerald-500/50 transition-all group">
+                <div class="h-12 w-12 bg-emerald-500/10 rounded-xl mb-6 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-black transition-all">◈</div>
+                <h4 class="text-white font-bold mb-2 uppercase text-xs tracking-widest">For IK Holders</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">Automated trust distribution ensuring heritage IP is never stolen.</p>
+            </div>
         </div>
 
     </main>
 
+    <footer class="border-t border-white/5 py-12 text-center">
+        <p class="text-[10px] uppercase tracking-[0.5em] text-slate-600">© 2026 SABM Sovereign Infrastructure | Obsidian Dragon Protocol</p>
+    </footer>
+
     <script is:inline>
-        function routeNode() {
-            const h = window.location.hostname;
-            const bar = document.getElementById('node-bar');
-            const title = document.getElementById('main-title');
-            const sub = document.getElementById('sub-title');
-            const sciGrid = document.getElementById('science-grid');
-            const calc = document.getElementById('calculator-node');
-            const heritage = document.getElementById('ik-heritage');
+        function updateSplitter() {
+            const w = parseFloat(document.getElementById('weight').value) || 0;
+            const t = parseFloat(document.getElementById('tier').value);
+            const total = w * t * 0.015;
+            document.getElementById('res').innerText = "R " + total.toLocaleString(undefined, {minimumFractionDigits: 2});
+        }
 
-            // 1. SCIENCE SITE
-            if (h.includes('southafricanbotanical')) {
-                bar.style.background = "#38bdf8"; bar.innerText = "Scientific Data Node";
-                title.innerText = "SABM Science"; sub.innerText = "Species Authentication & Research Archive";
-                sciGrid.style.display = "block";
-            } 
-            // 2. IK HOLDER SITE
-            else if (h.includes('indigenousknowledge')) {
-                bar.style.background = "#f87171"; bar.innerText = "Heritage Protection Node";
-                title.innerText = "IK Sovereign"; sub.innerText = "Indigenous Knowledge Protection & Benefit Sharing";
-                calc.style.display = "block"; heritage.style.display = "block";
-                document.getElementById('res-box').style.borderColor = "#f87171";
-                document.getElementById('res').style.color = "#f87171";
-            } 
-            // 3. COMPLIANCE SITE (DEFAULT)
-            else {
-                bar.style.background = "#4ade80"; bar.innerText = "Compliance & Export Node";
-                title.innerText = "SABM Compliance"; sub.innerText = "BABS & NEMBA Regulatory Infrastructure";
-                calc.style.display = "block";
-            }
+        document.getElementById('weight').oninput = updateSplitter;
+        document.getElementById('tier').onchange = updateSplitter;
+        
+        // Mock Mobipaid Trigger
+        document.getElementById('payBtn').onclick = () => {
+            alert('SECURE HANDSHAKE INITIALIZED: Redirecting to Mobipaid for Sovereign Levy Payment...');
+        };
 
-            // CALCULATOR LOGIC
-            const update = () => {
-                const weight = parseFloat(document.getElementById('w').value) || 0;
-                const price = parseFloat(document.getElementById('t').value);
-                document.getElementById('res').innerText = "R " + (weight * price * 0.015).toLocaleString(undefined, {minimumFractionDigits: 2});
-            };
-            document.getElementById('w').oninput = update;
-            document.getElementById('t').onchange = update;
-            update();
+        updateSplitter();
+    </script>
+
+</body>
+</html>
         }
         window.addEventListener('load', routeNode);
     </script>
