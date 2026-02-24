@@ -14,7 +14,7 @@ const species = [
   { name: "Kigelia (Sausage Tree)", latin: "Kigelia africana", img: "sabr_sausage.jpg" },
   { name: "Mphepho", latin: "Helichrysum odoratissimum", img: "sabr_mphepho.jpg" },
   { name: "Pelargonium / Sidoides", latin: "Pelargonium sidoides", img: "sabr_pelargonium.jpg" },
-  { name: "Pepper-bark Tree", latin: "Warburgia salutaris", img: "sabr_pepperbark.jpg" },
+  { name: "Pepper-bark Tree", sci: "Warburgia salutaris", img: "sabr_pepperbark.jpg" },
   { name: "Rooibos", latin: "Aspalathus linearis", img: "sabr_rooibos.jpg" },
   { name: "Uzara", latin: "Xysmalobium undulatum", img: "sabr_uzara.jpg" },
   { name: "Wild Apricot", latin: "Ximenia americana", img: "sabr_apricot.jpg" }
@@ -27,40 +27,34 @@ const species = [
     <title>SABR | South African Botanical Registry</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Your Specified Palette */
-        body { background-color: #ffffff; color: #062310; } /* Very Dark Green Text */
-        .pedestal { border: 1px solid #D4AF37; background-color: #ffffff; transition: all 0.3s ease; } /* Thin Gold Border */
-        .latin-name { color: #062310; opacity: 0.8; }
-        .btn-green { background-color: #062310; color: #ffffff; }
+        body { background-color: #ffffff; color: #062310; } /* Dark Green Text */
+        .pedestal { border: 1px solid #D4AF37; background-color: #ffffff; } /* Thin Gold Border */
+        .btn-sabr { background-color: #062310; color: #ffffff; transition: 0.3s; }
+        .btn-sabr:hover { background-color: #D4AF37; }
     </style>
 </head>
-<body class="antialiased">
-    <nav class="border-b border-stone-100 py-8 px-12 flex justify-between items-center bg-white">
-        <div class="text-2xl font-serif italic font-bold">SABR</div>
-        <div class="hidden md:flex space-x-8 text-[10px] uppercase tracking-widest font-bold text-stone-400">
+<body class="antialiased font-serif">
+    <nav class="border-b border-stone-100 py-10 px-12 flex justify-between items-center">
+        <div class="text-3xl italic font-bold tracking-tighter">SABR</div>
+        <div class="hidden md:flex space-x-12 text-[10px] uppercase tracking-[0.3em] font-sans font-black text-stone-400">
             <span>Compliance</span><span>Oracles</span><span>Heritage</span>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 py-20">
-        <h2 class="text-[#D4AF37] text-[10px] uppercase tracking-[0.4em] mb-4 font-bold">Access & Benefit Sharing Framework</h2>
-        <h1 class="text-5xl md:text-7xl font-serif mb-16">The Sovereign Herbarium.</h1>
+    <main class="max-w-7xl mx-auto px-6 md:px-12 py-24">
+        <h2 class="text-[#D4AF37] text-[10px] uppercase tracking-[0.5em] mb-6 font-sans font-bold">Access & Benefit Sharing Framework</h2>
+        <h1 class="text-6xl md:text-8xl text-stone-900 mb-12">The <span class="italic">Sovereign</span> Herbarium.</h1>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
             {species.map((p) => (
                 <div class="group">
-                    <div class="pedestal aspect-[4/5] flex items-center justify-center overflow-hidden">
-                        <img 
-                            src={p.img} 
-                            alt={p.name} 
-                            class="w-full h-full object-cover"
-                            onerror="this.onerror=null; this.src='/'+this.getAttribute('src');"
-                        />
+                    <div class="pedestal aspect-square flex items-center justify-center p-2 overflow-hidden">
+                        <img src={p.img} alt={p.name} class="w-full h-full object-cover" />
                     </div>
-                    <div class="mt-6 text-center md:text-left">
-                        <h3 class="text-2xl font-serif italic">{p.name}</h3>
-                        <p class="text-[11px] uppercase tracking-widest mt-1 latin-name font-bold">{p.latin}</p>
-                        <button class="mt-6 btn-green text-[10px] px-8 py-3 uppercase tracking-widest font-bold hover:opacity-90 transition-opacity">
+                    <div class="mt-8">
+                        <h3 class="text-3xl italic text-stone-800">{p.name}</h3>
+                        <p class="text-[11px] uppercase tracking-widest text-stone-400 mt-2 font-sans font-bold">{p.latin}</p>
+                        <button class="mt-8 btn-sabr text-[10px] px-8 py-4 uppercase tracking-[0.2em] font-sans font-black">
                             Connect with Farmers
                         </button>
                     </div>
@@ -69,6 +63,11 @@ const species = [
         </div>
     </main>
 
+    <footer class="py-24 text-center border-t border-stone-100 text-[10px] text-stone-400 uppercase tracking-[0.4em] font-sans font-bold">
+        © 2026 South African Botanical Registry
+    </footer>
+</body>
+</html>
     <footer class="py-20 text-center border-t border-stone-100 text-[10px] text-stone-400 uppercase tracking-widest font-bold">
         © 2026 South African Botanical Registry
     </footer>
