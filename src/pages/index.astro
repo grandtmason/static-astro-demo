@@ -1,24 +1,24 @@
 ---
-/* SABR NODE 1: THE SOVEREIGN REGISTRY MASTER (ULTRA-STABLE) */
+/* SABR NODE 1: THE SOVEREIGN REGISTRY MASTER (STABLE ASSETS) */
 const plants = [
-  { id: "ginger", name: "African Ginger", sci: "Siphonochilus aethiopicus", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/ginger.jpg" },
-  { id: "potato", name: "African Potato", sci: "Hypoxis hemerocallidea", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/potato.jpg" },
-  { id: "ferox", name: "Aloe Ferox", sci: "Aloe ferox", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/aloe.jpg" },
-  { id: "artemisia", name: "Artemisia Afra", sci: "Artemisia afra", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/artemisia.jpg" },
-  { id: "athrixia", name: "Athrixia (Bush Tea)", sci: "Athrixia phylicoides", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/bush-tea.jpg" },
-  { id: "baobab", name: "Baobab", sci: "Adansonia digitata", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/baobab.jpg" },
-  { id: "buchu", name: "Buchu", sci: "Agathosma betulina", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/buchu.jpg" },
-  { id: "devilsclaw", name: "Devil's Claw", sci: "Harpagophytum procumbens", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/devils-claw.jpg" },
-  { id: "honeybush", name: "Honeybush", sci: "Cyclopia spp.", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/honeybush.jpg" },
-  { id: "hoodia", name: "Hoodia", sci: "Hoodia gordonii", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/hoodia.jpg" },
-  { id: "kanna", name: "Kanna / Mesembrine", sci: "Sceletium tortuosum", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/kanna.jpg" },
-  { id: "kigelia", name: "Kigelia (Sausage Tree)", sci: "Kigelia africana", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/sausage-tree.jpg" },
-  { id: "mphepho", name: "Mphepho", sci: "Helichrysum odoratissimum", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/mphepho.jpg" },
-  { id: "pelargonium", name: "Pelargonium / Sidoides", sci: "Pelargonium sidoides", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/pelargonium.jpg" },
-  { id: "warburgia", name: "Pepper-bark Tree", sci: "Warburgia salutaris", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/pepper-bark.jpg" },
-  { id: "rooibos", name: "Rooibos", sci: "Aspalathus linearis", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/rooibos.jpg" },
-  { id: "uzara", name: "Uzara", sci: "Xysmalobium undulatum", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/uzara.jpg" },
-  { id: "ximenia", name: "Wild Apricot", sci: "Ximenia americana", img: "https://res.cloudinary.com/dt9v9v9v9/image/upload/v1/botany/apricot.jpg" }
+  { id: "ginger", name: "African Ginger", sci: "Siphonochilus aethiopicus" },
+  { id: "potato", name: "African Potato", sci: "Hypoxis hemerocallidea" },
+  { id: "ferox", name: "Aloe Ferox", sci: "Aloe ferox" },
+  { id: "artemisia", name: "Artemisia Afra", sci: "Artemisia afra" },
+  { id: "athrixia", name: "Athrixia (Bush Tea)", sci: "Athrixia phylicoides" },
+  { id: "baobab", name: "Baobab", sci: "Adansonia digitata" },
+  { id: "buchu", name: "Buchu", sci: "Agathosma betulina" },
+  { id: "devilsclaw", name: "Devil's Claw", sci: "Harpagophytum procumbens" },
+  { id: "honeybush", name: "Honeybush", sci: "Cyclopia spp." },
+  { id: "hoodia", name: "Hoodia", sci: "Hoodia gordonii" },
+  { id: "kanna", name: "Kanna / Mesembrine", sci: "Sceletium tortuosum" },
+  { id: "kigelia", name: "Kigelia (Sausage Tree)", sci: "Kigelia africana" },
+  { id: "mphepho", name: "Mphepho", sci: "Helichrysum odoratissimum" },
+  { id: "pelargonium", name: "Pelargonium / Sidoides", sci: "Pelargonium sidoides" },
+  { id: "warburgia", name: "Pepper-bark Tree", sci: "Warburgia salutaris" },
+  { id: "rooibos", name: "Rooibos", sci: "Aspalathus linearis" },
+  { id: "uzara", name: "Uzara", sci: "Xysmalobium undulatum" },
+  { id: "ximenia", name: "Wild Apricot", sci: "Ximenia americana" }
 ];
 
 const forestBlack = "#06160c"; 
@@ -49,12 +49,11 @@ const stoneSage = "#a8a29e";
             {plants.map((plant) => (
                 <div id={plant.id} style="display:flex; flex-direction:column; scroll-margin-top: 40px;">
                     <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:0; overflow:hidden;">
+                        {/* Using a reliable placeholder service that won't block the request */}
                         <img 
-                            src={plant.img} 
+                            src={`https://placehold.co/600x800/fafaf9/a8a29e/png?text=${plant.name.replace(/ /g, '+')}+Archive`} 
                             alt={plant.name}
-                            loading="lazy"
-                            style="width:100%; height:100%; object-fit:cover; opacity:0.9;" 
-                            onerror="this.src='https://placehold.co/600x800/fafaf9/a8a29e?text=SABR+ARCHIVE';"
+                            style="width:100%; height:100%; object-fit:cover;" 
                         />
                     </div>
                     <div style={`font-family:serif; font-style:italic; font-size:28px; margin:25px 0 5px 0; color:${forestBlack};`}>{plant.name}</div>
