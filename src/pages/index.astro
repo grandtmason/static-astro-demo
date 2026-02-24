@@ -1,114 +1,57 @@
 ---
-/* SABM PRODUCTION NODE: sceletium.science / portal
-   Version: 23.02.26.PORTAL
-   Stakeholders: Scientists, Labs, Tokenization Experts
+/* SABM NODE 1: southafricabotanical.org.za
+   Persona: Scientists, Premium Buyers
+   Aesthetic: Museum Pedestal / Minimalist Gallery
 */
 ---
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sceletium tortuosum | Sovereign Data Portal</title>
+    <title>SABM | The Scientific Collection</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600;900&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .pedestal-border { border: 0.5px solid #D4AF37; }
+        .lithograph-filter { filter: contrast(1.1) sepia(0.1); }
+    </style>
 </head>
-<body class="bg-[#0a0f1d] text-slate-300 font-['Inter'] antialiased">
+<body class="bg-white text-stone-900 font-['Inter'] antialiased">
 
-    <div class="max-w-7xl mx-auto px-8 py-6">
-        <div class="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500">
-            <a href="/" class="hover:text-sky-400 italic">Herbarium</a>
-            <span>/</span>
-            <span class="text-white">Sceletium tortuosum</span>
+    <nav class="max-w-7xl mx-auto px-12 py-10 flex justify-between items-baseline border-b border-stone-100">
+        <h1 class="font-['Playfair_Display'] text-3xl tracking-tighter uppercase italic">SABM</h1>
+        <div class="flex gap-12 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+            <a href="#" class="hover:text-stone-900 transition-colors">Taxonomy</a>
+            <a href="#" class="hover:text-stone-900 transition-colors">Oracles</a>
+            <a href="#" class="hover:text-stone-900 transition-colors">Heritage</a>
         </div>
-    </div>
+    </nav>
 
-    <main class="max-w-7xl mx-auto px-8 pb-20">
-        
-        <div class="grid lg:grid-cols-2 gap-16 items-center mb-20">
-            <div>
-                <span class="inline-block px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-[10px] font-black uppercase tracking-widest mb-6">Verified Specimen</span>
-                <h1 class="text-white text-6xl font-light leading-tight mb-4">
-                    <span class="font-['Playfair_Display'] italic">Sceletium</span> tortuosum
-                </h1>
-                <p class="text-slate-400 text-lg leading-relaxed mb-8">
-                    Historically known as Kanna. This specimen has been mapped for high Mesembrine content and authenticated via DNA barcoding at the Genadendal Lab node.
-                </p>
-                <div class="flex gap-4">
-                    <button class="bg-white text-black px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-sky-400 transition-all">Download HPLC Data</button>
-                    <button class="bg-white/5 border border-white/10 text-white px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">View Scientific Papers</button>
-                </div>
-            </div>
+    <main class="max-w-7xl mx-auto px-12 py-32">
+        <header class="max-w-3xl mb-32">
+            <h2 class="text-[10px] uppercase tracking-[0.5em] text-stone-400 mb-8 italic">The Collection</h2>
+            <p class="font-['Playfair_Display'] text-5xl leading-tight">
+                A definitive archive of <span class="italic">Southern African</span> flora, preserved for global science and sovereign trade.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24">
             
-            <div class="relative group">
-                <div class="absolute inset-0 bg-sky-500/20 blur-[100px] rounded-full"></div>
-                <div class="relative bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[3rem] p-1 shadow-2xl overflow-hidden group-hover:border-sky-500/50 transition-all duration-700">
-                    <div class="bg-[#0a0f1d] rounded-[2.8rem] p-8">
-                        <div class="flex justify-between items-start mb-12">
-                            <div class="space-y-1">
-                                <p class="text-[10px] font-mono text-sky-500">COMPLIANCE CERTIFICATE</p>
-                                <h4 class="text-white font-black text-xl italic tracking-tighter uppercase">SABM Sovereign Token</h4>
-                            </div>
-                            <div class="w-12 h-12 border border-sky-500/50 rounded-full flex items-center justify-center">
-                                <div class="w-2 h-2 bg-sky-500 animate-pulse rounded-full"></div>
-                            </div>
-                        </div>
-                        <div class="space-y-6 mb-12">
-                            <div class="flex justify-between border-b border-white/5 pb-2">
-                                <span class="text-[10px] uppercase font-bold text-slate-500">Origin</span>
-                                <span class="text-[10px] text-white font-mono">34.02°S 19.55°E (Genadendal)</span>
-                            </div>
-                            <div class="flex justify-between border-b border-white/5 pb-2">
-                                <span class="text-[10px] uppercase font-bold text-slate-500">Alkaloid %</span>
-                                <span class="text-[10px] text-white font-mono">1.8% Mesembrine</span>
-                            </div>
-                            <div class="flex justify-between border-b border-white/5 pb-2">
-                                <span class="text-[10px] uppercase font-bold text-slate-500">IK Royalty Paid</span>
-                                <span class="text-[10px] text-emerald-400 font-mono italic">TRUE / VERIFIED</span>
-                            </div>
-                        </div>
-                        <div class="p-4 bg-white/5 rounded-xl text-center">
-                            <p class="text-[8px] font-mono text-slate-500 uppercase tracking-widest">Oracle Signature: 0x8a92...f2e1</p>
-                        </div>
-                    </div>
+            <div class="flex flex-col items-center">
+                <div class="pedestal-border w-full aspect-[4/5] flex items-center justify-center p-12 bg-[#fcfcfc] hover:shadow-2xl hover:shadow-stone-200 transition-all duration-700 ease-in-out group">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sceletium_tortuosum_botanical.jpg/800px-Sceletium_tortuosum_botanical.jpg" 
+                         alt="Sceletium Illustration" 
+                         class="lithograph-filter group-hover:scale-105 transition-transform duration-1000" />
+                </div>
+                <div class="mt-10 text-center">
+                    <h3 class="font-['Playfair_Display'] text-2xl mb-2">Kanna</h3>
+                    <p class="text-[11px] uppercase tracking-[0.3em] font-bold text-stone-400 italic mb-6">Sceletium tortuosum</p>
+                    <a href="https://botanicalcompliance.africa" class="inline-block border border-stone-200 px-8 py-3 text-[9px] uppercase tracking-widest font-black hover:bg-stone-900 hover:text-white transition-all">
+                        Connect with Farmers
+                    </a>
                 </div>
             </div>
-        </div>
 
-        <div class="border-t border-white/10 pt-16">
-            <h3 class="text-xs font-black uppercase tracking-[0.4em] text-sky-500 mb-12 text-center">Phytochemical Intelligence Ledger</h3>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white/5 p-8 rounded-3xl border border-white/5">
-                    <h5 class="text-white text-[10px] uppercase font-bold tracking-widest mb-4">Chemical Standard (HPLC)</h5>
-                    <div class="h-40 flex items-end gap-1 px-4 border-b border-white/10">
-                        <div class="bg-sky-500/40 w-full h-8 hover:bg-sky-500 transition-all rounded-t"></div>
-                        <div class="bg-sky-500/40 w-full h-24 hover:bg-sky-500 transition-all rounded-t"></div>
-                        <div class="bg-sky-500 w-full h-32 hover:bg-sky-500 transition-all rounded-t"></div>
-                        <div class="bg-sky-500/40 w-full h-12 hover:bg-sky-500 transition-all rounded-t"></div>
-                        <div class="bg-sky-500/40 w-full h-20 hover:bg-sky-500 transition-all rounded-t"></div>
-                    </div>
-                    <p class="mt-4 text-[10px] text-slate-500 font-mono">Chromatographic Fingerprint: SABM-SC-001</p>
-                </div>
-                <div class="bg-white/5 p-8 rounded-3xl border border-white/5">
-                    <h5 class="text-white text-[10px] uppercase font-bold tracking-widest mb-4">Institutional References</h5>
-                    <ul class="space-y-4">
-                        <li class="flex justify-between text-xs">
-                            <span class="text-slate-400">CSIR Extraction Study (2024)</span>
-                            <a href="#" class="text-sky-400 hover:underline italic">PDF</a>
-                        </li>
-                        <li class="flex justify-between text-xs">
-                            <span class="text-slate-400">NEMBA Biodiversity Risk Assessment</span>
-                            <a href="#" class="text-sky-400 hover:underline italic">PDF</a>
-                        </li>
-                        <li class="flex justify-between text-xs">
-                            <span class="text-slate-400">Traditional Knowledge Holder Map</span>
-                            <a href="#" class="text-sky-400 hover:underline italic">RESTRICTED</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </div>
-
     </main>
-
 </body>
 </html>
