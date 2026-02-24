@@ -1,70 +1,76 @@
 ---
-const plants = [
-  { name: "African Ginger", sci: "Siphonochilus aethiopicus", img: "sabr_ginger.jpg" },
-  { name: "African Potato", sci: "Hypoxis hemerocallidea", img: "sabr_potato.jpg" },
-  { name: "Aloe Ferox", sci: "Aloe ferox", img: "sabr_aloe.jpg" },
-  { name: "Artemisia Afra", sci: "Artemisia afra", img: "sabr_wormwood.jpg" },
-  { name: "Athrixia (Bush Tea)", sci: "Athrixia phylicoides", img: "sabr_bushtea.jpg" },
-  { name: "Baobab", sci: "Adansonia digitata", img: "sabr_baobab.jpg" },
-  { name: "Buchu", sci: "Agathosma betulina", img: "sabr_buchu.jpg" },
-  { name: "Devil's Claw", sci: "Harpagophytum procumbens", img: "sabr_devilclaw.jpg" },
-  { name: "Honeybush", sci: "Cyclopia spp.", img: "sabr_honeybush.jpg" },
-  { name: "Hoodia", sci: "Hoodia gordonii", img: "sabr_hoodia.jpg" },
-  { name: "Kanna / Mesembrine", sci: "Sceletium tortuosum", img: "sabr_kanna.jpg" },
-  { name: "Kigelia (Sausage Tree)", sci: "Kigelia africana", img: "sabr_sausage.jpg" },
-  { name: "Mphepho", sci: "Helichrysum odoratissimum", img: "sabr_mphepho.jpg" },
-  { name: "Pelargonium / Sidoides", sci: "Pelargonium sidoides", img: "sabr_pelargonium.jpg" },
-  { name: "Pepper-bark Tree", sci: "Warburgia salutaris", img: "sabr_pepperbark.jpg" },
-  { name: "Rooibos", sci: "Aspalathus linearis", img: "sabr_rooibos.jpg" },
-  { name: "Uzara", sci: "Xysmalobium undulatum", img: "sabr_uzara.jpg" },
-  { name: "Wild Apricot", sci: "Ximenia americana", img: "sabr_apricot.jpg" }
+const species = [
+  { name: "African Ginger", latin: "Siphonochilus aethiopicus", img: "sabr_ginger.jpg" },
+  { name: "African Potato", latin: "Hypoxis hemerocallidea", img: "sabr_potato.jpg" },
+  { name: "Aloe Ferox", latin: "Aloe ferox", img: "sabr_aloe.jpg" },
+  { name: "Artemisia Afra", latin: "Artemisia afra", img: "sabr_wormwood.jpg" },
+  { name: "Athrixia (Bush Tea)", latin: "Athrixia phylicoides", img: "sabr_bushtea.jpg" },
+  { name: "Baobab", latin: "Adansonia digitata", img: "sabr_baobab.jpg" },
+  { name: "Buchu", latin: "Agathosma betulina", img: "sabr_buchu.jpg" },
+  { name: "Devil's Claw", latin: "Harpagophytum procumbens", img: "sabr_devilclaw.jpg" },
+  { name: "Honeybush", latin: "Cyclopia spp.", img: "sabr_honeybush.jpg" },
+  { name: "Hoodia", latin: "Hoodia gordonii", img: "sabr_hoodia.jpg" },
+  { name: "Kanna / Mesembrine", latin: "Sceletium tortuosum", img: "sabr_kanna.jpg" },
+  { name: "Kigelia (Sausage Tree)", latin: "Kigelia africana", img: "sabr_sausage.jpg" },
+  { name: "Mphepho", latin: "Helichrysum odoratissimum", img: "sabr_mphepho.jpg" },
+  { name: "Pelargonium / Sidoides", latin: "Pelargonium sidoides", img: "sabr_pelargonium.jpg" },
+  { name: "Pepper-bark Tree", latin: "Warburgia salutaris", img: "sabr_pepperbark.jpg" },
+  { name: "Rooibos", latin: "Aspalathus linearis", img: "sabr_rooibos.jpg" },
+  { name: "Uzara", latin: "Xysmalobium undulatum", img: "sabr_uzara.jpg" },
+  { name: "Wild Apricot", latin: "Ximenia americana", img: "sabr_apricot.jpg" }
 ];
 ---
-
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
-	<title>SABR Registry</title>
-	<style>
-		body { background: #0a0a0a; color: #e0e0e0; font-family: 'Georgia', serif; margin: 0; padding: 40px 20px; }
-		.container { max-width: 1200px; margin: 0 auto; }
-		header { text-align: center; border-bottom: 2px solid #c5a059; padding-bottom: 20px; margin-bottom: 40px; }
-		h1 { color: #c5a059; text-transform: uppercase; letter-spacing: 4px; font-size: 2.5rem; margin: 0; }
-		.subtitle { color: #888; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; margin-top: 10px; }
-		.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
-		.card { background: #151515; border: 1px solid #222; border-radius: 4px; transition: 0.3s; }
-		.card:hover { border-color: #c5a059; transform: translateY(-5px); }
-		.card img { width: 100%; height: 300px; object-fit: cover; border-bottom: 1px solid #222; background: #111; }
-		.info { padding: 20px; text-align: center; }
-		h2 { font-size: 1.3rem; margin: 0 0 5px; color: #fff; }
-		p { font-style: italic; color: #c5a059; margin: 0 0 20px; font-size: 0.95rem; }
-		.btn { border: 1px solid #c5a059; color: #c5a059; padding: 10px 20px; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-		.btn:hover { background: #c5a059; color: #000; }
-	</style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SABR | South African Botanical Registry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Your Specified Palette */
+        body { background-color: #ffffff; color: #062310; } /* Very Dark Green Text */
+        .pedestal { border: 1px solid #D4AF37; background-color: #ffffff; transition: all 0.3s ease; } /* Thin Gold Border */
+        .latin-name { color: #062310; opacity: 0.8; }
+        .btn-green { background-color: #062310; color: #ffffff; }
+    </style>
 </head>
-<body>
-	<div class="container">
-		<header>
-			<h1>SABR Botanical Registry</h1>
-			<div class="subtitle">Access & Benefit Sharing Framework</div>
-		</header>
-		<div class="grid">
-			{plants.map(plant => (
-				<div class="card">
-					<img 
-						src={"/" + plant.img} 
-						alt={plant.name} 
-						onerror="this.src='https://placehold.co/400x300/151515/c5a059?text=Filename+Error'" 
-					/>
-					<div class="info">
-						<h2>{plant.name}</h2>
-						<p>{plant.sci}</p>
-						<a href="#" class="btn">Connect with Farmers</a>
-					</div>
-				</div>
-			))}
-		</div>
-	</div>
+<body class="antialiased">
+    <nav class="border-b border-stone-100 py-8 px-12 flex justify-between items-center bg-white">
+        <div class="text-2xl font-serif italic font-bold">SABR</div>
+        <div class="hidden md:flex space-x-8 text-[10px] uppercase tracking-widest font-bold text-stone-400">
+            <span>Compliance</span><span>Oracles</span><span>Heritage</span>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="text-[#D4AF37] text-[10px] uppercase tracking-[0.4em] mb-4 font-bold">Access & Benefit Sharing Framework</h2>
+        <h1 class="text-5xl md:text-7xl font-serif mb-16">The Sovereign Herbarium.</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {species.map((p) => (
+                <div class="group">
+                    <div class="pedestal aspect-[4/5] flex items-center justify-center overflow-hidden">
+                        <img 
+                            src={p.img} 
+                            alt={p.name} 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='/'+this.getAttribute('src');"
+                        />
+                    </div>
+                    <div class="mt-6 text-center md:text-left">
+                        <h3 class="text-2xl font-serif italic">{p.name}</h3>
+                        <p class="text-[11px] uppercase tracking-widest mt-1 latin-name font-bold">{p.latin}</p>
+                        <button class="mt-6 btn-green text-[10px] px-8 py-3 uppercase tracking-widest font-bold hover:opacity-90 transition-opacity">
+                            Connect with Farmers
+                        </button>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </main>
+
+    <footer class="py-20 text-center border-t border-stone-100 text-[10px] text-stone-400 uppercase tracking-widest font-bold">
+        © 2026 South African Botanical Registry
+    </footer>
 </body>
 </html>
