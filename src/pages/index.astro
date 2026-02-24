@@ -1,5 +1,5 @@
 ---
-/* SABR NODE 1: THE SOVEREIGN REGISTRY MASTER (3-COLUMN GRID) */
+/* SABR NODE 1: THE SOVEREIGN REGISTRY MASTER (HARD-CODED 3-COLUMN) */
 const plants = [
   { id: "ginger", name: "African Ginger", sci: "Siphonochilus aethiopicus", img: "/Public/sabr_ginger.jpg.jpg" },
   { id: "potato", name: "African Potato", sci: "Hypoxis hemerocallidea", img: "/Public/sabr_potato.jpg.jpg" },
@@ -45,9 +45,9 @@ const stoneSage = "#a8a29e";
         <h1 style={`font-family:serif; font-size:60px; font-weight:300; margin:0 0 20px 0; line-height:1.1; color:${forestBlack};`}>South African <i>Botanical</i> Registry</h1>
         <p style={`font-family:serif; font-style:italic; font-size:20px; color:${stoneSage}; margin-bottom:80px;`}>The central archive for indigenous genetic resources and intellectual property.</p>
         
-        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:80px 40px;">
+        <div style="display:flex; flex-wrap:wrap; gap:40px; justify-content:space-between;">
             {plants.map((plant) => (
-                <div id={plant.id} style="display:flex; flex-direction:column; scroll-margin-top: 40px;">
+                <div id={plant.id} style="flex: 0 0 calc(33.333% - 30px); display:flex; flex-direction:column; margin-bottom:80px; min-width:300px;">
                     <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:0; overflow:hidden;">
                         <img 
                             src={plant.img} 
