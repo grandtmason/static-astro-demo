@@ -1,24 +1,24 @@
 ---
-/* NODE 1: SABR - MAIN GALLERY (FINAL LINKED VERSION) */
+/* SABR NODE 1: THE SOVEREIGN REGISTRY MASTER */
 const plants = [
-  { name: "African Ginger", sci: "Siphonochilus aethiopicus" },
-  { name: "African Potato", sci: "Hypoxis hemerocallidea" },
-  { name: "Aloe Ferox", sci: "Aloe ferox" },
-  { name: "Artemisia Afra", sci: "Artemisia afra" },
-  { name: "Athrixia (Bush Tea)", sci: "Athrixia phylicoides" },
-  { name: "Baobab", sci: "Adansonia digitata" },
-  { name: "Buchu", sci: "Agathosma betulina" },
-  { name: "Devil's Claw", sci: "Harpagophytum procumbens" },
-  { name: "Honeybush", sci: "Cyclopia spp." },
-  { name: "Hoodia", sci: "Hoodia gordonii" },
-  { name: "Kanna / Mesembrine", sci: "Sceletium tortuosum" },
-  { name: "Kigelia (Sausage Tree)", sci: "Kigelia africana" },
-  { name: "Mphepho", sci: "Helichrysum odoratissimum" },
-  { name: "Pelargonium / Sidoides", sci: "Pelargonium sidoides" },
-  { name: "Pepper-bark Tree", sci: "Warburgia salutaris" },
-  { name: "Rooibos", sci: "Aspalathus linearis" },
-  { name: "Uzara", sci: "Xysmalobium undulatum" },
-  { name: "Wild Apricot", sci: "Ximenia americana" }
+  { id: "ginger", name: "African Ginger", sci: "Siphonochilus aethiopicus" },
+  { id: "potato", name: "African Potato", sci: "Hypoxis hemerocallidea" },
+  { id: "ferox", name: "Aloe Ferox", sci: "Aloe ferox" },
+  { id: "artemisia", name: "Artemisia afra", sci: "Artemisia afra" },
+  { id: "athrixia", name: "Athrixia (Bush Tea)", sci: "Athrixia phylicoides" },
+  { id: "baobab", name: "Baobab", sci: "Adansonia digitata" },
+  { id: "buchu", name: "Buchu", sci: "Agathosma betulina" },
+  { id: "devilsclaw", name: "Devil's Claw", sci: "Harpagophytum procumbens" },
+  { id: "honeybush", name: "Honeybush", sci: "Cyclopia spp." },
+  { id: "hoodia", name: "Hoodia", sci: "Hoodia gordonii" },
+  { id: "kanna", name: "Kanna / Mesembrine", sci: "Sceletium tortuosum" },
+  { id: "kigelia", name: "Kigelia (Sausage Tree)", sci: "Kigelia africana" },
+  { id: "mphepho", name: "Mphepho", sci: "Helichrysum odoratissimum" },
+  { id: "pelargonium", name: "Pelargonium / Sidoides", sci: "Pelargonium sidoides" },
+  { id: "warburgia", name: "Pepper-bark Tree", sci: "Warburgia salutaris" },
+  { id: "rooibos", name: "Rooibos", sci: "Aspalathus linearis" },
+  { id: "uzara", name: "Uzara", sci: "Xysmalobium undulatum" },
+  { id: "ximenia", name: "Wild Apricot", sci: "Ximenia americana" }
 ];
 
 const forestBlack = "#06160c"; 
@@ -34,26 +34,27 @@ const stoneSage = "#a8a29e";
     <nav style="border-bottom:1px solid #f5f5f4; padding:40px 60px; display:flex; justify-content:space-between; align-items:center;">
         <div style={`font-size:28px; font-weight:bold; font-family:serif; color:${forestBlack}; letter-spacing:-1px;`}>SABR</div>
         <div style={`text-transform:uppercase; letter-spacing:0.3em; font-size:10px; color:${stoneSage}; font-weight:900;`}>
-            <a href="/compliance" style={`text-decoration:none; color:${stoneSage}; margin-right:30px;`}>Taxonomy</a>
+            <a href="/compliance" style={`text-decoration:none; color:${stoneSage}; margin-right:30px;`}>Compliance</a>
             <span style="margin-right:30px;">Oracles</span>
             <span>Heritage</span>
         </div>
     </nav>
 
     <div style="max-width:1400px; margin:0 auto; padding:80px 40px;">
-        <div style={`text-transform:uppercase; letter-spacing:0.5em; font-size:10px; color:${stoneSage}; margin-bottom:16px; font-weight:900;`}>Established 2026</div>
-        <h1 style={`font-family:serif; font-size:64px; font-weight:300; margin:0 0 80px 0; line-height:1.1; color:${forestBlack};`}>The <i>Sovereign</i> Herbarium</h1>
+        <div style={`text-transform:uppercase; letter-spacing:0.5em; font-size:10px; color:${stoneSage}; margin-bottom:16px; font-weight:900;`}>Access & Benefit Sharing Framework</div>
+        <h1 style={`font-family:serif; font-size:60px; font-weight:300; margin:0 0 20px 0; line-height:1.1; color:${forestBlack};`}>South African <i>Botanical</i> Registry</h1>
+        <p style={`font-family:serif; font-style:italic; font-size:20px; color:${stoneSage}; margin-bottom:80px;`}>The central archive for indigenous genetic resources and intellectual property.</p>
         
         <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:80px 40px;">
             {plants.map((plant) => (
-                <div style="display:flex; flex-direction:column;">
+                <div id={plant.id} style="display:flex; flex-direction:column; scroll-margin-top: 40px;">
                     <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:30px;">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sceletium_tortuosum_botanical.jpg/800px-Sceletium_tortuosum_botanical.jpg" style="max-width:80%; height:auto; mix-blend-mode:multiply; opacity:0.6;" />
                     </div>
                     <div style={`font-family:serif; font-style:italic; font-size:28px; margin:25px 0 5px 0; color:${forestBlack};`}>{plant.name}</div>
                     <div style={`text-transform:uppercase; letter-spacing:0.2em; font-size:10px; color:${stoneSage}; font-weight:900; margin-bottom:20px;`}>{plant.sci}</div>
                     
-                    <a href="mailto:governance@sabr.org.za" style={`display:inline-block; align-self:flex-start; background:${stoneSage}; color:${forestBlack}; padding:15px 30px; text-decoration:none; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:0.2em;`}>Connect with Farmers</a>
+                    <a href={`mailto:governance@sabr.org.za?subject=Inquiry regarding ${plant.name}`} style={`display:inline-block; align-self:flex-start; background:${stoneSage}; color:${forestBlack}; padding:15px 30px; text-decoration:none; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:0.2em;`}>Connect with Farmers</a>
                 </div>
             ))}
         </div>
