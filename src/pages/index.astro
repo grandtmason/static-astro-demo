@@ -1,5 +1,5 @@
 ---
-/* SABR NODE 1: THE SOVEREIGN REGISTRY MASTER (HARD-CODED 3-COLUMN) */
+/* SABR NODE 1: THE SOVEREIGN REGISTRY MASTER (SQUARE 3-COLUMN) */
 const plants = [
   { id: "ginger", name: "African Ginger", sci: "Siphonochilus aethiopicus", img: "/Public/sabr_ginger.jpg.jpg" },
   { id: "potato", name: "African Potato", sci: "Hypoxis hemerocallidea", img: "/Public/sabr_potato.jpg.jpg" },
@@ -30,7 +30,7 @@ const stoneSage = "#a8a29e";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SABR | South African Botanical Registry</title>
 </head>
-<body style="margin:0; background-color:#ffffff; color:#1c1917; font-family:sans-serif;">
+<body style="margin:0; background-color:#ffffff; color:#1c1917; font-family:sans-serif; box-sizing:border-box;">
     <nav style="border-bottom:1px solid #f5f5f4; padding:40px 60px; display:flex; justify-content:space-between; align-items:center;">
         <div style={`font-size:28px; font-weight:bold; font-family:serif; color:${forestBlack}; letter-spacing:-1px;`}>SABR</div>
         <div style={`text-transform:uppercase; letter-spacing:0.3em; font-size:10px; color:${stoneSage}; font-weight:900;`}>
@@ -45,29 +45,26 @@ const stoneSage = "#a8a29e";
         <h1 style={`font-family:serif; font-size:60px; font-weight:300; margin:0 0 20px 0; line-height:1.1; color:${forestBlack};`}>South African <i>Botanical</i> Registry</h1>
         <p style={`font-family:serif; font-style:italic; font-size:20px; color:${stoneSage}; margin-bottom:80px;`}>The central archive for indigenous genetic resources and intellectual property.</p>
         
-        <div style="display:flex; flex-wrap:wrap; gap:40px; justify-content:space-between;">
+        <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:flex-start;">
             {plants.map((plant) => (
-                <div id={plant.id} style="flex: 0 0 calc(33.333% - 30px); display:flex; flex-direction:column; margin-bottom:80px; min-width:300px;">
-                    <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:0; overflow:hidden;">
+                <div id={plant.id} style="flex: 0 0 calc(33.333% - 14px); display:flex; flex-direction:column; margin-bottom:60px; min-width:200px; box-sizing:border-box;">
+                    <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; padding:0; overflow:hidden;">
                         <img 
                             src={plant.img} 
                             alt={plant.name}
                             loading="lazy"
                             style="width:100%; height:100%; object-fit:cover; opacity:0.9;" 
-                            onerror="this.src='https://placehold.co/600x800/fafaf9/a8a29e/png?text=ARCHIVE+VERIFYING';"
+                            onerror="this.src='https://placehold.co/800x800/fafaf9/a8a29e/png?text=ARCHIVE+VERIFYING';"
                         />
                     </div>
-                    <div style={`font-family:serif; font-style:italic; font-size:28px; margin:25px 0 5px 0; color:${forestBlack};`}>{plant.name}</div>
-                    <div style={`text-transform:uppercase; letter-spacing:0.2em; font-size:10px; color:${stoneSage}; font-weight:900; margin-bottom:20px;`}>{plant.sci}</div>
+                    <div style={`font-family:serif; font-style:italic; font-size:22px; margin:20px 0 5px 0; color:${forestBlack}; line-height:1.2;`}>{plant.name}</div>
+                    <div style={`text-transform:uppercase; letter-spacing:0.2em; font-size:9px; color:${stoneSage}; font-weight:900; margin-bottom:15px;`}>{plant.sci}</div>
                     
-                    <a href={`mailto:governance@sabr.org.za?subject=Inquiry regarding ${plant.name}`} style={`display:inline-block; align-self:flex-start; background:${stoneSage}; color:${forestBlack}; padding:15px 30px; text-decoration:none; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:0.2em;`}>Connect with Farmers</a>
+                    <a href={`mailto:governance@sabr.org.za?subject=Inquiry regarding ${plant.name}`} style={`display:inline-block; align-self:flex-start; background:${stoneSage}; color:${forestBlack}; padding:12px 24px; text-decoration:none; font-size:8px; font-weight:900; text-transform:uppercase; letter-spacing:0.2em;`}>Connect with Farmers</a>
                 </div>
             ))}
         </div>
     </div>
 
     <footer style="margin-top:100px; padding:60px; border-top:1px solid #f5f5f4; text-align:center;">
-        <div style={`text-transform:uppercase; letter-spacing:0.5em; font-size:9px; color:${stoneSage}; font-weight:900;`}>© 2026 South African Botanical Registry</div>
-    </footer>
-</body>
-</html>
+        <div style={`text-transform:uppercase; letter-spacing:0.5
