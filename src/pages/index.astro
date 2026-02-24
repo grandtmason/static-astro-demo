@@ -1,61 +1,73 @@
 ---
-// Simple list for the build engine
-const species = [
-  { name: "African Ginger", latin: "Siphonochilus aethiopicus", img: "/Public/sabr_ginger.jpg.jpg" },
-  { name: "African Potato", latin: "Hypoxis hemerocallidea", img: "/Public/sabr_potato.jpg.jpg" },
-  { name: "Aloe Ferox", latin: "Aloe ferox", img: "/Public/sabr_aloe.jpg.jpg" },
-  { name: "Artemisia Afra", latin: "Artemisia afra", img: "/Public/sabr_wormwood.jpg.jpg" },
-  { name: "Athrixia (Bush Tea)", latin: "Athrixia phylicoides", img: "/Public/sabr_bushtea.jpg.jpg" },
-  { name: "Baobab", latin: "Adansonia digitata", img: "/Public/sabr_baobab.jpg.jpg" },
-  { name: "Buchu", latin: "Agathosma betulina", img: "/Public/sabr_buchu.jpg.jpg" },
-  { name: "Devil's Claw", latin: "Harpagophytum procumbens", img: "/Public/sabr_devilclaw.jpg.jpg" },
-  { name: "Honeybush", latin: "Cyclopia spp.", img: "/Public/sabr_honeybush.jpg.jpg" },
-  { name: "Hoodia", latin: "Hoodia gordonii", img: "/Public/sabr_hoodia.jpg.jpg" },
-  { name: "Kanna / Mesembrine", latin: "Sceletium tortuosum", img: "/Public/sabr_kanna.jpg.jpg" },
-  { name: "Kigelia (Sausage Tree)", latin: "Kigelia africana", img: "/Public/sabr_sausage.jpg.jpg" },
-  { name: "Mphepho", latin: "Helichrysum odoratissimum", img: "/Public/sabr_mphepho.jpg.jpg" },
-  { name: "Pelargonium / Sidoides", latin: "Pelargonium sidoides", img: "/Public/sabr_pelargonium.jpg.jpg" },
-  { name: "Pepper-bark Tree", latin: "Warburgia salutaris", img: "/Public/sabr_pepperbark.jpg.jpg" },
-  { name: "Rooibos", latin: "Aspalathus linearis", img: "/Public/sabr_rooibos.jpg.jpg" },
-  { name: "Uzara", latin: "Xysmalobium undulatum", img: "/Public/sabr_uzara.jpg.jpg" },
-  { name: "Wild Apricot", latin: "Ximenia americana", img: "/Public/sabr_apricot.jpg.jpg" }
+/* SABR NODE 1: THE SOVEREIGN REGISTRY MASTER (MERGED ASSETS) */
+const plants = [
+  { id: "ginger", name: "African Ginger", sci: "Siphonochilus aethiopicus", img: "/Public/sabr_ginger.jpg.jpg" },
+  { id: "potato", name: "African Potato", sci: "Hypoxis hemerocallidea", img: "/Public/sabr_potato.jpg.jpg" },
+  { id: "ferox", name: "Aloe Ferox", sci: "Aloe ferox", img: "/Public/sabr_aloe.jpg.jpg" },
+  { id: "artemisia", name: "Artemisia Afra", sci: "Artemisia afra", img: "/Public/sabr_wormwood.jpg.jpg" },
+  { id: "athrixia", name: "Athrixia (Bush Tea)", sci: "Athrixia phylicoides", img: "/Public/sabr_bushtea.jpg.jpg" },
+  { id: "baobab", name: "Baobab", sci: "Adansonia digitata", img: "/Public/sabr_baobab.jpg.jpg" },
+  { id: "buchu", name: "Buchu", sci: "Agathosma betulina", img: "/Public/sabr_buchu.jpg.jpg" },
+  { id: "devilsclaw", name: "Devil's Claw", sci: "Harpagophytum procumbens", img: "/Public/sabr_devilclaw.jpg.jpg" },
+  { id: "honeybush", name: "Honeybush", sci: "Cyclopia spp.", img: "/Public/sabr_honeybush.jpg.jpg" },
+  { id: "hoodia", name: "Hoodia", sci: "Hoodia gordonii", img: "/Public/sabr_hoodia.jpg.jpg" },
+  { id: "kanna", name: "Kanna / Mesembrine", sci: "Sceletium tortuosum", img: "/Public/sabr_kanna.jpg.jpg" },
+  { id: "kigelia", name: "Kigelia (Sausage Tree)", sci: "Kigelia africana", img: "/Public/sabr_sausage.jpg.jpg" },
+  { id: "mphepho", name: "Mphepho", sci: "Helichrysum odoratissimum", img: "/Public/sabr_mphepho.jpg.jpg" },
+  { id: "pelargonium", name: "Pelargonium / Sidoides", sci: "Pelargonium sidoides", img: "/Public/sabr_pelargonium.jpg.jpg" },
+  { id: "warburgia", name: "Pepper-bark Tree", sci: "Warburgia salutaris", img: "/Public/sabr_pepperbark.jpg.jpg" },
+  { id: "rooibos", name: "Rooibos", sci: "Aspalathus linearis", img: "/Public/sabr_rooibos.jpg.jpg" },
+  { id: "uzara", name: "Uzara", sci: "Xysmalobium undulatum", img: "/Public/sabr_uzara.jpg.jpg" },
+  { id: "ximenia", name: "Wild Apricot", sci: "Ximenia americana", img: "/Public/sabr_apricot.jpg.jpg" }
 ];
----
 
-<!DOCTYPE html>
+const forestBlack = "#06160c"; 
+const stoneSage = "#a8a29e";  
+---
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SABR Registry</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: white; color: #062310; font-family: serif; }
-        .gold-border { border: 1px solid #D4AF37; }
-    </style>
+    <title>SABR | South African Botanical Registry</title>
 </head>
-<body>
-    <nav class="border-b p-8 flex justify-between items-center">
-        <div class="text-2xl italic font-bold">SABR</div>
+<body style="margin:0; background-color:#ffffff; color:#1c1917; font-family:sans-serif;">
+    <nav style="border-bottom:1px solid #f5f5f4; padding:40px 60px; display:flex; justify-content:space-between; align-items:center;">
+        <div style={`font-size:28px; font-weight:bold; font-family:serif; color:${forestBlack}; letter-spacing:-1px;`}>SABR</div>
+        <div style={`text-transform:uppercase; letter-spacing:0.3em; font-size:10px; color:${stoneSage}; font-weight:900;`}>
+            <span style="margin-right:30px;">Compliance</span>
+            <span style="margin-right:30px;">Oracles</span>
+            <span>Heritage</span>
+        </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto p-10">
-        <h1 class="text-6xl mb-12">The <span class="italic">Sovereign</span> Herbarium.</h1>
+    <div style="max-width:1400px; margin:0 auto; padding:80px 40px;">
+        <div style={`text-transform:uppercase; letter-spacing:0.5em; font-size:10px; color:${stoneSage}; margin-bottom:16px; font-weight:900;`}>Access & Benefit Sharing Framework</div>
+        <h1 style={`font-family:serif; font-size:60px; font-weight:300; margin:0 0 20px 0; line-height:1.1; color:${forestBlack};`}>South African <i>Botanical</i> Registry</h1>
+        <p style={`font-family:serif; font-style:italic; font-size:20px; color:${stoneSage}; margin-bottom:80px;`}>The central archive for indigenous genetic resources and intellectual property.</p>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {species.map((plant) => (
-                <div>
-                    <div class="gold-border aspect-square mb-4 overflow-hidden bg-stone-50">
-                        <img src={plant.img} alt={plant.name} class="w-full h-full object-cover" />
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap:80px 40px;">
+            {plants.map((plant) => (
+                <div id={plant.id} style="display:flex; flex-direction:column; scroll-margin-top: 40px;">
+                    <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:0; overflow:hidden;">
+                        <img 
+                            src={plant.img} 
+                            alt={plant.name}
+                            loading="lazy"
+                            style="width:100%; height:100%; object-fit:cover; opacity:0.9;" 
+                            onerror="this.src='https://placehold.co/600x800/fafaf9/a8a29e/png?text=ARCHIVE+VERIFYING';"
+                        />
                     </div>
-                    <h3 class="text-2xl italic">{plant.name}</h3>
-                    <p class="text-xs uppercase tracking-widest text-stone-400 font-sans mt-1">{plant.latin}</p>
-                    <button class="mt-4 bg-[#062310] text-white text-[10px] px-6 py-3 uppercase tracking-widest font-bold font-sans hover:bg-[#D4AF37]">
-                        Connect with Farmers
-                    </button>
+                    <div style={`font-family:serif; font-style:italic; font-size:28px; margin:25px 0 5px 0; color:${forestBlack};`}>{plant.name}</div>
+                    <div style={`text-transform:uppercase; letter-spacing:0.2em; font-size:10px; color:${stoneSage}; font-weight:900; margin-bottom:20px;`}>{plant.sci}</div>
+                    
+                    <a href={`mailto:governance@sabr.org.za?subject=Inquiry regarding ${plant.name}`} style={`display:inline-block; align-self:flex-start; background:${stoneSage}; color:${forestBlack}; padding:15px 30px; text-decoration:none; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:0.2em;`}>Connect with Farmers</a>
                 </div>
             ))}
         </div>
-    </main>
+    </div>
+
+    <footer style="margin-top:100px; padding:60px; border-top:1px solid #f5f5f4; text-align:center;">
+        <div style={`text-transform:uppercase; letter-spacing:0.5em; font-size:9px; color:${stoneSage}; font-weight:900;`}>© 2026 South African Botanical Registry</div>
+    </footer>
 </body>
 </html>
