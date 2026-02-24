@@ -23,7 +23,7 @@ const species = [
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SABR | South African Botanical Registry</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -47,4 +47,10 @@ const species = [
         <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
             {species.map((p) => (
                 <div class="group">
-                    <div class="pedestal aspect-square flex items-center justify-
+                    <div class="pedestal aspect-square flex items-center justify-center">
+                        <img src={"/" + p.img} alt={p.name} class="w-full h-full object-cover" />
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-3xl italic text-stone-800 font-serif">{p.name}</h3>
+                        <p class="text-[11px] uppercase tracking-widest text-stone-400 mt-2 font-sans font-bold">{p.latin}</p>
+                        <button class="mt-8 btn-sabr text-[10px] px-8 py-4 uppercase tracking-[0.2em] font-black">
