@@ -1,29 +1,62 @@
 ---
-/* SABM FINAL BUILD */
+/* SABM NODE 1: THE SOVEREIGN 18 STRATEGIC ASSET LEDGER */
+const plants = [
+  { name: "African Ginger", sci: "Siphonochilus aethiopicus" },
+  { name: "African Potato", sci: "Hypoxis hemerocallidea" },
+  { name: "Aloe Ferox", sci: "Aloe ferox" },
+  { name: "Artemisia Afra", sci: "Artemisia afra" },
+  { name: "Athrixia (Bush Tea)", sci: "Athrixia phylicoides" },
+  { name: "Baobab", sci: "Adansonia digitata" },
+  { name: "Buchu", sci: "Agathosma betulina" },
+  { name: "Devil's Claw", sci: "Harpagophytum procumbens" },
+  { name: "Honeybush", sci: "Cyclopia spp." },
+  { name: "Hoodia", sci: "Hoodia gordonii" },
+  { name: "Kanna / Mesembrine", sci: "Sceletium tortuosum" },
+  { name: "Kigelia (Sausage Tree)", sci: "Kigelia africana" },
+  { name: "Mphepho", sci: "Helichrysum odoratissimum" },
+  { name: "Pelargonium / Sidoides", sci: "Pelargonium sidoides" },
+  { name: "Pepper-bark Tree", sci: "Warburgia salutaris" },
+  { name: "Rooibos", sci: "Aspalathus linearis" },
+  { name: "Uzara", sci: "Xysmalobium undulatum" },
+  { name: "Wild Apricot", sci: "Ximenia americana" }
+];
 ---
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SABM | The Sovereign Herbarium</title>
 </head>
 <body style="margin:0; background-color:#ffffff; color:#1c1917; font-family:sans-serif;">
-    <nav style="border-bottom:1px solid #f5f5f4; padding:40px 60px; display:flex; justify-content:space-between;">
-        <div style="font-size:24px; font-weight:bold; font-family:serif; italic">SABM</div>
-        <div style="text-transform:uppercase; letter-spacing:0.3em; font-size:10px; color:#a8a29e;">Taxonomy &nbsp; Oracles &nbsp; Heritage</div>
+    <nav style="border-bottom:1px solid #f5f5f4; padding:40px 60px; display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:24px; font-weight:bold; font-family:serif; letter-spacing:-1px;">SABM</div>
+        <div style="text-transform:uppercase; letter-spacing:0.3em; font-size:10px; color:#a8a29e; font-weight:900;">Taxonomy &nbsp; Oracles &nbsp; Heritage</div>
     </nav>
-    <div style="max-width:1100px; margin:0 auto; padding:80px 40px;">
-        <div style="text-transform:uppercase; letter-spacing:0.5em; font-size:10px; color:#a8a29e; margin-bottom:16px;">Established 2026</div>
-        <h1 style="font-family:serif; font-size:60px; font-weight:300; margin:0 0 80px 0;">The <i>Sovereign</i> Herbarium.</h1>
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:60px;">
-            <div>
-                <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:40px;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sceletium_tortuosum_botanical.jpg/800px-Sceletium_tortuosum_botanical.jpg" style="max-width:100%; mix-blend-mode:multiply;" />
+
+    <div style="max-width:1400px; margin:0 auto; padding:80px 40px;">
+        <div style="text-transform:uppercase; letter-spacing:0.5em; font-size:10px; color:#a8a29e; margin-bottom:16px; font-weight:900;">Established 2026</div>
+        <h1 style="font-family:serif; font-size:64px; font-weight:300; margin:0 0 80px 0; line-height:1.1;">The <i>Sovereign</i> Herbarium.</h1>
+        
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:80px 40px;">
+            {plants.map((plant) => (
+                <div style="display:flex; flex-direction:column;">
+                    <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; padding:30px; position:relative;">
+                        <div style="text-align:center;">
+                            <div style="font-size:10px; letter-spacing:0.2em; color:#d6d3d1; margin-bottom:10px;">ARCHIVE SPECIMEN</div>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sceletium_tortuosum_botanical.jpg/800px-Sceletium_tortuosum_botanical.jpg" style="max-width:80%; height:auto; mix-blend-mode:multiply; opacity:0.6;" />
+                        </div>
+                    </div>
+                    <div style="font-family:serif; font-style:italic; font-size:28px; margin:25px 0 5px 0; color:#1c1917;">{plant.name}</div>
+                    <div style="text-transform:uppercase; letter-spacing:0.2em; font-size:10px; color:#a8a29e; font-weight:900; margin-bottom:20px;">{plant.sci}</div>
+                    <div style="width:30px; height:1px; background:#e7e5e4; margin-bottom:25px;"></div>
+                    <a href="mailto:governance@sabm.org.za" style="display:inline-block; align-self:flex-start; background:#1c1917; color:white; padding:15px 30px; text-decoration:none; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:0.2em;">Connect with Farmers</a>
                 </div>
-                <div style="font-family:serif; font-style:italic; font-size:32px; margin:30px 0 5px 0;">Kanna</div>
-                <div style="text-transform:uppercase; letter-spacing:0.2em; font-size:11px; color:#a8a29e;">Sceletium tortuosum</div>
-                <a href="mailto:governance@sabm.org.za" style="margin-top:30px; display:inline-block; background:#1c1917; color:white; padding:18px 35px; text-decoration:none; font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:0.2em;">Connect with Farmers</a>
-            </div>
+            ))}
         </div>
     </div>
+
+    <footer style="margin-top:100px; padding:60px; border-top:1px solid #f5f5f4; text-align:center;">
+        <div style="text-transform:uppercase; letter-spacing:0.5em; font-size:9px; color:#a8a29e; font-weight:900;">© 2026 South African Botanical Management</div>
+    </footer>
 </body>
 </html>
