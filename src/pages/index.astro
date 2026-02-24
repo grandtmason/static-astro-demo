@@ -1,23 +1,23 @@
 ---
 const species = [
-  { name: "African Ginger", latin: "Siphonochilus aethiopicus", img: "sabr_ginger.jpg" },
-  { name: "African Potato", latin: "Hypoxis hemerocallidea", img: "sabr_potato.jpg" },
-  { name: "Aloe Ferox", latin: "Aloe ferox", img: "sabr_aloe.jpg" },
-  { name: "Artemisia Afra", latin: "Artemisia afra", img: "sabr_wormwood.jpg" },
-  { name: "Athrixia (Bush Tea)", latin: "Athrixia phylicoides", img: "sabr_bushtea.jpg" },
-  { name: "Baobab", latin: "Adansonia digitata", img: "sabr_baobab.jpg" },
-  { name: "Buchu", latin: "Agathosma betulina", img: "sabr_buchu.jpg" },
-  { name: "Devil's Claw", latin: "Harpagophytum procumbens", img: "sabr_devilclaw.jpg" },
-  { name: "Honeybush", latin: "Cyclopia spp.", img: "sabr_honeybush.jpg" },
-  { name: "Hoodia", latin: "Hoodia gordonii", img: "sabr_hoodia.jpg" },
-  { name: "Kanna / Mesembrine", latin: "Sceletium tortuosum", img: "sabr_kanna.jpg" },
-  { name: "Kigelia (Sausage Tree)", latin: "Kigelia africana", img: "sabr_sausage.jpg" },
-  { name: "Mphepho", latin: "Helichrysum odoratissimum", img: "sabr_mphepho.jpg" },
-  { name: "Pelargonium / Sidoides", latin: "Pelargonium sidoides", img: "sabr_pelargonium.jpg" },
-  { name: "Pepper-bark Tree", sci: "Warburgia salutaris", img: "sabr_pepperbark.jpg" },
-  { name: "Rooibos", latin: "Aspalathus linearis", img: "sabr_rooibos.jpg" },
-  { name: "Uzara", latin: "Xysmalobium undulatum", img: "sabr_uzara.jpg" },
-  { name: "Wild Apricot", latin: "Ximenia americana", img: "sabr_apricot.jpg" }
+  { name: "African Ginger", latin: "Siphonochilus aethiopicus", img: "Public/sabr_ginger.jpg.jpg" },
+  { name: "African Potato", latin: "Hypoxis hemerocallidea", img: "Public/sabr_potato.jpg.jpg" },
+  { name: "Aloe Ferox", latin: "Aloe ferox", img: "Public/sabr_aloe.jpg.jpg" },
+  { name: "Artemisia Afra", latin: "Artemisia afra", img: "Public/sabr_wormwood.jpg.jpg" },
+  { name: "Athrixia (Bush Tea)", latin: "Athrixia phylicoides", img: "Public/sabr_bushtea.jpg.jpg" },
+  { name: "Baobab", latin: "Adansonia digitata", img: "Public/sabr_baobab.jpg.jpg" },
+  { name: "Buchu", latin: "Agathosma betulina", img: "Public/sabr_buchu.jpg.jpg" },
+  { name: "Devil's Claw", latin: "Harpagophytum procumbens", img: "Public/sabr_devilclaw.jpg.jpg" },
+  { name: "Honeybush", latin: "Cyclopia spp.", img: "Public/sabr_honeybush.jpg.jpg" },
+  { name: "Hoodia", latin: "Hoodia gordonii", img: "Public/sabr_hoodia.jpg.jpg" },
+  { name: "Kanna / Mesembrine", latin: "Sceletium tortuosum", img: "Public/sabr_kanna.jpg.jpg" },
+  { name: "Kigelia (Sausage Tree)", latin: "Kigelia africana", img: "Public/sabr_sausage.jpg.jpg" },
+  { name: "Mphepho", latin: "Helichrysum odoratissimum", img: "Public/sabr_mphepho.jpg.jpg" },
+  { name: "Pelargonium / Sidoides", latin: "Pelargonium sidoides", img: "Public/sabr_pelargonium.jpg.jpg" },
+  { name: "Pepper-bark Tree", latin: "Warburgia salutaris", img: "Public/sabr_pepperbark.jpg.jpg" },
+  { name: "Rooibos", latin: "Aspalathus linearis", img: "Public/sabr_rooibos.jpg.jpg" },
+  { name: "Uzara", latin: "Xysmalobium undulatum", img: "Public/sabr_uzara.jpg.jpg" },
+  { name: "Wild Apricot", latin: "Ximenia americana", img: "Public/sabr_apricot.jpg.jpg" }
 ];
 ---
 <html lang="en">
@@ -27,14 +27,13 @@ const species = [
     <title>SABR | South African Botanical Registry</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #ffffff; color: #062310; } /* Dark Green Text */
-        .pedestal { border: 1px solid #D4AF37; background-color: #ffffff; } /* Thin Gold Border */
-        .btn-sabr { background-color: #062310; color: #ffffff; transition: 0.3s; }
-        .btn-sabr:hover { background-color: #D4AF37; }
+        body { background-color: #ffffff; color: #062310; font-family: serif; }
+        .pedestal { border: 1px solid #D4AF37; background-color: #ffffff; overflow: hidden; }
+        .btn-sabr { background-color: #062310; color: #ffffff; font-family: sans-serif; }
     </style>
 </head>
-<body class="antialiased font-serif">
-    <nav class="border-b border-stone-100 py-10 px-12 flex justify-between items-center">
+<body class="antialiased">
+    <nav class="border-b border-stone-100 py-10 px-12 flex justify-between items-center bg-white">
         <div class="text-3xl italic font-bold tracking-tighter">SABR</div>
         <div class="hidden md:flex space-x-12 text-[10px] uppercase tracking-[0.3em] font-sans font-black text-stone-400">
             <span>Compliance</span><span>Oracles</span><span>Heritage</span>
@@ -43,33 +42,9 @@ const species = [
 
     <main class="max-w-7xl mx-auto px-6 md:px-12 py-24">
         <h2 class="text-[#D4AF37] text-[10px] uppercase tracking-[0.5em] mb-6 font-sans font-bold">Access & Benefit Sharing Framework</h2>
-        <h1 class="text-6xl md:text-8xl text-stone-900 mb-12">The <span class="italic">Sovereign</span> Herbarium.</h1>
+        <h1 class="text-6xl md:text-8xl text-stone-900 mb-12 font-serif">The <span class="italic">Sovereign</span> Herbarium.</h1>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
             {species.map((p) => (
                 <div class="group">
-                    <div class="pedestal aspect-square flex items-center justify-center p-2 overflow-hidden">
-                        <img src={p.img} alt={p.name} class="w-full h-full object-cover" />
-                    </div>
-                    <div class="mt-8">
-                        <h3 class="text-3xl italic text-stone-800">{p.name}</h3>
-                        <p class="text-[11px] uppercase tracking-widest text-stone-400 mt-2 font-sans font-bold">{p.latin}</p>
-                        <button class="mt-8 btn-sabr text-[10px] px-8 py-4 uppercase tracking-[0.2em] font-sans font-black">
-                            Connect with Farmers
-                        </button>
-                    </div>
-                </div>
-            ))}
-        </div>
-    </main>
-
-    <footer class="py-24 text-center border-t border-stone-100 text-[10px] text-stone-400 uppercase tracking-[0.4em] font-sans font-bold">
-        © 2026 South African Botanical Registry
-    </footer>
-</body>
-</html>
-    <footer class="py-20 text-center border-t border-stone-100 text-[10px] text-stone-400 uppercase tracking-widest font-bold">
-        © 2026 South African Botanical Registry
-    </footer>
-</body>
-</html>
+                    <div class="pedestal aspect-square flex items-center justify-
