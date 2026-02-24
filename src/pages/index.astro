@@ -1,5 +1,4 @@
 ---
-/* SABR NODE 1: THE SOVEREIGN REGISTRY MASTER (PATH REPAIR) */
 const plants = [
   { id: "ginger", name: "African Ginger", sci: "Siphonochilus aethiopicus", img: "/Public/sabr_ginger.jpg.jpg" },
   { id: "potato", name: "African Potato", sci: "Hypoxis hemerocallidea", img: "/Public/sabr_potato.jpg.jpg" },
@@ -18,57 +17,6 @@ const plants = [
   { id: "warburgia", name: "Pepper-bark Tree", sci: "Warburgia salutaris", img: "/Public/sabr_pepperbark.jpg.jpg" },
   { id: "rooibos", name: "Rooibos", sci: "Aspalathus linearis", img: "/Public/sabr_rooibos.jpg.jpg" },
   { id: "uzara", name: "Uzara", sci: "Xysmalobium undulatum", img: "/Public/sabr_uzara.jpg.jpg" },
-  // UPDATED LINE BELOW TO MATCH YOUR NEW FILENAME
-  { id: "ximenia", name: "Wild Apricot", sci: "Ximenia americana", img: "/Public/sabr_apricot.jpeg.jpeg" }
+  { id: "ximenia", name: "Wild Apricot", sci: "Ximenia americana", img: "/Public/sabr_apricot.jpg.jpg" }
 ];
-
-const forestBlack = "#06160c"; 
-const stoneSage = "#a8a29e";  
 ---
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SABR | South African Botanical Registry</title>
-</head>
-<body style="margin:0; background-color:#ffffff; color:#1c1917; font-family:sans-serif;">
-    <nav style="border-bottom:1px solid #f5f5f4; padding:40px 60px; display:flex; justify-content:space-between; align-items:center;">
-        <div style={`font-size:28px; font-weight:bold; font-family:serif; color:${forestBlack}; letter-spacing:-1px;`}>SABR</div>
-        <div style={`text-transform:uppercase; letter-spacing:0.3em; font-size:10px; color:${stoneSage}; font-weight:900;`}>
-            <span style="margin-right:30px;">Compliance</span>
-            <span style="margin-right:30px;">Oracles</span>
-            <span>Heritage</span>
-        </div>
-    </nav>
-
-    <div style="max-width:1400px; margin:0 auto; padding:80px 40px;">
-        <div style={`text-transform:uppercase; letter-spacing:0.5em; font-size:10px; color:${stoneSage}; margin-bottom:16px; font-weight:900;`}>Access & Benefit Sharing Framework</div>
-        <h1 style={`font-family:serif; font-size:60px; font-weight:300; margin:0 0 20px 0; line-height:1.1; color:${forestBlack};`}>South African <i>Botanical</i> Registry</h1>
-        <p style={`font-family:serif; font-style:italic; font-size:20px; color:${stoneSage}; margin-bottom:80px;`}>The central archive for indigenous genetic resources and intellectual property.</p>
-        
-        <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:flex-start;">
-            {plants.map((plant) => (
-                <div id={plant.id} style="flex: 0 0 calc(33.333% - 14px); display:flex; flex-direction:column; margin-bottom:60px; min-width:200px; box-sizing:border-box;">
-                    <div style="border:1px solid #D4AF37; background-color:#fafaf9; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; padding:0; overflow:hidden;">
-                        <img 
-                            src={plant.img} 
-                            alt={plant.name}
-                            loading="lazy"
-                            style="width:100%; height:100%; object-fit:cover; opacity:0.9;" 
-                            onerror="this.src='https://placehold.co/800x800/fafaf9/a8a29e/png?text=ARCHIVE+VERIFYING';"
-                        />
-                    </div>
-                    <div style={`font-family:serif; font-style:italic; font-size:22px; margin:20px 0 5px 0; color:${forestBlack}; line-height:1.2;`}>{plant.name}</div>
-                    <div style={`text-transform:uppercase; letter-spacing:0.2em; font-size:9px; color:${stoneSage}; font-weight:900; margin-bottom:15px;`}>{plant.sci}</div>
-                    
-                    <a href={`mailto:governance@sabr.org.za?subject=Inquiry regarding ${plant.name}`} style={`display:inline-block; align-self:flex-start; background:${stoneSage}; color:${forestBlack}; padding:12px 24px; text-decoration:none; font-size:8px; font-weight:900; text-transform:uppercase; letter-spacing:0.2em;`}>Connect with Farmers</a>
-                </div>
-            ))}
-        </div>
-    </div>
-
-    <footer style="margin-top:100px; padding:60px; border-top:1px solid #f5f5f4; text-align:center;">
-        <div style={`text-transform:uppercase; letter-spacing:0.5em; font-size:9px; color:${stoneSage}; font-weight:900;`}>© 2026 South African Botanical Registry</div>
-    </footer>
-</body>
-</html>
