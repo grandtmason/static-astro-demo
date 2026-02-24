@@ -1,46 +1,64 @@
 ---
 // SABM NODE 1: THE MUSEUM ARCHIVE
-// Version: 23.02.26.STABLE
+// BULLETPROOF INLINE VERSION (NO EXTERNAL CSS)
 ---
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SABM | The Sovereign Herbarium</title>
+    <style is:inline>
+        body { margin: 0; background-color: #ffffff; color: #1c1917; font-family: sans-serif; }
+        nav { border-bottom: 1px solid #f5f5f4; padding: 40px 60px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: serif; font-style: italic; font-size: 28px; font-weight: bold; }
+        .nav-links { text-transform: uppercase; letter-spacing: 0.3em; font-size: 10px; font-weight: 900; color: #a8a29e; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 80px 40px; }
+        .header-label { text-transform: uppercase; letter-spacing: 0.5em; font-size: 10px; color: #a8a29e; margin-bottom: 16px; }
+        h1 { font-family: serif; font-size: 60px; font-weight: 300; margin: 0 0 80px 0; }
+        .pedestal { 
+            border: 1px solid #D4AF37; 
+            background-color: #fafaf9; 
+            aspect-ratio: 3/4; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            padding: 40px;
+        }
+        .specimen-img { max-width: 100%; height: auto; mix-blend-mode: multiply; }
+        .caption-title { font-family: serif; font-style: italic; font-size: 32px; margin: 30px 0 5px 0; }
+        .scientific-name { text-transform: uppercase; letter-spacing: 0.2em; font-size: 11px; color: #a8a29e; }
+        .btn { 
+            margin-top: 30px; 
+            display: inline-block; 
+            background: #1c1917; 
+            color: white; 
+            padding: 18px 35px; 
+            text-decoration: none; 
+            font-size: 10px; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: 0.2em; 
+        }
+    </style>
 </head>
-<body style="margin:0; padding:0; background-color:#ffffff; font-family:sans-serif; color:#1c1917;">
-
-    <nav style="display:flex; justify-content:space-between; align-items:center; padding:40px 60px; border-bottom:1px solid #f5f5f4;">
-        <div style="font-size:24px; font-weight:bold; letter-spacing:-1px;">SABM</div>
-        <div style="text-transform:uppercase; letter-spacing:0.3em; font-size:10px; font-weight:900; color:#a8a29e;">
-            <span style="margin-right:30px;">Taxonomy</span>
-            <span style="margin-right:30px;">Oracles</span>
-            <span>Heritage</span>
-        </div>
+<body>
+    <nav>
+        <div class="logo">SABM</div>
+        <div class="nav-links">Taxonomy &nbsp;&nbsp; Oracles &nbsp;&nbsp; Heritage</div>
     </nav>
 
-    <div style="max-width:1200px; margin:0 auto; padding:80px 40px;">
-        <header style="max-width:700px; margin-bottom:100px;">
-            <div style="text-transform:uppercase; letter-spacing:0.3em; font-size:10px; font-weight:900; color:#a8a29e; margin-bottom:20px;">Established 2026</div>
-            <h1 style="font-size:64px; font-weight:300; line-height:1.1; margin:0; font-family:serif; font-style:italic;">The Sovereign Herbarium.</h1>
-        </header>
+    <div class="container">
+        <div class="header-label">Established 2026</div>
+        <h1>The <i>Sovereign</i> Herbarium.</h1>
 
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap:80px;">
-            
-            <div style="display:flex; flex-direction:column;">
-                <div style="aspect-ratio:3/4; border:1px solid #D4AF37; background-color:#fafaf9; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sceletium_tortuosum_botanical.jpg/800px-Sceletium_tortuosum_botanical.jpg" 
-                         style="max-width:80%; height:auto; mix-blend-mode:multiply;" alt="Kanna" />
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 60px;">
+            <div>
+                <div class="pedestal">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sceletium_tortuosum_botanical.jpg/800px-Sceletium_tortuosum_botanical.jpg" class="specimen-img" />
                 </div>
-                <div style="margin-top:40px;">
-                    <h3 style="font-size:32px; margin:0; font-weight:400;">Kanna</h3>
-                    <div style="text-transform:uppercase; letter-spacing:0.3em; font-size:10px; font-weight:900; color:#d6d3d1; margin-top:5px;">Sceletium tortuosum</div>
-                    <div style="width:40px; height:1px; background:#e7e5e4; margin:30px 0;"></div>
-                    <a href="mailto:governance@sabm.org.za" style="display:inline-block; background:#1c1917; color:white; padding:18px 40px; font-size:9px; font-weight:900; text-transform:uppercase; letter-spacing:0.2em; text-decoration:none;">Connect with Farmers</a>
-                </div>
+                <div class="caption-title">Kanna</div>
+                <div class="scientific-name">Sceletium tortuosum</div>
+                <a href="mailto:governance@sabm.org.za" class="btn">Connect with Farmers</a>
             </div>
-
         </div>
     </div>
 </body>
