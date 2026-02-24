@@ -1,6 +1,5 @@
 ---
-/* SABM NODE 1: southafricabotanical.org.za
-   Persona: Scientists, Premium Buyers
+/* SABM NODE 1: FIXED PRODUCTION RE-BUILD
    Aesthetic: Museum Pedestal / Minimalist Gallery
 */
 ---
@@ -9,49 +8,57 @@
     <meta charset="utf-8" />
     <title>SABM | The Scientific Collection</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
     <style>
-        .pedestal-border { border: 0.5px solid #D4AF37; }
-        .lithograph-filter { filter: contrast(1.1) sepia(0.1); }
+        body { background-color: #ffffff; color: #1c1917; }
+        .pedestal { 
+            border: 1px solid #D4AF37; /* Heritage Gold */
+            background-color: #fafaf9;
+            transition: all 0.5s ease;
+        }
+        .pedestal:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            transform: translateY(-5px);
+        }
     </style>
 </head>
-<body class="bg-white text-stone-900 font-['Inter'] antialiased">
+<body class="font-['Inter']">
 
-    <nav class="max-w-7xl mx-auto px-12 py-10 flex justify-between items-baseline border-b border-stone-100">
-        <h1 class="font-['Playfair_Display'] text-3xl tracking-tighter uppercase italic">SABM</h1>
-        <div class="flex gap-12 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
-            <a href="#" class="hover:text-stone-900 transition-colors">Taxonomy</a>
-            <a href="#" class="hover:text-stone-900 transition-colors">Oracles</a>
-            <a href="#" class="hover:text-stone-900 transition-colors">Heritage</a>
+    <nav class="border-b border-stone-100 py-10 px-12 flex justify-between items-center">
+        <div class="font-['Playfair_Display'] text-3xl italic font-bold">SABM</div>
+        <div class="space-x-12 text-[10px] uppercase tracking-[0.3em] font-black text-stone-400">
+            <span>Taxonomy</span>
+            <span>Oracles</span>
+            <span>Heritage</span>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-12 py-32">
-        <header class="max-w-3xl mb-32">
-            <h2 class="text-[10px] uppercase tracking-[0.5em] text-stone-400 mb-8 italic">The Collection</h2>
-            <p class="font-['Playfair_Display'] text-5xl leading-tight">
-                A definitive archive of <span class="italic">Southern African</span> flora, preserved for global science and sovereign trade.
-            </p>
-        </header>
+    <main class="max-w-6xl mx-auto px-12 py-24">
+        <div class="max-w-2xl mb-24">
+            <h2 class="text-stone-400 text-[10px] uppercase tracking-[0.5em] mb-4">Established 2026</h2>
+            <h1 class="font-['Playfair_Display'] text-6xl leading-tight text-stone-900">
+                The <span class="italic">Sovereign</span> Herbarium.
+            </h1>
+        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24">
-            
-            <div class="flex flex-col items-center">
-                <div class="pedestal-border w-full aspect-[4/5] flex items-center justify-center p-12 bg-[#fcfcfc] hover:shadow-2xl hover:shadow-stone-200 transition-all duration-700 ease-in-out group">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sceletium_tortuosum_botanical.jpg/800px-Sceletium_tortuosum_botanical.jpg" 
-                         alt="Sceletium Illustration" 
-                         class="lithograph-filter group-hover:scale-105 transition-transform duration-1000" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+            <div class="flex flex-col">
+                <div class="pedestal aspect-[3/4] flex items-center justify-center p-10 overflow-hidden">
+                    <img src="https://images.squarespace-cdn.com/content/v1/594033f237c581358c541783/1592403233481-9RHSYQ8H9MCHG8R6YI0L/Sceletium+tortuosum+-+Kanna" 
+                         alt="Sceletium" 
+                         class="max-w-full h-auto mix-blend-multiply opacity-90" />
                 </div>
-                <div class="mt-10 text-center">
-                    <h3 class="font-['Playfair_Display'] text-2xl mb-2">Kanna</h3>
-                    <p class="text-[11px] uppercase tracking-[0.3em] font-bold text-stone-400 italic mb-6">Sceletium tortuosum</p>
-                    <a href="https://botanicalcompliance.africa" class="inline-block border border-stone-200 px-8 py-3 text-[9px] uppercase tracking-widest font-black hover:bg-stone-900 hover:text-white transition-all">
+                <div class="mt-8">
+                    <h3 class="font-['Playfair_Display'] text-3xl italic">Kanna</h3>
+                    <p class="text-[11px] uppercase tracking-widest text-stone-400 mt-2">Sceletium tortuosum</p>
+                    <hr class="w-12 border-stone-200 my-6" />
+                    <button class="bg-stone-900 text-white text-[9px] font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-[#D4AF37] transition-all">
                         Connect with Farmers
-                    </a>
+                    </button>
                 </div>
             </div>
-
-            </div>
+        </div>
     </main>
+
 </body>
 </html>
