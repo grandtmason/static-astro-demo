@@ -10,4 +10,4 @@ quadrants:
   heritage: "The most widely used medicinal plant in South Africa; traditionally burned as a sacred incense to facilitate communication with ancestors and purify the home."
 ---
 # Mphepho Intelligence Update
-SABM data ingestion confirms 'mphepho.health' is now active, tracking the transition of Helichrysum from traditional smudge to a standardized pharmaceutical 'Sanitization Oracle'.
+SABM data ingestion confirms 'mphepho.health' is now active, tracking the transition of Helichrysum from traditional smudge to a standardised pharmaceutical 'Sanitization Oracle'.

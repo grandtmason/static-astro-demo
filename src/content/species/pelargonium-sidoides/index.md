@@ -5,7 +5,7 @@ image: "/images/pelargonium-sidoides.jpg"
 description: "A rosette-like medicinal herb with distinctive blackish-red flowers; its tubers are a global gold standard for treating acute bronchitis and respiratory tract infections."
 quadrants:
   innovation: "Standardization of the EPs 7630 extract, focusing on high coumarin and flavonoid concentrations for the 2026 pediatric health market."
-  agronomy: "Grows in stony, short grasslands. 2026 protocols prioritize sustainable tuber-harvesting to mitigate overexploitation from wild-harvesting."
+  agronomy: "Grows in stony, short grasslands. 2026 protocols prioritise sustainable tuber-harvesting to mitigate overexploitation from wild-harvesting."
   news: "SABM tracking a 15% increase in Pelargonium-based phytopharmaceuticals across the EU and North American markets."
   heritage: "Historically known as 'Umckaloabo' (Zulu/Xhosa); it gained global fame in the late 19th century as a treatment for tuberculosis."
 ---

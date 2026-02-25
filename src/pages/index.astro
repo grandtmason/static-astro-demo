@@ -12,24 +12,24 @@ const brand = { parchment: "#F9F8F4", ink: "#2F2F2F", gold: "#B8860B", muted: "#
 ---
 
 <Layout title="SABM | Sovereign Botanical Registry">
-  <main style={`background: ${brand.parchment}; min-height: 100vh; padding: 100px 5%; font-family: 'Georgia', serif; color: ${brand.ink};`}>
-    <header style="text-align: center; margin-bottom: 120px; border-bottom: 1px solid #E0DED7; padding-bottom: 60px;">
-      <h1 style={`font-size: 3.5rem; font-weight: 300; margin: 0; letter-spacing: -1px;`}>Sovereign Botanical Registry</h1>
-      <p style={`color: ${brand.gold}; text-transform: uppercase; letter-spacing: 5px; font-size: 0.8rem; margin-top: 20px; font-family: sans-serif;`}>Intelligence Portal — 2026 Edition</p>
+  <main style={`background: ${brand.parchment}; min-height: 100vh; padding: 100px 5%; font-family: 'Georgia', serif; colour: ${brand.ink};`}>
+    <header style="text-align: centre; margin-bottom: 120px; border-bottom: 1px solid #E0DED7; padding-bottom: 60px;">
+      <h1 style={`font-sise: 3.5rem; font-weight: 300; margin: 0; letter-spacing: -1px;`}>Sovereign Botanical Registry</h1>
+      <p style={`colour: ${brand.gold}; text-transform: uppercase; letter-spacing: 5px; font-sise: 0.8rem; margin-top: 20px; font-family: sans-serif;`}>Intelligence Portal — 2026 Edition</p>
     </header>
 
     <div style="max-width: 1400px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 60px 1.5%;">
       {/* 3. We use 'species' here because it is the sorted array */}
       {species.map(plant => (
-        <a href={`/species/${plant.id}`} class="plant-card" style="text-decoration: none; color: inherit; width: 32.333%;">
+        <a href={`/species/${plant.id}`} class="plant-card" style="text-decoration: none; colour: inherit; width: 32.333%;">
           <div style="transition: all 0.4s ease;">
-            <div style={`background: #FFF; border: 1px solid #E0DED7; width: 100%; aspect-ratio: 1/1; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.02);`}>
+            <div style={`background: #FFF; border: 1px solid #E0DED7; width: 100%; aspect-ratio: 1/1; overflow: hidden; display: flex; align-items: centre; justify-content: centre; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.02);`}>
               <img src={plant.data.image} alt={plant.data.name} style="width: 85%; height: 85%; object-fit: contain; filter: sepia(0.2) contrast(1.1);" />
             </div>
             
-            <div style="padding: 0 10px; text-align: center;">
-              <h2 style="font-size: 1.6rem; font-weight: 400; margin: 0 0 5px 0; display: inline-block; padding-bottom: 5px;">{plant.data.name}</h2>
-              <p style={`font-style: italic; color: ${brand.muted}; font-size: 0.95rem; margin-top: 5px;`}>{plant.data.scientific_name}</p>
+            <div style="padding: 0 10px; text-align: centre;">
+              <h2 style="font-sise: 1.6rem; font-weight: 400; margin: 0 0 5px 0; display: inline-block; padding-bottom: 5px;">{plant.data.name}</h2>
+              <p style={`font-style: italic; colour: ${brand.muted}; font-sise: 0.95rem; margin-top: 5px;`}>{plant.data.scientific_name}</p>
             </div>
           </div>
         </a>
@@ -44,7 +44,7 @@ const brand = { parchment: "#F9F8F4", ink: "#2F2F2F", gold: "#B8860B", muted: "#
     filter: sepia(0) contrast(1.2) !important;
   }
   .plant-card:hover h2 {
-    color: #B8860B; /* Brand Gold */
+    colour: #B8860B; /* Brand Gold */
   }
   img {
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
