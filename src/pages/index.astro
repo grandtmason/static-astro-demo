@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
 const allPlants = await getCollection('species');
-// LUXURY PALETTE: Alabaster Parchment, Technical Ink, Burnished Gold
 const brand = { parchment: "#F9F8F4", ink: "#2F2F2F", gold: "#B8860B", muted: "#7A7A7A" };
 ---
 
@@ -14,20 +13,20 @@ const brand = { parchment: "#F9F8F4", ink: "#2F2F2F", gold: "#B8860B", muted: "#
       <p style={`color: ${brand.gold}; text-transform: uppercase; letter-spacing: 5px; font-size: 0.8rem; margin-top: 20px; font-family: sans-serif;`}>Intelligence Portal — 2026 Edition</p>
     </header>
 
-    <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 60px 40px;">
+    {/* THE IMPERIAL GRID: Strict 3-column layout */}
+    <div style="max-width: 1400px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px 1.5%;">
       {allPlants.map(plant => (
-        <a href={`/species/${plant.id}`} style="text-decoration: none; color: inherit; group;">
+        <a href={`/species/${plant.id}`} style="text-decoration: none; color: inherit; width: 32.333%;">
           <div style="transition: all 0.4s ease;">
-            {/* Image Container designed for line illustrations */}
-            <div style={`background: #FFF; border: 1px solid #E0DED7; aspect-ratio: 4/5; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.02);`}>
-              <img src={plant.data.image} alt={plant.data.name} style="width: 80%; height: 80%; object-fit: contain; filter: sepia(0.2) contrast(1.1);" />
+            {/* Square Image Container */}
+            <div style={`background: #FFF; border: 1px solid #E0DED7; width: 100%; aspect-ratio: 1/1; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.02);`}>
+              <img src={plant.data.image} alt={plant.data.name} style="width: 85%; height: 85%; object-fit: contain; filter: sepia(0.2) contrast(1.1);" />
             </div>
             
-            <div style="padding: 0 10px;">
+            <div style="padding: 0 10px; text-align: center;">
               <p style={`color: ${brand.gold}; font-family: sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;`}>Plate No. {plant.id.toUpperCase()}</p>
-              <h2 style="font-size: 1.8rem; font-weight: 400; margin: 0 0 5px 0;">{plant.data.name}</h2>
-              <p style={`font-style: italic; color: ${brand.muted}; font-size: 1rem; margin-bottom: 15px;`}>{plant.data.scientific_name}</p>
-              <div style={`width: 30px; height: 1px; background: ${brand.gold};`}></div>
+              <h2 style="font-size: 1.6rem; font-weight: 400; margin: 0 0 5px 0; border-bottom: 1px solid #E0DED7; display: inline-block; padding-bottom: 5px;">{plant.data.name}</h2>
+              <p style={`font-style: italic; color: ${brand.muted}; font-size: 0.95rem; margin-top: 10px;`}>{plant.data.scientific_name}</p>
             </div>
           </div>
         </a>
