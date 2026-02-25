@@ -2,7 +2,12 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
+// 1. Fetch the collection
 const allPlants = await getCollection('species');
+
+// 2. FORCE Alphabetical Sort by the 'name' field in frontmatter
+const species = allPlants.sort((a, b) => a.data.name.localeCompare(b.data.name));
+
 const brand = { parchment: "#F9F8F4", ink: "#2F2F2F", gold: "#B8860B", muted: "#7A7A7A" };
 ---
 
@@ -14,8 +19,9 @@ const brand = { parchment: "#F9F8F4", ink: "#2F2F2F", gold: "#B8860B", muted: "#
     </header>
 
     <div style="max-width: 1400px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 60px 1.5%;">
-      {allPlants.map(plant => (
-        <a href={`/species/${plant.id}`} style="text-decoration: none; color: inherit; width: 32.333%;">
+      {/* 3. We use 'species' here because it is the sorted array */}
+      {species.map(plant => (
+        <a href={`/species/${plant.id}`} class="plant-card" style="text-decoration: none; color: inherit; width: 32.333%;">
           <div style="transition: all 0.4s ease;">
             <div style={`background: #FFF; border: 1px solid #E0DED7; width: 100%; aspect-ratio: 1/1; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.02);`}>
               <img src={plant.data.image} alt={plant.data.name} style="width: 85%; height: 85%; object-fit: contain; filter: sepia(0.2) contrast(1.1);" />
@@ -31,3 +37,16 @@ const brand = { parchment: "#F9F8F4", ink: "#2F2F2F", gold: "#B8860B", muted: "#
     </div>
   </main>
 </Layout>
+
+<style>
+  .plant-card:hover img {
+    transform: scale(1.05);
+    filter: sepia(0) contrast(1.2) !important;
+  }
+  .plant-card:hover h2 {
+    color: #B8860B; /* Brand Gold */
+  }
+  img {
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+</style>
