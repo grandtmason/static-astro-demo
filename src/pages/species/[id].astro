@@ -2,7 +2,6 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-// 1. Generate paths for all 24 plants
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
   return allPlants.map(plant => ({
@@ -34,73 +33,4 @@ const brand = {
 
     <article style="max-width: 900px; margin: 0 auto;">
       <header style="text-align: center; margin-bottom: 60px; border-bottom: 1px solid #E0DED7; padding-bottom: 40px;">
-        <h1 style="font-size: 3.5rem; font-weight: 300; margin: 0; letter-spacing: -1px;">{plant.data.name}</h1>
-        <p style={`font-style: italic; color: ${brand.muted}; font-size: 1.4rem; margin-top: 10px;`}>{plant.data.scientific_name}</p>
-      </header>
-
-      <div style={`background: ${brand.white}; border: 1px solid #E0DED7; padding: 40px; margin-bottom: 60px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); text-align: center;`}>
-        <img src={plant.data.image} alt={plant.data.name} style="max-width: 400px; width: 100%; height: auto; filter: sepia(0.1);" />
-      </div>
-
-      <div class="quadrant-grid">
-        <div class="quad-box">
-          <h3>Innovation</h3>
-          <p>{plant.data.quadrants.innovation}</p>
-        </div>
-        <div class="quad-box">
-          <h3>Agronomy</h3>
-          <p>{plant.data.quadrants.agronomy}</p>
-        </div>
-        <div class="quad-box">
-          <h3>2026 Intelligence</h3>
-          <p>{plant.data.quadrants.news}</p>
-        </div>
-        <div class="quad-box">
-          <h3>Heritage</h3>
-          <p>{plant.data.quadrants.heritage}</p>
-        </div>
-      </div>
-
-      <section class="prose">
-        <Content />
-      </section>
-    </article>
-  </main>
-</Layout>
-
-<style define:vars={{ gold: brand.gold, muted: brand.muted, ink: brand.ink }}>
-  .quadrant-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 80px;
-  }
-  .quad-box {
-    background: rgba(255, 255, 255, 0.5);
-    border-left: 3px solid var(--gold);
-    padding: 20px;
-  }
-  .quad-box h3 {
-    text-transform: uppercase;
-    font-family: sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    color: var(--gold);
-    margin: 0 0 10px 0;
-  }
-  .quad-box p {
-    margin: 0;
-    line-height: 1.6;
-    font-size: 0.95rem;
-  }
-  .prose {
-    line-height: 1.8;
-    font-size: 1.2rem;
-    border-top: 1px solid #E0DED7;
-    padding-top: 40px;
-  }
-  .prose :global(h1), .prose :global(h2) {
-    font-weight: 300;
-    margin-top: 40px;
-  }
-</style>
+        <h1 style="font-size: 3.5rem; font
