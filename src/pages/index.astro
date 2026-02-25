@@ -3,28 +3,31 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
 const allPlants = await getCollection('species');
-const brand = { emerald: "#042f2e", gold: "#D4AF37", softWhite: "#fcfcfc" };
+// LUXURY PALETTE: Alabaster Parchment, Technical Ink, Burnished Gold
+const brand = { parchment: "#F9F8F4", ink: "#2F2F2F", gold: "#B8860B", muted: "#7A7A7A" };
 ---
 
-<Layout title="SABM Sovereign Registry">
-  <main style={`background: ${brand.emerald}; min-height: 100vh; padding: 60px 5%; font-family: serif; color: white;`}>
-    <header style="text-align: center; margin-bottom: 80px;">
-      <h1 style={`color: ${brand.gold}; font-size: 3.5rem; font-style: italic; margin: 0;`}>The Sovereign Botanical Registry</h1>
-      <p style="letter-spacing: 4px; text-transform: uppercase; opacity: 0.8;">Intelligence Portal | 2026 Edition</p>
-      <div style={`width: 100px; height: 2px; background: ${brand.gold}; margin: 20px auto;`}></div>
+<Layout title="SABM | Sovereign Botanical Registry">
+  <main style={`background: ${brand.parchment}; min-height: 100vh; padding: 100px 5%; font-family: 'Georgia', serif; color: ${brand.ink};`}>
+    <header style="text-align: center; margin-bottom: 120px; border-bottom: 1px solid #E0DED7; padding-bottom: 60px;">
+      <h1 style={`font-size: 3.5rem; font-weight: 300; margin: 0; letter-spacing: -1px;`}>Sovereign Botanical Registry</h1>
+      <p style={`color: ${brand.gold}; text-transform: uppercase; letter-spacing: 5px; font-size: 0.8rem; margin-top: 20px; font-family: sans-serif;`}>Intelligence Portal — 2026 Edition</p>
     </header>
 
-    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;">
+    <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 60px 40px;">
       {allPlants.map(plant => (
-        <a href={`/species/${plant.id}`} style="text-decoration: none; color: inherit; transition: transform 0.3s ease;">
-          <div style={`border: 1px solid ${brand.gold}; background: rgba(255,255,255,0.05); padding: 30px; height: 100%; display: flex; flex-direction: column; justify-content: space-between;`}>
-            <div>
-              <h2 style={`color: ${brand.gold}; margin: 0 0 10px 0; font-size: 1.8rem;`}>{plant.data.name}</h2>
-              <p style="font-style: italic; font-size: 0.9rem; opacity: 0.7; margin-bottom: 20px;">{plant.data.scientific_name}</p>
-              <p style="line-height: 1.6; font-family: sans-serif; font-size: 0.95rem;">{plant.data.description}</p>
+        <a href={`/species/${plant.id}`} style="text-decoration: none; color: inherit; group;">
+          <div style="transition: all 0.4s ease;">
+            {/* Image Container designed for line illustrations */}
+            <div style={`background: #FFF; border: 1px solid #E0DED7; aspect-ratio: 4/5; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.02);`}>
+              <img src={plant.data.image} alt={plant.data.name} style="width: 80%; height: 80%; object-fit: contain; filter: sepia(0.2) contrast(1.1);" />
             </div>
-            <div style={`margin-top: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: ${brand.gold};`}>
-              Access Intelligence →
+            
+            <div style="padding: 0 10px;">
+              <p style={`color: ${brand.gold}; font-family: sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;`}>Plate No. {plant.id.toUpperCase()}</p>
+              <h2 style="font-size: 1.8rem; font-weight: 400; margin: 0 0 5px 0;">{plant.data.name}</h2>
+              <p style={`font-style: italic; color: ${brand.muted}; font-size: 1rem; margin-bottom: 15px;`}>{plant.data.scientific_name}</p>
+              <div style={`width: 30px; height: 1px; background: ${brand.gold};`}></div>
             </div>
           </div>
         </a>
