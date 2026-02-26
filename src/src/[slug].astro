@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import IntelligencePulse from '../../components/IntelligencePulse.astro';
+
+// 1. Generate paths for all 24 species
+export async function getStaticPaths() {
+  const allSpecies = await getCollection('species');
+  return allSpecies.map(entry => ({
+    params: { slug: entry.id }, 
+    props: { entry },
+  }));
+}
+
+// 2. Get the data for the current portal
+const { entry } = Astro.props;
+const { name, scientific_name, quadrants } = entry.data;
+const { Content } = await render(entry);
+---
+
+<Layout title={`${name} | Sovereign Botanical`}>
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <header class="mb-16 border-b border-gold/20 pb-8">
+      <h1 class="text-5xl font-serif text-gold uppercase tracking-widest">{name}</h1>
+      <p class="text-xl italic text-gray-400">{scientific_name}</p>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-16">
+      <section class="p-6 bg-stone-900 border-l-4 border-gold">
+        <h3 class="font-bold text-gold mb-2">Heritage & History</h3>
+        <p>{quadrants.heritage}</p>
+      </section>
+      
+      <section class="p-6 bg-stone-900 border-l-4 border-gold">
+        <h3 class="font-bold text-gold mb-2">Agronomy & Trade</h3>
+        <p>{quadrants.agronomy}</p>
+      </section>
+
+      <section class="p-6 bg-stone-900 border-l-4 border-gold">
+        <h3 class="font-bold text-gold mb-2">Innovation & Science</h3>
+        <p>{quadrants.innovation}</p>
+      </section>
+
+      <section class="p-6 bg-stone-800 ring-1 ring-gold/30">
+        <h3 class="font-bold text-gold mb-2">Intelligence Pulse (Weekly)</h3>
+        <IntelligencePulse server:defer>
+          <p slot="fallback" class="animate-pulse">Scanning global trade nodes...</p>
+        </IntelligencePulse>
+      </section>
+    </div>
+
+    <article class="prose prose-invert prose-gold max-w-none">
+      <Content />
+    </article>
+  </main>
+</Layout>
