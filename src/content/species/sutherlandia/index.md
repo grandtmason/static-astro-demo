@@ -1,7 +1,7 @@
 ---
 name: "Sutherlandia"
 scientific_name: "Lessertia frutescens"
-image: "/images/sutherlandia.jpg"
+image: "/Public/sutherlandia.jpg"
 description: "A hardy, multi-purpose medicinal legume with striking red flowers and inflated, balloon-like seed pods; globally recognised as a premier immune-system modulator."
 quadrants:
   innovation: "2026 pharmacological focus on L-canavanine for its anti-tumor potential and Pinitol for managing insulin resistance in metabolic syndrome."
