@@ -1,7 +1,7 @@
 ---
 name: "Honeybush"
 scientific_name: "Cyclopia genistoides"
-image: "/images/honeybush.jpg"
+image: "/Public/honeybush.jpg"
 description: "A wild-growing fynbos legume prised for its honey-scented flowers and caffeine-free, antioxidant-rich tea."
 quadrants:
   innovation: "Extract optimization focusing on mangiferin content for metabolic health supplements."
