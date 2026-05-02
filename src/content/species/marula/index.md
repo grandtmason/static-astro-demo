@@ -1,7 +1,7 @@
 ---
 name: "Marula"
 scientific_name: "Sclerocarya birrea"
-image: "/images/marula.jpg"
+image: "/Public/marula.jpg"
 description: "A medium-sised deciduous tree and a cornerstone of African biodiversity; prised for its Vitamin C-rich fruit and high-antioxidant seed oil."
 quadrants:
   innovation: "2026 focus on nano-emulsified Marula oil for superior transdermal delivery in high-end anti-aging skincare."
