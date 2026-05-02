@@ -1,7 +1,7 @@
 ---
 name: "African Ashwagandha"
 scientific_name: "Withania somnifera"
-image: "/images/african-ashwagandha.jpg"
+image: "/Public/african-ashwagandha.jpg"
 description: "The indigenous 'Winter Cherry' of Southern Africa; a powerful adaptogen used to restore vitality, manage stress, and support the nervous system."
 quadrants:
   innovation: "Standardizing withanolide profiles from wild-harvested South African phenotypes for superior adaptogenic potency."
