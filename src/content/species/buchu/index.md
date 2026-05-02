@@ -1,7 +1,7 @@
 ---
 name: "Buchu"
 scientific_name: "Agathosma betulina"
-image: "/images/buchu.jpg"
+image: "/Public/buchu.jpg"
 description: "The 'Miracle Herb' of the Cape; a high-potency aromatic used for its exceptional volatile oils."
 quadrants:
   innovation: "R&D focus: Isolation of diosphenol for advanced urinary tract therapeutics."
