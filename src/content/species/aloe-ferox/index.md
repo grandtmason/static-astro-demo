@@ -1,7 +1,7 @@
 ---
 name: "Aloe Ferox"
 scientific_name: "Aloe ferox"
-image: "/images/aloe-ferox.jpg"
+image: "/Public/aloe-ferox.jpg"
 description: "The Bitter Aloe: A cornerstone of South African natural medicine and high-value export cosmetic ingredient."
 quadrants:
   innovation: "R&D focus: stabilization of bitter sap for pharmaceutical-grade digestive health products."
