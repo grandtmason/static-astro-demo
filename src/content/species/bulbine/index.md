@@ -1,7 +1,7 @@
 ---
 name: "Bulbine"
 scientific_name: "Bulbine frutescens"
-image: "/images/bulbine.jpg"
+image: "/Public/bulbine.jpg"
 description: "The 'Burn Jelly Plant' of Southern Africa; a succulent powerhouse whose leaf gel is a superior indigenous alternative to Aloe Vera for skin recovery and collagen management."
 quadrants:
   innovation: "2026 pharmaceutical focus on 'Smart Collagen Management' using knipholone and mannan to stimulate fibroblast production for anti-aging and scar recovery."
