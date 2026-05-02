@@ -1,7 +1,7 @@
 ---
 name: "Cape Chamomile"
 scientific_name: "Eriocephalus punctulatus"
-image: "/images/cape-chamomile.jpg"
+image: "/Public/cape-chamomile.jpg"
 description: "A rare, aromatic fynbos shrub from the high-altitude peaks of the Western Cape; its unique blue essential oil is one of the world's most prestigious botanical extracts."
 quadrants:
   innovation: "2026 focus on high-azulene extraction for premium anti-inflammatory and stress-relief formulations in the luxury fragrance and skincare sectors."
