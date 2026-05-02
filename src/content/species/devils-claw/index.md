@@ -1,7 +1,7 @@
 ---
 name: "Devil's Claw"
 scientific_name: "Harpagophytum procumbens"
-image: "/images/devils-claw.jpg"
+image: "/Public/devils-claw.jpg"
 description: "A desert-dwelling tuber renowned globally as a powerful natural treatment for arthritis and joint pain."
 quadrants:
   innovation: "Clinical trials investigating harpagoside concentration for standardised analgesic extract."
