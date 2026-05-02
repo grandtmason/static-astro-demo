@@ -1,7 +1,7 @@
 ---
 name: "Hoodia"
 scientific_name: "Hoodia gordonii"
-image: "/images/hoodia.jpg"
+image: "/Public/hoodia.jpg"
 description: "A spiny, leafless succulent from the Kalahari; famously used by the San people to stave off hunger and thirst during long desert treks."
 quadrants:
   innovation: "2026 focus on the P57 steroidal glycoside; research is shifting from simple 'weight loss' to high-tech metabolic regulation and blood sugar management."
