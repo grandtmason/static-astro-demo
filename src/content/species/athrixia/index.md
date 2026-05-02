@@ -1,7 +1,7 @@
 ---
 name: "Athrixia"
 scientific_name: "Athrixia phylicoides"
-image: "/images/athrixia.jpg"
+image: "/Public/athrixia.jpg"
 description: "A resilient aromatic shrub indigenous to the north-eastern mountains of South Africa; its caffeine-free leaves produce a 'Bush Tea' rich in antioxidants and traditional healing properties."
 quadrants:
   innovation: "2026 chemical profiling focuses on 5-hydroxy-6,7,8,3',4',5'-hexamethoxy flavon-3-ol for potential antimicrobial and aphrodisiac applications."
