@@ -1,7 +1,7 @@
 ---
 name: "Acacia"
 scientific_name: "Vachellia karroo"
-image: "/images/acacia.jpg"
+image: "/Public/acacia.jpg"
 description: "The 'Sweet Thorn' of the Karoo; a resilient pioneer species whose edible gum and medicinal bark are cornerstones of the southern African bio-economy."
 quadrants:
   innovation: "Transitioning from wild-collected 'Cape Gum' to high-purity pharmaceutical grade stabilisers for the 2026 EU market."
