@@ -1,7 +1,7 @@
 ---
 name: "Wild Olive"
 scientific_name: "Olea europaea subsp. africana"
-image: "/images/wild-olive.jpg"
+image: "/Public/wild-olive.jpg"
 description: "A slow-growing symbol of resilience; its silver-backed leaves are a potent 'Vascular Oracle,' used for centuries to regulate blood pressure and support heart health."
 quadrants:
   innovation: "2026 clinical focus on triterpenoid-isolated extracts for atherosclerosis prevention and as a multi-target neuroprotective agent for aging populations."
