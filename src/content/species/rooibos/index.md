@@ -1,7 +1,7 @@
 ---
 name: "Rooibos"
 scientific_name: "Aspalathus linearis"
-image: "/images/rooibos.jpg"
+image: "/Public/rooibos.jpg"
 description: "The world-famous 'Red Bush' of the Cederberg; a caffeine-free superfood and the only known natural source of the potent antioxidant Aspalathin."
 quadrants:
   innovation: "2026 Breakthrough: Research validates Rooibos as a protective shield against petrochemical exposure and a primary stabiliser in pediatric 'sports drink' formulations."
