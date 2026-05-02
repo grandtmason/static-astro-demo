@@ -1,7 +1,7 @@
 ---
 name: "Pepper-Bark Tree"
 scientific_name: "Warburgia salutaris"
-image: "/images/pepper-bark.jpg"
+image: "/Public/pepper-bark.jpg"
 description: "The 'health-giving' tree of Southern Africa; its pungent, peppery leaves and bark are legendary for their powerful natural antibiotic and antifungal properties."
 quadrants:
   innovation: "2026 Breakthrough: Validation of leaf-extract efficacy as a sustainable alternative to bark, preserving the 'Antibiotic Oracle' without killing the tree."
