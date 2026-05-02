@@ -1,7 +1,7 @@
 ---
 name: "Uzara"
 scientific_name: "Xysmalobium undulatum"
-image: "/images/uzara.jpg"
+image: "/Public/uzara.jpg"
 description: "A robust perennial herb with milky latex; its large, tuberous roots provide a powerful, non-specific treatment for gastrointestinal distress and rhythmic spasms."
 quadrants:
   innovation: "2026 focus on standardised cardiac glycoside profiles (uzarin and xysmalorin) to ensure targeted antispasmodic action with zero systemic toxicity."
