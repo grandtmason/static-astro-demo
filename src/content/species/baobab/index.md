@@ -1,7 +1,7 @@
 ---
 name: "Baobab"
 scientific_name: "Adansonia digitata"
-image: "/images/baobab.jpg"
+image: "/Public/baobab.jpg"
 description: "The 'Tree of Life'; a botanical giant producing high-vitamin C superfruit and nutrient-dense seed oil."
 quadrants:
   innovation: "Processing fruit pulp into high-solubility powders for the functional food sector."
