@@ -1,7 +1,7 @@
 ---
 name: "Mphepho"
 scientific_name: "Helichrysum odoratissimum"
-image: "/images/mphepho.jpg"
+image: "/Public/mphepho.jpg"
 description: "The 'Everlasting' plant of Southern Africa; a highly aromatic shrub revered for its ability to cleanse both physical spaces and spiritual connections."
 quadrants:
   innovation: "February 2026 Genome Milestone: First chromosome-level assembly completed, paving the way for metabolic engineering of its anti-acne and anti-inflammatory compounds."
