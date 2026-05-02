@@ -1,7 +1,7 @@
 ---
 name: "African Ginger"
 scientific_name: "Siphonochilus aethiopicus"
-image: "/images/african-ginger.jpg"
+image: "/Public/african-ginger.jpg"
 description: "A rare and highly potent medicinal ginger, currently a focus of intense conservation and cultivation efforts."
 quadrants:
   innovation: "R&D into anti-inflammatory compounds for asthma and sinus treatment."
