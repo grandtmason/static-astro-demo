@@ -13,10 +13,11 @@
     "astro": "^5.6.0",
     "@astrojs/check": "^0.9.4",
     "typescript": "^5.8.2"
- "volta": {
-    "node": "22.14.0"
   },
   "overrides": {
     "yoctocolours": "2.0.0"
+  },
+  "volta": {
+    "node": "22.14.0"
   }
 }
