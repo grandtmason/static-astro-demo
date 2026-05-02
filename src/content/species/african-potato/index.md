@@ -1,7 +1,7 @@
 ---
 name: "African Potato"
 scientific_name: "Hypoxis hemerocallidea"
-image: "/images/african-potato.jpg"
+image: "/Public/african-potato.jpg"
 description: "A hardy, yellow-flowered geophyte with a dark, bitter corm; it is the definitive African 'Immune Oracle,' scientifically prised for its high hypoxoside and phytosterol content."
 quadrants:
   innovation: "2026 clinical validation: Focus on rooperol’s ability to inhibit cancer cell proliferation and its role as a standardised adjunctive therapy in modern immunology."
