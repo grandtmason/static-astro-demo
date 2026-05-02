@@ -1,7 +1,7 @@
 ---
 name: "Kanna"
 scientific_name: "Sceletium tortuosum"
-image: "/images/kanna.jpg"
+image: "/Public/kanna.jpg"
 description: "A flagship South African botanical asset for cognitive health and stress management."
 quadrants:
   innovation: "R&D focus: Functional energy drinks and stress-relief nootropics using Mesembrine."
