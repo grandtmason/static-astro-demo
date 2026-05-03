@@ -16,21 +16,55 @@ const { title } = Astro.props;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 		<title>{title}</title>
-		<script>
-			if ('scrollRestoration' in history) {
-				history.scrollRestoration = 'manual';
-			}
-			window.addEventListener('pageshow', () => {
-				const savedPosition = sessionStorage.getItem('scrollPosition');
-				if (savedPosition) {
-					window.scrollTo(0, parseInt(savedPosition));
-					sessionStorage.removeItem('scrollPosition');
-				}
-			});
-		</script>
 	</head>
 	<body>
 		<slot />
-		<script>
-			document.quer
+		<script is:inline>
+			(function() {
+				// Save scroll position when clicking any plant card link
+				document.addEventListener('click', function(e) {
+					const link = e.target.closest('a.plant-card');
+					if (link) {
+						sessionStorage.setItem('registryScroll', window.scrollY);
+					}
+				});
+
+				// Restore scroll position if we're on the registry page
+				if (window.location.pathname === '/') {
+					const saved = sessionStorage.getItem('registryScroll');
+					if (saved) {
+						sessionStorage.removeItem('registryScroll');
+						// Wait for images to load before scrolling
+						window.addEventListener('load', function() {
+							setTimeout(function() {
+								window.scrollTo({ top: parseInt(saved), behavior: 'instant' });
+							}, 100);
+						});
+					}
+				}
+			})();
+		</script>
+	</body>
+</html>
+<style is:global>
+	:root {
+		--parchment: #F9F8F4;
+		--ink: #2F2F2F;
+		--gold: #B8860B;
+		--muted: #7A7A7A;
+	}
+	html {
+		font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+		background: var(--parchment);
+		color: var(--ink);
+	}
+	body {
+		margin: 0;
+		padding: 0;
+		background: var(--parchment);
+	}
+	code {
+		font-family: Menlo, Monaco, Lucida Console, monospace;
+	}
+</style>
 
