@@ -2,18 +2,19 @@
 interface Props {
 	title: string;
 }
-
 const { title } = Astro.props;
 ---
-
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content="The Sovereign Botanical Registry — South Africa's authoritative scientific registry for 24 indigenous botanical species." />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 		<title>{title}</title>
 	</head>
 	<body>
@@ -22,29 +23,23 @@ const { title } = Astro.props;
 </html>
 <style is:global>
 	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+		--parchment: #F9F8F4;
+		--ink: #2F2F2F;
+		--gold: #B8860B;
+		--muted: #7A7A7A;
 	}
 	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
+		font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+		background: var(--parchment);
+		color: var(--ink);
+	}
+	body {
+		margin: 0;
+		padding: 0;
+		background: var(--parchment);
 	}
 	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+		font-family: Menlo, Monaco, Lucida Console, monospace;
 	}
 </style>
+
