@@ -1,8 +1,9 @@
 ---
 interface Props {
 	title: string;
+	schema?: object;
 }
-const { title } = Astro.props;
+const { title, schema } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -16,33 +17,33 @@ const { title } = Astro.props;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 		<title>{title}</title>
+		{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+		<script is:inline>
+			if ('scrollRestoration' in history) {
+				history.scrollRestoration = 'manual';
+			}
+			window.addEventListener('pageshow', () => {
+				const savedPosition = sessionStorage.getItem('registryScroll');
+				if (savedPosition) {
+					sessionStorage.removeItem('registryScroll');
+					window.addEventListener('load', function() {
+						setTimeout(function() {
+							window.scrollTo({ top: parseInt(savedPosition), behavior: 'instant' });
+						}, 100);
+					});
+				}
+			});
+		</script>
 	</head>
 	<body>
 		<slot />
 		<script is:inline>
-			(function() {
-				// Save scroll position when clicking any plant card link
-				document.addEventListener('click', function(e) {
-					const link = e.target.closest('a.plant-card');
-					if (link) {
-						sessionStorage.setItem('registryScroll', window.scrollY);
-					}
-				});
-
-				// Restore scroll position if we're on the registry page
-				if (window.location.pathname === '/') {
-					const saved = sessionStorage.getItem('registryScroll');
-					if (saved) {
-						sessionStorage.removeItem('registryScroll');
-						// Wait for images to load before scrolling
-						window.addEventListener('load', function() {
-							setTimeout(function() {
-								window.scrollTo({ top: parseInt(saved), behavior: 'instant' });
-							}, 100);
-						});
-					}
+			document.addEventListener('click', function(e) {
+				const link = e.target.closest('a.plant-card');
+				if (link) {
+					sessionStorage.setItem('registryScroll', window.scrollY);
 				}
-			})();
+			});
 		</script>
 	</body>
 </html>
@@ -67,4 +68,3 @@ const { title } = Astro.props;
 		font-family: Menlo, Monaco, Lucida Console, monospace;
 	}
 </style>
-
