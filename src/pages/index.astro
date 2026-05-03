@@ -4,8 +4,92 @@ import Layout from '../layouts/Layout.astro';
 const allPlants = await getCollection('species');
 const species = allPlants.sort((a, b) => a.data.name.localeCompare(b.data.name));
 const brand = { parchment: "#F9F8F4", ink: "#2F2F2F", gold: "#B8860B", muted: "#7A7A7A" };
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://southafricanbotanical.org.za/#organization",
+      "name": "South African Botanical Master",
+      "alternateName": "SABM",
+      "url": "https://southafricanbotanical.org.za",
+      "logo": "https://southafricanbotanical.org.za/favicon.svg",
+      "description": "The authoritative scientific registry and intelligence portal for South African indigenous botanical species. Sovereign digital infrastructure for botanical science, trade, and indigenous knowledge.",
+      "areaServed": "ZA",
+      "knowsAbout": [
+        "South African botanical species",
+        "Indigenous knowledge",
+        "Botanical compliance",
+        "Phytochemical research",
+        "Medicinal plants"
+      ]
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://southafricanbotanical.org.za/#dataset",
+      "name": "South African Botanical Registry",
+      "alternateName": "SABR",
+      "description": "The definitive scientific dataset for 24 South African indigenous botanical species, including phytochemical profiles, agronomy data, market intelligence, and indigenous knowledge documentation.",
+      "url": "https://southafricanbotanical.org.za",
+      "publisher": {
+        "@id": "https://southafricanbotanical.org.za/#organization"
+      },
+      "spatialCoverage": {
+        "@type": "Place",
+        "name": "South Africa",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "-30.5595",
+          "longitude": "22.9375"
+        }
+      },
+      "about": [
+        "Rooibos", "Honeybush", "Buchu", "Kanna", "Aloe Ferox",
+        "Hoodia", "Devil's Claw", "Pelargonium Sidoides", "Baobab",
+        "Marula", "Mphepho", "Uzara", "Sutherlandia", "Wild Sage",
+        "Wild Olive", "Athrixia", "Bulbine", "Cape Chamomile",
+        "African Potato", "African Ginger", "African Ashwagandha",
+        "Artemisia Afra", "Pepper-Bark Tree", "Acacia"
+      ],
+      "license": "https://southafricanbotanical.org.za",
+      "isAccessibleForFree": true,
+      "keywords": [
+        "South African botanicals",
+        "indigenous plants",
+        "medicinal plants",
+        "phytochemistry",
+        "botanical registry",
+        "SABR",
+        "rooibos",
+        "honeybush",
+        "buchu",
+        "kanna",
+        "sceletium"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://southafricanbotanical.org.za/#website",
+      "url": "https://southafricanbotanical.org.za",
+      "name": "South African Botanical Registry",
+      "description": "Intelligence Portal — 2026 Edition",
+      "publisher": {
+        "@id": "https://southafricanbotanical.org.za/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://southafricanbotanical.org.za/species/{search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+};
 ---
 <Layout title="SABM | South African Botanical Registry">
+  <head>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
   <main style={`background: ${brand.parchment}; min-height: 100vh; padding: 100px 5%; font-family: 'EB Garamond', Georgia, serif; color: ${brand.ink};`}>
     <header style="text-align: center; margin-bottom: 120px; border-bottom: 1px solid #E0DED7; padding-bottom: 60px;">
       <h1 style="font-size: 2.5rem; font-weight: 300; margin: 0; letter-spacing: -1px;">South African Botanical Registry</h1>
