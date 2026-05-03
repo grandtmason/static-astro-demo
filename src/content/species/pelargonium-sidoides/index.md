@@ -1,7 +1,7 @@
 ---
 name: "Pelargonium Sidoides"
 scientific_name: "Pelargonium sidoides"
-image: "/Public/pelargonium-sidoides.jpg"
+image: "/Public/pelargonium.jpg"
 description: "A rosette-like medicinal herb with distinctive blackish-red flowers; its tubers are a global gold standard for treating acute bronchitis and respiratory tract infections."
 quadrants:
   innovation: "Standardization of the EPs 7630 extract, focusing on high coumarin and flavonoid concentrations for the 2026 pediatric health market."
