@@ -1,7 +1,7 @@
 ---
 name: "Wild Sage"
 scientific_name: "Tarchonanthus camphoratus"
-image: "/Public/wild-sage.jpg"
+image: "/Public/bushtea.jpg"
 description: "The 'Camphor Bush' of the African savannah; a silver-leaved sentinel known for its intense camphor aroma and its unparalleled resilience in extreme coastal and arid environments."
 quadrants:
   innovation: "2026 focus on 'Cognitive Air Purification'—using Tarchonanthus essential oils in high-traffic urban spaces to reduce airborne pathogens while lowering cortisol levels."
