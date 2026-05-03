@@ -1,7 +1,7 @@
 ---
 name: "Artemisia Afra"
 scientific_name: "Artemisia afra"
-image: "/Public/artemisia-afra.jpg"
+image: "/Public/wormwood.jpg"
 description: "Known as 'Wilde-als'; this soft, silver-grey aromatic shrub is one of the most popular and ancient medicinal plants in South Africa, essential for respiratory health."
 quadrants:
   innovation: "2026 pharmacological focus on volatile oils for natural antiviral compounds and the standardization of 'Wilde-als' extracts for global export."
