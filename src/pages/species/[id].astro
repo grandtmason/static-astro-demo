@@ -25,7 +25,7 @@ const brand = {
     
     <nav style="padding: 30px 5%;">
       <a href="/" style={`color: ${brand.gold}; text-decoration: none; font-family: sans-serif; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;`}>
-        ← Back to Registry
+        &larr; Back to Registry
       </a>
     </nav>
 
@@ -57,7 +57,7 @@ const brand = {
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 60px;">
         
         <div style={`background: ${brand.white}; border: 1px solid #E0DED7; padding: 40px; border-top: 3px solid ${brand.gold};`}>
-          <h2 style={`font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; font-family: sans-serif; color: ${brand.ink}; margin: 0 0 20px 0;`}>Innovation & R&D</h2>
+          <h2 style={`font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; font-family: sans-serif; color: ${brand.ink}; margin: 0 0 20px 0;`}>Innovation &amp; R&amp;D</h2>
           <p style={`font-size: 1rem; line-height: 1.8; color: ${brand.ink}; margin: 0;`}>{plant.data.quadrants.innovation}</p>
         </div>
 
@@ -68,4 +68,16 @@ const brand = {
 
         <div style={`background: ${brand.white}; border: 1px solid #E0DED7; padding: 40px; border-top: 3px solid ${brand.gold};`}>
           <h2 style={`font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; font-family: sans-serif; color: ${brand.ink}; margin: 0 0 20px 0;`}>World Intelligence Pulse</h2>
-          <p style={`font
+          <p style={`font-size: 1rem; line-height: 1.8; color: ${brand.ink}; margin: 0;`}>{plant.data.quadrants.news}</p>
+        </div>
+
+        <div style={`background: ${brand.white}; border: 1px solid #E0DED7; padding: 40px; border-top: 3px solid ${brand.gold};`}>
+          <h2 style={`font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; font-family: sans-serif; color: ${brand.ink}; margin: 0 0 20px 0;`}>Heritage &amp; IK</h2>
+          <p style={`font-size: 1rem; line-height: 1.8; color: ${brand.ink}; margin: 0;`}>{plant.data.quadrants.heritage}</p>
+        </div>
+
+      </div>
+
+    </article>
+  </main>
+</Layout>
