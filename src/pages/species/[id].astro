@@ -16,7 +16,8 @@ const brand = {
   ink: "#2F2F2F", 
   gold: "#B8860B", 
   muted: "#7A7A7A",
-  forest: "#1A3A2A"
+  forest: "#1A3A2A",
+  white: "#FFFFFF"
 };
 ---
 <Layout title={`${plant.data.name} | SABM Registry`}>
@@ -44,4 +45,27 @@ const brand = {
       </p>
 
       {plant.data.image && (
-        <div styl
+        <div style="text-align: center; margin-bottom: 60px;">
+          <img 
+            src={plant.data.image} 
+            alt={plant.data.name} 
+            style="max-height: 400px; max-width: 100%; object-fit: contain; filter: sepia(0.15) contrast(1.05);"
+          />
+        </div>
+      )}
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 60px;">
+        
+        <div style={`background: ${brand.white}; border: 1px solid #E0DED7; padding: 40px; border-top: 3px solid ${brand.gold};`}>
+          <h2 style={`font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; font-family: sans-serif; color: ${brand.ink}; margin: 0 0 20px 0;`}>Innovation & R&D</h2>
+          <p style={`font-size: 1rem; line-height: 1.8; color: ${brand.ink}; margin: 0;`}>{plant.data.quadrants.innovation}</p>
+        </div>
+
+        <div style={`background: ${brand.white}; border: 1px solid #E0DED7; padding: 40px; border-top: 3px solid ${brand.gold};`}>
+          <h2 style={`font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; font-family: sans-serif; color: ${brand.ink}; margin: 0 0 20px 0;`}>Agronomy Pulse</h2>
+          <p style={`font-size: 1rem; line-height: 1.8; color: ${brand.ink}; margin: 0;`}>{plant.data.quadrants.agronomy}</p>
+        </div>
+
+        <div style={`background: ${brand.white}; border: 1px solid #E0DED7; padding: 40px; border-top: 3px solid ${brand.gold};`}>
+          <h2 style={`font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; font-family: sans-serif; color: ${brand.ink}; margin: 0 0 20px 0;`}>World Intelligence Pulse</h2>
+          <p style={`font
