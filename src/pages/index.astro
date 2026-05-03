@@ -13,7 +13,7 @@ const brand = { parchment: "#F9F8F4", ink: "#2F2F2F", gold: "#B8860B", muted: "#
     </header>
     <div style="max-width: 1400px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 60px 1.5%;">
       {species.map(plant => (
-        <a href={`/species/${plant.id}`} class="plant-card" style="text-decoration: none; color: inherit; width: 32.333%;">
+        <a id={plant.id} href={`/species/${plant.id}`} class="plant-card" style="text-decoration: none; color: inherit; width: 32.333%;">
           <div style="transition: all 0.4s ease;">
             <div style="background: #FFF; border: 1px solid #E0DED7; width: 100%; aspect-ratio: 1/1; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.02);">
               <img src={plant.data.image} alt={plant.data.name} style="width: 85%; height: 85%; object-fit: contain; filter: sepia(0.2) contrast(1.1);" />
