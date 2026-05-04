@@ -3,8 +3,8 @@ import { defineCollection, z } from 'astro:content';
 const species = defineCollection({
   type: 'content',
   schema: z.object({
-    name: z.string(),
-    scientific_name: z.string(),
+    name: z.string().optional(),
+    scientific_name: z.string().optional(),
     family: z.string().optional(),
     native_region: z.string().optional(),
     image: z.string().optional(),
@@ -12,7 +12,7 @@ const species = defineCollection({
       src: z.string(),
       credit: z.string().default(''),
     })).optional(),
-    description: z.string(),
+    description: z.string().optional(),
     introduction: z.string().optional(),
     conservation_status: z.string().optional(),
     naming_origins: z.string().optional(),
