@@ -1,19 +1,43 @@
 import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
 
 const species = defineCollection({
-  loader: glob({ pattern: "**/index.md", base: "./src/content/species" }),
+  type: 'content',
   schema: z.object({
     name: z.string(),
     scientific_name: z.string(),
-    image: z.string(),
+    family: z.string().optional(),
+    native_region: z.string().optional(),
+    image: z.string().optional(),
+    images: z.array(z.object({
+      src: z.string(),
+      credit: z.string().default(''),
+    })).optional(),
     description: z.string(),
+    introduction: z.string().optional(),
+    conservation_status: z.string().optional(),
+    naming_origins: z.string().optional(),
+    common_names: z.record(z.string()).optional(),
+    medicinal_properties: z.object({
+      active_compounds: z.array(z.string()).optional(),
+      traditional_uses: z.array(z.string()).optional(),
+      clinically_validated: z.array(z.string()).optional(),
+    }).optional(),
+    cultivation: z.object({
+      climate: z.string().optional(),
+      regions: z.string().optional(),
+      commercial: z.string().optional(),
+    }).optional(),
+    indigenous_knowledge: z.string().optional(),
     quadrants: z.object({
-      innovation: z.string(),
-      agronomy: z.string(),
-      news: z.string(),
-      heritage: z.string(),
-    }),
+      wellness: z.string().optional(),
+      innovation: z.string().optional(),
+      ik: z.string().optional(),
+      culture: z.string().optional(),
+      agronomy: z.string().optional(),
+      legislation: z.string().optional(),
+      projects: z.string().optional(),
+      intelligence: z.string().optional(),
+    }).optional(),
   }),
 });
 
