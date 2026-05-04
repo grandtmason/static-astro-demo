@@ -20,4 +20,663 @@ const TABS = [
   { id: 'agronomy',     label: 'Agronomy Pulse'     },
   { id: 'legislation',  label: 'Legislation'        },
   { id: 'projects',     label: 'Projects'           },
-  { id: 'intelligence', label: 'Intelligence Puls
+  { id: 'intelligence', label: 'Intelligence Pulse' },
+  { id: 'datasheet',    label: 'Data Sheet'         },
+];
+
+const FORMSPREE_ARTICLE = 'https://formspree.io/f/YOUR_ARTICLE_FORM_ID';
+const FORMSPREE_CONNECT = 'https://formspree.io/f/YOUR_CONNECT_FORM_ID';
+
+const d  = plant.data;
+const m  = d.medicinal_properties ?? {};
+const cv = d.cultivation ?? {};
+const ik = d.indigenous_knowledge ?? '';
+const q  = d.quadrants ?? {};
+const cn = d.common_names ?? {};
+
+const images: { src: string; credit: string }[] = Array.isArray(d.images)
+  ? d.images
+  : d.image
+    ? [{ src: d.image, credit: '' }]
+    : [];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Thing',
+  name: d.name,
+  alternateName: d.scientific_name,
+  description: d.description,
+  image: `https://southafricanbotanical.org.za${d.image ?? ''}`,
+  url: `https://southafricanbotanical.org.za/species/${plant.id}`,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `https://southafricanbotanical.org.za/species/${plant.id}`,
+  },
+};
+
+const sortedNames = Object.entries(cn).sort(([a], [b]) => a.localeCompare(b));
+---
+
+<Layout title={`${d.name} | South African Botanical Registry`} schema={jsonLd}>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green:   #1A3A2A;
+  --gold:    #B8860B;
+  --parch:   #F9F8F4;
+  --ink:     #2F2F2F;
+  --muted:   #7A7A7A;
+  --sage:    #9DB8A8;
+  --border:  #E0DED7;
+  --serif:   'EB Garamond', Georgia, serif;
+  --display: 'Cormorant Garamond', Georgia, serif;
+  --sans:    sans-serif;
+}
+body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
+.portal { display: flex; flex-direction: column; min-height: 100vh; padding-bottom: 48px; }
+
+.top-bar {
+  background: var(--green); border-bottom: 2px solid var(--gold);
+  padding: 9px 28px; display: flex; align-items: center;
+  justify-content: center; gap: 10px; flex-shrink: 0;
+}
+.top-bar a {
+  font-family: var(--sans); font-size: 8px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--sage); text-decoration: none;
+}
+.top-bar a:first-child { color: var(--gold); letter-spacing: 0; font-size: 13px; }
+
+.plant-band {
+  background: #fff; border-bottom: 1px solid var(--border);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 14px 20px 0; flex-shrink: 0;
+}
+.plant-name {
+  font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-weight: 300; font-style: italic; color: var(--gold);
+  line-height: 1; margin-bottom: 5px; text-align: center;
+}
+.plant-sci {
+  font-family: var(--sans); font-size: 7px; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 10px; text-align: center;
+}
+
+.tabs-row { display: flex; width: 100%; border-top: 1px solid var(--border); }
+.tab-btn {
+  font-family: var(--sans); font-size: 6.5px; letter-spacing: 1px;
+  text-transform: uppercase; background: var(--parch); color: var(--ink);
+  border: none; border-right: 1px solid var(--border);
+  border-bottom: 2px solid transparent; padding: 7px 3px; flex: 1;
+  cursor: pointer; white-space: nowrap; transition: color .1s, background .1s;
+}
+.tab-btn:last-child { border-right: none; }
+.tab-btn:hover { color: var(--gold); background: #fff; }
+.tab-btn.active { background: #fff; color: var(--gold); border-bottom-color: var(--gold); }
+.tab-btn[data-id="datasheet"] { color: var(--muted); }
+
+.content-wrap { flex: 1; overflow-y: auto; }
+.tab-panel { display: none; padding: 16px 22px 14px; }
+.tab-panel.active { display: block; }
+
+.ds-top { display: grid; grid-template-columns: 160px 1fr; gap: 14px; margin-bottom: 14px; }
+.ds-left { display: flex; flex-direction: column; }
+
+.carousel-wrap {
+  position: relative; width: 160px; height: 120px;
+  background: var(--green); flex-shrink: 0; overflow: hidden;
+}
+.carousel-img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.carousel-img.active { display: block; }
+.carousel-empty {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); font-size: 6px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--sage); text-align: center; line-height: 1.6; padding: 0 12px;
+}
+.carousel-credit {
+  font-family: var(--sans); font-size: 6px; color: var(--muted);
+  text-align: center; min-height: 14px; padding: 2px 0 4px; line-height: 1.3;
+}
+.carousel-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.c-arrow {
+  background: none; border: 1px solid var(--border);
+  font-size: 10px; color: var(--ink); padding: 2px 7px; cursor: pointer;
+}
+.c-arrow:hover { border-color: var(--gold); color: var(--gold); }
+.c-count { font-family: var(--sans); font-size: 6px; color: var(--muted); }
+
+.names-lbl {
+  font-family: var(--sans); font-size: 5.5px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--border); padding-bottom: 3px; margin-bottom: 2px;
+}
+.name-row {
+  display: grid; grid-template-columns: 78px 1fr;
+  border-bottom: 1px solid #F5F4F0; padding: 2.5px 0;
+}
+.name-row:last-child { border-bottom: none; }
+.n-lang {
+  font-family: var(--sans); font-size: 6.5px; color: var(--sage);
+  text-transform: uppercase; letter-spacing: .3px;
+  display: flex; align-items: center; padding-right: 4px; line-height: 1.3;
+}
+.n-val { font-family: var(--serif); font-size: 7.5px; color: var(--ink); display: flex; align-items: center; line-height: 1.3; }
+.n-val.nd { color: #C8C6BE; font-style: italic; font-size: 7px; }
+
+.ds-right { display: flex; flex-direction: column; gap: 10px; }
+.ds-identity { border: 1px solid var(--border); }
+.ds-id-row { display: grid; grid-template-columns: 100px 1fr; border-bottom: 1px solid var(--border); }
+.ds-id-row:last-child { border-bottom: none; }
+.ds-id-lbl {
+  font-family: var(--sans); font-size: 6px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted); padding: 5px 8px; background: var(--parch);
+  border-right: 1px solid var(--border); display: flex; align-items: center;
+}
+.ds-id-val {
+  font-family: var(--serif); font-size: 8.5px; color: var(--ink);
+  padding: 5px 8px; display: flex; align-items: center; line-height: 1.4;
+}
+.ds-id-val.it { font-style: italic; }
+.ds-blk-lbl {
+  font-family: var(--sans); font-size: 5.5px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 5px;
+}
+.ds-text { font-family: var(--serif); font-size: 9px; line-height: 1.75; color: var(--ink); }
+
+.ds-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.ds-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.ds-sec { border-top: 1px solid var(--border); padding-top: 8px; }
+.ds-sec-lbl {
+  font-family: var(--sans); font-size: 5.5px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
+}
+.ds-val { font-family: var(--serif); font-size: 8.5px; line-height: 1.65; color: var(--ink); }
+.ds-list { padding-left: 14px; }
+.ds-list li { font-size: 8.5px; line-height: 1.55; color: var(--ink); margin-bottom: 2px; }
+.ik-block { background: var(--green); padding: 12px 16px; margin-bottom: 12px; }
+.ik-lbl { font-family: var(--sans); font-size: 5.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 5px; }
+.ik-val { font-family: var(--serif); font-size: 9px; line-height: 1.8; color: var(--parch); font-style: italic; }
+
+.cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.card { background: #fff; border: 1px solid var(--border); border-top: 2px solid var(--gold); padding: 16px 18px; }
+.card.dark { background: var(--green); }
+.c-tag { font-family: var(--sans); font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.c-tag-l { font-family: var(--sans); font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
+.c-hl { font-size: 11px; color: var(--ink); line-height: 1.45; margin-bottom: 5px; font-style: italic; }
+.c-hl-l { font-size: 11px; color: var(--parch); line-height: 1.45; margin-bottom: 5px; font-style: italic; }
+.c-tsr { font-family: var(--sans); font-size: 8.5px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+.c-tsr-l { font-family: var(--sans); font-size: 8.5px; color: var(--sage); line-height: 1.5; margin-bottom: 8px; }
+.c-summary { display: none; font-size: 9.5px; line-height: 1.7; color: var(--ink); border-top: 1px solid var(--border); padding-top: 9px; margin-top: 7px; margin-bottom: 9px; }
+.c-summary.open { display: block; }
+.c-summary-l { display: none; font-size: 9.5px; line-height: 1.7; color: #D4C9B8; border-top: 1px solid rgba(255,255,255,.12); padding-top: 9px; margin-top: 7px; margin-bottom: 9px; }
+.c-summary-l.open { display: block; }
+.c-gate { display: none; margin-top: 6px; }
+.c-gate.open { display: block; }
+.c-email-row { display: flex; gap: 6px; margin-top: 6px; }
+.c-email-row input { flex: 1; padding: 5px 8px; font-family: var(--sans); font-size: 8px; border: 1px solid var(--border); background: var(--parch); color: var(--ink); outline: none; }
+.c-email-row input.dk { background: rgba(255,255,255,.1); border-color: rgba(184,134,11,.4); color: var(--parch); }
+.c-email-btn { padding: 5px 10px; font-family: var(--sans); font-size: 7px; letter-spacing: 1px; text-transform: uppercase; background: var(--gold); color: var(--green); border: none; cursor: pointer; font-weight: 600; }
+.c-sent { font-family: var(--sans); font-size: 8px; color: var(--gold); margin-top: 5px; display: none; }
+.c-read-btn {
+  font-family: var(--sans); font-size: 7.5px; letter-spacing: 1px; text-transform: uppercase;
+  border: none; cursor: pointer; padding: 0; background: transparent; margin-top: 5px; display: block; color: var(--ink);
+}
+.c-read-btn.read { color: var(--gold); }
+
+.site-footer {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--green); border-top: 2px solid var(--gold);
+  display: flex; align-items: stretch; z-index: 100;
+}
+.ft-label {
+  font-family: var(--sans); font-size: 7px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--sage); padding: 10px 20px; display: flex; align-items: center;
+  border-right: 1px solid rgba(184,134,11,.3); white-space: nowrap;
+}
+.ft-btns { display: flex; flex: 1; }
+.ft-btn {
+  flex: 1; padding: 10px 8px; font-family: var(--sans); font-size: 7.5px;
+  letter-spacing: 2px; text-transform: uppercase; text-align: center;
+  cursor: pointer; font-weight: 500; border: none; background: transparent; color: #B8860B !important;
+}
+.ft-btn:first-child { border-right: 1px solid rgba(184,134,11,.3); }
+
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.5); z-index: 200; align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: #fff; border-top: 3px solid var(--gold);
+  padding: 32px 36px; width: 100%; max-width: 480px; position: relative;
+}
+.modal-close { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--muted); }
+.modal h2 { font-family: var(--display); font-size: 1.5rem; font-style: italic; color: var(--green); margin-bottom: 6px; }
+.modal p { font-family: var(--sans); font-size: 9px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+.m-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+.m-field label { font-family: var(--sans); font-size: 7px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+.m-field input, .m-field textarea, .m-field select {
+  padding: 8px 10px; font-family: var(--sans); font-size: 9px;
+  border: 1px solid var(--border); background: var(--parch); color: var(--ink); outline: none; width: 100%;
+}
+.m-field textarea { height: 80px; resize: vertical; }
+.m-submit {
+  width: 100%; padding: 12px; background: var(--gold); color: var(--green);
+  border: none; font-family: var(--sans); font-size: 8px; letter-spacing: 3px;
+  text-transform: uppercase; font-weight: 600; cursor: pointer; margin-top: 8px;
+}
+.m-thanks { display: none; text-align: center; padding: 20px 0; font-family: var(--sans); font-size: 9px; color: var(--gold); letter-spacing: 1px; }
+
+@media (max-width: 680px) {
+  .tabs-row { display: none; }
+  .portal { padding-bottom: 72px; }
+  .explore-bar {
+    padding: 7px 14px; display: flex; align-items: center; gap: 8px;
+    background: #fff; border-bottom: 2px solid var(--gold); flex-shrink: 0;
+  }
+  .mob-back-txt {
+    font-family: var(--sans); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--ink); background: none; border: none; cursor: pointer; padding: 0; white-space: nowrap; flex-shrink: 0;
+  }
+  .explore-pill {
+    font-family: var(--sans); font-size: 7px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--ink); font-weight: 500; white-space: nowrap; border: 1px solid #C8C6BE;
+    padding: 4px 12px; background: var(--parch); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+  }
+  .explore-pill .pill-arrow { color: var(--gold); }
+  .tab-pill {
+    font-family: var(--sans); font-size: 7px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--ink); font-weight: 500; white-space: nowrap; border: 1px solid #C8C6BE;
+    padding: 4px 12px; background: var(--parch); display: inline-block;
+  }
+  .mob-tab-list { display: flex; flex-direction: column; background: #fff; border-bottom: 2px solid var(--gold); flex-shrink: 0; }
+  .mob-tab-row {
+    width: 100%; padding: 9px 14px; font-family: var(--sans); font-size: 8px; letter-spacing: 2px;
+    text-transform: uppercase; background: var(--parch); color: var(--ink); border: none;
+    border-bottom: 1px solid var(--border); text-align: center; cursor: pointer; white-space: nowrap;
+  }
+  .mob-tab-row:last-child { border-bottom: none; }
+  .mob-tab-row.ds { color: var(--muted); }
+  .tab-panel { padding: 12px 12px 10px; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .ds-top { grid-template-columns: 1fr; }
+  .ds-row3 { grid-template-columns: 1fr; }
+  .ds-row2 { grid-template-columns: 1fr; }
+  .carousel-wrap { width: 100%; height: 180px; }
+  .site-footer { flex-direction: column; }
+  .ft-label { border-right: none; border-bottom: 1px solid rgba(184,134,11,.3); justify-content: center; padding: 6px 0 4px; }
+}
+@media (min-width: 681px) {
+  .explore-bar, .mob-tab-list { display: none !important; }
+}
+</style>
+
+<div class="portal" id="sabm-portal">
+
+  <div class="top-bar">
+    <a href="/" aria-label="Back">←</a>
+    <a href="/">South African Botanical Registry</a>
+    <span style="width:20px;"></span>
+  </div>
+
+  <div class="plant-band">
+    <h1 class="plant-name">{d.name}</h1>
+    <p class="plant-sci">{d.scientific_name}</p>
+    <div class="tabs-row" role="tablist">
+      {TABS.map(tab => (
+        <button
+          class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}`}
+          data-id={tab.id}
+          role="tab"
+          aria-selected={tab.id === 'datasheet' ? 'true' : 'false'}
+          aria-controls={`panel-${tab.id}`}
+        >{tab.label}</button>
+      ))}
+    </div>
+  </div>
+
+  <div class="explore-bar" id="mob-bar">
+    <span style="opacity:0;font-family:sans-serif;font-size:7.5px;">← back</span>
+    <span style="flex:1;display:flex;justify-content:center;">
+      <span class="explore-pill" id="mob-explore-btn">Explore <span class="pill-arrow">↓</span></span>
+    </span>
+  </div>
+
+  <div class="mob-tab-list" id="mob-tab-list" style="display:none;">
+    {TABS.map(tab => (
+      <button class={`mob-tab-row${tab.id === 'datasheet' ? ' ds' : ''}`} data-id={tab.id}>{tab.label}</button>
+    ))}
+  </div>
+
+  <div class="content-wrap" id="content-wrap">
+
+    <div class="tab-panel active" id="panel-datasheet">
+      <div class="ds-top">
+        <div class="ds-left">
+          <div class="carousel-wrap" id="carousel-wrap">
+            {images.length > 0 ? (
+              images.map((img, i) => (
+                <img src={img.src} alt={`${d.name} photograph ${i+1}`}
+                  class={`carousel-img${i === 0 ? ' active' : ''}`}
+                  data-index={i} data-credit={img.credit} loading="lazy" />
+              ))
+            ) : (
+              <span class="carousel-empty">Plant photography<br/>coming soon</span>
+            )}
+          </div>
+          {images.length > 0 && <p class="carousel-credit" id="carousel-credit">{images[0].credit}</p>}
+          {images.length > 1 && (
+            <div class="carousel-nav">
+              <button class="c-arrow" id="c-prev" aria-label="Previous">←</button>
+              <span class="c-count" id="c-count">1 of {images.length}</span>
+              <button class="c-arrow" id="c-next" aria-label="Next">→</button>
+            </div>
+          )}
+          {sortedNames.length > 0 && (
+            <>
+              <div class="names-lbl">Common Names</div>
+              {sortedNames.map(([lang, name]) => (
+                <div class="name-row">
+                  <div class="n-lang">{lang}</div>
+                  <div class={`n-val${name === 'not documented' ? ' nd' : ''}`}>{name as string}</div>
+                </div>
+              ))}
+            </>
+          )}
+        </div>
+        <div class="ds-right">
+          <div class="ds-identity">
+            <div class="ds-id-row"><div class="ds-id-lbl">Common Name</div><div class="ds-id-val">{d.name}</div></div>
+            <div class="ds-id-row"><div class="ds-id-lbl">Scientific Name</div><div class="ds-id-val it">{d.scientific_name}</div></div>
+            <div class="ds-id-row"><div class="ds-id-lbl">Family</div><div class="ds-id-val">{d.family ?? '—'}</div></div>
+            <div class="ds-id-row"><div class="ds-id-lbl">Native Region</div><div class="ds-id-val it">{d.native_region ?? '—'}</div></div>
+          </div>
+          {d.introduction && (
+            <div>
+              <div class="ds-blk-lbl">Introduction</div>
+              <p class="ds-text">{d.introduction}</p>
+            </div>
+          )}
+          {d.conservation_status && (
+            <div>
+              <div class="ds-blk-lbl">Conservation Status &amp; Commercial Scale</div>
+              <p class="ds-text">{d.conservation_status}</p>
+            </div>
+          )}
+          {d.naming_origins && (
+            <div>
+              <div class="ds-blk-lbl">Names &amp; Their Origins</div>
+              <p class="ds-text" set:html={d.naming_origins}></p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {(m.active_compounds?.length || m.traditional_uses?.length || m.clinically_validated?.length) && (
+        <div class="ds-row3">
+          {m.active_compounds?.length && (
+            <div class="ds-sec">
+              <div class="ds-sec-lbl">Active Compounds</div>
+              <ul class="ds-list">{m.active_compounds.map((c: string) => <li>{c}</li>)}</ul>
+            </div>
+          )}
+          {m.traditional_uses?.length && (
+            <div class="ds-sec">
+              <div class="ds-sec-lbl">Traditional Uses</div>
+              <ul class="ds-list">{m.traditional_uses.map((u: string) => <li>{u}</li>)}</ul>
+            </div>
+          )}
+          {m.clinically_validated?.length && (
+            <div class="ds-sec">
+              <div class="ds-sec-lbl">Clinically Validated</div>
+              <ul class="ds-list">{m.clinically_validated.map((v: string) => <li>{v}</li>)}</ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {(cv.climate || cv.commercial) && (
+        <div class="ds-row2">
+          {(cv.climate || cv.regions) && (
+            <div class="ds-sec">
+              <div class="ds-sec-lbl">Cultivation</div>
+              {cv.climate && <p class="ds-val" style="margin-bottom:5px">{cv.climate}</p>}
+              {cv.regions && <p class="ds-val">{cv.regions}</p>}
+            </div>
+          )}
+          {cv.commercial && (
+            <div class="ds-sec">
+              <div class="ds-sec-lbl">Commercial &amp; Trade Notes</div>
+              <p class="ds-val">{cv.commercial}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {ik && (
+        <div class="ik-block">
+          <div class="ik-lbl">Indigenous Knowledge</div>
+          <p class="ik-val">{ik}</p>
+        </div>
+      )}
+    </div>
+
+    {TABS.filter(t => t.id !== 'datasheet').map(tab => (
+      <div class="tab-panel" id={`panel-${tab.id}`}>
+        <div class="cards-grid">
+          {q[tab.id] ? (
+            <>
+              <div class="card">
+                <div class="c-tag">{tab.label} · Free</div>
+                <div class="c-hl" set:html={`"${q[tab.id]}"`}></div>
+                <div class="c-tsr">Intelligence summary for {d.name}.</div>
+                <div class="c-summary" id={`sum-${tab.id}-1`}>{d.introduction ?? 'Summary available on request.'}</div>
+                <div class="c-gate" id={`gate-${tab.id}-1`}>
+                  <div class="c-email-row">
+                    <input type="email" placeholder="your@email.com" id={`email-${tab.id}-1`} />
+                    <button class="c-email-btn" data-send data-tab={tab.id} data-num="1">Send full article</button>
+                  </div>
+                  <div class="c-sent" id={`sent-${tab.id}-1`}>Link sent to your inbox →</div>
+                </div>
+                <button class="c-read-btn" data-read data-tab={tab.id} data-num="1">Read summary ↓</button>
+              </div>
+              <div class="card dark">
+                <div class="c-tag-l">{tab.label} · Free</div>
+                <div class="c-hl-l">Intelligence bulletin — {d.name}</div>
+                <div class="c-tsr-l">SABM Registry. Curated for researchers, traders and practitioners.</div>
+                <div class="c-summary-l" id={`sum-${tab.id}-2`}>{d.description ?? 'Bulletin available on request.'}</div>
+                <div class="c-gate" id={`gate-${tab.id}-2`}>
+                  <div class="c-email-row">
+                    <input type="email" placeholder="your@email.com" id={`email-${tab.id}-2`} class="dk" />
+                    <button class="c-email-btn" data-send data-tab={tab.id} data-num="2">Send full article</button>
+                  </div>
+                  <div class="c-sent" id={`sent-${tab.id}-2`}>Link sent to your inbox →</div>
+                </div>
+                <button class="c-read-btn" data-read data-tab={tab.id} data-num="2" style="color:#fff">Read summary ↓</button>
+              </div>
+            </>
+          ) : (
+            <div class="card">
+              <div class="c-tag">{tab.label}</div>
+              <div class="c-hl">Articles for {d.name} are being curated.</div>
+              <div class="c-tsr">Check back soon.</div>
+            </div>
+          )}
+        </div>
+      </div>
+    ))}
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="ft-label">Connect with</div>
+    <div class="ft-btns">
+      <button class="ft-btn" id="btn-suppliers" style="color:#B8860B!important;">Suppliers</button>
+      <button class="ft-btn" id="btn-buyers" style="color:#B8860B!important;">Buyers</button>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="modal-suppliers">
+    <div class="modal">
+      <button class="modal-close" data-close="suppliers">×</button>
+      <h2>Connect with Suppliers</h2>
+      <p>Tell us what you need. We will connect you with verified {d.name} suppliers in South Africa.</p>
+      <form id="form-suppliers" action={FORMSPREE_CONNECT} method="POST">
+        <input type="hidden" name="type" value="supplier-enquiry" />
+        <input type="hidden" name="plant" value={d.name} />
+        <div class="m-field"><label>Your Name</label><input type="text" name="name" required /></div>
+        <div class="m-field"><label>Email</label><input type="email" name="email" required /></div>
+        <div class="m-field"><label>Company</label><input type="text" name="company" /></div>
+        <div class="m-field"><label>What you need</label><textarea name="message" placeholder="Quantity, product form, intended use…"></textarea></div>
+        <button type="submit" class="m-submit">Send Enquiry →</button>
+      </form>
+      <div class="m-thanks" id="thanks-suppliers">Thank you — we will be in touch shortly.</div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-buyers">
+    <div class="modal">
+      <button class="modal-close" data-close="buyers">×</button>
+      <h2>Connect with Buyers</h2>
+      <p>Register your interest. We will connect you with verified {d.name} buyers and market opportunities.</p>
+      <form id="form-buyers" action={FORMSPREE_CONNECT} method="POST">
+        <input type="hidden" name="type" value="buyer-enquiry" />
+        <input type="hidden" name="plant" value={d.name} />
+        <div class="m-field"><label>Your Name</label><input type="text" name="name" required /></div>
+        <div class="m-field"><label>Email</label><input type="email" name="email" required /></div>
+        <div class="m-field"><label>Company</label><input type="text" name="company" /></div>
+        <div class="m-field"><label>What you offer</label><textarea name="message" placeholder="Volume, certifications, location…"></textarea></div>
+        <button type="submit" class="m-submit">Send Enquiry →</button>
+      </form>
+      <div class="m-thanks" id="thanks-buyers">Thank you — we will be in touch shortly.</div>
+    </div>
+  </div>
+
+</div>
+
+<script is:inline>
+(function () {
+  const PLANT_ID  = document.querySelector('.plant-name')?.textContent?.trim() ?? 'plant';
+  const LS_PREFIX = 'sabm-' + PLANT_ID + '-';
+  function $(id) { return document.getElementById(id); }
+  function lsGet(k) { try { return localStorage.getItem(LS_PREFIX + k); } catch { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(LS_PREFIX + k, v); } catch {} }
+
+  const dtabs   = document.querySelectorAll('.tab-btn');
+  const dpanels = document.querySelectorAll('.tab-panel');
+  function activateTab(id) {
+    dtabs.forEach(t => { t.classList.toggle('active', t.dataset.id === id); t.setAttribute('aria-selected', t.dataset.id === id ? 'true' : 'false'); });
+    dpanels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + id));
+    $('content-wrap')?.scrollTo(0, 0);
+  }
+  dtabs.forEach(t => t.addEventListener('click', () => activateTab(t.dataset.id)));
+
+  const mobBar     = $('mob-bar');
+  const mobTabList = $('mob-tab-list');
+
+  function setBar(state, label) {
+    if (state === 'data') {
+      mobBar.innerHTML = '<span style="opacity:0;font-family:sans-serif;font-size:7.5px;">← back</span><span style="flex:1;display:flex;justify-content:center;"><span class="explore-pill" id="mob-explore-btn">Explore <span class="pill-arrow">↓</span></span></span>';
+      $('mob-explore-btn')?.addEventListener('click', showTabs);
+    } else if (state === 'tabs') {
+      mobBar.innerHTML = '<span class="mob-back-txt" id="mob-back-data">← back</span><span style="flex:1;display:flex;justify-content:center;"><span class="explore-pill">Explore <span class="pill-arrow">↑</span></span></span>';
+      $('mob-back-data')?.addEventListener('click', showData);
+    } else {
+      mobBar.innerHTML = '<span class="mob-back-txt" id="mob-back-tabs">← back</span><span style="flex:1;display:flex;justify-content:center;"><span class="tab-pill">' + label + '</span></span>';
+      $('mob-back-tabs')?.addEventListener('click', showTabs);
+    }
+  }
+
+  function showData() {
+    mobTabList.style.display = 'none';
+    dpanels.forEach(p => p.classList.toggle('active', p.id === 'panel-datasheet'));
+    setBar('data', '');
+  }
+  function showTabs() {
+    mobTabList.style.display = 'flex';
+    dpanels.forEach(p => p.classList.remove('active'));
+    setBar('tabs', '');
+  }
+  function showContent(id, label) {
+    mobTabList.style.display = 'none';
+    dpanels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + id));
+    setBar('content', label);
+    $('content-wrap')?.scrollTo(0, 0);
+  }
+
+  document.querySelectorAll('.mob-tab-row').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      if (id === 'datasheet') showData();
+      else showContent(id, btn.textContent.trim());
+    });
+  });
+
+  $('mob-explore-btn')?.addEventListener('click', showTabs);
+
+  const imgs    = document.querySelectorAll('.carousel-img');
+  const credit  = $('carousel-credit');
+  const counter = $('c-count');
+  let cIdx = 0;
+  function showImg(i) {
+    imgs.forEach((img, n) => img.classList.toggle('active', n === i));
+    if (credit) credit.textContent = imgs[i]?.dataset.credit ?? '';
+    if (counter) counter.textContent = (i + 1) + ' of ' + imgs.length;
+    cIdx = i;
+  }
+  $('c-prev')?.addEventListener('click', () => showImg((cIdx - 1 + imgs.length) % imgs.length));
+  $('c-next')?.addEventListener('click', () => showImg((cIdx + 1) % imgs.length));
+
+  document.querySelectorAll('[data-read]').forEach(btn => {
+    const tab = btn.dataset.tab, num = btn.dataset.num, key = 'read-' + tab + '-' + num;
+    if (lsGet(key)) {
+      btn.textContent = 'Summary read ✓'; btn.classList.add('read');
+      $('sum-' + tab + '-' + num)?.classList.add('open');
+      $('gate-' + tab + '-' + num)?.classList.add('open');
+    }
+    btn.addEventListener('click', () => {
+      const s = $('sum-' + tab + '-' + num);
+      const g = $('gate-' + tab + '-' + num);
+      const open = s?.classList.contains('open');
+      if (!open) { s?.classList.add('open'); g?.classList.add('open'); btn.textContent = 'Summary read ✓'; btn.classList.add('read'); lsSet(key, '1'); }
+      else { s?.classList.remove('open'); g?.classList.remove('open'); }
+    });
+  });
+
+  document.querySelectorAll('[data-send]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab, num = btn.dataset.num;
+      const inp = $('email-' + tab + '-' + num);
+      const sent = $('sent-' + tab + '-' + num);
+      if (!inp) return;
+      if (inp.value.includes('@')) {
+        inp.style.display = 'none'; btn.style.display = 'none';
+        if (sent) sent.style.display = 'block';
+        fetch('https://formspree.io/f/YOUR_ARTICLE_FORM_ID', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: inp.value, tab, plant: PLANT_ID }),
+        }).catch(() => {});
+      } else { inp.style.borderColor = '#B8860B'; inp.focus(); }
+    });
+  });
+
+  $('btn-suppliers')?.addEventListener('click', () => $('modal-suppliers')?.classList.add('open'));
+  $('btn-buyers')?.addEventListener('click', () => $('modal-buyers')?.classList.add('open'));
+  document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => $('modal-' + btn.dataset.close)?.classList.remove('open')));
+  document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }));
+
+  ['suppliers','buyers'].forEach(type => {
+    $('form-' + type)?.addEventListener('submit', async e => {
+      e.preventDefault();
+      const form = e.target;
+      try { await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } }); } catch {}
+      form.style.display = 'none';
+      $('thanks-' + type).style.display = 'block';
+    });
+  });
+
+  document.querySelectorAll('.ft-btn').forEach(b => b.style.setProperty('color', '#B8860B', 'important'));
+})();
+</script>
+
+</Layout>
