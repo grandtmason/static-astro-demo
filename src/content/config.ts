@@ -34,4 +34,11 @@ const species = defineCollection({
       ik: z.string().optional(),
       culture: z.string().optional(),
       agronomy: z.string().optional(),
-      legislati
+      legislation: z.string().optional(),
+      projects: z.string().optional(),
+      intelligence: z.string().optional(),
+    }).optional(),
+  }),
+});
+
+export const collections = { species };
