@@ -3,6 +3,10 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
 const allPlants = await getCollection('species');
+const plants = allPlants.map(p => ({
+  ...p,
+  slug: p.id.replace('/index', '').replace('.md', ''),
+}));
 ---
 
 <Layout title="South African Botanical Registry">
@@ -54,8 +58,7 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
 }
 .plant-card {
   background: var(--parch); padding: 16px 18px;
-  text-decoration: none; display: block;
-  transition: background .12s;
+  text-decoration: none; display: block; transition: background .12s;
 }
 .plant-card:hover { background: #fff; }
 .plant-card-name {
@@ -67,65 +70,4 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
   text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
 }
 .plant-card-desc {
-  font-family: var(--sans); font-size: 8px; color: var(--muted);
-  line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical; overflow: hidden;
-}
-.site-footer {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: var(--green); border-top: 2px solid var(--gold);
-  display: flex; align-items: stretch; z-index: 100;
-}
-.ft-label {
-  font-family: var(--sans); font-size: 7px; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--sage); padding: 10px 20px;
-  display: flex; align-items: center;
-  border-right: 1px solid rgba(184,134,11,.3); white-space: nowrap;
-}
-.ft-btns { display: flex; flex: 1; }
-.ft-btn {
-  flex: 1; padding: 10px 8px; font-family: var(--sans); font-size: 7.5px;
-  letter-spacing: 2px; text-transform: uppercase; text-align: center;
-  cursor: pointer; font-weight: 500; border: none; background: transparent;
-  color: #B8860B !important; text-decoration: none;
-  display: flex; align-items: center; justify-content: center;
-}
-.ft-btn:first-child { border-right: 1px solid rgba(184,134,11,.3); }
-@media (max-width: 600px) {
-  .plant-grid { grid-template-columns: 1fr 1fr; }
-  .hero { padding: 40px 16px 28px; }
-  .registry { padding: 28px 16px 80px; }
-}
-</style>
-
-<div class="top-bar">
-  <h1>South African Botanical Registry</h1>
-</div>
-
-<div class="hero">
-  <div class="hero-title">South African<br/>Botanical Registry</div>
-  <div class="hero-sub">24 Plants · 11 Languages · Indigenous Knowledge · Intelligence</div>
-  <p class="hero-intro">
-    The definitive reference for South Africa's most significant medicinal and commercial plants.
-    Research, trade intelligence, indigenous knowledge and cultural heritage — in one place.
-  </p>
-</div>
-
-<div class="registry">
-  <div class="registry-title">Registry — 24 Plants</div>
-  <div class="plant-grid">
-    {allPlants.map(plant => (
-      
-        href={`/species/${plant.id.replace('/index', '').replace('.md', '')}`}
-        class="plant-card"
-      >
-        <div class="plant-card-name">{plant.data.name ?? plant.id}</div>
-        <div class="plant-card-sci">{plant.data.scientific_name ?? ''}</div>
-        <div class="plant-card-desc">{plant.data.description ?? ''}</div>
-      </a>
-    ))}
-  </div>
-</div>
-
-<footer class="site-footer">
-  <div class="ft-label">Connect with</div>
+  font-family: var(--sans); font-size: 8px; color: var(-
