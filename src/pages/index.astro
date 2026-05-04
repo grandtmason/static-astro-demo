@@ -1,67 +1,46 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-const allPlants = await getCollection('species');
-const species = allPlants.sort((a, b) => a.data.name.localeCompare(b.data.name));
-const brand = { parchment: "#F9F8F4", ink: "#2F2F2F", gold: "#B8860B", muted: "#7A7A7A", forest: "#1A3A2A", white: "#FFFFFF" };
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const allPlants = await getCollection('species');
+  return allPlants.map(plant => ({
+    params: { id: plant.id },
+    props: { plant },
+  }));
+}
+
+const { plant } = Astro.props;
+
+const TABS = [
+  { id: 'wellness',     label: 'Health & Wellness'  },
+  { id: 'innovation',   label: 'Innovation & R&D'   },
+  { id: 'ik',           label: 'IK & Heritage'      },
+  { id: 'culture',      label: 'Culture'            },
+  { id: 'agronomy',     label: 'Agronomy Pulse'     },
+  { id: 'legislation',  label: 'Legislation'        },
+  { id: 'projects',     label: 'Projects'           },
+  { id: 'intelligence', label: 'Intelligence Pulse' },
+  { id: 'datasheet',    label: 'Data Sheet'         },
+];
+
+const FORMSPREE_ARTICLE = 'https://formspree.io/f/YOUR_ARTICLE_FORM_ID';
+const FORMSPREE_CONNECT = 'https://formspree.io/f/YOUR_CONNECT_FORM_ID';
+
+const d  = plant.data;
+const m  = d.medicinal_properties ?? {};
+const cv = d.cultivation ?? {};
+const ik = d.indigenous_knowledge ?? '';
+const q  = d.quadrants ?? {};
+const cn = d.common_names ?? {};
+
+const images: { src: string; credit: string }[] = Array.isArray(d.images)
+  ? d.images
+  : d.image
+    ? [{ src: d.image, credit: '' }]
+    : [];
+
 const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Dataset",
-  "name": "South African Botanical Registry",
-  "description": "The authoritative scientific registry for South African indigenous botanical species",
-  "url": "https://southafricanbotanical.org.za",
-  "publisher": {
-    "@type": "Organization",
-    "name": "South African Botanical Master",
-    "url": "https://southafricanbotanical.org.za"
-  }
-};
----
-<Layout title="South African Botanical Master | Species Registry" schema={jsonLd}>
-  <main style={`background: ${brand.parchment}; min-height: 100vh; font-family: 'EB Garamond', Georgia, serif; color: ${brand.ink};`}>
-
-    <header style={`background: ${brand.forest}; padding: 80px 5%; text-align: center; border-bottom: 3px solid ${brand.gold};`}>
-      <p style="font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; color: #9DB8A8; margin: 0 0 16px 0; font-family: sans-serif;">The Authoritative Registry</p>
-      <h1 style={`font-size: 3.5rem; font-weight: 300; color: ${brand.gold}; font-style: italic; margin: 0 0 20px 0; font-family: 'Cormorant Garamond', Georgia, serif;`}>
-        South African Botanical Master
-      </h1>
-      <p style="font-size: 1rem; color: #9DB8A8; margin: 0; max-width: 600px; margin: 0 auto; line-height: 1.7;">
-        The definitive scientific registry for South African indigenous botanical species.
-      </p>
-    </header>
-
-    <section style="max-width: 1200px; margin: 0 auto; padding: 60px 5%;">
-      <p style={`font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; font-family: sans-serif; color: ${brand.muted}; margin-bottom: 40px; text-align: center;`}>
-        {species.length} Species Registered
-      </p>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
-        {species.map((plant) => (
-          <a href={`/species/${plant.id}`} style="text-decoration: none;">
-            <div style={`background: ${brand.white}; border: 1px solid #E0DED7; padding: 0; border-top: 3px solid ${brand.gold}; transition: transform 0.2s;`}>
-              {plant.data.image && (
-                <img
-                  src={plant.data.image}
-                  alt={plant.data.name}
-                  style="width: 100%; height: 200px; object-fit: cover; filter: sepia(0.15) contrast(1.05); display: block;"
-                />
-              )}
-              <div style="padding: 24px;">
-                <h2 style={`font-size: 1.4rem; font-weight: 300; color: ${brand.ink}; margin: 0 0 8px 0; font-style: italic; font-family: 'Cormorant Garamond', Georgia, serif;`}>
-                  {plant.data.name}
-                </h2>
-                <p style={`font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: ${brand.muted}; font-family: sans-serif; margin: 0 0 12px 0;`}>
-                  {plant.data.scientific_name}
-                </p>
-                <p style={`font-size: 0.9rem; color: ${brand.muted}; line-height: 1.6; margin: 0;`}>
-                  {plant.data.description?.slice(0, 100)}...
-                </p>
-              </div>
-            </div>
-          </a>
-        ))}
-      </div>
-    </section>
-
-  </main>
-</Layout>
+  '@context': 'https://schema.org',
+  '@type': 'Thing',
+  name: d.name
