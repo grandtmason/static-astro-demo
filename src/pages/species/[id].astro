@@ -5,7 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
   return allPlants.map(plant => ({
-    params: { id: plant.id },
+    params: { id: plant.id.replace('/index', '').replace('.md', '') },
     props: { plant },
   }));
 }
