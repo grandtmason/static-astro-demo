@@ -39,6 +39,22 @@ quadrants:
   agronomy: "2025 Cederberg harvest is tracking well following good winter rainfall. Sustainable farming practices are central to GI compliance requirements. Climate change poses a long-term threat to the narrow geographic range of Rooibos cultivation — adaptive farming research is underway at the University of Stellenbosch. Organic certified area has grown to 35% of total production."
   news: "Rooibos export revenue reached R820 million in 2024 — a record high driven by strong Japanese and German demand. The South African Rooibos Council is pursuing additional GI registrations in Japan, China, and the USA. Green Rooibos commands a 60% price premium over conventional fermented product and is the fastest-growing segment of the market."
   heritage: "Rooibos holds Geographical Indication status in the EU — legally protecting the name and geographic origin of South African product. The 2019 benefit-sharing agreement with Khoisan communities is recognised internationally as a model for equitable commercialisation of indigenous botanical knowledge. Rooibos is South Africa's most recognised botanical brand globally and a cornerstone of the country's natural products identity."
+  common_names:
+  Afrikaans: "Rooibos · Rooibostee"
+  English: "Rooibos · Red Bush"
+  Khoikhoi: "rooibos (Afrikaans derivation from Khoikhoi knowledge)"
+  Ndebele: "irooibos (adopted)"
+  San: "not documented in surviving records"
+  Sepedi: "not documented"
+  Sesotho: "not documented"
+  Setswana: "not documented"
+  Swati: "not documented"
+  Tsonga: "not documented"
+  Venda: "not documented"
+  Xhosa: "irooibos (adopted)"
+  Zulu: "irooibos (adopted)"
+quadrants:
+  ik: "The word Rooibos is Afrikaans — literally red bush — but the plant's naming history stretches back centuries before Dutch settlers arrived at the Cape. The Khoikhoi people of the Cederberg harvested and brewed Rooibos as a daily beverage and medicine long before it had a European name, but their specific name was not recorded before the language and community were largely destroyed through colonial violence and assimilation. What survived was the Afrikaans name built on Khoikhoi knowledge. The name Rooibos then did something unusual — it survived globally unchanged. Unlike most South African plants whose indigenous names were replaced by Latin scientific names, Rooibos kept its Afrikaans identity as it spread to Japan, Germany, the USA and beyond, becoming one of the few Afrikaans words recognised in over 60 countries. The scientific name Aspalathus linearis was given by Carl Thunberg during his Cape expedition of 1772, with the assistance of Khoikhoi guides whose contribution went unacknowledged in science for over two centuries."
 ---
 
 # Rooibos Intelligence Update
