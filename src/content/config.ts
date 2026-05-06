@@ -46,6 +46,8 @@ const species = defineCollection({
       legislation: z.string().optional(),
       projects: z.string().optional(),
       intelligence: z.string().optional(),
+      news: z.string().optional(),
+      heritage: z.string().optional(),
     }).optional(),
   }),
 });
