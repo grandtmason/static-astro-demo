@@ -17,7 +17,7 @@ const TABS = [
   { id: 'innovation',   label: 'Innovation & R&D'   },
   { id: 'ik',           label: 'IK & Heritage'      },
   { id: 'culture',      label: 'Culture'            },
-  { id: 'agronomy',     label: 'Agronomy Pulse'     },
+  { id: 'agronomy',     label: 'Agronomy'           },
   { id: 'legislation',  label: 'Legislation'        },
   { id: 'projects',     label: 'Projects'           },
   { id: 'intelligence', label: 'Intelligence Pulse' },
@@ -106,7 +106,7 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
   body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
   .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
   .top-bar { background: var(--green); border-bottom: 2px solid var(--gold); padding: 9px 28px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; position: relative; }
-  .top-bar-back { color: var(--gold); font-family: var(--sans); font-size: 12px; text-decoration: none; }
+  .top-bar-back { color: var(--gold); font-family: var(--sans); font-size: 24px; text-decoration: none; line-height: 1; }
   .top-bar-title { font-family: var(--sans); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); text-decoration: none; position: absolute; left: 50%; transform: translateX(-50%); }
   .top-bar-dots { font-family: var(--sans); font-size: 16px; letter-spacing: 2px; color: var(--sage); }
   .plant-band { background: var(--parch); display: flex; flex-direction: column; align-items: center; padding: 12px 20px 0; flex-shrink: 0; }
@@ -120,7 +120,7 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
   .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
-  .ds-grid { display: grid; grid-template-columns: 186px 1fr; }
+  .ds-grid { display: grid; grid-template-columns: 186px 1fr; align-items: stretch; }
   .ds-left { border-right: 1px solid var(--border); display: flex; flex-direction: column; }
   .carousel-wrap { width: 186px; height: 186px; background: var(--green); position: relative; overflow: hidden; flex-shrink: 0; }
   .carousel-img { width: 100%; height: 100%; object-fit: cover; display: none; }
@@ -141,7 +141,7 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
   .n-val { font-family: var(--serif); font-size: 12px; color: var(--ink); line-height: 1.3; }
   .n-val.nd { color: #C8C6BE; font-style: italic; font-size: 11px; }
   .ds-right { display: flex; flex-direction: column; }
-  .id-three { display: grid; grid-template-columns: 1fr 1.4fr 1fr; border-bottom: 2px solid var(--gold); }
+  .id-three { display: grid; grid-template-columns: 1fr 1.4fr 1fr; border-bottom: 1px solid var(--border); }
   .id-cell { padding: 9px 14px; border-right: 1px solid var(--border); }
   .id-cell:last-child { border-right: none; }
   .block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 4px; }
@@ -159,7 +159,7 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
   .prot-row:last-child { border-bottom: none; }
   .prot-badge { font-family: var(--sans); font-size: 7.5px; letter-spacing: .8px; text-transform: uppercase; padding: 4px 10px; flex-shrink: 0; white-space: nowrap; background: var(--green); color: var(--sage); min-width: 80px; text-align: center; align-self: stretch; display: flex; align-items: center; justify-content: center; }
   .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; padding: 0 14px; }
-  .intro-block { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  .intro-block { padding: 10px 14px; border-bottom: none; }
   .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
   .ds-lower { padding: 14px 16px; }
   .ds-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
