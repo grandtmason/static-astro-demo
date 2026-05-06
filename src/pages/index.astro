@@ -1,14 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-
 const allPlants = await getCollection('species');
 const plants = allPlants.map(p => ({
   ...p,
   slug: p.id.replace('/index', '').replace('.md', ''),
 }));
 ---
-
 <Layout title="South African Botanical Registry">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -70,4 +68,49 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
   text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
 }
 .plant-card-desc {
-  font-family: var(--sans); font-size: 8px; color: var(-
+  font-family: var(--sans); font-size: 8px; color: var(--muted);
+  line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.footer {
+  background: var(--green); border-top: 2px solid var(--gold);
+  padding: 16px 32px; text-align: center;
+}
+.footer p {
+  font-family: var(--sans); font-size: 8px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--sage);
+}
+</style>
+
+<div class="top-bar">
+  <h1>South African Botanical Registry</h1>
+</div>
+
+<div class="hero">
+  <div class="hero-title">South African Botanical Registry</div>
+  <div class="hero-sub">24 Indigenous Species · Verified Data · Commercial Intelligence</div>
+  <p class="hero-intro">
+    The definitive reference for South Africa's botanical heritage. Each entry documents
+    the scientific record, indigenous knowledge, commercial data, and trade intelligence
+    for the country's most significant plant species.
+  </p>
+</div>
+
+<div class="registry">
+  <div class="registry-title">{plants.length} Species Registered</div>
+  <div class="plant-grid">
+    {plants.map(plant => (
+      <a href={`/species/${plant.slug}`} class="plant-card">
+        <div class="plant-card-name">{plant.data.name}</div>
+        <div class="plant-card-sci">{plant.data.scientific_name}</div>
+        <div class="plant-card-desc">{plant.data.description}</div>
+      </a>
+    ))}
+  </div>
+</div>
+
+<div class="footer">
+  <p>South African Botanical Registry · southafricanbotanical.org.za</p>
+</div>
+
+</Layout>
