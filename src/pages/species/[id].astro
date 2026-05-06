@@ -24,7 +24,6 @@ const TABS = [
   { id: 'datasheet',    label: 'Data Sheet'         },
 ];
 
-const FORMSPREE_ARTICLE = 'https://formspree.io/f/YOUR_ARTICLE_FORM_ID';
 const FORMSPREE_CONNECT = 'https://formspree.io/f/YOUR_CONNECT_FORM_ID';
 
 const d  = plant.data;
@@ -83,14 +82,70 @@ const COMMON_NAMES: Record<string, Record<string, string>> = {
   'wild-sage': { Afrikaans: 'Geelslangbos · Bruinsalie', English: 'Wild Sage · Brown Sage', Khoikhoi: 'wilde salie (partially preserved)', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
 };
 
+const PLANT_STATS: Record<string, { production: string; revenue: string; markets: string; livelihoods: string }> = {
+  'acacia':                { production: 'Wild harvest only', revenue: '< R10m',      markets: 'Domestic',              livelihoods: 'Not counted'    },
+  'african-ashwagandha':   { production: '50–200 t',          revenue: 'R5–20m',       markets: 'EU, UK, USA',           livelihoods: '200–500'        },
+  'african-ginger':        { production: '50–150 t',          revenue: 'R50m+',        markets: 'Domestic',              livelihoods: '1,000–3,000'    },
+  'african-potato':        { production: '200–500 t',         revenue: 'R200–400m',    markets: 'Domestic',              livelihoods: '5,000–10,000'   },
+  'aloe-ferox':            { production: '~4,000 t',          revenue: 'R280m',        markets: '40+ countries',         livelihoods: '3,000–5,000'    },
+  'artemisia-afra':        { production: '500–1,500 t',       revenue: 'R50–100m',     markets: 'Domestic',              livelihoods: '2,000–5,000'    },
+  'athrixia':              { production: '< 100 t',           revenue: 'R5–15m',       markets: 'Domestic',              livelihoods: '200–500'        },
+  'baobab':                { production: '500–1,500 t',       revenue: 'R30–80m',      markets: 'EU, UK, USA',           livelihoods: '1,000–3,000'    },
+  'buchu':                 { production: '300–600 t',         revenue: 'R80–150m',     markets: 'USA, Germany, France',  livelihoods: '3,000–5,000'    },
+  'bulbine':               { production: '50–200 t',          revenue: 'R10–30m',      markets: 'EU, USA',               livelihoods: '500–1,000'      },
+  'cape-chamomile':        { production: '2–5 t oil',         revenue: 'R20–50m',      markets: 'Germany, France, Switzerland', livelihoods: '100–300' },
+  'devils-claw':           { production: '~800 t',            revenue: 'R60–120m',     markets: 'Germany, France, UK',   livelihoods: '5,000–10,000'   },
+  'honeybush':             { production: '400–800 t',         revenue: 'R40–80m',      markets: 'Germany, Netherlands, USA', livelihoods: '1,000–2,000'},
+  'hoodia':                { production: '< 50 t',            revenue: 'R5–15m',       markets: 'EU, USA',               livelihoods: '200–500'        },
+  'kanna':                 { production: '20–80 t',           revenue: 'R30–80m',      markets: 'USA, EU, Australia',    livelihoods: '300–800'        },
+  'marula':                { production: '10,000–30,000 t',   revenue: 'R100–200m',    markets: 'EU, USA',               livelihoods: '10,000–20,000'  },
+  'mphepho':               { production: '100–300 t',         revenue: 'R10–30m',      markets: 'EU, USA',               livelihoods: '500–1,500'      },
+  'pelargonium-sidoides':  { production: '200–500 t',         revenue: 'R80–150m',     markets: 'Germany, EU',           livelihoods: '2,000–5,000'    },
+  'pepper-bark':           { production: '10–50 t',           revenue: 'Minimal',      markets: 'Regional only',         livelihoods: '500–2,000'      },
+  'rooibos':               { production: '~15,000 t',         revenue: 'R820m',        markets: '60+ countries',         livelihoods: '5,000+'         },
+  'sutherlandia':          { production: '50–200 t',          revenue: 'R20–50m',      markets: 'EU, USA',               livelihoods: '500–1,500'      },
+  'uzara':                 { production: '20–60 t',           revenue: 'R10–30m',      markets: 'Germany',               livelihoods: '200–500'        },
+  'wild-olive':            { production: '< 50 t',            revenue: 'R5–20m',       markets: 'EU, USA',               livelihoods: 'Limited'        },
+  'wild-sage':             { production: '10–50 t',           revenue: 'R5–15m',       markets: 'EU, UK, USA',           livelihoods: '100–300'        },
+};
+
+const PLANT_PROTECTION: Record<string, { gi_year: string; gi_status: string; bsa_year: string; bsa_status: string; organic: string; wild_harvest: string }> = {
+  'acacia':               { gi_year: 'No GI', gi_status: 'No Geographical Indication protection. Gum arabic commercialisation in early stages.', bsa_year: 'No BSA', bsa_status: 'No formal Benefit-Sharing Agreement. Khoikhoi and San knowledge not formally recognised.', organic: 'No certified organic production. Wild harvest from unmanaged rangeland.', wild_harvest: 'Predominantly wild-harvested. No commercial cultivation established.' },
+  'african-ashwagandha':  { gi_year: 'No GI', gi_status: 'No GI protection. South African ecotype differentiation research ongoing.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Khoikhoi communities in Northern Cape have undocumented traditional knowledge claims.', organic: 'Small certified organic production in Northern Cape. Growing demand from EU nutraceutical sector.', wild_harvest: 'Mix of wild harvest and semi-cultivation. Cultivation protocols under development.' },
+  'african-ginger':       { gi_year: 'No GI', gi_status: 'No GI protection. CITES Appendix II candidate due to overharvesting pressure.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Zulu and Swazi traditional knowledge holders not formally recognised in commercial frameworks.', organic: 'No formal organic certification. Wild harvest only.', wild_harvest: 'Critically threatened by wild harvest. Cultivation programmes at University of KwaZulu-Natal essential to sustainability.' },
+  'african-potato':       { gi_year: 'No GI', gi_status: 'No GI protection. Listed as protected species in several provinces.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Zulu and Sotho traditional knowledge holders not formally compensated in commercial frameworks.', organic: 'No certified organic production. Wild harvest only.', wild_harvest: 'Predominantly wild-harvested. Wild stock severely depleted in accessible areas. Cultivation takes 3–5 years to maturity.' },
+  'aloe-ferox':           { gi_year: 'Cape Aloe', gi_status: 'Cape Aloe Export Standards govern quality and origin. European Pharmacopoeia monograph holder. EU regulatory review of aloin-containing products ongoing.', bsa_year: 'No BSA', bsa_status: 'No formal BSA. Khoisan tapping tradition acknowledged but not formally compensated. Cape Malay apothecary heritage undocumented.', organic: 'Certified organic production available. Growing demand from EU and Japanese cosmetic manufacturers.', wild_harvest: 'Sustainably wild-harvested across 1.2 million hectares. Traditional tapping method does not kill the plant. CapeNature and DAFF monitor sustainability.' },
+  'artemisia-afra':       { gi_year: 'No GI', gi_status: 'No GI protection. One of the most widely used traditional medicines in South Africa across all provinces.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Knowledge held broadly across Zulu, Xhosa, Sotho, Venda and Tsonga communities — no single rights holder identified.', organic: 'Informal organic production widespread. No formal certification structure.', wild_harvest: 'Mix of wild harvest and widespread household cultivation. No sustainability concerns at current commercial scale.' },
+  'athrixia':             { gi_year: 'No GI', gi_status: 'No GI protection. Commercial identity underdeveloped. Potential for Magoebaskloof GI designation being discussed.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Zulu highland communities hold primary traditional knowledge.', organic: 'Small-scale organic production in Limpopo highlands.', wild_harvest: 'Primarily wild-harvested from highland communities. No sustainability concerns at current scale.' },
+  'baobab':               { gi_year: 'No GI', gi_status: 'EU Novel Food approval (2008) unlocked European market. No geographic indication protection for South African production.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Venda, Tsonga and Sotho communities hold deep traditional knowledge. PhytoTrade Africa advocates for community benefit.', organic: 'Certified organic production available from Limpopo producers. Growing demand from EU superfood sector.', wild_harvest: 'Entirely wild-harvested in South Africa. Venda communities hold traditional harvesting rights. Sustainable at current scale.' },
+  'buchu':                { gi_year: 'GI Pending', gi_status: 'Geographical Indication application in progress. Will legally protect the Khoikhoi-origin name and Western Cape geographic designation in international markets.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. The word buchu is Khoikhoi in origin — one of the few indigenous plant names to survive colonialism intact into global trade.', organic: 'Significant certified organic production. Premium prices for organic certified leaf in pharmaceutical and flavour markets.', wild_harvest: 'Predominantly cultivated. Wild harvest historically depleted stocks. Now regulated with permit requirements.' },
+  'bulbine':              { gi_year: 'No GI', gi_status: 'No GI protection. Often marketed internationally as an Aloe vera alternative without geographic designation.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Khoikhoi traditional knowledge (kopieva) preserved in Afrikaans name but communities not formally recognised.', organic: 'Small certified organic production for cosmeceutical ingredient market.', wild_harvest: 'Mix of cultivation and wild harvest. Widely available — no sustainability concerns.' },
+  'cape-chamomile':       { gi_year: 'No GI', gi_status: 'No GI protection. Adulteration with other Eriocephalus species is a significant commercial problem. Certification critical.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Khoikhoi communities held primary knowledge — largely lost before documentation was possible.', organic: 'Certified organic production available. Commands highest premium in aromatherapy market. R10,000–20,000/kg for certified organic blue oil.', wild_harvest: 'Mix of wild harvest and cultivation in Western Cape mountains. Small producer base — certification protects premium pricing.' },
+  'devils-claw':          { gi_year: 'CITES II', gi_status: 'CITES Appendix II — export permits required and sustainable harvest verification mandatory. European Medicines Agency traditional use registration confirmed 2023.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. San and Sotho communities whose knowledge underpins the global industry receive no formal royalties. Ongoing advocacy linked to Hoodia precedent.', organic: 'Certified organic wild harvest available from Northern Cape. Commands premium in EU herbal medicine market.', wild_harvest: 'Entirely wild-harvested. Secondary tubers regenerate if harvested correctly but takes 3–5 years. TRAFFIC sustainable harvest guidelines in place.' },
+  'honeybush':            { gi_year: 'GI Pending', gi_status: 'Geographical Indication application in progress. Western Cape fynbos designation will protect against international counterfeiting.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Khoikhoi communities brewed Honeybush for generations before Dutch settlers arrived — their knowledge was never formally documented or compensated.', organic: 'Certified organic production growing rapidly. Organic segment commands 25–40% price premium in EU market.', wild_harvest: 'Predominantly cultivated. Wild harvest minimal. Sustainable cultivation practices well established in Overberg and Garden Route.' },
+  'hoodia':               { gi_year: 'No GI', gi_status: 'No GI protection. Market largely collapsed after P57 patents lapsed. San benefit-sharing agreement (2003) remains internationally significant legal precedent.', bsa_year: 'BSA 2003', bsa_status: 'Landmark 2003 CSIR-SASI benefit-sharing agreement explicitly acknowledged San rights over /xhoba traditional knowledge — the first time a San plant name carried legal weight in international IP law.', organic: 'Small certified organic production in Northern Cape.', wild_harvest: 'Mix of cultivation and controlled wild harvest. CITES listed — export permits required.' },
+  'kanna':                { gi_year: 'No GI', gi_status: 'No GI protection. SAHPRA regulatory guidance (2013) enabled commercialisation. International patent applications on mesembrine alkaloids active — benefit-sharing implications unresolved.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Khoikhoi and San communities hold 3,000+ years of traditional knowledge. Commercial exploitation without benefit-sharing is an ongoing concern.', organic: 'Certified organic production available from Namaqualand and Western Cape producers.', wild_harvest: 'Mix of cultivation and limited wild harvest. Cultivation preferred to protect wild San heritage populations.' },
+  'marula':               { gi_year: 'No GI', gi_status: 'No GI protection. Amarula brand provides international recognition but benefits accrue primarily to commercial producers not traditional communities.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Venda, Tsonga, Sotho and Zulu communities hold deep traditional knowledge. Community-based processing programmes growing but not formalised as BSA.', organic: 'Certified organic oil available from community-based processors in Limpopo.', wild_harvest: 'Predominantly wild-harvested fruit. Venda communities hold traditional harvesting rights. Sustainable at current scale.' },
+  'mphepho':              { gi_year: 'No GI', gi_status: 'No GI protection. Global smudge alternative trend driving export demand without cultural context — a risk SABM registry is positioned to document.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Nguni communities hold deep spiritual traditional knowledge encoded in the name imphepho itself. Commercial use without cultural acknowledgement is ongoing concern.', organic: 'Informal organic production widespread. No formal certification structure established.', wild_harvest: 'Mix of wild harvest and cultivation. No sustainability concerns at current commercial scale.' },
+  'pelargonium-sidoides':  { gi_year: 'No GI', gi_status: 'No GI protection. European Umckaloabo product generates EUR 100m+ annually using a Zulu diagnostic term as a brand name without formal recognition or compensation.', bsa_year: 'No BSA', bsa_status: '2008 African Centre for Biosafety challenged the European patent explicitly citing Zulu and Basotho knowledge appropriation. Benefit-sharing advocacy ongoing. No formal agreement reached.', organic: 'Certified organic production available from Eastern Cape producers.', wild_harvest: 'Mix of wild harvest and contract farming. Eastern Cape cultivation programmes expanding to reduce wild harvest pressure.' },
+  'pepper-bark':          { gi_year: 'No GI', gi_status: 'No GI protection. SANBI Red List: Endangered. Trade moratorium in several provinces. CITES listed.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Venda healing lineages hold specialist knowledge of mulanga. Zulu izinyanga consider isibhaha a high-potency specialist medicine.', organic: 'No commercial production. Endangered status prevents formal industry development.', wild_harvest: 'Wild harvest critically unsustainable. Wild populations severely depleted. Cultivation programmes at SANBI and private estates early-stage.' },
+  'rooibos':              { gi_year: 'GI 2021', gi_status: 'EU Geographical Indication — South Africa sole legally recognised producer. Name protected in European markets. SA Rooibos Council governs GI compliance.', bsa_year: 'BSA 2019', bsa_status: 'Khoisan Benefit-Sharing Agreement — ongoing royalties paid to traditional knowledge holders from industry revenues. Globally cited as the model for ethical botanical trade.', organic: '35% of total production certified organic — highest proportion of any South African botanical export crop. Organic commands significant price premium.', wild_harvest: 'Fully cultivated — no wild harvest. Commercial production entirely from planted farms in the Cederberg GI zone.' },
+  'sutherlandia':         { gi_year: 'No GI', gi_status: 'No GI protection. Named after a Scottish botanist who never visited Africa — one of many colonial naming ironies in the registry.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Khoikhoi, Xhosa, Cape Malay and Afrikaner healing traditions all contributed to the kankerbos knowledge base — no single rights holder.', organic: 'Certified organic production available from Western Cape producers.', wild_harvest: 'Mix of cultivation and wild harvest across Western and Northern Cape.' },
+  'uzara':                { gi_year: 'No GI', gi_status: 'No GI protection. German Commission E monograph holder — one of only a handful of African plants with full European pharmaceutical status.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Zulu and Xhosa communities hold traditional knowledge. German pharmaceutical name preserved the African name — unusual in colonial botanical history.', organic: 'Small certified organic production available.', wild_harvest: 'Mix of cultivation and wild harvest. Cultivation essential as wild stock at risk.' },
+  'wild-olive':           { gi_year: 'No GI', gi_status: 'No GI protection. Significant underutilised commercial potential. No formal industry association yet established.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Zulu communities associate umquma with spiritual protection. Knowledge distributed across multiple language communities.', organic: 'Small certified organic leaf extract production.', wild_harvest: 'Primarily wild-harvested leaves. No sustainability concerns at current minimal commercial scale.' },
+  'wild-sage':            { gi_year: 'No GI', gi_status: 'No GI protection. Cape Malay culinary tradition is primary commercial driver. Undercommercialised relative to profile.', bsa_year: 'No BSA', bsa_status: 'No formal agreement. Khoikhoi knowledge partially preserved in Cape Malay cooking tradition — communities not formally recognised.', organic: 'Small certified organic production from Western Cape coastal fynbos.', wild_harvest: 'Primarily wild-harvested. No sustainability concerns at current scale.' },
+};
+
 const slug = plant.id.replace('/index', '').replace('.md', '');
 const hardcodedNames = COMMON_NAMES[slug] ?? {};
 const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(hardcodedNames) : sortedNames;
+const stats = PLANT_STATS[slug] ?? { production: '—', revenue: '—', markets: '—', livelihoods: '—' };
+const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'EU Geographical Indication — South Africa sole legally recognised producer.', bsa_year: 'BSA 2019', bsa_status: 'Khoisan Benefit-Sharing Agreement — ongoing royalties paid to traditional knowledge holders.', organic: '35% of total production certified organic.', wild_harvest: 'Fully cultivated — no wild harvest.' };
 ---
 
 <Layout title={`${d.name} | South African Botanical Registry`} schema={jsonLd}>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; } 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --green:   #1A3A2A;
     --gold:    #B8860B;
@@ -105,46 +160,33 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
   }
   body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
   .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-
-  /* TOP BAR — no dots */
   .top-bar { background: var(--green); border-bottom: 2px solid var(--gold); padding: 9px 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; }
   .top-bar-back { color: var(--gold); font-family: var(--sans); font-size: 24px; text-decoration: none; line-height: 1; position: absolute; left: 28px; }
   .top-bar-title { font-family: var(--sans); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); text-decoration: none; }
-
   .plant-band { background: var(--parch); display: flex; flex-direction: column; align-items: center; padding: 12px 20px 0; flex-shrink: 0; }
   .plant-name { font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: 4px; }
   .plant-sci { font-family: var(--sans); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0; }
-
-  /* TABS — no heavy gold border, just gold on active tab */
   .tabs-row { display: flex; width: 100%; margin-top: 10px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
   .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; background: var(--parch); color: var(--ink); border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .1s, background .1s; text-align: center; }
   .tab-btn:last-child { border-right: none; }
   .tab-btn:hover { color: var(--gold); background: #fff; }
   .tab-btn.active { background: #fff; color: var(--gold); border-bottom: 3px solid var(--gold); }
-
   .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
-
-  /* DATA SHEET GRID */
   .ds-grid { display: grid; grid-template-columns: 186px 1fr; align-items: stretch; }
   .ds-left { border-right: 1px solid var(--border); display: flex; flex-direction: column; }
-
-  /* Photo square */
   .carousel-wrap { width: 186px; height: 186px; background: var(--green); position: relative; overflow: hidden; flex-shrink: 0; }
   .carousel-img { width: 100%; height: 100%; object-fit: cover; display: none; }
   .carousel-img.active { display: block; }
   .carousel-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); text-align: center; line-height: 1.8; padding: 0 16px; }
-
   .photo-credit { background: var(--parch); padding: 6px 10px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .photo-credit-lbl { font-family: var(--sans); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 2px; }
   .photo-credit-val { font-family: var(--sans); font-size: 8.5px; color: var(--muted); line-height: 1.4; }
-
   .carousel-nav { display: flex; align-items: center; justify-content: space-between; padding: 3px 10px; background: var(--parch); border-bottom: 1px solid var(--border); }
   .c-arrow { background: none; border: none; font-size: 12px; color: var(--muted); padding: 0; cursor: pointer; line-height: 1; }
   .c-arrow:hover { color: var(--gold); }
   .c-count { font-family: var(--sans); font-size: 9px; color: var(--muted); }
-
   .names-wrap { padding: 8px; flex: 1; }
   .names-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); padding-bottom: 4px; border-bottom: 1px solid var(--border); margin-bottom: 1px; }
   .name-row { display: grid; grid-template-columns: 62px 1fr; padding: 2.5px 0; border-bottom: 1px solid #F5F4F0; gap: 4px; align-items: start; }
@@ -152,36 +194,27 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
   .n-lang { font-family: var(--sans); font-size: 8px; color: var(--sage); text-transform: uppercase; letter-spacing: .3px; padding-top: 1px; }
   .n-val { font-family: var(--serif); font-size: 12px; color: var(--ink); line-height: 1.3; }
   .n-val.nd { color: #C8C6BE; font-style: italic; font-size: 11px; }
-
   .ds-right { display: flex; flex-direction: column; }
-
   .id-three { display: grid; grid-template-columns: 1fr 1.4fr 1fr; border-bottom: 1px solid var(--border); }
   .id-cell { padding: 9px 14px; border-right: 1px solid var(--border); }
   .id-cell:last-child { border-right: none; }
   .block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 4px; }
   .id-val { font-family: var(--serif); font-size: 16px; color: var(--ink); }
   .id-val.it { font-style: italic; }
-
   .native-block { padding: 9px 14px; border-bottom: 1px solid var(--border); }
   .native-val { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--ink); line-height: 1.65; margin-top: 3px; }
-
   .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; border-bottom: 1px solid var(--border); }
   .stat-cell { padding: 8px 14px; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; min-height: 58px; }
   .stat-cell:last-child { border-right: none; }
   .stat-val { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.3px; color: var(--gold); margin-top: auto; line-height: 1; }
-
-  /* Protection badges — all same width, flush left */
   .prot-block { padding: 9px 0; border-bottom: 1px solid var(--border); }
   .prot-block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; padding: 0 14px; }
   .prot-row { display: flex; align-items: stretch; padding: 4px 0; border-bottom: 1px solid #F5F4F0; }
   .prot-row:last-child { border-bottom: none; }
   .prot-badge { font-family: var(--sans); font-size: 7.5px; letter-spacing: .8px; text-transform: uppercase; padding: 5px 0; flex-shrink: 0; white-space: nowrap; background: var(--green); color: var(--sage); width: 90px; text-align: center; display: flex; align-items: center; justify-content: center; }
   .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; padding: 4px 14px; }
-
   .intro-block { padding: 10px 14px; border-bottom: none; }
   .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
-
-  /* LOWER — IK block parchment not green */
   .ds-lower { padding: 14px 16px; }
   .ds-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .ds-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
@@ -190,13 +223,9 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
   .ds-list { padding-left: 14px; }
   .ds-list li { font-family: var(--serif); font-size: 13.5px; line-height: 1.55; color: var(--ink); margin-bottom: 2px; }
   .ds-val { font-family: var(--serif); font-size: 13.5px; line-height: 1.65; color: var(--ink); }
-
-  /* IK block — parchment background, ink text */
   .ik-block { background: var(--parch); border: 1px solid var(--border); padding: 13px 16px; margin-bottom: 14px; }
   .ik-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
   .ik-val { font-family: var(--serif); font-size: 14px; line-height: 1.8; color: var(--ink); font-style: normal; }
-
-  /* ARTICLE CARDS */
   .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px; }
   .card { background: #fff; border: 1px solid var(--border); border-top: 2px solid var(--gold); padding: 16px 18px; }
   .card.dark { background: var(--green); border-top-color: var(--gold); }
@@ -219,16 +248,12 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
   .c-sent { font-family: var(--sans); font-size: 12px; color: var(--gold); margin-top: 5px; display: none; }
   .c-read-btn { font-family: var(--sans); font-size: 8px; letter-spacing: 1px; text-transform: uppercase; border: none; cursor: pointer; padding: 0; background: transparent; margin-top: 5px; display: block; color: var(--ink); }
   .c-read-btn.read { color: var(--gold); }
-
-  /* FIXED FOOTER — hover lights up buttons */
   .site-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green); border-top: 2px solid var(--gold); display: flex; align-items: stretch; z-index: 100; }
   .ft-label { font-family: var(--sans); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--sage); padding: 12px 20px; display: flex; align-items: center; border-right: 1px solid rgba(184,134,11,.3); white-space: nowrap; }
   .ft-btns { display: flex; flex: 1; }
   .ft-btn { flex: 1; padding: 12px 8px; font-family: var(--sans); font-size: 20px; letter-spacing: 2px; text-transform: uppercase; text-align: center; cursor: pointer; border: none; background: transparent; color: var(--gold); transition: background .2s, color .2s; }
   .ft-btn:first-child { border-right: 1px solid rgba(184,134,11,.3); }
   .ft-btn:hover { background: var(--gold); color: var(--green); }
-
-  /* MODALS */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
   .modal { background: #fff; border-top: 3px solid var(--gold); padding: 32px 36px; width: 100%; max-width: 480px; position: relative; }
@@ -241,8 +266,6 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
   .m-field textarea { height: 80px; resize: vertical; }
   .m-submit { width: 100%; padding: 12px; background: var(--gold); color: var(--green); border: none; font-family: var(--sans); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; cursor: pointer; margin-top: 8px; }
   .m-thanks { display: none; text-align: center; padding: 20px 0; font-family: var(--sans); font-size: 11px; color: var(--gold); letter-spacing: 1px; }
-
-  /* MOBILE */
   @media (max-width: 680px) {
     .tabs-row { display: none; }
     .portal { padding-bottom: 72px; height: auto; overflow: visible; }
@@ -320,20 +343,17 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
               <span class="carousel-empty">Plant photography<br/>coming soon</span>
             )}
           </div>
-
           <div class="photo-credit">
             <div class="photo-credit-lbl">Photo Credit</div>
             <div class="photo-credit-val">
               {images.length > 0 && images[0].credit ? images[0].credit : 'John van der Berg · Cederberg Nature Reserve · March 2024'}
             </div>
           </div>
-
           <div class="carousel-nav">
             <button class="c-arrow" id="c-prev" aria-label="Previous">←</button>
             <span class="c-count" id="c-count">1 of {images.length > 0 ? images.length : 1}</span>
             <button class="c-arrow" id="c-next" aria-label="Next">→</button>
           </div>
-
           <div class="names-wrap">
             <div class="names-lbl">Common Names</div>
             {displayNames.map(([lang, name]) => (
@@ -346,7 +366,6 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
         </div>
 
         <div class="ds-right">
-
           <div class="id-three">
             <div class="id-cell">
               <div class="block-lbl">Common Name</div>
@@ -367,44 +386,42 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
             <div class="native-val">{d.native_region ?? '—'}</div>
           </div>
 
-          
           <div class="stats-row">
             <div class="stat-cell">
               <div class="block-lbl">Annual<br/>Production</div>
-              <div class="stat-val">{d.annual_production ?? '~15,000 t'}</div>
+              <div class="stat-val">{stats.production}</div>
             </div>
             <div class="stat-cell">
               <div class="block-lbl">Export Revenue</div>
-              <div class="stat-val">{d.export_revenue ?? 'R820m'}</div>
+              <div class="stat-val">{stats.revenue}</div>
             </div>
             <div class="stat-cell">
               <div class="block-lbl">Export Markets</div>
-              <div class="stat-val">{d.export_markets ?? '60+ countries'}</div>
+              <div class="stat-val">{stats.markets}</div>
             </div>
             <div class="stat-cell">
               <div class="block-lbl">Livelihoods</div>
-              <div class="stat-val">{d.livelihoods ?? '5,000+'}</div>
+              <div class="stat-val">{stats.livelihoods}</div>
             </div>
           </div>
-
 
           <div class="prot-block">
             <div class="prot-block-lbl">Protection &amp; Benefit Sharing</div>
             <div class="prot-row">
-              <span class="prot-badge">{d.gi_year ?? 'GI 2021'}</span>
-              <span class="prot-text">{d.gi_status ?? 'EU Geographical Indication — South Africa sole legally recognised producer. Name protected in European markets.'}</span>
+              <span class="prot-badge">{protection.gi_year}</span>
+              <span class="prot-text">{protection.gi_status}</span>
             </div>
             <div class="prot-row">
-              <span class="prot-badge">{d.bsa_year ?? 'BSA 2019'}</span>
-              <span class="prot-text">{d.bsa_status ?? 'Khoisan Benefit-Sharing Agreement — ongoing royalties paid to traditional knowledge holders from industry revenues.'}</span>
+              <span class="prot-badge">{protection.bsa_year}</span>
+              <span class="prot-text">{protection.bsa_status}</span>
             </div>
             <div class="prot-row">
               <span class="prot-badge">Organic</span>
-              <span class="prot-text">{d.organic_status ?? '35% of total production certified organic — highest proportion of any South African botanical export crop.'}</span>
+              <span class="prot-text">{protection.organic}</span>
             </div>
             <div class="prot-row">
               <span class="prot-badge">Wild Harvest</span>
-              <span class="prot-text">{d.wild_harvest ?? 'Fully cultivated — no wild harvest. Commercial production entirely from planted farms in the Cederberg GI zone.'}</span>
+              <span class="prot-text">{protection.wild_harvest}</span>
             </div>
           </div>
 
@@ -414,7 +431,6 @@ const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(har
               <p class="intro-text">{d.introduction}</p>
             </div>
           )}
-
         </div>
       </div>
 
