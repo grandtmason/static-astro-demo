@@ -2,8 +2,10 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 const allPlants = await getCollection('species');
-const plants = allPlants.map(p => ({
-  ...p,
+const plants = allPlants
+  .map(p => ({ data: p.data, slug: p.id.replace('/index', '').replace('.md', '') }))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+---
   slug: p.id.replace('/index', '').replace('.md', ''),
 })).sort((a, b) => a.data.name.localeCompare(b.data.name));
   ...p,
