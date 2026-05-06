@@ -3,7 +3,7 @@ name: "Artemisia Afra"
 scientific_name: "Artemisia afra"
 family: "Asteraceae"
 native_region: "Widespread across South Africa — Western Cape mountains, Drakensberg, Lesotho highlands, and eastern escarpment — one of the most broadly distributed medicinal plants on the continent"
-image: "/Public/artemisia-afra.jpg"
+image: "/Public/wormwood.jpg"
 description: "Africa's most widely used herbal medicine — a silver-leafed aromatic shrub with a 300-year documented history of treating colds, flu, fever, and respiratory illness across dozens of cultural traditions."
 introduction: "Artemisia afra, known as African Wormwood, Umhlonyane in Zulu, or Wilde Als in Afrikaans, holds the distinction of being the most widely used traditional medicine plant in southern Africa. No other botanical crosses as many cultural, linguistic, and geographic boundaries — it is used by Zulu, Xhosa, Sotho, Tswana, Khoi, Cape Malay, and Afrikaner communities, each with their own preparation methods and indications. The plant is a fast-growing aromatic shrub with deeply divided silver-green leaves that release a powerful camphor-like scent when crushed. It grows from sea level to alpine grassland and is one of the easiest medicinal plants to cultivate. During the COVID-19 pandemic it attracted international attention when several African governments investigated its antiviral potential. It is closely related to Artemisia annua, the source of the antimalarial drug artemisinin, though Artemisia afra does not contain artemisinin itself. Its breadth of traditional use and growing scientific validation make it one of the most important plants in the SABM registry."
 medicinal_properties:
