@@ -3,7 +3,7 @@ name: "Devil's Claw"
 scientific_name: "Harpagophytum procumbens"
 family: "Pedaliaceae"
 native_region: "Kalahari Desert and semi-arid savanna of the Northern Cape, North West Province, and Botswana — thriving in deep Kalahari sand at altitudes of 1000–1300m"
-image: "/Public/devils-claw.jpg"
+image: "/Public/devilsclaw.jpg"
 description: "The Kalahari's most powerful anti-inflammatory — a creeping desert plant whose hooked fruit gave it its fearsome name, and whose tubers have become one of the most clinically validated herbal medicines for arthritis and pain management in the world."
 introduction: "Harpagophytum procumbens, known as Devil's Claw or Grapple Plant, is one of the most extensively researched and commercially significant medicinal plants in southern Africa. The plant takes its dramatic name from its woody fruit, covered in long hooked claws that entangle in the fur and hooves of passing animals for seed dispersal. It grows as a low-spreading perennial in the deep red sands of the Kalahari, producing striking tubular pink to purple flowers and developing large primary and secondary tubers that can reach 1.5 metres deep in the sand. These tubers — harvested, dried, and sliced — have been used by San and Khoi communities for centuries to treat pain, fever, and digestive complaints. Devil's Claw entered European herbal medicine in the early 20th century through German colonial research in Namibia and is now one of the top-selling herbal medicines in Germany, France, and the UK, primarily for arthritis, back pain, and musculoskeletal inflammation. South Africa and Namibia are the world's primary sources, and the export industry is worth tens of millions of rands annually."
 medicinal_properties:
