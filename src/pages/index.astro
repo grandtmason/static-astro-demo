@@ -5,6 +5,9 @@ const allPlants = await getCollection('species');
 const plants = allPlants.map(p => ({
   ...p,
   slug: p.id.replace('/index', '').replace('.md', ''),
+})).sort((a, b) => a.data.name.localeCompare(b.data.name));
+  ...p,
+  slug: p.id.replace('/index', '').replace('.md', ''),
 }));
 ---
 <Layout title="South African Botanical Registry">
