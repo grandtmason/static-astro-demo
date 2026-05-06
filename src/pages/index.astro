@@ -26,47 +26,42 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
   text-transform: uppercase; color: var(--sage); font-weight: 400;
 }
 .hero {
-  text-align: center; padding: 60px 24px 40px;
+  text-align: center; padding: 60px 24px 50px;
   border-bottom: 1px solid var(--border);
 }
 .hero-title {
   font-family: var(--display); font-size: clamp(2.4rem, 5vw, 4rem);
   font-weight: 300; font-style: italic; color: var(--green);
-  line-height: 1.1; margin-bottom: 12px;
+  line-height: 1.1; margin-bottom: 20px;
 }
 .hero-sub {
   font-family: var(--sans); font-size: 9px; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 32px;
-}
-.hero-intro {
-  max-width: 560px; margin: 0 auto; font-size: 1rem;
-  line-height: 1.8; color: var(--ink);
+  text-transform: uppercase; color: var(--muted);
 }
 .registry {
-  max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px;
+  max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px;
 }
 .registry-title {
   font-family: var(--sans); font-size: 7px; letter-spacing: 3px;
   text-transform: uppercase; color: var(--muted);
-  border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 20px;
+  border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 32px;
 }
 .plant-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
 }
 .plant-card {
-  background: var(--parch);
+  background: #fff;
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  transition: background .12s;
+  border: 1px solid var(--border);
+  transition: box-shadow .2s, transform .2s;
 }
-.plant-card:hover { background: #fff; }
-.plant-card:hover .plant-card-img img {
-  transform: scale(1.04);
+.plant-card:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
 }
 .plant-card-img {
   width: 100%;
@@ -80,6 +75,9 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
   display: block;
   transition: transform .4s ease;
 }
+.plant-card:hover .plant-card-img img {
+  transform: scale(1.04);
+}
 .plant-card-img-empty {
   width: 100%;
   aspect-ratio: 4/3;
@@ -90,19 +88,17 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
   font-family: var(--sans); font-size: 8px; letter-spacing: 2px;
   text-transform: uppercase; color: var(--sage);
 }
-.plant-card-body { padding: 14px 16px; flex: 1; }
+.plant-card-body {
+  padding: 16px 18px 20px;
+  border-top: 1px solid var(--border);
+}
 .plant-card-name {
-  font-family: var(--display); font-size: 1.2rem; font-style: italic;
-  font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 4px;
+  font-family: var(--display); font-size: 1.3rem; font-style: italic;
+  font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 5px;
 }
 .plant-card-sci {
   font-family: var(--sans); font-size: 7px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
-}
-.plant-card-desc {
-  font-family: var(--sans); font-size: 8px; color: var(--muted);
-  line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical; overflow: hidden;
+  text-transform: uppercase; color: var(--muted);
 }
 .footer {
   background: var(--green); border-top: 2px solid var(--gold);
@@ -120,12 +116,7 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
 
 <div class="hero">
   <div class="hero-title">South African Botanical Registry</div>
-  <div class="hero-sub">24 Indigenous Species · Verified Data · Commercial Intelligence</div>
-  <p class="hero-intro">
-    The definitive reference for South Africa's botanical heritage. Each entry documents
-    the scientific record, indigenous knowledge, commercial data, and trade intelligence
-    for the country's most significant plant species.
-  </p>
+  <div class="hero-sub">The definitive reference for South Africa's botanical heritage</div>
 </div>
 
 <div class="registry">
@@ -145,7 +136,6 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
         <div class="plant-card-body">
           <div class="plant-card-name">{plant.data.name}</div>
           <div class="plant-card-sci">{plant.data.scientific_name}</div>
-          <div class="plant-card-desc">{plant.data.description}</div>
         </div>
       </a>
     ))}
