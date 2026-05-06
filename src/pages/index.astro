@@ -6,12 +6,6 @@ const plants = allPlants
   .map(p => ({ data: p.data, slug: p.id.replace('/index', '').replace('.md', '') }))
   .sort((a, b) => a.data.name.localeCompare(b.data.name));
 ---
-  slug: p.id.replace('/index', '').replace('.md', ''),
-})).sort((a, b) => a.data.name.localeCompare(b.data.name));
-  ...p,
-  slug: p.id.replace('/index', '').replace('.md', ''),
-}));
----
 <Layout title="South African Botanical Registry">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
