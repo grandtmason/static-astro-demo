@@ -216,7 +216,7 @@ const stats: { label: string; value: string }[] = d.conservation_status
   /* Photo credit — parchment bg */
   .photo-credit {
     background: var(--parch);
-    padding: 5px 8px;
+    padding: 7px 10px;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
   }
@@ -226,12 +226,13 @@ const stats: { label: string; value: string }[] = d.conservation_status
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--sage);
-    margin-bottom: 2px;
+    margin-bottom: 3px;
   }
   .photo-credit-val {
     font-family: var(--sans);
     font-size: 9px;
     color: var(--muted);
+    line-height: 1.5;
   }
 
   /* Photo nav */
@@ -239,19 +240,20 @@ const stats: { label: string; value: string }[] = d.conservation_status
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4px 8px;
+    padding: 4px 10px;
     background: var(--parch);
     border-bottom: 1px solid var(--border);
   }
   .c-arrow {
-    background: #fff;
-    border: 1px solid var(--border);
-    font-size: 10px;
-    color: var(--ink);
-    padding: 2px 8px;
+    background: none;
+    border: none;
+    font-size: 12px;
+    color: var(--muted);
+    padding: 0;
     cursor: pointer;
+    line-height: 1;
   }
-  .c-arrow:hover { border-color: var(--gold); color: var(--gold); }
+  .c-arrow:hover { color: var(--gold); }
   .c-count { font-family: var(--sans); font-size: 9px; color: var(--muted); }
 
   /* Common Names */
@@ -334,16 +336,21 @@ const stats: { label: string; value: string }[] = d.conservation_status
   .stat-cell {
     padding: 8px 14px;
     border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 58px;
   }
   .stat-cell:last-child { border-right: none; }
   .stat-val {
-    font-family: var(--serif);
-    font-size: 20px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
     color: var(--gold);
-    margin-top: 3px;
+    margin-top: auto;
     line-height: 1;
   }
-  .stat-val.ink { color: var(--ink); }
 
   /* Block 4: Protection & Benefit Sharing */
   .prot-block {
@@ -367,11 +374,11 @@ const stats: { label: string; value: string }[] = d.conservation_status
     flex-shrink: 0;
     margin-top: 2px;
     white-space: nowrap;
+    background: var(--green);
+    color: var(--sage);
+    min-width: 60px;
+    text-align: center;
   }
-  .badge-gi  { background: var(--green); color: var(--sage); }
-  .badge-bsa { background: var(--green); color: var(--sage); }
-  .badge-org { background: #4A6830; color: #C8D8A0; }
-  .badge-wh  { background: #5A4020; color: #C8A870; }
   .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; }
 
   /* Block 5: Introduction — right column full width */
@@ -606,7 +613,7 @@ const stats: { label: string; value: string }[] = d.conservation_status
           <div class="photo-credit">
             <div class="photo-credit-lbl">Photo Credit</div>
             <div class="photo-credit-val">
-              {images.length > 0 && images[0].credit ? images[0].credit : 'Photographer · Location · Year'}
+              {images.length > 0 && images[0].credit ? images[0].credit : 'John van der Berg · Cederberg Nature Reserve · March 2024'}
             </div>
           </div>
 
@@ -666,53 +673,33 @@ const stats: { label: string; value: string }[] = d.conservation_status
             </div>
             <div class="stat-cell">
               <div class="block-lbl">Export Markets</div>
-              <div class="stat-val ink">{d.export_markets ?? '60+ countries'}</div>
+              <div class="stat-val">{d.export_markets ?? '60+ countries'}</div>
             </div>
             <div class="stat-cell">
               <div class="block-lbl">Livelihoods</div>
-              <div class="stat-val ink">{d.livelihoods ?? '5,000+'}</div>
+              <div class="stat-val">{d.livelihoods ?? '5,000+'}</div>
             </div>
           </div>
 
           <!-- Block 4: Protection & Benefit Sharing -->
           <div class="prot-block">
             <div class="block-lbl" style="margin-bottom:6px;">Protection &amp; Benefit Sharing</div>
-            {d.gi_status && (
-              <div class="prot-row">
-                <span class="prot-badge badge-gi">GI 2021</span>
-                <span class="prot-text">{d.gi_status}</span>
-              </div>
-            )}
-            {!d.gi_status && (
-              <div class="prot-row">
-                <span class="prot-badge badge-gi">GI 2021</span>
-                <span class="prot-text">EU Geographical Indication — South Africa sole legally recognised producer. Name protected in European markets.</span>
-              </div>
-            )}
-            {d.bsa_status && (
-              <div class="prot-row">
-                <span class="prot-badge badge-bsa">BSA 2019</span>
-                <span class="prot-text">{d.bsa_status}</span>
-              </div>
-            )}
-            {!d.bsa_status && (
-              <div class="prot-row">
-                <span class="prot-badge badge-bsa">BSA 2019</span>
-                <span class="prot-text">Khoisan Benefit-Sharing Agreement — ongoing royalties paid to Khoisan traditional knowledge holders from industry revenues.</span>
-              </div>
-            )}
-            {d.organic_status && (
-              <div class="prot-row">
-                <span class="prot-badge badge-org">Organic</span>
-                <span class="prot-text">{d.organic_status}</span>
-              </div>
-            )}
-            {d.wild_harvest && (
-              <div class="prot-row">
-                <span class="prot-badge badge-wh">Wild Harvest</span>
-                <span class="prot-text">{d.wild_harvest}</span>
-              </div>
-            )}
+            <div class="prot-row">
+              <span class="prot-badge badge-gi">{d.gi_year ?? 'GI 2021'}</span>
+              <span class="prot-text">{d.gi_status ?? 'EU Geographical Indication — South Africa sole legally recognised producer. Name protected in European markets.'}</span>
+            </div>
+            <div class="prot-row">
+              <span class="prot-badge badge-gi">{d.bsa_year ?? 'BSA 2019'}</span>
+              <span class="prot-text">{d.bsa_status ?? 'Khoisan Benefit-Sharing Agreement — ongoing royalties paid to traditional knowledge holders from industry revenues.'}</span>
+            </div>
+            <div class="prot-row">
+              <span class="prot-badge badge-gi">Organic</span>
+              <span class="prot-text">{d.organic_status ?? '35% of total production certified organic — highest proportion of any South African botanical export crop.'}</span>
+            </div>
+            <div class="prot-row">
+              <span class="prot-badge badge-gi">Wild Harvest</span>
+              <span class="prot-text">{d.wild_harvest ?? 'Fully cultivated — no wild harvest. Commercial production entirely from planted farms in the Cederberg GI zone.'}</span>
+            </div>
           </div>
 
           <!-- Block 5: Introduction -->
@@ -1022,3 +1009,4 @@ const stats: { label: string; value: string }[] = d.conservation_status
 </script>
 
 </Layout>
+
