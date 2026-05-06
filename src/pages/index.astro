@@ -43,7 +43,7 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
   line-height: 1.8; color: var(--ink);
 }
 .registry {
-  max-width: 900px; margin: 0 auto; padding: 40px 24px 80px;
+  max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px;
 }
 .registry-title {
   font-family: var(--sans); font-size: 7px; letter-spacing: 3px;
@@ -51,14 +51,46 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
   border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 20px;
 }
 .plant-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px;
-  background: var(--border); border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
 }
 .plant-card {
-  background: var(--parch); padding: 16px 18px;
-  text-decoration: none; display: block; transition: background .12s;
+  background: var(--parch);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: background .12s;
 }
 .plant-card:hover { background: #fff; }
+.plant-card:hover .plant-card-img img {
+  transform: scale(1.04);
+}
+.plant-card-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--green);
+}
+.plant-card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease;
+}
+.plant-card-img-empty {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: var(--green);
+  display: flex; align-items: center; justify-content: center;
+}
+.plant-card-img-empty span {
+  font-family: var(--sans); font-size: 8px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--sage);
+}
+.plant-card-body { padding: 14px 16px; flex: 1; }
 .plant-card-name {
   font-family: var(--display); font-size: 1.2rem; font-style: italic;
   font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 4px;
@@ -101,9 +133,20 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
   <div class="plant-grid">
     {plants.map(plant => (
       <a href={`/species/${plant.slug}`} class="plant-card">
-        <div class="plant-card-name">{plant.data.name}</div>
-        <div class="plant-card-sci">{plant.data.scientific_name}</div>
-        <div class="plant-card-desc">{plant.data.description}</div>
+        {plant.data.image ? (
+          <div class="plant-card-img">
+            <img src={plant.data.image} alt={plant.data.name} loading="lazy" />
+          </div>
+        ) : (
+          <div class="plant-card-img-empty">
+            <span>Image coming soon</span>
+          </div>
+        )}
+        <div class="plant-card-body">
+          <div class="plant-card-name">{plant.data.name}</div>
+          <div class="plant-card-sci">{plant.data.scientific_name}</div>
+          <div class="plant-card-desc">{plant.data.description}</div>
+        </div>
       </a>
     ))}
   </div>
