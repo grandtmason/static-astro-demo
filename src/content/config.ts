@@ -1,5 +1,4 @@
 import { defineCollection, z } from 'astro:content';
-
 const species = defineCollection({
   type: 'content',
   schema: z.object({
@@ -7,6 +6,16 @@ const species = defineCollection({
     scientific_name: z.string().optional(),
     family: z.string().optional(),
     native_region: z.string().optional(),
+    annual_production: z.string().optional(),
+    export_revenue: z.string().optional(),
+    export_markets: z.string().optional(),
+    livelihoods: z.string().optional(),
+    gi_year: z.string().optional(),
+    gi_status: z.string().optional(),
+    bsa_year: z.string().optional(),
+    bsa_status: z.string().optional(),
+    organic_status: z.string().optional(),
+    wild_harvest: z.string().optional(),
     image: z.string().optional(),
     images: z.array(z.object({
       src: z.string(),
@@ -40,5 +49,4 @@ const species = defineCollection({
     }).optional(),
   }),
 });
-
 export const collections = { species };
