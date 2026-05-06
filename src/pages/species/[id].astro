@@ -56,13 +56,36 @@ const jsonLd = {
 
 const sortedNames = Object.entries(cn).sort(([a], [b]) => a.localeCompare(b));
 
-// Parse conservation_status into stat cells if pipe-delimited
-const stats: { label: string; value: string }[] = d.conservation_status
-  ? d.conservation_status.split('·').map((s: string) => {
-      const trimmed = s.trim();
-      return { label: '', value: trimmed };
-    })
-  : [];
+const COMMON_NAMES: Record<string, Record<string, string>> = {
+  'acacia': { Afrikaans: 'Soetdoring · Karoodorin', English: 'Sweet Thorn · African Acacia', Khoikhoi: 'not documented', Ndebele: 'umkhaya', San: 'not documented', Sepedi: 'mooka', Sesotho: 'mooka', Setswana: 'mooka · mothoo', Swati: 'umkhaya', Tsonga: 'nkaya', Venda: 'mutshato', Xhosa: 'umNgcamplazi', Zulu: 'umNgcamplazi · umNgcampazane' },
+  'african-ashwagandha': { Afrikaans: 'Geneesblaarbossie · Slaapbossie', English: 'African Ashwagandha · Winter Cherry', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'ubuhlungu', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'ubuvimba', Zulu: 'ubuvimba', 'Sanskrit (global trade)': 'Ashwagandha' },
+  'african-ginger': { Afrikaans: 'Wilde Gemmer', English: 'African Ginger · Wild Ginger', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'lengane', Sesotho: 'lengane', Setswana: 'lengane', Swati: 'isiphephetho', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'isiphephetho', Zulu: 'isiphephetho · indungulo' },
+  'african-potato': { Afrikaans: 'Sterblom · Inkomfe', English: 'African Potato · Star Flower', Khoikhoi: 'not documented', Ndebele: 'inkomfe', San: 'not documented', Sepedi: 'lotsane', Sesotho: 'lotsane', Setswana: 'lotsane', Swati: 'inkomfe', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'lotsane', Zulu: 'inkomfe' },
+  'aloe-ferox': { Afrikaans: 'Bitteraalwyn · Bergaalwyn', English: 'Cape Aloe · Bitter Aloe', Khoikhoi: 'iikhala', Ndebele: 'inhlaba', San: 'not documented', Sepedi: 'kgopane', Sesotho: 'kgopane', Setswana: 'kgopana', Swati: 'inhlaba', Tsonga: 'nkhala', Venda: 'tshipembe', Xhosa: 'ikhala', Zulu: 'inhlaba' },
+  'artemisia-afra': { Afrikaans: 'Wilde Als · Wildeals', English: 'African Wormwood', Khoikhoi: 'not documented', Ndebele: 'umhlonyane', San: 'not documented', Sepedi: 'lengana', Sesotho: 'lengana', Setswana: 'lengana', Swati: 'umhlonyane', Tsonga: 'budzuke', Venda: 'tshisangoma', Xhosa: 'umhlonyane', Zulu: 'umhlonyane' },
+  'athrixia': { Afrikaans: 'Bosbietee · Heuningtee', English: 'Bush Tea · Magoebaskloof Tea', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'mmilo', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'isihaqa' },
+  'baobab': { Afrikaans: 'Kremetartboom · Baobab', English: 'Baobab · Tree of Life', Khoikhoi: 'not documented', Ndebele: 'umkhombe', San: 'not documented', Sepedi: 'mowana', Sesotho: 'mowana', Setswana: 'mowana', Swati: 'umkhombe', Tsonga: 'rihlandzu', Venda: 'muvhuyu', Xhosa: 'isiMuku', Zulu: 'umShimulu · isiMuku' },
+  'buchu': { Afrikaans: 'Boegoe · Rondeblaarboegoe', English: 'Round Leaf Buchu · Buchu', Khoikhoi: 'boegoe', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'ibuchu', Zulu: 'ibhokwe' },
+  'bulbine': { Afrikaans: 'Rankkopieva · Geelkatstert', English: 'Stalked Bulbine · Burn Jelly Plant', Khoikhoi: 'kopieva', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'ibhucu', Zulu: 'ibhucu' },
+  'cape-chamomile': { Afrikaans: 'Kapokbossie · Wilde Roosmaryn', English: 'Cape Chamomile · Wild Rosemary', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
+  'devils-claw': { Afrikaans: 'Duiwelsklou · Kloubossie', English: "Devil's Claw · Grapple Plant", Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'sengaparile', Sesotho: 'sengaparile', Setswana: 'sengaparile', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
+  'honeybush': { Afrikaans: 'Heuningbos · Bergtee', English: 'Honeybush · Honey Tea', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
+  'hoodia': { Afrikaans: 'Bobbejaanghaap · Ghaap', English: 'Hoodia · Queen of the Namib', Khoikhoi: '!khoba', Ndebele: 'not documented', San: '/xhoba', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
+  'kanna': { Afrikaans: 'Kougoed · Kanna', English: 'Kanna · Kougoed', Khoikhoi: 'channa · kanna', Ndebele: 'not documented', San: '/xhoba · kanna', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
+  'marula': { Afrikaans: 'Maroela', English: 'Marula · Cider Tree', Khoikhoi: 'not documented', Ndebele: 'umganu', San: 'not documented', Sepedi: 'morula', Sesotho: 'morula', Setswana: 'morula', Swati: 'umganu', Tsonga: 'nkanyi', Venda: 'mufula', Xhosa: 'umganu', Zulu: 'umganu' },
+  'mphepho': { Afrikaans: 'Kooigoed · Sewejaartjie', English: 'Everlasting · Imphepho', Khoikhoi: 'not documented', Ndebele: 'imphepho', San: 'not documented', Sepedi: 'sehlomame', Sesotho: 'sehlomame', Setswana: 'sehlomame', Swati: 'imphepho', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'imphepho', Zulu: 'imphepho' },
+  'pelargonium-sidoides': { Afrikaans: 'Rabassam', English: 'South African Geranium · Umckaloabo', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'kaloba', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'umckaloabo', Zulu: 'umckaloabo · isiqalaba' },
+  'pepper-bark': { Afrikaans: 'Peperbasboom', English: 'Pepper Bark Tree · Isibhaha', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'mulaladzi', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'umphazane', Tsonga: 'ndhundhuma', Venda: 'mulanga', Xhosa: 'isibhaha', Zulu: 'isibhaha' },
+  'rooibos': { Afrikaans: 'Rooibos · Rooibostee', English: 'Rooibos · Red Bush', Khoikhoi: 'rooibos (Khoikhoi origin)', Ndebele: 'irooibos (adopted)', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'irooibos (adopted)', Zulu: 'irooibos (adopted)' },
+  'sutherlandia': { Afrikaans: 'Kankerbos · Blaasertjie', English: 'Cancer Bush · Balloon Pea', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'unwele · insiswa', Zulu: 'unwele' },
+  'uzara': { Afrikaans: 'Bitterwortel · Uzara', English: 'Uzara · Bitterroot', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'uzara', Zulu: 'uzara' },
+  'wild-olive': { Afrikaans: 'Olienhout · Wilde Olyfboom', English: 'Wild Olive · Ironwood Olive', Khoikhoi: 'not documented', Ndebele: 'umquma', San: 'not documented', Sepedi: 'mohlware', Sesotho: 'mohlware', Setswana: 'morolwe', Swati: 'umquma', Tsonga: 'ndzhovhela', Venda: 'muloiwa', Xhosa: 'umquma', Zulu: 'umquma' },
+  'wild-sage': { Afrikaans: 'Geelslangbos · Bruinsalie', English: 'Wild Sage · Brown Sage', Khoikhoi: 'wilde salie (partially preserved)', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
+};
+
+const slug = plant.id.replace('/index', '').replace('.md', '');
+const hardcodedNames = COMMON_NAMES[slug] ?? {};
+const displayNames = Object.keys(hardcodedNames).length > 0 ? Object.entries(hardcodedNames) : sortedNames;
 ---
 
 <Layout title={`${d.name} | South African Botanical Registry`} schema={jsonLd}>
@@ -81,356 +104,74 @@ const stats: { label: string; value: string }[] = d.conservation_status
     --sans:    sans-serif;
   }
   body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
-
-  /* ── PORTAL ── */
   .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-
-  /* ── TOP BAR ── */
-  .top-bar {
-    background: var(--green);
-    border-bottom: 2px solid var(--gold);
-    padding: 9px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
-  .top-bar-back {
-    color: var(--gold);
-    font-family: var(--sans);
-    font-size: 12px;
-    text-decoration: none;
-  }
-  .top-bar-title {
-    font-family: var(--sans);
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--sage);
-    text-decoration: none;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .top-bar-dots {
-    font-family: var(--sans);
-    font-size: 16px;
-    letter-spacing: 2px;
-    color: var(--sage);
-  }
-
-  /* ── PLANT BAND ── */
-  .plant-band {
-    background: var(--parch);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 12px 20px 0;
-    flex-shrink: 0;
-  }
-  .plant-name {
-    font-family: var(--display);
-    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .plant-sci {
-    font-family: var(--sans);
-    font-size: 10px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0;
-  }
-
-  /* ── TABS ── */
-  .tabs-row {
-    display: flex;
-    width: 100%;
-    margin-top: 10px;
-    border-bottom: 2px solid var(--gold);
-    border-top: 1px solid var(--border);
-  }
-  .tab-btn {
-    font-family: var(--sans);
-    font-size: 10px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    background: var(--parch);
-    color: var(--ink);
-    border: none;
-    border-right: 1px solid var(--border);
-    border-bottom: 3px solid transparent;
-    padding: 7px 2px;
-    flex: 1;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: color .1s, background .1s;
-    text-align: center;
-  }
+  .top-bar { background: var(--green); border-bottom: 2px solid var(--gold); padding: 9px 28px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; position: relative; }
+  .top-bar-back { color: var(--gold); font-family: var(--sans); font-size: 12px; text-decoration: none; }
+  .top-bar-title { font-family: var(--sans); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); text-decoration: none; position: absolute; left: 50%; transform: translateX(-50%); }
+  .top-bar-dots { font-family: var(--sans); font-size: 16px; letter-spacing: 2px; color: var(--sage); }
+  .plant-band { background: var(--parch); display: flex; flex-direction: column; align-items: center; padding: 12px 20px 0; flex-shrink: 0; }
+  .plant-name { font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: 4px; }
+  .plant-sci { font-family: var(--sans); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0; }
+  .tabs-row { display: flex; width: 100%; margin-top: 10px; border-bottom: 2px solid var(--gold); border-top: 1px solid var(--border); }
+  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; background: var(--parch); color: var(--ink); border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .1s, background .1s; text-align: center; }
   .tab-btn:last-child { border-right: none; }
   .tab-btn:hover { color: var(--gold); background: #fff; }
   .tab-btn.active { background: #fff; color: var(--gold); border-bottom-color: var(--gold); }
-
-  /* ── CONTENT SCROLL AREA ── */
   .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
-
-  /* ── DATA SHEET: TWO-COL GRID ── */
-  .ds-grid {
-    display: grid;
-    grid-template-columns: 186px 1fr;
-    border-bottom: 1px solid var(--border);
-  }
-
-  /* ── LEFT COLUMN ── */
-  .ds-left {
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Photo */
-  .carousel-wrap {
-    width: 186px;
-    height: 220px;
-    background: var(--green);
-    position: relative;
-    overflow: hidden;
-    flex-shrink: 0;
-  }
+  .ds-grid { display: grid; grid-template-columns: 186px 1fr; }
+  .ds-left { border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+  .carousel-wrap { width: 186px; height: 186px; background: var(--green); position: relative; overflow: hidden; flex-shrink: 0; }
   .carousel-img { width: 100%; height: 100%; object-fit: cover; display: none; }
   .carousel-img.active { display: block; }
-  .carousel-empty {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--sans); font-size: 10px; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--sage);
-    text-align: center; line-height: 1.8; padding: 0 16px;
-  }
-
-  /* Photo credit — parchment bg */
-  .photo-credit {
-    background: var(--parch);
-    padding: 7px 10px;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .photo-credit-lbl {
-    font-family: var(--sans);
-    font-size: 8px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--sage);
-    margin-bottom: 3px;
-  }
-  .photo-credit-val {
-    font-family: var(--sans);
-    font-size: 9px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  /* Photo nav */
-  .carousel-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 4px 10px;
-    background: var(--parch);
-    border-bottom: 1px solid var(--border);
-  }
-  .c-arrow {
-    background: none;
-    border: none;
-    font-size: 12px;
-    color: var(--muted);
-    padding: 0;
-    cursor: pointer;
-    line-height: 1;
-  }
+  .carousel-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); text-align: center; line-height: 1.8; padding: 0 16px; }
+  .photo-credit { background: var(--parch); padding: 6px 10px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .photo-credit-lbl { font-family: var(--sans); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 2px; }
+  .photo-credit-val { font-family: var(--sans); font-size: 8.5px; color: var(--muted); line-height: 1.4; }
+  .carousel-nav { display: flex; align-items: center; justify-content: space-between; padding: 3px 10px; background: var(--parch); border-bottom: 1px solid var(--border); }
+  .c-arrow { background: none; border: none; font-size: 12px; color: var(--muted); padding: 0; cursor: pointer; line-height: 1; }
   .c-arrow:hover { color: var(--gold); }
   .c-count { font-family: var(--sans); font-size: 9px; color: var(--muted); }
-
-  /* Common Names */
-  .names-wrap { padding: 8px; }
-  .names-lbl {
-    font-family: var(--sans);
-    font-size: 8px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--sage);
-    padding-bottom: 4px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 1px;
-  }
-  .name-row {
-    display: grid;
-    grid-template-columns: 60px 1fr;
-    padding: 2.5px 0;
-    border-bottom: 1px solid #F5F4F0;
-    gap: 4px;
-    align-items: start;
-  }
+  .names-wrap { padding: 8px; flex: 1; }
+  .names-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); padding-bottom: 4px; border-bottom: 1px solid var(--border); margin-bottom: 1px; }
+  .name-row { display: grid; grid-template-columns: 62px 1fr; padding: 2.5px 0; border-bottom: 1px solid #F5F4F0; gap: 4px; align-items: start; }
   .name-row:last-child { border-bottom: none; }
-  .n-lang {
-    font-family: var(--sans);
-    font-size: 8.5px;
-    color: var(--sage);
-    text-transform: uppercase;
-    letter-spacing: .3px;
-    padding-top: 1px;
-  }
-  .n-val { font-family: var(--serif); font-size: 12.5px; color: var(--ink); line-height: 1.3; }
-  .n-val.nd { color: #C8C6BE; font-style: italic; font-size: 11.5px; }
-
-  /* ── RIGHT COLUMN ── */
+  .n-lang { font-family: var(--sans); font-size: 8px; color: var(--sage); text-transform: uppercase; letter-spacing: .3px; padding-top: 1px; }
+  .n-val { font-family: var(--serif); font-size: 12px; color: var(--ink); line-height: 1.3; }
+  .n-val.nd { color: #C8C6BE; font-style: italic; font-size: 11px; }
   .ds-right { display: flex; flex-direction: column; }
-
-  /* Block 1: Common Name | Scientific Name | Family */
-  .id-three {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr 1fr;
-    border-bottom: 1px solid var(--border);
-  }
-  .id-cell {
-    padding: 9px 14px;
-    border-right: 1px solid var(--border);
-  }
+  .id-three { display: grid; grid-template-columns: 1fr 1.4fr 1fr; border-bottom: 2px solid var(--gold); }
+  .id-cell { padding: 9px 14px; border-right: 1px solid var(--border); }
   .id-cell:last-child { border-right: none; }
-  .block-lbl {
-    font-family: var(--sans);
-    font-size: 8px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--sage);
-    margin-bottom: 4px;
-  }
+  .block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 4px; }
   .id-val { font-family: var(--serif); font-size: 16px; color: var(--ink); }
   .id-val.it { font-style: italic; }
-
-  /* Block 2: Native Region */
-  .native-block {
-    padding: 9px 14px;
-    border-bottom: 1px solid var(--border);
-  }
-  .native-val {
-    font-family: var(--serif);
-    font-size: 14px;
-    font-style: italic;
-    color: var(--ink);
-    line-height: 1.65;
-    margin-top: 3px;
-  }
-
-  /* Block 3: Stats row */
-  .stats-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    border-bottom: 1px solid var(--border);
-  }
-  .stat-cell {
-    padding: 8px 14px;
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 58px;
-  }
+  .native-block { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+  .native-val { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--ink); line-height: 1.65; margin-top: 3px; }
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; border-bottom: 1px solid var(--border); }
+  .stat-cell { padding: 8px 14px; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; min-height: 58px; }
   .stat-cell:last-child { border-right: none; }
-  .stat-val {
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    color: var(--gold);
-    margin-top: auto;
-    line-height: 1;
-  }
-
-  /* Block 4: Protection & Benefit Sharing */
-  .prot-block {
-    padding: 9px 14px;
-    border-bottom: 1px solid var(--border);
-  }
-  .prot-row {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    padding: 4px 0;
-    border-bottom: 1px solid #F5F4F0;
-  }
+  .stat-val { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.3px; color: var(--gold); margin-top: auto; line-height: 1; }
+  .prot-block { padding: 9px 0; border-bottom: 1px solid var(--border); }
+  .prot-block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; padding: 0 14px; }
+  .prot-row { display: flex; align-items: flex-start; padding: 5px 0; border-bottom: 1px solid #F5F4F0; }
   .prot-row:last-child { border-bottom: none; }
-  .prot-badge {
-    font-family: var(--sans);
-    font-size: 7.5px;
-    letter-spacing: .8px;
-    text-transform: uppercase;
-    padding: 3px 7px;
-    flex-shrink: 0;
-    margin-top: 2px;
-    white-space: nowrap;
-    background: var(--green);
-    color: var(--sage);
-    min-width: 60px;
-    text-align: center;
-  }
-  .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; }
-
-  /* Block 5: Introduction — right column full width */
-  .intro-block {
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-  }
-  .intro-text {
-    font-family: var(--serif);
-    font-size: 13.5px;
-    line-height: 1.78;
-    color: var(--ink);
-    margin-top: 4px;
-  }
-
-  /* ── LOWER SECTIONS (full width, below grid) ── */
+  .prot-badge { font-family: var(--sans); font-size: 7.5px; letter-spacing: .8px; text-transform: uppercase; padding: 4px 10px; flex-shrink: 0; white-space: nowrap; background: var(--green); color: var(--sage); min-width: 80px; text-align: center; align-self: stretch; display: flex; align-items: center; justify-content: center; }
+  .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; padding: 0 14px; }
+  .intro-block { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
   .ds-lower { padding: 14px 16px; }
-
   .ds-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .ds-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .ds-sec { border-top: 1px solid var(--border); padding-top: 8px; }
-  .ds-sec-lbl {
-    font-family: var(--sans);
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--sage);
-    margin-bottom: 6px;
-  }
+  .ds-sec-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
   .ds-list { padding-left: 14px; }
   .ds-list li { font-family: var(--serif); font-size: 13.5px; line-height: 1.55; color: var(--ink); margin-bottom: 2px; }
   .ds-val { font-family: var(--serif); font-size: 13.5px; line-height: 1.65; color: var(--ink); }
-
-  /* IK block */
   .ik-block { background: var(--green); padding: 13px 16px; margin-bottom: 14px; }
-  .ik-lbl {
-    font-family: var(--sans);
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--sage);
-    margin-bottom: 6px;
-  }
-  .ik-val {
-    font-family: var(--serif);
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--parch);
-    font-style: italic;
-  }
-
-  /* ── ARTICLE CARDS ── */
+  .ik-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
+  .ik-val { font-family: var(--serif); font-size: 14px; line-height: 1.8; color: var(--parch); font-style: italic; }
   .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px; }
   .card { background: #fff; border: 1px solid var(--border); border-top: 2px solid var(--gold); padding: 16px 18px; }
   .card.dark { background: var(--green); border-top-color: var(--gold); }
@@ -453,46 +194,11 @@ const stats: { label: string; value: string }[] = d.conservation_status
   .c-sent { font-family: var(--sans); font-size: 12px; color: var(--gold); margin-top: 5px; display: none; }
   .c-read-btn { font-family: var(--sans); font-size: 8px; letter-spacing: 1px; text-transform: uppercase; border: none; cursor: pointer; padding: 0; background: transparent; margin-top: 5px; display: block; color: var(--ink); }
   .c-read-btn.read { color: var(--gold); }
-
-  /* ── FIXED FOOTER ── */
-  .site-footer {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: var(--green);
-    border-top: 2px solid var(--gold);
-    display: flex;
-    align-items: stretch;
-    z-index: 100;
-  }
-  .ft-label {
-    font-family: var(--sans);
-    font-size: 14px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--sage);
-    padding: 12px 20px;
-    display: flex;
-    align-items: center;
-    border-right: 1px solid rgba(184,134,11,.3);
-    white-space: nowrap;
-  }
+  .site-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green); border-top: 2px solid var(--gold); display: flex; align-items: stretch; z-index: 100; }
+  .ft-label { font-family: var(--sans); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--sage); padding: 12px 20px; display: flex; align-items: center; border-right: 1px solid rgba(184,134,11,.3); white-space: nowrap; }
   .ft-btns { display: flex; flex: 1; }
-  .ft-btn {
-    flex: 1;
-    padding: 12px 8px;
-    font-family: var(--sans);
-    font-size: 20px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-align: center;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    color: #B8860B !important;
-  }
+  .ft-btn { flex: 1; padding: 12px 8px; font-family: var(--sans); font-size: 20px; letter-spacing: 2px; text-transform: uppercase; text-align: center; cursor: pointer; border: none; background: transparent; color: #B8860B !important; }
   .ft-btn:first-child { border-right: 1px solid rgba(184,134,11,.3); }
-
-  /* ── CONNECT MODALS ── */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
   .modal { background: #fff; border-top: 3px solid var(--gold); padding: 32px 36px; width: 100%; max-width: 480px; position: relative; }
@@ -501,12 +207,10 @@ const stats: { label: string; value: string }[] = d.conservation_status
   .modal p { font-family: var(--sans); font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
   .m-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
   .m-field label { font-family: var(--sans); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
-  .m-field input, .m-field textarea, .m-field select { padding: 8px 10px; font-family: var(--sans); font-size: 13px; border: 1px solid var(--border); background: var(--parch); color: var(--ink); outline: none; width: 100%; }
+  .m-field input, .m-field textarea { padding: 8px 10px; font-family: var(--sans); font-size: 13px; border: 1px solid var(--border); background: var(--parch); color: var(--ink); outline: none; width: 100%; }
   .m-field textarea { height: 80px; resize: vertical; }
   .m-submit { width: 100%; padding: 12px; background: var(--gold); color: var(--green); border: none; font-family: var(--sans); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; cursor: pointer; margin-top: 8px; }
   .m-thanks { display: none; text-align: center; padding: 20px 0; font-family: var(--sans); font-size: 11px; color: var(--gold); letter-spacing: 1px; }
-
-  /* ── MOBILE ── */
   @media (max-width: 680px) {
     .tabs-row { display: none; }
     .portal { padding-bottom: 72px; height: auto; overflow: visible; }
@@ -519,10 +223,9 @@ const stats: { label: string; value: string }[] = d.conservation_status
     .mob-tab-list { display: flex; flex-direction: column; background: #fff; border-bottom: 2px solid var(--gold); flex-shrink: 0; }
     .mob-tab-row { width: 100%; padding: 10px 14px; font-family: var(--sans); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; background: var(--parch); color: var(--ink); border: none; border-bottom: 1px solid var(--border); text-align: center; cursor: pointer; }
     .mob-tab-row:last-child { border-bottom: none; }
-    .mob-tab-row.ds { color: var(--muted); }
     .ds-grid { grid-template-columns: 1fr; }
     .ds-left { border-right: none; border-bottom: 1px solid var(--border); }
-    .carousel-wrap { width: 100%; height: 200px; }
+    .carousel-wrap { width: 100%; height: 240px; }
     .ds-row3 { grid-template-columns: 1fr; }
     .ds-row2 { grid-template-columns: 1fr; }
     .cards-grid { grid-template-columns: 1fr; }
@@ -540,33 +243,24 @@ const stats: { label: string; value: string }[] = d.conservation_status
 
 <div class="portal" id="sabm-portal">
 
-  <!-- TOP BAR -->
-  <div class="top-bar" style="position:relative;">
+  <div class="top-bar">
     <a href="/" class="top-bar-back" aria-label="Back to Registry">←</a>
     <a href="/" class="top-bar-title">South African Botanical Registry</a>
     <span class="top-bar-dots">···</span>
   </div>
 
-  <!-- PLANT BAND + TABS -->
   <div class="plant-band">
     <h1 class="plant-name">{d.name}</h1>
     <p class="plant-sci">{d.scientific_name}</p>
     <div class="tabs-row" role="tablist">
       {TABS.map(tab => (
-        <button
-          class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}`}
-          data-id={tab.id}
-          role="tab"
-          aria-selected={tab.id === 'datasheet' ? 'true' : 'false'}
-          aria-controls={`panel-${tab.id}`}
-        >
+        <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
           {tab.label}
         </button>
       ))}
     </div>
   </div>
 
-  <!-- MOBILE EXPLORE BAR -->
   <div class="explore-bar" id="mob-bar">
     <span style="opacity:0;font-family:sans-serif;font-size:8px;">← back</span>
     <span style="flex:1;display:flex;justify-content:center;">
@@ -574,36 +268,22 @@ const stats: { label: string; value: string }[] = d.conservation_status
     </span>
   </div>
 
-  <!-- MOBILE TAB LIST -->
   <div class="mob-tab-list" id="mob-tab-list" style="display:none;">
     {TABS.map(tab => (
-      <button class={`mob-tab-row${tab.id === 'datasheet' ? ' ds' : ''}`} data-id={tab.id}>
-        {tab.label}
-      </button>
+      <button class={`mob-tab-row${tab.id === 'datasheet' ? ' ds' : ''}`} data-id={tab.id}>{tab.label}</button>
     ))}
   </div>
 
-  <!-- CONTENT WRAP — scrolls behind fixed footer -->
   <div class="content-wrap" id="content-wrap" style="padding-bottom:60px;">
 
-    <!-- ── DATA SHEET PANEL ── -->
     <div class="tab-panel active" id="panel-datasheet">
-
-      <!-- TWO-COL GRID -->
       <div class="ds-grid">
 
-        <!-- LEFT: photo + credit + nav + common names -->
         <div class="ds-left">
           <div class="carousel-wrap" id="carousel-wrap">
             {images.length > 0 ? (
               images.map((img, i) => (
-                <img
-                  src={img.src}
-                  alt={`${d.name} — photograph ${i + 1}`}
-                  class={`carousel-img${i === 0 ? ' active' : ''}`}
-                  data-index={i}
-                  loading="lazy"
-                />
+                <img src={img.src} alt={`${d.name} — photograph ${i + 1}`} class={`carousel-img${i === 0 ? ' active' : ''}`} data-index={i} loading="lazy" />
               ))
             ) : (
               <span class="carousel-empty">Plant photography<br/>coming soon</span>
@@ -623,23 +303,19 @@ const stats: { label: string; value: string }[] = d.conservation_status
             <button class="c-arrow" id="c-next" aria-label="Next">→</button>
           </div>
 
-          {sortedNames.length > 0 && (
-            <div class="names-wrap">
-              <div class="names-lbl">Common Names</div>
-              {sortedNames.map(([lang, name]) => (
-                <div class="name-row">
-                  <div class="n-lang">{lang}</div>
-                  <div class={`n-val${name === 'not documented' ? ' nd' : ''}`}>{name as string}</div>
-                </div>
-              ))}
-            </div>
-          )}
+          <div class="names-wrap">
+            <div class="names-lbl">Common Names</div>
+            {displayNames.map(([lang, name]) => (
+              <div class="name-row">
+                <div class="n-lang">{lang}</div>
+                <div class={`n-val${(name as string) === 'not documented' || (name as string) === 'not documented in surviving records' ? ' nd' : ''}`}>{name as string}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <!-- RIGHT: identity blocks in exact approved order -->
         <div class="ds-right">
 
-          <!-- Block 1: Common Name | Scientific Name | Family -->
           <div class="id-three">
             <div class="id-cell">
               <div class="block-lbl">Common Name</div>
@@ -655,13 +331,11 @@ const stats: { label: string; value: string }[] = d.conservation_status
             </div>
           </div>
 
-          <!-- Block 2: Native Region -->
           <div class="native-block">
             <div class="block-lbl">Native Region</div>
             <div class="native-val">{d.native_region ?? '—'}</div>
           </div>
 
-          <!-- Block 3: Stats row — Annual Production | Export Revenue | Export Markets | Livelihoods -->
           <div class="stats-row">
             <div class="stat-cell">
               <div class="block-lbl">Annual<br/>Production</div>
@@ -681,28 +355,26 @@ const stats: { label: string; value: string }[] = d.conservation_status
             </div>
           </div>
 
-          <!-- Block 4: Protection & Benefit Sharing -->
           <div class="prot-block">
-            <div class="block-lbl" style="margin-bottom:6px;">Protection &amp; Benefit Sharing</div>
+            <div class="prot-block-lbl">Protection &amp; Benefit Sharing</div>
             <div class="prot-row">
-              <span class="prot-badge badge-gi">{d.gi_year ?? 'GI 2021'}</span>
+              <span class="prot-badge">{d.gi_year ?? 'GI 2021'}</span>
               <span class="prot-text">{d.gi_status ?? 'EU Geographical Indication — South Africa sole legally recognised producer. Name protected in European markets.'}</span>
             </div>
             <div class="prot-row">
-              <span class="prot-badge badge-gi">{d.bsa_year ?? 'BSA 2019'}</span>
+              <span class="prot-badge">{d.bsa_year ?? 'BSA 2019'}</span>
               <span class="prot-text">{d.bsa_status ?? 'Khoisan Benefit-Sharing Agreement — ongoing royalties paid to traditional knowledge holders from industry revenues.'}</span>
             </div>
             <div class="prot-row">
-              <span class="prot-badge badge-gi">Organic</span>
+              <span class="prot-badge">Organic</span>
               <span class="prot-text">{d.organic_status ?? '35% of total production certified organic — highest proportion of any South African botanical export crop.'}</span>
             </div>
             <div class="prot-row">
-              <span class="prot-badge badge-gi">Wild Harvest</span>
+              <span class="prot-badge">Wild Harvest</span>
               <span class="prot-text">{d.wild_harvest ?? 'Fully cultivated — no wild harvest. Commercial production entirely from planted farms in the Cederberg GI zone.'}</span>
             </div>
           </div>
 
-          <!-- Block 5: Introduction -->
           {d.introduction && (
             <div class="intro-block">
               <div class="block-lbl">Introduction</div>
@@ -713,10 +385,7 @@ const stats: { label: string; value: string }[] = d.conservation_status
         </div>
       </div>
 
-      <!-- LOWER SECTIONS: full width below the grid -->
       <div class="ds-lower">
-
-        <!-- Active Compounds | Traditional Uses | Clinically Validated -->
         {(m.active_compounds?.length || m.traditional_uses?.length || m.clinically_validated?.length) && (
           <div class="ds-row3">
             {m.active_compounds?.length && (
@@ -740,7 +409,6 @@ const stats: { label: string; value: string }[] = d.conservation_status
           </div>
         )}
 
-        <!-- Cultivation | Commercial & Trade Notes -->
         {(cv.climate || cv.commercial) && (
           <div class="ds-row2">
             {(cv.climate || cv.regions) && (
@@ -759,7 +427,6 @@ const stats: { label: string; value: string }[] = d.conservation_status
           </div>
         )}
 
-        <!-- IK Block -->
         {ik && (
           <div class="ik-block">
             <div class="ik-lbl">Indigenous Knowledge</div>
@@ -767,18 +434,15 @@ const stats: { label: string; value: string }[] = d.conservation_status
           </div>
         )}
 
-        <!-- Names & Their Origins -->
         {d.naming_origins && (
           <div class="ds-sec" style="margin-bottom:14px;">
             <div class="ds-sec-lbl">Names &amp; Their Origins</div>
             <p class="ds-val" set:html={d.naming_origins}></p>
           </div>
         )}
-
       </div>
     </div>
 
-    <!-- ── ARTICLE TAB PANELS ── -->
     {TABS.filter(t => t.id !== 'datasheet').map(tab => (
       <div class="tab-panel" id={`panel-${tab.id}`}>
         <div class="cards-grid">
@@ -826,7 +490,6 @@ const stats: { label: string; value: string }[] = d.conservation_status
 
   </div>
 
-  <!-- FIXED FOOTER -->
   <footer class="site-footer">
     <div class="ft-label">Connect with</div>
     <div class="ft-btns">
@@ -835,7 +498,6 @@ const stats: { label: string; value: string }[] = d.conservation_status
     </div>
   </footer>
 
-  <!-- SUPPLIERS MODAL -->
   <div class="modal-overlay" id="modal-suppliers">
     <div class="modal">
       <button class="modal-close" data-close="suppliers">×</button>
@@ -854,7 +516,6 @@ const stats: { label: string; value: string }[] = d.conservation_status
     </div>
   </div>
 
-  <!-- BUYERS MODAL -->
   <div class="modal-overlay" id="modal-buyers">
     <div class="modal">
       <button class="modal-close" data-close="buyers">×</button>
@@ -879,30 +540,21 @@ const stats: { label: string; value: string }[] = d.conservation_status
 (function () {
   const PLANT_ID  = document.querySelector('.plant-name')?.textContent?.trim() ?? 'plant';
   const LS_PREFIX = `sabm-${PLANT_ID}-`;
-
   function $(id) { return document.getElementById(id); }
   function lsGet(k) { try { return localStorage.getItem(LS_PREFIX + k); } catch { return null; } }
   function lsSet(k, v) { try { localStorage.setItem(LS_PREFIX + k, v); } catch {} }
 
-  /* ── DESKTOP TABS ── */
   const dtabs   = document.querySelectorAll('.tab-btn');
   const dpanels = document.querySelectorAll('.tab-panel');
-
   function activateTab(id) {
-    dtabs.forEach(t => {
-      const on = t.dataset.id === id;
-      t.classList.toggle('active', on);
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-    });
+    dtabs.forEach(t => { const on = t.dataset.id === id; t.classList.toggle('active', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
     dpanels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
     $('content-wrap')?.scrollTo(0, 0);
   }
   dtabs.forEach(t => t.addEventListener('click', () => activateTab(t.dataset.id)));
 
-  /* ── MOBILE FLOW ── */
   const mobBar     = $('mob-bar');
   const mobTabList = $('mob-tab-list');
-
   function setMobBar(state, label) {
     if (state === 'data') {
       mobBar.innerHTML = `<span style="opacity:0;font-family:sans-serif;font-size:8px;">← back</span><span style="flex:1;display:flex;justify-content:center;"><span class="explore-pill" id="mob-explore-btn">Explore <span class="pill-arrow">↓</span></span></span>`;
@@ -915,53 +567,23 @@ const stats: { label: string; value: string }[] = d.conservation_status
       $('mob-back-tabs')?.addEventListener('click', showTabs);
     }
   }
-
-  function showData() {
-    mobTabList.style.display = 'none';
-    dpanels.forEach(p => p.classList.toggle('active', p.id === 'panel-datasheet'));
-    setMobBar('data', '');
-  }
-  function showTabs() {
-    mobTabList.style.display = 'flex';
-    dpanels.forEach(p => p.classList.remove('active'));
-    setMobBar('tabs', '');
-  }
-  function showContent(id, label) {
-    mobTabList.style.display = 'none';
-    dpanels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
-    setMobBar('content', label);
-    $('content-wrap')?.scrollTo(0, 0);
-  }
-
+  function showData() { mobTabList.style.display = 'none'; dpanels.forEach(p => p.classList.toggle('active', p.id === 'panel-datasheet')); setMobBar('data', ''); }
+  function showTabs() { mobTabList.style.display = 'flex'; dpanels.forEach(p => p.classList.remove('active')); setMobBar('tabs', ''); }
+  function showContent(id, label) { mobTabList.style.display = 'none'; dpanels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`)); setMobBar('content', label); $('content-wrap')?.scrollTo(0, 0); }
   document.querySelectorAll('.mob-tab-row').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (btn.dataset.id === 'datasheet') showData();
-      else showContent(btn.dataset.id, btn.textContent.trim());
-    });
+    btn.addEventListener('click', () => { if (btn.dataset.id === 'datasheet') showData(); else showContent(btn.dataset.id, btn.textContent.trim()); });
   });
 
-  /* ── CAROUSEL ── */
-  const imgs    = document.querySelectorAll('.carousel-img');
-  const credit  = null;
+  const imgs = document.querySelectorAll('.carousel-img');
   const counter = $('c-count');
-  let   cIdx    = 0;
-
-  function showImg(i) {
-    imgs.forEach((img, n) => img.classList.toggle('active', n === i));
-    if (counter) counter.textContent = `${i + 1} of ${imgs.length}`;
-    cIdx = i;
-  }
+  let cIdx = 0;
+  function showImg(i) { imgs.forEach((img, n) => img.classList.toggle('active', n === i)); if (counter) counter.textContent = `${i + 1} of ${imgs.length}`; cIdx = i; }
   $('c-prev')?.addEventListener('click', () => showImg((cIdx - 1 + imgs.length) % imgs.length));
   $('c-next')?.addEventListener('click', () => showImg((cIdx + 1) % imgs.length));
 
-  /* ── READ SUMMARY + EMAIL GATE ── */
   document.querySelectorAll('[data-read]').forEach(btn => {
     const tab = btn.dataset.tab, num = btn.dataset.num, key = `read-${tab}-${num}`;
-    if (lsGet(key)) {
-      btn.textContent = 'Summary read ✓'; btn.classList.add('read');
-      $(`sum-${tab}-${num}`)?.classList.add('open');
-      $(`gate-${tab}-${num}`)?.classList.add('open');
-    }
+    if (lsGet(key)) { btn.textContent = 'Summary read ✓'; btn.classList.add('read'); $(`sum-${tab}-${num}`)?.classList.add('open'); $(`gate-${tab}-${num}`)?.classList.add('open'); }
     btn.addEventListener('click', () => {
       const s = $(`sum-${tab}-${num}`), g = $(`gate-${tab}-${num}`);
       const open = s?.classList.contains('open');
@@ -970,43 +592,32 @@ const stats: { label: string; value: string }[] = d.conservation_status
     });
   });
 
-  /* ── EMAIL SEND ── */
   document.querySelectorAll('[data-send]').forEach(btn => {
     btn.addEventListener('click', () => {
       const tab = btn.dataset.tab, num = btn.dataset.num;
       const inp = $(`email-${tab}-${num}`), sent = $(`sent-${tab}-${num}`);
       if (!inp) return;
-      if (inp.value.includes('@')) {
-        inp.style.display = 'none'; btn.style.display = 'none';
-        if (sent) sent.style.display = 'block';
-      } else { inp.style.borderColor = '#B8860B'; inp.focus(); }
+      if (inp.value.includes('@')) { inp.style.display = 'none'; btn.style.display = 'none'; if (sent) sent.style.display = 'block'; }
+      else { inp.style.borderColor = '#B8860B'; inp.focus(); }
     });
   });
 
-  /* ── CONNECT MODALS ── */
   $('btn-suppliers')?.addEventListener('click', () => $('modal-suppliers')?.classList.add('open'));
   $('btn-buyers')?.addEventListener('click', () => $('modal-buyers')?.classList.add('open'));
-  document.querySelectorAll('[data-close]').forEach(btn => {
-    btn.addEventListener('click', () => $(`modal-${btn.dataset.close}`)?.classList.remove('open'));
-  });
-  document.querySelectorAll('.modal-overlay').forEach(o => {
-    o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
-  });
+  document.querySelectorAll('[data-close]').forEach(btn => { btn.addEventListener('click', () => $(`modal-${btn.dataset.close}`)?.classList.remove('open')); });
+  document.querySelectorAll('.modal-overlay').forEach(o => { o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }); });
   ['suppliers','buyers'].forEach(type => {
     $(`form-${type}`)?.addEventListener('submit', async e => {
       e.preventDefault();
-      const form = e.target as HTMLFormElement;
+      const form = e.target;
       try { await fetch(form.action, { method:'POST', body: new FormData(form), headers:{ Accept:'application/json' } }); } catch {}
       form.style.display = 'none';
-      $(`thanks-${type}`)!.style.display = 'block';
+      $(`thanks-${type}`).style.display = 'block';
     });
   });
 
-  /* ── FOOTER GOLD ── */
-  document.querySelectorAll('.ft-btn').forEach(b => (b as HTMLElement).style.setProperty('color','#B8860B','important'));
-
+  document.querySelectorAll('.ft-btn').forEach(b => b.style.setProperty('color','#B8860B','important'));
 })();
 </script>
 
 </Layout>
-
