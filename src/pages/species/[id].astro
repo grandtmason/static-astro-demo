@@ -215,7 +215,23 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; padding: 4px 14px; }
   .intro-block { padding: 10px 14px; border-bottom: none; }
   .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
+  .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
+  .stats-map-row { display: grid; grid-template-columns: 1fr 60% 40%; border-bottom: 1px solid var(--border); }
+  .stats-col { display: flex; flex-direction: column; border-right: 1px solid var(--border); }
+  .map-col { border-right: 1px solid var(--border); overflow: hidden; }
+  .key-col { padding: 8px; display: flex; flex-direction: column; }
+  .key-section-lbl { font-family: var(--sans); font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 5px; }
+  .key-prov-row { display: flex; align-items: center; gap: 5px; margin-bottom: 3px; }
+  .key-swatch { width: 10px; height: 10px; flex-shrink: 0; border: 0.5px solid rgba(0,0,0,0.1); }
+  .key-abbr { font-family: var(--sans); font-size: 7px; letter-spacing: 1px; color: var(--green); font-weight: 500; width: 22px; flex-shrink: 0; }
+  .key-name { font-family: var(--sans); font-size: 7px; color: var(--muted); line-height: 1.2; }
+  .key-divider { border-top: 1px solid var(--border); margin: 6px 0; }
+  .key-dot-row { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
+  .key-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; border: 1px solid #fff; }
+  .key-dot-org { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; border: 1px solid #fff; display: flex; align-items: center; justify-content: center; }
+  .key-dot-inner { width: 3px; height: 3px; background: var(--green); border-radius: 50%; }
   .ds-lower { padding: 14px 16px; }
+.ds-lower { padding: 14px 16px; }
   .ds-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .ds-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .ds-sec { border-top: 1px solid var(--border); padding-top: 8px; }
@@ -387,42 +403,64 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
             <div class="native-val">{d.native_region ?? '—'}</div>
           </div>
 
-          <div class="stats-row">
-            <div class="stat-cell">
-              <div class="block-lbl">Annual<br/>Production</div>
-              <div class="stat-val">{stats.production}</div>
+          <div class="stats-map-row">
+            <div class="stats-col">
+              <div class="stats-row">
+                <div class="stat-cell">
+                  <div class="block-lbl">Annual<br/>Production</div>
+                  <div class="stat-val">{stats.production}</div>
+                </div>
+                <div class="stat-cell">
+                  <div class="block-lbl">Export Revenue</div>
+                  <div class="stat-val">{stats.revenue}</div>
+                </div>
+                <div class="stat-cell">
+                  <div class="block-lbl">Export Markets</div>
+                  <div class="stat-val">{stats.markets}</div>
+                </div>
+                <div class="stat-cell">
+                  <div class="block-lbl">Livelihoods</div>
+                  <div class="stat-val">{stats.livelihoods}</div>
+                </div>
+              </div>
+              <div class="prot-block">
+                <div class="prot-block-lbl">Protection &amp; Benefit Sharing</div>
+                <div class="prot-row">
+                  <span class="prot-badge">{protection.gi_year}</span>
+                  <span class="prot-text">{protection.gi_status}</span>
+                </div>
+                <div class="prot-row">
+                  <span class="prot-badge">{protection.bsa_year}</span>
+                  <span class="prot-text">{protection.bsa_status}</span>
+                </div>
+                <div class="prot-row">
+                  <span class="prot-badge">Organic</span>
+                  <span class="prot-text">{protection.organic}</span>
+                </div>
+                <div class="prot-row">
+                  <span class="prot-badge">Wild Harvest</span>
+                  <span class="prot-text">{protection.wild_harvest}</span>
+                </div>
+              </div>
             </div>
-            <div class="stat-cell">
-              <div class="block-lbl">Export Revenue</div>
-              <div class="stat-val">{stats.revenue}</div>
+            <div class="map-col">
+              <ProvinceMap slug={slug} />
             </div>
-            <div class="stat-cell">
-              <div class="block-lbl">Export Markets</div>
-              <div class="stat-val">{stats.markets}</div>
-            </div>
-            <div class="stat-cell">
-              <div class="block-lbl">Livelihoods</div>
-              <div class="stat-val">{stats.livelihoods}</div>
-            </div>
-          </div>
-
-          <div class="prot-block">
-            <div class="prot-block-lbl">Protection &amp; Benefit Sharing</div>
-            <div class="prot-row">
-              <span class="prot-badge">{protection.gi_year}</span>
-              <span class="prot-text">{protection.gi_status}</span>
-            </div>
-            <div class="prot-row">
-              <span class="prot-badge">{protection.bsa_year}</span>
-              <span class="prot-text">{protection.bsa_status}</span>
-            </div>
-            <div class="prot-row">
-              <span class="prot-badge">Organic</span>
-              <span class="prot-text">{protection.organic}</span>
-            </div>
-            <div class="prot-row">
-              <span class="prot-badge">Wild Harvest</span>
-              <span class="prot-text">{protection.wild_harvest}</span>
+            <div class="key-col">
+              <div class="key-section-lbl">Provinces</div>
+              <div class="key-prov-row"><span class="key-swatch" style="background:#2A5A40"></span><span class="key-abbr">EC</span><span class="key-name">Eastern Cape</span></div>
+              <div class="key-prov-row"><span class="key-swatch" style="background:#6A9E82"></span><span class="key-abbr">FS</span><span class="key-name">Free State</span></div>
+              <div class="key-prov-row"><span class="key-swatch" style="background:#C2D4CA"></span><span class="key-abbr">GT</span><span class="key-name">Gauteng</span></div>
+              <div class="key-prov-row"><span class="key-swatch" style="background:#E4EDE8"></span><span class="key-abbr">KZN</span><span class="key-name">KwaZulu-Natal</span></div>
+    <div class="key-prov-row"><span class="key-swatch" style="background:#EDE9E0"></span><span class="key-abbr">LIM</span><span class="key-name">Limpopo</span></div>
+              <div class="key-prov-row"><span class="key-swatch" style="background:#E8DFC8"></span><span class="key-abbr">MP</span><span class="key-name">Mpumalanga</span></div>
+              <div class="key-prov-row"><span class="key-swatch" style="background:#DDD0B0"></span><span class="key-abbr">NC</span><span class="key-name">Northern Cape</span></div>
+              <div class="key-prov-row"><span class="key-swatch" style="background:#D4C598"></span><span class="key-abbr">NW</span><span class="key-name">North West</span></div>
+              <div class="key-prov-row"><span class="key-swatch" style="background:#C8BA88"></span><span class="key-abbr">WC</span><span class="key-name">Western Cape</span></div>
+              <div class="key-divider"></div>
+              <div class="key-section-lbl">Key</div>
+              <div class="key-dot-row"><span class="key-dot"></span><span class="key-name">Registered farm</span></div>
+              <div class="key-dot-row"><span class="key-dot-org"><span class="key-dot-inner"></span></span><span class="key-name">Certified organic</span></div>
             </div>
           </div>
 
