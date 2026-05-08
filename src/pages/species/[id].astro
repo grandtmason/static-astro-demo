@@ -203,11 +203,11 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .id-val.it { font-style: italic; }
   .native-block { padding: 9px 14px; border-bottom: 1px solid var(--border); }
   .native-val { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--ink); line-height: 1.65; margin-top: 3px; }
-  .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; border-bottom: 1px solid var(--border); }
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; }
   .stat-cell { padding: 8px 14px; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; min-height: 58px; }
   .stat-cell:last-child { border-right: none; }
   .stat-val { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.3px; color: var(--gold); margin-top: auto; line-height: 1; }
-  .prot-block { padding: 9px 0; border-bottom: 1px solid var(--border); }
+  .prot-block { padding: 9px 0; }
   .prot-block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; padding: 0 14px; }
   .prot-row { display: flex; align-items: stretch; padding: 4px 0; border-bottom: 1px solid #F5F4F0; }
   .prot-row:last-child { border-bottom: none; }
@@ -215,10 +215,9 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; padding: 4px 14px; }
   .intro-block { padding: 10px 14px; border-bottom: none; }
   .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
-  .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
-  .stats-map-row { display: grid; grid-template-columns: 1fr 60% 40%; border-bottom: 1px solid var(--border); }
-  .stats-col { display: flex; flex-direction: column; border-right: 1px solid var(--border); }
-  .map-col { border-right: 1px solid var(--border); overflow: hidden; }
+  .stats-map-row { display: grid; grid-template-columns: 40% 38% 22%; border-bottom: 1px solid var(--border); min-height: 280px; }
+  .stats-col { display: flex; flex-direction: column; border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
+  .map-col { border-right: 1px solid var(--border); overflow: hidden; height: 100%; }
   .key-col { padding: 8px; display: flex; flex-direction: column; }
   .key-section-lbl { font-family: var(--sans); font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 5px; }
   .key-prov-row { display: flex; align-items: center; gap: 5px; margin-bottom: 3px; }
@@ -231,7 +230,6 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .key-dot-org { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; border: 1px solid #fff; display: flex; align-items: center; justify-content: center; }
   .key-dot-inner { width: 3px; height: 3px; background: var(--green); border-radius: 50%; }
   .ds-lower { padding: 14px 16px; }
-.ds-lower { padding: 14px 16px; }
   .ds-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .ds-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .ds-sec { border-top: 1px solid var(--border); padding-top: 8px; }
@@ -300,7 +298,9 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
     .ds-row3 { grid-template-columns: 1fr; }
     .ds-row2 { grid-template-columns: 1fr; }
     .cards-grid { grid-template-columns: 1fr; }
-    .stats-row { grid-template-columns: 1fr 1fr; }
+    .stats-map-row { grid-template-columns: 1fr; min-height: auto; }
+    .map-col { height: 200px; }
+    .key-col { display: none; }
     .id-three { grid-template-columns: 1fr; }
     .id-three .id-cell { border-right: none; border-bottom: 1px solid var(--border); }
     .site-footer { flex-direction: column; }
@@ -370,7 +370,6 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
             <span class="c-count" id="c-count">1 of {images.length > 0 ? images.length : 1}</span>
             <button class="c-arrow" id="c-next" aria-label="Next">→</button>
           </div>
-      
           <div class="names-wrap">
             <div class="names-lbl">Common Names</div>
             {displayNames.map(([lang, name]) => (
@@ -452,7 +451,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
               <div class="key-prov-row"><span class="key-swatch" style="background:#6A9E82"></span><span class="key-abbr">FS</span><span class="key-name">Free State</span></div>
               <div class="key-prov-row"><span class="key-swatch" style="background:#C2D4CA"></span><span class="key-abbr">GT</span><span class="key-name">Gauteng</span></div>
               <div class="key-prov-row"><span class="key-swatch" style="background:#E4EDE8"></span><span class="key-abbr">KZN</span><span class="key-name">KwaZulu-Natal</span></div>
-    <div class="key-prov-row"><span class="key-swatch" style="background:#EDE9E0"></span><span class="key-abbr">LIM</span><span class="key-name">Limpopo</span></div>
+              <div class="key-prov-row"><span class="key-swatch" style="background:#EDE9E0"></span><span class="key-abbr">LIM</span><span class="key-name">Limpopo</span></div>
               <div class="key-prov-row"><span class="key-swatch" style="background:#E8DFC8"></span><span class="key-abbr">MP</span><span class="key-name">Mpumalanga</span></div>
               <div class="key-prov-row"><span class="key-swatch" style="background:#DDD0B0"></span><span class="key-abbr">NC</span><span class="key-name">Northern Cape</span></div>
               <div class="key-prov-row"><span class="key-swatch" style="background:#D4C598"></span><span class="key-abbr">NW</span><span class="key-name">North West</span></div>
