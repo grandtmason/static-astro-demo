@@ -215,9 +215,9 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; padding: 4px 14px; }
   .intro-block { padding: 10px 14px; border-bottom: none; }
   .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
-  .stats-map-row { display: grid; grid-template-columns: 40% 38% 22%; border-bottom: 1px solid var(--border); min-height: 280px; }
+  .stats-map-row { display: grid; grid-template-columns: 40% 38% 22%; border-bottom: 1px solid var(--border); height: 280px; overflow: hidden; }
   .stats-col { display: flex; flex-direction: column; border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
-  .map-col { border-right: 1px solid var(--border); overflow: hidden; height: 100%; }
+  .map-col { border-right: 1px solid var(--border); overflow: hidden; height: 280px; max-height: 280px; }
   .key-col { padding: 8px; display: flex; flex-direction: column; }
   .key-section-lbl { font-family: var(--sans); font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 5px; }
   .key-prov-row { display: flex; align-items: center; gap: 5px; margin-bottom: 3px; }
