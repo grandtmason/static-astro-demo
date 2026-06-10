@@ -25,7 +25,7 @@ const TABS = [
   { id: 'datasheet',    label: 'Data Sheet'         },
 ];
 
-const FORMSPREE_CONNECT = 'https://formspree.io/f/YOUR_CONNECT_FORM_ID';
+const FORMSPREE_CONNECT = 'https://formspree.io/f/xzdqvlyb';
 
 const d  = plant.data;
 const m  = d.medicinal_properties ?? {};
@@ -166,7 +166,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .top-bar-title { font-family: var(--sans); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); text-decoration: none; }
   .plant-band { background: var(--parch); display: flex; flex-direction: column; align-items: center; padding: 12px 20px 0; flex-shrink: 0; }
   .plant-name { font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: 4px; }
-  .plant-sci font-family: var(--sans); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0; }
+  .plant-sci { font-family: var(--sans); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0; }
   .tabs-row { display: flex; width: 100%; margin-top: 10px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
   .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; background: var(--parch); color: var(--ink); border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .1s, background .1s; text-align: center; }
   .tab-btn:last-child { border-right: none; }
@@ -567,7 +567,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
               <>
                 <div class="card">
                   <div class="c-tag">{tab.label} · Authorized Record</div>
-                  <div class="c-hl" set:html={`"${q[tab.id]}"`}></div>
+                  <div class="card-hl" set:html={`"${q[tab.id]}"`}></div>
                   <div class="c-tsr">Intelligence summary for {d.name}.</div>
                   <div class="c-summary open" id={`sum-${tab.id}-1`}>{d.introduction ?? 'Full summary available on request.'}</div>
                 </div>
