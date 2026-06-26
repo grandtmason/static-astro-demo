@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
+import Layout from './layouts/Layout.astro';
 const allPlants = await getCollection('species');
 const plants = allPlants
   .map(p => ({ data: p.data, slug: p.id.replace('/index', '').replace('.md', '') }))
