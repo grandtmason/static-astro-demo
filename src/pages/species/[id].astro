@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import ProvinceMap from '../../components/ProvinceMap.astro';
+
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
   return allPlants.map(plant => ({
@@ -9,6 +10,7 @@ export async function getStaticPaths() {
     props: { plant },
   }));
 }
+
 const { plant } = Astro.props;
 const TABS = [
   { id: 'wellness', label: 'Health & Wellness' }, { id: 'innovation', label: 'Innovation & R&D' },
@@ -26,25 +28,51 @@ const q = d.quadrants ?? {};
 const cn = d.common_names ?? {};
 const images = Array.isArray(d.images) ? d.images : d.image ? [{ src: d.image, credit: '' }] : [];
 const slug = plant.id.replace('/index', '').replace('.md', '');
+const stats = { production: '—', revenue: '—', markets: '—', livelihoods: '—' };
 ---
 <Layout title={`${d.name} | South African Botanical Registry`}>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  /* Base Styles */
   .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-  .content-wrap { flex: 1; overflow-y: auto; }
-  .site-footer { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; height: 44px !important; z-index: 1000 !important; display: flex !important; background: var(--green); border-top: 2px solid var(--gold); }
+  .content-wrap { flex: 1; overflow-y: auto; padding-bottom: 60px; }
+  
+  /* Footer - Fixed Sticky */
+  .site-footer { position: fixed !important; bottom: 0; left: 0; right: 0; height: 44px; display: flex; align-items: stretch; background: var(--green); border-top: 2px solid var(--gold); z-index: 1000; }
+  .ft-label { font-family: sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); padding: 0 15px; display: flex; align-items: center; border-right: 1px solid rgba(184,134,11,.3); }
+  .ft-btns { display: flex; flex: 1; }
+  .ft-btn { flex: 1; border: none; background: transparent; color: var(--gold); font-family: sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; }
+  
+  /* Smart Image Scaling */
+  .carousel-wrap { width: 100%; height: auto; max-height: 400px; display: flex; justify-content: center; }
+  .carousel-img { width: 100%; height: auto; max-height: 400px; object-fit: contain; display: none; }
+  .carousel-img.active { display: block; }
+  
   @media (max-width: 680px) {
-    .carousel-wrap { width: 100%; height: auto; max-height: 380px; margin: 8px 0; }
-    .responsive-botanical-img { width: 100%; height: auto; max-height: 380px; object-fit: contain; }
-    .portal { padding-bottom: 44px; height: auto; }
+    .portal { height: auto; overflow: visible; }
+    .ds-grid { grid-template-columns: 1fr; }
   }
 </style>
+
 <div class="portal">
   <div class="content-wrap">
+    <div class="top-bar">
+      <a href="/" class="top-bar-back">←</a>
+      <a href="/" class="top-bar-title">South African Botanical Registry</a>
+    </div>
+
+    <div class="plant-band">
+      <h1 class="plant-name">{d.name}</h1>
+      <p class="plant-sci">{d.scientific_name}</p>
+    </div>
+
     <div class="carousel-wrap">
-      {images.length > 0 && <img src={images[0].src} class="responsive-botanical-img" />}
+      {images.map((img, i) => (
+        <img src={img.src} class={`carousel-img ${i === 0 ? 'active' : ''}`} />
+      ))}
     </div>
+
     </div>
+
   <footer class="site-footer">
     <div class="ft-label">Connect with</div>
     <div class="ft-btns">
