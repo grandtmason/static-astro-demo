@@ -1,80 +1,30 @@
----
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import ProvinceMap from '../../components/ProvinceMap.astro';
+<style>
+  /* ... keep your other styles ... */
 
-export async function getStaticPaths() {
-  const allPlants = await getCollection('species');
-  return allPlants.map(plant => ({
-    params: { id: plant.id.replace('/index', '').replace('.md', '') },
-    props: { plant },
-  }));
-}
+  /* The Square Container Logic */
+  .carousel-wrap { 
+    width: 100%; 
+    max-width: 300px; /* Adjust this to your desired size */
+    aspect-ratio: 1 / 1; 
+    background: var(--parch); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden; 
+    border: none; 
+    outline: none; 
+    margin: 8px; 
+    flex-shrink: 0; 
+  }
 
-const { plant } = Astro.props;
-
-const TABS = [
-  { id: 'wellness',     label: 'Health & Wellness'  },
-  { id: 'innovation',   label: 'Innovation & R&D'   },
-  { id: 'ik',           label: 'IK & Heritage'      },
-  { id: 'culture',      label: 'Culture'            },
-  { id: 'agronomy',     label: 'Agronomy'           },
-  { id: 'legislation',  label: 'Legislation'        },
-  { id: 'projects',     label: 'Projects'           },
-  { id: 'intelligence', label: 'Intelligence Pulse' },
-  { id: 'datasheet',    label: 'Data Sheet'         },
-];
-
-const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
-
-const d = plant.data;
-const m = d.medicinal_properties ?? {};
-const cv = d.cultivation ?? {};
-const ik = d.indigenous_knowledge ?? '';
-const q = d.quadrants ?? {};
-const cn = d.common_names ?? {};
-
-const images: { src: string; credit: string }[] = Array.isArray(d.images)
-  ? d.images
-  : d.image
-    ? [{ src: d.image, credit: '' }]
-    : [];
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Thing',
-  name: d.name,
-  alternateName: d.scientific_name,
-  description: d.description,
-  image: `https://southafricanbotanical.org.za${d.image ?? ''}`,
-  url: `https://southafricanbotanical.org.za/species/${plant.id}`,
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': `https://southafricanbotanical.org.za/species/${plant.id}`,
-  },
-};
-
-const sortedNames = Object.entries(cn).sort(([a], [b]) => a.localeCompare(b));
-
-const COMMON_NAMES: Record<string, Record<string, string>> = {
-  'acacia': { Afrikaans: 'Soetdoring · Karoodorin', English: 'Sweet Thorn · African Acacia', Khoikhoi: 'not documented', Ndebele: 'umkhaya', San: 'not documented', Sepedi: 'mooka', Sesotho: 'mooka', Setswana: 'mooka · mothoo', Swati: 'umkhaya', Tsonga: 'nkaya', Venda: 'mutshato', Xhosa: 'umNgcamplazi', Zulu: 'umNgcamplazi · umNgcampazane' },
-  'african-ashwagandha': { Afrikaans: 'Geneesblaarbossie · Slaapbossie', English: 'African Ashwagandha · Winter Cherry', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'ubuhlungu', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'ubuvimba', Zulu: 'ubuvimba', 'Sanskrit (global trade)': 'Ashwagandha' },
-  'african-ginger': { Afrikaans: 'Wilde Gemmer', English: 'African Ginger · Wild Ginger', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'lengane', Sesotho: 'lengane', Setswana: 'lengane', Swati: 'isiphephetho', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'isiphephetho', Zulu: 'isiphephetho · indungulo' },
-  'african-potato': { Afrikaans: 'Sterblom · Inkomfe', English: 'African Potato · Star Flower', Khoikhoi: 'not documented', Ndebele: 'inkomfe', San: 'not documented', Sepedi: 'lotsane', Sesotho: 'lotsane', Setswana: 'lotsane', Swati: 'inkomfe', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'lotsane', Zulu: 'inkomfe' },
-  'aloe-ferox': { Afrikaans: 'Bitteraalwyn · Bergaalwyn', English: 'Cape Aloe · Bitter Aloe', Khoikhoi: 'iikhala', Ndebele: 'inhlaba', San: 'not documented', Sepedi: 'kgopane', Sesotho: 'kgopane', Setswana: 'kgopana', Swati: 'inhlaba', Tsonga: 'nkhala', Venda: 'tshipembe', Xhosa: 'ikhala', Zulu: 'inhlaba' },
-  'artemisia-afra': { Afrikaans: 'Wilde Als · Wildeals', English: 'African Wormwood', Khoikhoi: 'not documented', Ndebele: 'umhlonyane', San: 'not documented', Sepedi: 'lengana', Sesotho: 'lengana', Setswana: 'lengana', Swati: 'umhlonyane', Tsonga: 'budzuke', Venda: 'tshisangoma', Xhosa: 'umhlonyane', Zulu: 'umhlonyane' },
-  'athrixia': { Afrikaans: 'Bosbietee · Heuningtee', English: 'Bush Tea · Magoebaskloof Tea', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'mmilo', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'isihaqa' },
-  'baobab': { Afrikaans: 'Kremetartboom · Baobab', English: 'Baobab · Tree of Life', Khoikhoi: 'not documented', Ndebele: 'umkhombe', San: 'not documented', Sepedi: 'mowana', Sesotho: 'mowana', Setswana: 'mowana', Swati: 'umkhombe', Tsonga: 'rihlandzu', Venda: 'muvhuyu', Xhosa: 'isiMuku', Zulu: 'umShimulu · isiMuku' },
-  'buchu': { Afrikaans: 'Boegoe · Rondeblaarboegoe', English: 'Round Leaf Buchu · Buchu', Khoikhoi: 'boegoe', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'ibuchu', Zulu: 'ibhokwe' },
-  'bulbine': { Afrikaans: 'Rankkopieva · Geelkatstert', English: 'Stalked Bulbine · Burn Jelly Plant', Khoikhoi: 'kopieva', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'ibhucu', Zulu: 'ibhucu' },
-  'cape-chamomile': { Afrikaans: 'Kapokbossie · Wilde Roosmaryn', English: 'Cape Chamomile · Wild Rosemary', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
-  'devils-claw': { Afrikaans: 'Duiwelsklou · Kloubossie', English: "Devil's Claw · Grapple Plant", Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'sengaparile', Sesotho: 'sengaparile', Setswana: 'sengaparile', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
-  'honeybush': { Afrikaans: 'Heuningbos · Bergtee', English: 'Honeybush · Honey Tea', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
-  'hoodia': { Afrikaans: 'Bobbejaanghaap · Ghaap', English: 'Hoodia · Queen of the Namib', Khoikhoi: '!khoba', Ndebele: 'not documented', San: '/xhoba', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
-  'kanna': { Afrikaans: 'Kougoed · Kanna', English: 'Kanna · Kougoed', Khoikhoi: 'channa · kanna', Ndebele: 'not documented', San: '/xhoba · kanna', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'not documented', Zulu: 'not documented' },
-  'marula': { Afrikaans: 'Maroela', English: 'Marula · Cider Tree', Khoikhoi: 'not documented', Ndebele: 'umganu', San: 'not documented', Sepedi: 'morula', Sesotho: 'morula', Setswana: 'morula', Swati: 'umganu', Tsonga: 'nkanyi', Venda: 'mufula', Xhosa: 'umganu', Zulu: 'umganu' },
-  'mphepho': { Afrikaans: 'Kooigoed · Sewejaartjie', English: 'Everlasting · Imphepho', Khoikhoi: 'not documented', Ndebele: 'imphepho', San: 'not documented', Sepedi: 'sehlomame', Sesotho: 'sehlomame', Setswana: 'sehlomame', Swati: 'imphepho', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'imphepho', Zulu: 'imphepho' },
-  'pelargonium-sidoides': { Afrikaans: 'Rabassam', English: 'South African Geranium · Umckaloabo', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'not documented', Sesotho: 'kaloba', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'umckaloabo', Zulu: 'umckaloabo · isiqalaba' },
-  'pepper-bark': { Afrikaans: 'Peperbasboom', English: 'Pepper Bark Tree · Isibhaha', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'mulaladzi', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'umphazane', Tsonga: 'ndhundhuma', Venda: 'mulanga', Xhosa: 'isibhaha', Zulu: 'isibhaha' },
-  'rooibos': { Afrikaans: 'Rooibos · Rooibostee', English: 'Rooibos · Red Bush', Khoikhoi: 'rooibos (Khoikhoi origin)', Ndebele: 'irooibos (adopted)', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'not documented', Tsonga: 'not documented', Venda: 'not documented', Xhosa: 'irooibos (adopted)', Zulu: 'irooibos (adopted)' },
-  'sutherlandia': { Afrikaans: 'Kankerbos · Blaasertjie', English: 'Cancer Bush · Balloon Pea', Khoikhoi: 'not documented', Ndebele
+  /* The Image Logic */
+  .carousel-img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; /* Forces image to fit inside without cropping */
+    display: none; 
+  }
+  .carousel-img.active { display: block; }
+  
+  /* ... keep your other styles ... */
+</style>
