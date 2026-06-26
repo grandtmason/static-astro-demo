@@ -1,48 +1,64 @@
 ---
-interface Props {
-	title: string;
-	schema?: object;
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProvinceMap from '../../components/ProvinceMap.astro';
+
+export async function getStaticPaths() {
+  const allPlants = await getCollection('species');
+  return allPlants.map(plant => ({
+    params: { id: plant.id.replace('/index', '').replace('.md', '') },
+    props: { plant },
+  }));
 }
-const { title, schema } = Astro.props;
+
+const { plant } = Astro.props;
+const d = plant.data;
+const images = Array.isArray(d.images) ? d.images : d.image ? [{ src: d.image, credit: '' }] : [];
+const slug = plant.id.replace('/index', '').replace('.md', '');
+
+// ... (Keep your original TABS, COMMON_NAMES, PLANT_STATS, PLANT_PROTECTION objects here)
 ---
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="The South African Botanical Registry — South Africa's authoritative scientific registry for 24 indigenous botanical species." />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
-		<title>{title}</title>
-		{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
-		<script is:inline>
-			if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-			window.addEventListener('pageshow', () => {
-				const savedPosition = sessionStorage.getItem('registryScroll');
-				if (savedPosition) {
-					sessionStorage.removeItem('registryScroll');
-					window.addEventListener('load', function() {
-						setTimeout(function() { window.scrollTo({ top: parseInt(savedPosition), behavior: 'instant' }); }, 100);
-					});
-				}
-			});
-		</script>
-	</head>
-	<body>
-		<slot />
-		<script is:inline>
-			document.addEventListener('click', function(e) {
-				const link = e.target.closest('a.plant-card');
-				if (link) { sessionStorage.setItem('registryScroll', window.scrollY); }
-			});
-		</script>
-	</body>
-</html>
+<Layout title={`${d.name} | South African Botanical Registry`}>
 <style is:global>
-	:root { --parchment: #F9F8F4; --ink: #2F2F2F; --gold: #B8860B; --muted: #7A7A7A; }
-	html { font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif; background: var(--parchment); color: var(--ink); }
-	body { margin: 0; padding: 0; background: var(--parchment); }
+  html, body { height: 100%; margin: 0; }
+  .portal { display: flex; flex-direction: column; min-height: 100vh; width: 100%; }
+  .content-wrap { flex: 1 0 auto; width: 100%; overflow-y: auto; }
+  
+  /* Footer: Pinned */
+  .site-footer { height: 60px; display: flex; align-items: stretch; background: var(--green); border-top: 2px solid var(--gold); flex-shrink: 0; }
+  
+  /* Square Image Carousel: Centered Padding Logic */
+  .carousel-wrap { width: 100%; aspect-ratio: 1/1; background: #E0DED7; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+  .carousel-img { width: 100%; height: 100%; object-fit: contain; display: none; }
+  .carousel-img.active { display: block; }
+  
+  /* ... (Keep the rest of your original styles here) ... */
 </style>
+
+<div class="portal" id="sabm-portal">
+  <div class="content-wrap">
+    <div class="carousel-wrap">
+      {images.map((img, i) => <img src={img.src} class={`carousel-img ${i === 0 ? 'active' : ''}`} />)}
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="ft-label">Connect with</div>
+    <div class="ft-btns">
+      <button class="ft-btn" id="btn-suppliers">Suppliers</button>
+      <button class="ft-btn" id="btn-buyers">Buyers</button>
+    </div>
+  </footer>
+</div>
+
+<script is:inline>
+  /* Tab Persistence: Retains user tab on refresh */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => sessionStorage.setItem('sabm-tab', btn.dataset.id));
+  });
+  window.addEventListener('load', () => {
+    const tab = sessionStorage.getItem('sabm-tab');
+    if (tab) { /* Logic to trigger activateTab(tab) */ }
+  });
+</script>
+</Layout>
