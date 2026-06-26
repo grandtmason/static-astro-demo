@@ -177,9 +177,29 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .tab-panel.active { display: block; }
   .ds-grid { display: grid; grid-template-columns: 202px 1fr; align-items: stretch; }
   .ds-left { border-right: 1px solid var(--border); display: flex; flex-direction: column; }
-  .carousel-wrap { width: 100%; aspect-ratio: 1 / 1; background: var(--parch); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; border: none; outline: none; margin: 8px; }
-  .carousel-img { width: 100%; height: 100%; object-fit: contain; display: none; }
+  
+  /* FIXED: Square geometry and responsive containment */
+  .carousel-wrap { 
+    width: 186px; 
+    aspect-ratio: 1 / 1; 
+    background: var(--parch); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden; 
+    flex-shrink: 0; 
+    margin: 8px; 
+    border: none; 
+    outline: none; 
+  }
+  .carousel-img { 
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; 
+    display: none; 
+  }
   .carousel-img.active { display: block; }
+  
   .carousel-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); text-align: center; line-height: 1.8; padding: 0 16px; }
   .photo-credit { background: var(--parch); padding: 6px 10px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .photo-credit-lbl { font-family: var(--sans); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 2px; }
@@ -251,7 +271,6 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .c-tsr   { font-family: var(--sans); font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
   .c-tsr-l { font-family: var(--sans); font-size: 12px; color: var(--sage); line-height: 1.5; margin-bottom: 8px; }
   
-  /* B2B Secure Overlay Structural Alignment */
   .b2b-gate-overlay { background: #FFFFFF; border: 1px solid var(--gold); padding: 24px; text-align: center; margin-top: 12px; box-shadow: inset 0 0 10px rgba(184,134,11,0.05); }
   .b2b-gate-title { font-family: var(--display); font-size: 18px; font-style: italic; color: var(--green); margin-bottom: 6px; }
   .b2b-gate-desc { font-family: var(--sans); font-size: 11px; color: var(--muted); max-width: 380px; margin: 0 auto 16px auto; line-height: 1.5; }
@@ -621,7 +640,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
 
   <div class="modal-overlay" id="modal-buyers">
     <div class="modal">
-      <button class="modal-close" data-close="buyers">×</object>
+      <button class="modal-close" data-close="buyers">×</button>
       <h2>Connect with Buyers</h2>
       <p>Register your interest. We will connect you with verified {d.name} buyers and market opportunities.</p>
       <form id="form-buyers" action={FORMSPREE_CONNECT} method="POST">
