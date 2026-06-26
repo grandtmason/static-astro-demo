@@ -109,42 +109,11 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
   font-family: var(--sans); font-size: 8px; letter-spacing: 2px;
   text-transform: uppercase; color: var(--sage);
 }
-</style>
 
-<div class="top-bar">
-  <h1>South African Botanical Registry</h1>
-</div>
-
-<div class="hero">
-  <div class="hero-title">South African Botanical Registry</div>
-  <div class="hero-sub">The definitive reference for South Africa's botanical heritage</div>
-</div>
-
-<div class="registry">
-  <div class="registry-title">{plants.length} Species Registered</div>
-  <div class="plant-grid">
-    {plants.map(plant => (
-      <a href={`/species/${plant.slug}`} class="plant-card">
-        {plant.data.image ? (
-          <div class="plant-card-img">
-            <img src={plant.data.image} alt={plant.data.name} loading="lazy" />
-          </div>
-        ) : (
-          <div class="plant-card-img-empty">
-            <span>Image coming soon</span>
-          </div>
-        )}
-        <div class="plant-card-body">
-          <div class="plant-card-name">{plant.data.name}</div>
-          <div class="plant-card-sci">{plant.data.scientific_name}</div>
-        </div>
-      </a>
-    ))}
-  </div>
-</div>
-
-<div class="footer">
-  <p>South African Botanical Registry · southafricanbotanical.org.za</p>
-</div>
-
-</Layout>
+/* 📱 Mobile UI Responsiveness Breakpoint */
+@media (max-width: 768px) {
+  .registry {
+    padding: 32px 20px 60px; /* Snaps closer to the device borders */
+  }
+  .plant-grid {
+    grid-template-columns: 1fr; /* Force
