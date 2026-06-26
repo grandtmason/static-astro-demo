@@ -178,7 +178,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .ds-grid { display: grid; grid-template-columns: 202px 1fr; align-items: stretch; }
   .ds-left { border-right: 1px solid var(--border); display: flex; flex-direction: column; }
   
-  /* FIXED: Square geometry with spacing buffer restored */
+ /* FIXED: Square geometry with spacing buffer restored */
   .carousel-wrap { 
     width: 186px; 
     aspect-ratio: 1 / 1; 
@@ -370,11 +370,14 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
     </span>
   </div>
 
-  <div class="mob-tab-list" id="mob-tab-list" style="display:none;">
-    {TABS.map(tab => (
-      <button class={`mob-tab-row${tab.id === 'datasheet' ? ' ds' : ''}`} data-id={tab.id}>{tab.label}</button>
-    ))}
-  </div>
+  <div id="mob-tab-list" style="display:none;">
+    <div class="pill-grid">
+      {TABS.map(tab => (
+        <button class="mob-tab-row" data-id={tab.id}>{tab.label}</button>
+      ))}
+      <button class="mob-tab-row" id="mob-close" style="grid-column: span 2; border-color: transparent;">Close Menu</button>
+    </div>
+</div>
 
   <div class="content-wrap" id="content-wrap" style="padding-bottom:60px;">
 
@@ -697,32 +700,16 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
     }
   }
 
-  const mobBar     = $('mob-bar');
-  const mobTabList = $('mob-tab-list');
-  function setMobBar(state, label) {
-    if (state === 'data') {
-      mobBar.innerHTML = `<span style="opacity:0;font-family:sans-serif;font-size:8px;">← back</span><span style="flex:1;display:flex;justify-content:center;"><span class="explore-pill" id="mob-explore-btn">Explore <span class="pill-arrow">↓</span></span></span>`;
-      $('mob-explore-btn')?.addEventListener('click', showTabs);
-    } else if (state === 'tabs') {
-      mobBar.innerHTML = `<span class="mob-back-txt" id="mob-back-data">← back</span><span style="flex:1;display:flex;justify-content:center;"><span class="explore-pill">Explore <span class="pill-arrow">↑</span></span></span>`;
-      $('mob-back-data')?.addEventListener('click', showData);
-    } else {
-      mobBar.innerHTML = `<span class="mob-back-txt" id="mob-back-tabs">← back</span><span style="flex:1;display:flex;justify-content:center;"><span class="tab-pill">${label}</span></span>`;
-      $('mob-back-tabs')?.addEventListener('click', showTabs);
-    }
-  }
-  function showData() { mobTabList.style.display = 'none'; dpanels.forEach(p => p.classList.toggle('active', p.id === 'panel-datasheet')); setMobBar('data', ''); }
-  function showTabs() { mobTabList.style.display = 'flex'; dpanels.forEach(p => p.classList.remove('active')); setMobBar('tabs', ''); }
-  function showContent(id, label) { 
-    mobTabList.style.display = 'none'; 
-    dpanels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`)); 
-    if (id !== 'datasheet') { checkB2BGateState(id); }
-    setMobBar('content', label); 
-    $('content-wrap')?.scrollTo(0, 0); 
-  }
-  
+ document.getElementById('explore-trigger').addEventListener('click', () => document.getElementById('mob-tab-list').style.display = 'flex');
+  document.getElementById('mob-close').addEventListener('click', () => document.getElementById('mob-tab-list').style.display = 'none');
   document.querySelectorAll('.mob-tab-row').forEach(btn => {
-    btn.addEventListener('click', () => { if (btn.dataset.id === 'datasheet') showData(); else showContent(btn.dataset.id, btn.textContent.trim()); });
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      if (id) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
+        document.getElementById('mob-tab-list').style.display = 'none';
+      }
+    });
   });
 
   const imgs = document.querySelectorAll('.carousel-img');
