@@ -178,7 +178,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .ds-grid { display: grid; grid-template-columns: 202px 1fr; align-items: stretch; }
   .ds-left { border-right: 1px solid var(--border); display: flex; flex-direction: column; }
   
-  /* FIXED: Square geometry and responsive containment */
+  /* FIXED: Square geometry with spacing buffer restored */
   .carousel-wrap { 
     width: 186px; 
     aspect-ratio: 1 / 1; 
@@ -189,8 +189,8 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
     overflow: hidden; 
     flex-shrink: 0; 
     margin: 8px; 
-    border: none; 
-    outline: none; 
+    outline: 8px solid white; 
+    outline-offset: -8px;
   }
   .carousel-img { 
     max-width: 100%; 
