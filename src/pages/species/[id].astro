@@ -316,14 +316,51 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
     .tabs-row { display: none; }
     .portal { padding-bottom: 72px; height: auto; overflow: visible; }
     .content-wrap { overflow: visible; }
-    .explore-bar { padding: 7px 14px; display: flex; align-items: center; gap: 8px; background: #fff; border-bottom: 2px solid var(--gold); flex-shrink: 0; }
-    .mob-back-txt { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink); background: none; border: none; cursor: pointer; padding: 0; white-space: nowrap; flex-shrink: 0; }
-    .explore-pill { font-family: var(--sans); font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); border: 1px solid #C8C6BE; padding: 4px 12px; background: var(--parch); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
-    .explore-pill .pill-arrow { color: var(--gold); }
-    .tab-pill { font-family: var(--sans); font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); border: 1px solid #C8C6BE; padding: 4px 12px; background: var(--parch); display: inline-block; }
-    .mob-tab-list { display: flex; flex-direction: column; background: #fff; border-bottom: 2px solid var(--gold); flex-shrink: 0; }
-    .mob-tab-row { width: 100%; padding: 10px 14px; font-family: var(--sans); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; background: var(--parch); color: var(--ink); border: none; border-bottom: 1px solid var(--border); text-align: center; cursor: pointer; }
-    .mob-tab-row:last-child { border-bottom: none; }
+   @media (max-width: 680px) {
+    .tabs-row { display: none; }
+    .portal { padding-bottom: 72px; height: auto; overflow: visible; }
+    .content-wrap { overflow: visible; }
+
+    /* FIXED: Forced to right-alignment and spacing */
+    .explore-bar { 
+      padding: 7px 14px; 
+      display: flex !important; 
+      align-items: center; 
+      justify-content: flex-end !important; 
+      background: #fff; 
+      border-bottom: 2px solid var(--gold); 
+      flex-shrink: 0; 
+    }
+    .explore-pill { 
+      font-family: var(--sans); 
+      font-size: 8px; 
+      letter-spacing: 1.5px; 
+      text-transform: uppercase; 
+      color: var(--ink); 
+      border: 1px solid #C8C6BE; 
+      padding: 4px 12px; 
+      background: var(--parch); 
+      cursor: pointer; 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 4px; 
+    }
+    
+    /* New Glassmorphic Overlay Styles */
+    #mob-tab-list { 
+      position: fixed; inset: 0; z-index: 500; 
+      background: rgba(26, 58, 42, 0.95); backdrop-filter: blur(20px);
+      display: none; flex-direction: column; align-items: center; justify-content: center; 
+      padding: 20px;
+    }
+    .pill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 320px; }
+    .mob-tab-row { 
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(184, 134, 11, 0.3);
+      color: var(--parch); padding: 12px; border-radius: 20px;
+      font-family: sans-serif; font-size: 10px; text-transform: uppercase; cursor: pointer; text-align: center; 
+    }
+
+    /* Grid Restructuring for Mobile */
     .ds-grid { grid-template-columns: 1fr; }
     .ds-left { border-right: none; border-bottom: 1px solid var(--border); }
     .carousel-wrap { width: 100%; height: 240px; }
@@ -338,6 +375,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
     .site-footer { flex-direction: column; }
     .ft-label { border-right: none; border-bottom: 1px solid rgba(184,134,11,.3); justify-content: center; }
     .ft-btns { flex-direction: row; }
+  }
   }
   @media (min-width: 681px) {
     .explore-bar, .mob-tab-list { display: none !important; }
@@ -363,11 +401,8 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
     </div>
   </div>
 
-  <div class="explore-bar" id="mob-bar">
-    <span style="opacity:0;font-family:sans-serif;font-size:8px;">← back</span>
-    <span style="flex:1;display:flex;justify-content:center;">
-      <span class="explore-pill" id="mob-explore-btn">Explore <span class="pill-arrow">↓</span></span>
-    </span>
+ <div class="explore-bar" id="mob-bar">
+    <button id="explore-trigger" class="explore-pill">Explore ↓</button>
   </div>
 
   <div id="mob-tab-list" style="display:none;">
