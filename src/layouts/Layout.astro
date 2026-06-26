@@ -13,19 +13,24 @@ const { title, schema } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="google-site-verification" content="K6KrNQwbkgpWH4vs3TIMlx1L50BYIIFeZ4doCInWhzM" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 		<title>{title}</title>
 		{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 		<script is:inline>
-			if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+			if ('scrollRestoration' in history) {
+				history.scrollRestoration = 'manual';
+			}
 			window.addEventListener('pageshow', () => {
 				const savedPosition = sessionStorage.getItem('registryScroll');
 				if (savedPosition) {
 					sessionStorage.removeItem('registryScroll');
 					window.addEventListener('load', function() {
-						setTimeout(function() { window.scrollTo({ top: parseInt(savedPosition), behavior: 'instant' }); }, 100);
+						setTimeout(function() {
+							window.scrollTo({ top: parseInt(savedPosition), behavior: 'instant' });
+						}, 100);
 					});
 				}
 			});
@@ -36,13 +41,31 @@ const { title, schema } = Astro.props;
 		<script is:inline>
 			document.addEventListener('click', function(e) {
 				const link = e.target.closest('a.plant-card');
-				if (link) { sessionStorage.setItem('registryScroll', window.scrollY); }
+				if (link) {
+					sessionStorage.setItem('registryScroll', window.scrollY);
+				}
 			});
 		</script>
 	</body>
 </html>
 <style is:global>
-	:root { --parchment: #F9F8F4; --ink: #2F2F2F; --gold: #B8860B; --muted: #7A7A7A; }
-	html { font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif; background: var(--parchment); color: var(--ink); }
-	body { margin: 0; padding: 0; background: var(--parchment); }
+	:root {
+		--parchment: #F9F8F4;
+		--ink: #2F2F2F;
+		--gold: #B8860B;
+		--muted: #7A7A7A;
+	}
+	html {
+		font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+		background: var(--parchment);
+		color: var(--ink);
+	}
+	body {
+		margin: 0;
+		padding: 0;
+		background: var(--parchment);
+	}
+	code {
+		font-family: Menlo, Monaco, Lucida Console, monospace;
+	}
 </style>
