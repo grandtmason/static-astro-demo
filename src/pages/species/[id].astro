@@ -1,150 +1,58 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-const allPlants = await getCollection('species');
-const plants = allPlants
-  .map(p => ({ data: p.data, slug: p.id.replace('/index', '').replace('.md', '') }))
-  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+import Layout from '../../layouts/Layout.astro';
+import ProvinceMap from '../../components/ProvinceMap.astro';
+
+export async function getStaticPaths() {
+  const allPlants = await getCollection('species');
+  return allPlants.map(plant => ({
+    params: { id: plant.id.replace('/index', '').replace('.md', '') },
+    props: { plant },
+  }));
+}
+
+const { plant } = Astro.props;
+const d = plant.data;
+const m = d.medicinal_properties ?? {};
+const cv = d.cultivation ?? {};
+const ik = d.indigenous_knowledge ?? '';
+const q = d.quadrants ?? {};
+const cn = d.common_names ?? {};
+const images = Array.isArray(d.images) ? d.images : d.image ? [{ src: d.image, credit: '' }] : [];
+const slug = plant.id.replace('/index', '').replace('.md', '');
+
+// ... [Keep your original COMMON_NAMES, PLANT_STATS, and PLANT_PROTECTION dictionaries here] ...
 ---
-<Layout title="South African Botanical Registry">
+<Layout title={`${d.name} | South African Botanical Registry`}>
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --green: #1A3A2A; --gold: #B8860B; --parch: #F9F8F4;
-  --ink: #2F2F2F; --muted: #7A7A7A; --sage: #9DB8A8; --border: #E1DED8;
-  --display: 'Cormorant Garamond', Georgia, serif;
-  --sans: sans-serif; --serif: 'EB Garamond', Georgia, serif;
-}
-body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
-.top-bar {
-  background: var(--green); border-bottom: 2px solid var(--gold);
-  padding: 12px 32px; text-align: center;
-}
-.top-bar h1 {
-  font-family: var(--sans); font-size: 9px; letter-spacing: 5px;
-  text-transform: uppercase; color: var(--sage); font-weight: 400;
-}
-.hero {
-  text-align: center; padding: 60px 24px 50px;
-  border-bottom: 1px solid var(--border);
-}
-.hero-title {
-  font-family: var(--display); font-size: clamp(2.4rem, 5vw, 4rem);
-  font-weight: 300; font-style: italic; color: var(--green);
-  line-height: 1.1; margin-bottom: 20px;
-}
-.hero-sub {
-  font-family: var(--sans); font-size: 9px; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--muted);
-}
-.registry {
-  max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px;
-}
-.registry-title {
-  font-family: var(--sans); font-size: 7px; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--muted);
-  border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 32px;
-}
-.plant-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-}
-.plant-card {
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(184, 134, 11, 0.3);
-  background: var(--parch);
-  transition: box-shadow .2s, transform .2s;
-}
-.plant-card:hover {
-  box-shadow: 0 4px 24px rgba(184,134,11,0.12);
-  transform: translateY(-2px);
-  border-color: rgba(184,134,11,0.7);
-}
-.plant-card-img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  overflow: hidden;
-  box-shadow: inset 0 0 0 1px rgba(184,134,11,0.4);
-}
-.plant-card-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .4s ease;
-}
-.plant-card:hover .plant-card-img img {
-  transform: scale(1.03);
-}
-.plant-card-img-empty {
-  width: 100%;
-  aspect-ratio: 1/1;
-  background: var(--green);
-  display: flex; align-items: center; justify-content: center;
-}
-.plant-card-img-empty span {
-  font-family: var(--sans); font-size: 8px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--sage);
-}
-.plant-card-body {
-  padding: 14px 16px 16px;
-  background: var(--parch);
-  border-top: 1px solid rgba(184,134,11,0.2);
-}
-.plant-card-name {
-  font-family: var(--display); font-size: 1.3rem; font-style: italic;
-  font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 4px;
-}
-.plant-card-sci {
-  font-family: var(--sans); font-size: 7px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--muted);
-}
-.footer {
-  background: var(--green); border-top: 2px solid var(--gold);
-  padding: 16px 32px; text-align: center;
-}
-.footer p {
-  font-family: var(--sans); font-size: 8px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--sage);
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green: #1A3A2A; --gold: #B8860B; --parch: #F9F8F4; --ink: #2F2F2F; --muted: #7A7A7A; --sage: #9DB8A8; --border: #E0DED7; --serif: 'EB Garamond', Georgia, serif; --display: 'Cormorant Garamond', Georgia, serif; --sans: sans-serif; }
+  body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
+  .portal { display: flex; flex-direction: column; min-height: 100vh; }
+  .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; }
+  .top-bar { background: var(--green); border-bottom: 2px solid var(--gold); padding: 9px 28px; display: flex; align-items: center; justify-content: center; position: relative; }
+  .top-bar-back { color: var(--gold); font-family: var(--sans); font-size: 24px; text-decoration: none; position: absolute; left: 28px; }
+  .top-bar-title { font-family: var(--sans); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); text-decoration: none; }
+  .plant-band { background: var(--parch); display: flex; flex-direction: column; align-items: center; padding: 12px 20px 0; }
+  .plant-name { font-family: var(--display); font-size: 2.4rem; font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: 4px; }
+  .plant-sci { font-family: var(--sans); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--muted); }
+  /* Ensure image wrap maintains square shape and centers content */
+  .carousel-wrap { width: 186px; height: 186px; background: var(--green); overflow: hidden; position: relative; margin: 8px; }
+  .carousel-img { width: 100%; height: 100%; object-fit: cover; display: none; }
+  .carousel-img.active { display: block; }
 </style>
 
-<div class="top-bar">
-  <h1>South African Botanical Registry</h1>
-</div>
-
-<div class="hero">
-  <div class="hero-title">South African Botanical Registry</div>
-  <div class="hero-sub">The definitive reference for South Africa's botanical heritage</div>
-</div>
-
-<div class="registry">
-  <div class="registry-title">{plants.length} Species Registered</div>
-  <div class="plant-grid">
-    {plants.map(plant => (
-      <a href={`/species/${plant.slug}`} class="plant-card">
-        {plant.data.image ? (
-          <div class="plant-card-img">
-            <img src={plant.data.image} alt={plant.data.name} loading="lazy" />
-          </div>
-        ) : (
-          <div class="plant-card-img-empty">
-            <span>Image coming soon</span>
-          </div>
-        )}
-        <div class="plant-card-body">
-          <div class="plant-card-name">{plant.data.name}</div>
-          <div class="plant-card-sci">{plant.data.scientific_name}</div>
-        </div>
-      </a>
-    ))}
+<div class="portal">
+  <div class="top-bar">
+    <a href="/" class="top-bar-back">←</a>
+    <a href="/" class="top-bar-title">South African Botanical Registry</a>
+  </div>
+  <div class="plant-band">
+    <h1 class="plant-name">{d.name}</h1>
+    <p class="plant-sci">{d.scientific_name}</p>
+  </div>
+  <div class="content-wrap">
+    <!-- ... (Keep your rest of your layout panels here) ... -->
   </div>
 </div>
-
-<div class="footer">
-  <p>South African Botanical Registry · southafricanbotanical.org.za</p>
-</div>
-
 </Layout>
