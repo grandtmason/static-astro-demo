@@ -16,138 +16,44 @@ const plants = allPlants
   --sans: sans-serif; --serif: 'EB Garamond', Georgia, serif;
 }
 body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
-.top-bar {
-  background: var(--green); border-bottom: 2px solid var(--gold);
-  padding: 12px 32px; text-align: center;
-}
-.top-bar h1 {
-  font-family: var(--sans); font-size: 9px; letter-spacing: 5px;
-  text-transform: uppercase; color: var(--sage); font-weight: 400;
-}
-.hero {
-  text-align: center; padding: 60px 24px 50px;
-  border-bottom: 1px solid var(--border);
-}
-.hero-title {
-  font-family: var(--display); font-size: clamp(2.4rem, 5vw, 4rem);
-  font-weight: 300; font-style: italic; color: var(--green);
-  line-height: 1.1; margin-bottom: 20px;
-}
-.hero-sub {
-  font-family: var(--sans); font-size: 9px; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--muted);
-}
-.registry {
-  max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px;
-}
-.registry-title {
-  font-family: var(--sans); font-size: 7px; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--muted);
-  border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 32px;
-}
-.plant-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-}
-.plant-card {
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(184, 134, 11, 0.3);
-  background: var(--parch);
-  transition: box-shadow .2s, transform .2s;
-}
-.plant-card:hover {
-  box-shadow: 0 4px 24px rgba(184,134,11,0.12);
-  transform: translateY(-2px);
-  border-color: rgba(184,134,11,0.7);
-}
-.plant-card-img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  overflow: hidden;
-  box-shadow: inset 0 0 0 1px rgba(184,134,11,0.4);
-}
-.plant-card-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .4s ease;
-}
-.plant-card:hover .plant-card-img img {
-  transform: scale(1.03);
-}
-.plant-card-img-empty {
-  width: 100%;
-  aspect-ratio: 1/1;
-  background: var(--green);
-  display: flex; align-items: center; justify-content: center;
-}
-.plant-card-img-empty span {
-  font-family: var(--sans); font-size: 8px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--sage);
-}
-.plant-card-body {
-  padding: 14px 16px 16px;
-  background: var(--parch);
-  border-top: 1px solid rgba(184,134,11,0.2);
-}
-.plant-card-name {
-  font-family: var(--display); font-size: 1.3rem; font-style: italic;
-  font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 4px;
-}
-.plant-card-sci {
-  font-family: var(--sans); font-size: 7px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--muted);
-}
-.footer {
-  background: var(--green); border-top: 2px solid var(--gold);
-  padding: 16px 32px; text-align: center;
-}
-.footer p {
-  font-family: var(--sans); font-size: 8px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--sage);
-}
+.top-bar { background: var(--green); border-bottom: 2px solid var(--gold); padding: 12px 32px; text-align: center; }
+.top-bar h1 { font-family: var(--sans); font-size: 9px; letter-spacing: 5px; text-transform: uppercase; color: var(--sage); font-weight: 400; }
+.hero { text-align: center; padding: 60px 24px 50px; border-bottom: 1px solid var(--border); }
+.hero-title { font-family: var(--display); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; font-style: italic; color: var(--green); line-height: 1.1; margin-bottom: 20px; }
+.hero-sub { font-family: var(--sans); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+.registry { max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px; }
+.registry-title { font-family: var(--sans); font-size: 7px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 32px; }
+.plant-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.plant-card { text-decoration: none; display: flex; flex-direction: column; border: 1px solid rgba(184, 134, 11, 0.3); background: var(--parch); transition: box-shadow .2s, transform .2s; }
+.plant-card:hover { box-shadow: 0 4px 24px rgba(184,134,11,0.12); transform: translateY(-2px); border-color: rgba(184,134,11,0.7); }
+.plant-card-img { width: 100%; aspect-ratio: 1/1; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(184,134,11,0.4); }
+.plant-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.plant-card-body { padding: 14px 16px 16px; background: var(--parch); border-top: 1px solid rgba(184,134,11,0.2); }
+.plant-card-name { font-family: var(--display); font-size: 1.3rem; font-style: italic; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 4px; }
+.plant-card-sci { font-family: var(--sans); font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+.footer { background: var(--green); border-top: 2px solid var(--gold); padding: 16px 32px; text-align: center; }
+.footer p { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); }
 
-/* 📱 Mobile Responsive Viewport Overrides */
 @media (max-width: 768px) {
-  .registry {
-    padding: 32px 20px 60px;
-  }
-  .plant-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .hero {
-    padding: 40px 16px 30px;
-  }
+  .registry { padding: 32px 20px 60px; }
+  .plant-grid { grid-template-columns: 1fr; gap: 24px; }
+  .hero { padding: 40px 16px 30px; }
 }
 </style>
 
-<div class="top-bar">
-  <h1>South African Botanical Registry</h1>
-</div>
-
+<div class="top-bar"><h1>South African Botanical Registry</h1></div>
 <div class="hero">
   <div class="hero-title">South African Botanical Registry</div>
   <div class="hero-sub">The definitive reference for South Africa's botanical heritage</div>
 </div>
-
 <div class="registry">
   <div class="registry-title">{plants.length} Species Registered</div>
   <div class="plant-grid">
     {plants.map(plant => (
       <a href={`/species/${plant.slug}`} class="plant-card">
-        {plant.data.image ? (
-          <div class="plant-card-img">
-            <img src={plant.data.image} alt={plant.data.name} loading="lazy" />
-          </div>
-        ) : (
-          <div class="plant-card-img-empty">
-            <span>Image coming soon</span>
-          </div>
-        )}
+        <div class="plant-card-img">
+          {plant.data.image ? <img src={plant.data.image} alt={plant.data.name} loading="lazy" /> : <div style="background:var(--green);width:100%;height:100%"/>}
+        </div>
         <div class="plant-card-body">
           <div class="plant-card-name">{plant.data.name}</div>
           <div class="plant-card-sci">{plant.data.scientific_name}</div>
@@ -156,9 +62,5 @@ body { background: var(--parch); font-family: var(--serif); color: var(--ink); }
     ))}
   </div>
 </div>
-
-<div class="footer">
-  <p>South African Botanical Registry · southafricanbotanical.org.za</p>
-</div>
-
+<div class="footer"><p>South African Botanical Registry · southafricanbotanical.org.za</p></div>
 </Layout>
