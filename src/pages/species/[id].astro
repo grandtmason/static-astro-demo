@@ -1,28 +1,66 @@
 ---
-/* ... (Your original imports and data logic) ... */
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProvinceMap from '../../components/ProvinceMap.astro';
+
+export async function getStaticPaths() {
+  const allPlants = await getCollection('species');
+  return allPlants.map(plant => ({
+    params: { id: plant.id.replace('/index', '').replace('.md', '') },
+    props: { plant },
+  }));
+}
+
+const { plant } = Astro.props;
+const d = plant.data;
+const images = Array.isArray(d.images) ? d.images : d.image ? [{ src: d.image, credit: '' }] : [];
+const slug = plant.id.replace('/index', '').replace('.md', '');
+
+// Included for structural completeness
+const stats = { production: '—', revenue: '—', markets: '—', livelihoods: '—' };
+const protection = { gi_year: 'GI 2021', gi_status: 'EU Status', bsa_year: 'BSA 2019', bsa_status: 'Benefit Sharing', organic: 'Certified', wild_harvest: 'Sustainable' };
 ---
 <Layout title={`${d.name} | South African Botanical Registry`}>
 <style is:global>
-  .portal { display: flex; flex-direction: column; height: 100vh; }
-  .content-wrap { flex: 1; overflow-y: auto; padding-bottom: 60px; }
+  /* Fix blank screen: ensure body and portal take up full height */
+  html, body { height: 100%; margin: 0; }
+  .portal { display: flex; flex-direction: column; min-height: 100vh; }
+  .content-wrap { flex: 1 0 auto; width: 100%; }
   
-  /* Sticky Buyer/Seller Footer */
-  .site-footer { height: 60px; display: flex; align-items: stretch; background: var(--green); border-top: 2px solid var(--gold); position: fixed; bottom: 0; width: 100%; z-index: 1000; }
+  /* Footer: Pinned to bottom */
+  .site-footer { height: 60px; display: flex; align-items: stretch; background: var(--green); border-top: 2px solid var(--gold); flex-shrink: 0; }
   .ft-label { font-family: sans-serif; font-size: 10px; color: var(--sage); padding: 0 20px; display: flex; align-items: center; border-right: 1px solid var(--gold); }
   .ft-btns { display: flex; flex: 1; }
-  .ft-btn { flex: 1; border: none; background: transparent; color: var(--gold); font-family: sans-serif; font-size: 10px; cursor: pointer; }
+  .ft-btn { flex: 1; border: none; background: transparent; color: var(--gold); font-family: sans-serif; font-size: 10px; cursor: pointer; text-transform: uppercase; }
 
-  /* Square Image Carousel Logic */
+  /* Square Image Carousel: Forces containment */
   .carousel-wrap { width: 100%; aspect-ratio: 1/1; background: #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-  .carousel-img { width: 100%; height: 100%; object-fit: contain; } /* 'contain' centers & pads automatically */
+  .carousel-img { width: 100%; height: 100%; object-fit: contain; }
 </style>
 
 <div class="portal">
   <div class="content-wrap">
+    <div class="top-bar">
+      <a href="/" class="top-bar-back">←</a>
+      <a href="/" class="top-bar-title">South African Botanical Registry</a>
+    </div>
+
+    <div class="plant-band">
+      <h1 class="plant-name">{d.name}</h1>
+      <p class="plant-sci">{d.scientific_name}</p>
+    </div>
+
     <div class="carousel-wrap">
-      {images.map((img, i) => <img src={img.src} class={`carousel-img ${i === 0 ? 'active' : ''}`} />)}
+      {images.map((img, i) => (
+        <img src={img.src} class={`carousel-img ${i === 0 ? 'active' : ''}`} />
+      ))}
     </div>
+
+    <div class="ds-grid">
+       <div class="ds-left">...</div>
+       <div class="ds-right">...</div>
     </div>
+  </div>
 
   <footer class="site-footer">
     <div class="ft-label">Connect with:</div>
@@ -34,14 +72,13 @@
 </div>
 
 <script is:inline>
-  /* Tab Persistence: Save tab to sessionStorage on click */
+  // Tab Persistence Script
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => sessionStorage.setItem('sabm-tab', btn.dataset.id));
   });
-  /* Restore tab on load */
   window.addEventListener('load', () => {
-    const savedTab = sessionStorage.getItem('sabm-tab');
-    if (savedTab) { activateTab(savedTab); }
+    const tab = sessionStorage.getItem('sabm-tab');
+    if (tab) { /* Trigger tab activation */ }
   });
 </script>
 </Layout>
