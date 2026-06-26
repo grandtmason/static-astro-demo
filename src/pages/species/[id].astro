@@ -177,8 +177,8 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .tab-panel.active { display: block; }
   .ds-grid { display: grid; grid-template-columns: 202px 1fr; align-items: stretch; }
   .ds-left { border-right: 1px solid var(--border); display: flex; flex-direction: column; }
-  .carousel-wrap { width: 186px; height: 186px; background: var(--green); position: relative; overflow: hidden; flex-shrink: 0; outline: 8px solid white; outline-offset: -8px; margin: 8px; }
-  .carousel-img { width: 100%; height: 100%; object-fit: cover; display: none; }
+  .carousel-wrap { width: 100%; aspect-ratio: 1 / 1; background: var(--parch); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; border: none; outline: none; margin: 8px; }
+  .carousel-img { width: 100%; height: 100%; object-fit: contain; display: none; }
   .carousel-img.active { display: block; }
   .carousel-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); text-align: center; line-height: 1.8; padding: 0 16px; }
   .photo-credit { background: var(--parch); padding: 6px 10px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -621,7 +621,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
 
   <div class="modal-overlay" id="modal-buyers">
     <div class="modal">
-      <button class="modal-close" data-close="buyers">×</button>
+      <button class="modal-close" data-close="buyers">×</object>
       <h2>Connect with Buyers</h2>
       <p>Register your interest. We will connect you with verified {d.name} buyers and market opportunities.</p>
       <form id="form-buyers" action={FORMSPREE_CONNECT} method="POST">
