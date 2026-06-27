@@ -37,37 +37,8 @@ const { title, schema } = Astro.props;
 		</script>
 	</head>
 	<body>
-		<header class="md:hidden sticky top-0 z-50 bg-[#F9F8F4] border-b border-[#B8860B]">
-			<div class="h-8 flex items-center justify-center text-[12px] uppercase tracking-widest text-[#2F2F2F]">
-				South African Botanical Registry
-			</div>
-			<div class="h-10 flex items-center justify-center text-[16px] border-t border-[#B8860B]/30">
-				{title}
-			</div>
-			<div class="h-10 flex items-center justify-between border-t border-[#B8860B] px-4">
-				<a href="/" class="text-[14px] text-[#2F2F2F] font-light">Back to Registry</a>
-				<button id="explore-btn" class="text-[14px] text-[#2F2F2F] font-light">Explore</button>
-			</div>
-		</header>
-
-		<nav id="explore-drawer" class="hidden fixed top-[112px] right-0 z-50 w-full md:hidden backdrop-blur-[25px] bg-[#F9F8F4]/80 border-l border-b border-[#B8860B]">
-			<button id="close-drawer" class="w-full h-10 border-b border-[#B8860B] text-[14px] flex items-center justify-center font-light">Close</button>
-			<div id="category-list" class="flex flex-col">
-                </div>
-            <a href="/" class="w-full h-10 flex items-center justify-center text-[14px] font-light">Back to Registry</a>
-		</nav>
-
 		<slot />
-
 		<script is:inline>
-			// UI Toggle Logic
-			const btn = document.getElementById('explore-btn');
-			const close = document.getElementById('close-drawer');
-			const drawer = document.getElementById('explore-drawer');
-			btn.addEventListener('click', () => drawer.classList.toggle('hidden'));
-			close.addEventListener('click', () => drawer.classList.add('hidden'));
-
-			// Scroll Restoration Logic
 			document.addEventListener('click', function(e) {
 				const link = e.target.closest('a.plant-card');
 				if (link) {
@@ -94,13 +65,6 @@ const { title, schema } = Astro.props;
 		padding: 0;
 		background: var(--parchment);
 	}
-    /* Mobile Override to remove scrollbar gap */
-    @media (max-width: 767px) {
-        body {
-            padding-right: 0 !important;
-            margin-right: 0 !important;
-        }
-    }
 	code {
 		font-family: Menlo, Monaco, Lucida Console, monospace;
 	}
