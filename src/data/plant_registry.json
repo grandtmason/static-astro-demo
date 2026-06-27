@@ -1,1 +1,24 @@
-
+{
+  "african-ginger": {
+    "common_names": {
+      "Afrikaans": "Wilde Gemmer",
+      "English": "African Ginger · Wild Ginger",
+      "Swati": "isiphephetho",
+      "Zulu": "isiphephetho · indungulo"
+    },
+    "stats": {
+      "production": "50–150 t",
+      "revenue": "R50m+",
+      "markets": "Domestic",
+      "livelihoods": "1,000–3,000"
+    },
+    "protection": {
+      "gi_year": "No GI",
+      "gi_status": "No GI protection. CITES Appendix II candidate due to overharvesting pressure.",
+      "bsa_year": "No BSA",
+      "bsa_status": "No formal agreement. Zulu and Swazi traditional knowledge holders not formally recognised.",
+      "organic": "No formal organic certification. Wild harvest only.",
+      "wild_harvest": "Critically threatened by wild harvest. Cultivation programmes essential."
+    }
+  }
+}
