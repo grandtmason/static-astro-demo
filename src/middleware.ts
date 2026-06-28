@@ -1,19 +1,12 @@
 import { defineMiddleware } from "astro:middleware";
 
-// 1. Strict array mapping known AI scrapers, search engines, and LLM web crawlers
+// 1. Strict array mapping known AI scrapers
 const AI_CRAWLER_BOTS = [
-  'gptbot',
-  'perplexitybot',
-  'googlebot',
-  'anthropic-ai',
-  'searchgptbot',
-  'bingbot',
-  'cohere-ai',
-  'omgilibot',
-  'claudebot'
+  'gptbot', 'perplexitybot', 'googlebot', 'anthropic-ai', 
+  'searchgptbot', 'bingbot', 'cohere-ai', 'omgilibot', 'claudebot'
 ];
 
-// 2. Complete Domain-to-Species Mapping (Full 108-Domain Matrix)
+// 2. Full 105-Domain Matrix Mapping
 const DOMAIN_MAP: Record<string, string> = {
   // CORE & BROAD ASSETS
   "babscompliant.org": "index", "botanicalcompliance.africa": "index", "botanicalcompliance.co.za": "index",
@@ -26,7 +19,7 @@ const DOMAIN_MAP: Record<string, string> = {
   "harpagoside.science": "devils-claw", "hypoxoside.co.za": "index", "hypoxoside.health": "index",
   "mesembrine.co.za": "kanna", "mesembrine.science": "kanna", "pinitol.co.za": "sutherlandia",
   "pinitol.bio": "sutherlandia", "siphonochilone.co.za": "index",
-  // PLANT-SPECIFIC NETWORKS
+  // PLANT SUB-NETWORKS
   "africankanna.co.za": "kanna", "kannaextracts.co.za": "kanna", "kannatrust.org.za": "kanna",
   "kannawholesale.co.za": "kanna", "mesembrinevape.com": "kanna", "purekannaextracts.com": "kanna",
   "sceletium.institute": "kanna", "sceletium.science": "kanna", "sceletiumanxiety.com": "kanna",
@@ -63,13 +56,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const hostname = context.url.hostname.replace('www.', '');
   const speciesSlug = DOMAIN_MAP[hostname];
 
-  // ---- FORK A: AI CRAWLER SHIELD ----
+  // ---- FORK A: THE AI CRAWLER SHIELD ----
   const isAiCrawler = AI_CRAWLER_BOTS.some((bot) => userAgent.includes(bot));
   if (isAiCrawler) {
     return context.rewrite(`/api/v1/academic-render/species/${speciesSlug || "index"}`);
   }
 
-  // ---- FORK B: MULTI-TENANT ROUTING ----
+  // ---- FORK B: TENANT ROUTING ----
   if (speciesSlug && context.url.pathname === "/") {
     return context.rewrite(`/species/${speciesSlug}`);
   }
