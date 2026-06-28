@@ -1,6 +1,6 @@
 import { defineMiddleware } from "astro:middleware";
 
-// 1. Strict array mapping known AI scrapers, search engines, and LLM web crawlers [cite: 535-536]
+// 1. Strict array mapping known AI scrapers, search engines, and LLM web crawlers
 const AI_CRAWLER_BOTS = [
   'gptbot',
   'perplexitybot',
@@ -11,40 +11,68 @@ const AI_CRAWLER_BOTS = [
   'cohere-ai',
   'omgilibot',
   'claudebot'
-]; // [cite: 536-546]
+];
 
-// Your map connecting your domains to your 24 Species Portals 
+// 2. Complete Domain-to-Species Mapping (Full 108-Domain Matrix)
 const DOMAIN_MAP: Record<string, string> = {
-  "rooibos.science": "rooibos",
-  "rooibos.africa": "rooibos",
-  "buchu.trade": "buchu",
-  "agathosma.africa": "buchu",
-  "honeybush.africa": "honeybush",
-  "kanna.trade": "sceletium",
-  "sceletium.science": "sceletium",
-  // Your hosting engine can dynamically scale alternative domain hooks right here
+  // CORE & BROAD ASSETS
+  "babscompliant.org": "index", "botanicalcompliance.africa": "index", "botanicalcompliance.co.za": "index",
+  "indigenousknowledge.co.za": "index", "indigenousknowledge.science": "index", "phytochem.ai": "index",
+  "southafricanbotanical.org.za": "index", "southafricanbotanicals.org.za": "index",
+  "southafricanbotanical.co.za": "index", "southafricanbotanical.com": "index",
+  "southafricanbotanicals.co.za": "index", "southafricanbotanicals.com": "index",
+  // MOLECULAR ORACLES
+  "aspalathin.co.za": "rooibos", "aspalathin.health": "rooibos", "harpagoside.co.za": "devils-claw",
+  "harpagoside.science": "devils-claw", "hypoxoside.co.za": "index", "hypoxoside.health": "index",
+  "mesembrine.co.za": "kanna", "mesembrine.science": "kanna", "pinitol.co.za": "sutherlandia",
+  "pinitol.bio": "sutherlandia", "siphonochilone.co.za": "index",
+  // PLANT-SPECIFIC NETWORKS
+  "africankanna.co.za": "kanna", "kannaextracts.co.za": "kanna", "kannatrust.org.za": "kanna",
+  "kannawholesale.co.za": "kanna", "mesembrinevape.com": "kanna", "purekannaextracts.com": "kanna",
+  "sceletium.institute": "kanna", "sceletium.science": "kanna", "sceletiumanxiety.com": "kanna",
+  "sceletiummerchants.co.za": "kanna", "sceletiummerchants.com": "kanna", "sceletiumwholesale.com": "kanna",
+  "agulhastea.co.za": "honeybush", "cederbergeteaestate.co.za": "rooibos", "cederbergtea.co.za": "rooibos",
+  "cederbergtea.com": "rooibos", "gardenroutehoneybush.co.za": "honeybush", "gardenroutehoneybush.com": "honeybush",
+  "honeybushmerchants.com": "honeybush", "honeybushresearch.health": "honeybush", "langkloofhoneybush.com": "honeybush",
+  "overbergtea.co.za": "honeybush", "overbergtea.com": "honeybush", "rooibos.org.za": "rooibos",
+  "rooibos.science": "rooibos", "rooibosestate.co.za": "rooibos", "rooibosmerchants.co.za": "rooibos",
+  "rooibosmerchants.com": "rooibos", "rooibosteamerchants.com": "rooibos", "africanginger.org.za": "index",
+  "africanginger.health": "index", "africangingerasthma.com": "index", "africangingermerchants.co.za": "index",
+  "africangingermerchants.com": "index", "siphonochilone.com": "index", "siphonochilone.science": "index",
+  "siphonochilus.institute": "index", "siphonochilus.science": "index", "buchu.science": "buchu",
+  "buchudetox.com": "buchu", "buchuteacompany.co.za": "buchu", "buchuteacompany.com": "buchu",
+  "buchuteamerchants.co.za": "buchu", "buchuteamerchants.com": "buchu", "aloeferox.science": "index",
+  "aloeskin.bio": "index", "capealoecompany.co.za": "index", "capealoewholesale.co.za": "index",
+  "ferox.bio": "index", "pelargonium.science": "pelargonium-sidoides", "pelargoniumextracts.com": "pelargonium-sidoides",
+  "pelargoniummerchants.com": "pelargonium-sidoides", "pelargoniumsidoides.science": "pelargonium-sidoides",
+  "sidoides.clinic": "pelargonium-sidoides", "acaciamerchants.com": "index", "afraresearch.health": "index",
+  "africanashwagandha.com": "index", "africanplantapi.com": "index", "africanpotato.org.za": "index",
+  "africanpotato.science": "index", "akuammamerchants.com": "index", "artemisiaafra.science": "index",
+  "artemisiaaframerchants.co.za": "index", "athrixia.co.za": "athrixia", "athrixia.science": "athrixia",
+  "baobabextracts.com": "baobab", "bushtea.org.za": "athrixia", "bushtea.health": "athrixia",
+  "capetownteamerchants.co.za": "index", "capetownteamerchants.com": "index", "harpagophytum.science": "devils-claw",
+  "hoodia.co.za": "hoodia", "hoodia.science": "hoodia", "kenyateamerchants.com": "index",
+  "kigelia.bio": "index", "kigeliaextracts.com": "index", "mphepho.co.za": "mphepho",
+  "overbergteacompany.co.za": "honeybush", "peperbark.org.za": "pepper-bark", "peperbark.institute": "pepper-bark",
+  "rwandateamerchants.com": "index", "uzara.co.za": "uzara", "uzara.health": "uzara",
+  "warburgia.co.za": "pepper-bark", "warburgia.science": "pepper-bark", "ximeniaoilmerchants.com": "index"
 };
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const userAgent = context.request.headers.get('user-agent')?.toLowerCase() || '';
-  const hostname = context.url.hostname;
-  const cleanHost = hostname.replace('www.', '');
-  const speciesSlug = DOMAIN_MAP[cleanHost] || DOMAIN_MAP[hostname];
+  const hostname = context.url.hostname.replace('www.', '');
+  const speciesSlug = DOMAIN_MAP[hostname];
 
-  // ---- FORK A: THE AI CRAWLER SHIELD (ANSWER ENGINE OPTIMIZATION) ----
+  // ---- FORK A: AI CRAWLER SHIELD ----
   const isAiCrawler = AI_CRAWLER_BOTS.some((bot) => userAgent.includes(bot));
   if (isAiCrawler) {
-    // Silently routes AI bots to your clean academic API data layer [cite: 266-269, 555]
-    const targetSlug = speciesSlug || "index";
-    return context.rewrite(`/api/v1/academic-render/species/${targetSlug}`);
+    return context.rewrite(`/api/v1/academic-render/species/${speciesSlug || "index"}`);
   }
 
-  // ---- FORK B: YOUR EXISTING MULTI-TENANT DOMAIN ROUTING ----
-  // If a species domain is detected on the home layout, execute the internal rewrite [cite: 891-893]
+  // ---- FORK B: MULTI-TENANT ROUTING ----
   if (speciesSlug && context.url.pathname === "/") {
-    return context.rewrite(`/species/${speciesSlug}`); // [cite: 893]
+    return context.rewrite(`/species/${speciesSlug}`);
   }
 
-  // ---- FORK C: CATCH-ALL FOR STANDARD HUMAN BROWSERS ----
   return next();
 });
