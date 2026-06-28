@@ -1,1 +1,4 @@
-
+[
+  { "id": "f1", "name": "Cape Buchu Estate", "lat": -33.9, "lng": 18.4, "type": "organic", "plant": "buchu" },
+  { "id": "f2", "name": "Wild Kanna Harvest", "lat": -32.5, "lng": 20.1, "type": "wild", "plant": "kanna" }
+]
