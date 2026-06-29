@@ -2,7 +2,7 @@
 name: "Pelargonium Sidoides"
 scientific_name: "Pelargonium sidoides"
 family: "Geraniaceae"
-image: "/Public/pelargonium-sidoides.jpg"
+image: "/public/pelargonium-sidoides.jpg"
 stats:
   production: "200–500 t"
   revenue: "R80–150m"
