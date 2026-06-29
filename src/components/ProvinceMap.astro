@@ -5,16 +5,23 @@ import farmData from "../data/farms.json";
 
 const { slug } = Astro.props;
 
-// Automatically find the geometry data in your file
+// Get the geometry layer
 const objectKey = Object.keys(topoData.objects)[0];
 const geometries = topoData.objects[objectKey].geometries;
 
+// Simple helper to create an SVG path string from TopoJSON arcs
+// This avoids the need for heavy external libraries like topojson-client
+const renderPath = (geo: any) => {
+  // If your TopoJSON has 'coordinates' already (GeoJSON-like), use them.
+  // If it has 'arcs', this is a placeholder. 
+  // NOTE: If this renders blank, your TopoJSON needs to be converted to GeoJSON.
+  return geo.geometry ? geo.geometry.coordinates : ""; 
+};
+
 const getMarkerColor = (type: string) => {
   const colors: Record<string, string> = {
-    'organic': '#77DD77',
-    'commercial': '#FDFD96',
-    'wild': '#A8E4A0',
-    'small-scale': '#FFB347'
+    'organic': '#77DD77', 'commercial': '#FDFD96',
+    'wild': '#A8E4A0', 'small-scale': '#FFB347'
   };
   return colors[type] || '#808080';
 };
@@ -30,7 +37,7 @@ const getMarkerColor = (type: string) => {
       };
       return (
         <path
-          d={geo.arcs} 
+          d={geo.geometry.coordinates.map((c: any) => c.join(' ')).join(' ')} 
           fill={colorMap[geo.properties.CODE] || '#f4f4f4'}
           stroke="white"
           stroke-width="0.5"
@@ -41,11 +48,7 @@ const getMarkerColor = (type: string) => {
     {farmData.filter((f: any) => f.plant === slug).map((farm: any) => {
       const { x, y } = getCoords(farm.provinceCode);
       return (
-        <circle 
-          cx={x} cy={y} r="12" 
-          fill={getMarkerColor(farm.type)} 
-          stroke="black" stroke-width="2" 
-        />
+        <circle cx={x} cy={y} r="12" fill={getMarkerColor(farm.type)} stroke="black" stroke-width="2" />
       );
     })}
   </svg>
