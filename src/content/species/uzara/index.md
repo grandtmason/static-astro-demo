@@ -2,7 +2,7 @@
 name: "Uzara"
 scientific_name: "Xysmalobium undulatum"
 family: "Apocynaceae"
-image: "/Public/uzara.jpg"
+image: "/uzara.jpg"
 stats:
   production: "20–60 t"
   revenue: "R10–30m"
