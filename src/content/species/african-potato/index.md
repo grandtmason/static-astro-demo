@@ -2,7 +2,7 @@
 name: "African Potato"
 scientific_name: "Hypoxis hemerocallidea"
 family: "Hypoxidaceae"
-image: "/public/african-potato.jpg"
+image: "/african-potato.jpg"
 stats:
   production: "200–500 t"
   revenue: "R200–400m"
