@@ -2,7 +2,7 @@
 name: "Bulbine"
 scientific_name: "Bulbine frutescens"
 family: "Asphodelaceae"
-image: "/public/bulbine.jpg"
+image: "/bulbine.jpg"
 stats:
   production: "50–200 t"
   revenue: "R10–30m"
