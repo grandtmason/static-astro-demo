@@ -1,28 +1,28 @@
 ---
-// src/components/ProvinceMap.astro
 import { feature } from "topojson-client";
+import { geoPath, geoIdentity } from "d3-geo";
 import topoData from "../data/za-provinces.topojson";
 import { getCoords } from "../utils/mapCoords";
 import farmData from "../data/farms.json";
 
 const provinceData = feature(topoData, topoData.objects.layer1);
 const { slug } = Astro.props;
+const pathGenerator = geoPath().projection(geoIdentity().reflectY(true));
 
 const getMarkerColor = (type: string) => {
   switch (type) {
-    case 'organic': return '#77DD77';    // Pastel Green
-    case 'commercial': return '#FDFD96'; // Pastel Yellow
-    case 'wild': return '#A8E4A0';       // Deep Pastel Sage
-    case 'small-scale': return '#FFB347';// Burnt Orange
+    case 'organic': return '#77DD77';
+    case 'commercial': return '#FDFD96';
+    case 'wild': return '#A8E4A0';
+    case 'small-scale': return '#FFB347';
     default: return '#808080';
   }
 };
 ---
 
 <div class="map-wrapper">
-  <svg viewBox="-7 0 809 709" class="map-container">
-    <!-- Render Provinces -->
-    {provinceData.features.map((feature) => {
+  <svg viewBox="0 0 800 600" class="map-container">
+    {provinceData.features.map((feature: any) => {
       const colorMap: Record<string, string> = {
         'EC': '#2A5A40', 'FS': '#6A9983', 'GT': '#BCCEC6', 
         'KZN': '#E1E9E6', 'LIM': '#E6E3DE', 'MP': '#DED3C4', 
@@ -30,7 +30,7 @@ const getMarkerColor = (type: string) => {
       };
       return (
         <path
-          d={feature.geometry.coordinates}
+          d={pathGenerator(feature) || ""}
           fill={colorMap[feature.properties.CODE] || '#f4f4f4'}
           stroke="white"
           stroke-width="0.5"
@@ -38,29 +38,16 @@ const getMarkerColor = (type: string) => {
       );
     })}
 
-    <!-- Render Farm Icons -->
-    {farmData.filter(f => f.plant === slug).map(farm => {
+    {farmData.filter((f: any) => f.plant === slug).map((farm: any) => {
       const { x, y } = getCoords(farm.provinceCode);
       return (
-        <circle 
-          cx={x} cy={y} r="12" 
-          fill={getMarkerColor(farm.type)} 
-          stroke="black" stroke-width="2" 
-        />
+        <circle cx={x} cy={y} r="12" fill={getMarkerColor(farm.type)} stroke="black" stroke-width="2" />
       );
     })}
   </svg>
 </div>
 
 <style>
-  .map-wrapper {
-    background-color: #f0f4f8; /* Light pastel blue ocean */
-    padding: 20px;
-    border-radius: 8px;
-  }
-  .map-container {
-    width: 100%;
-    height: auto;
-    background-color: #fafafa; /* Off-white for non-SA territories */
-  }
+  .map-wrapper { background-color: #f0f4f8; padding: 20px; border-radius: 8px; }
+  .map-container { width: 100%; height: auto; background-color: #fafafa; }
 </style>
