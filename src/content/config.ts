@@ -24,7 +24,8 @@ const species = defineCollection({
     }).optional(),
     cultivation: z.object({
       climate: z.string().optional(),
-      regions: z.string().optional(),
+      // Updated to union to support both string and array formats
+      regions: z.union([z.string(), z.array(z.string())]).optional(), 
       commercial: z.string().optional(),
     }).optional(),
     indigenous_knowledge: z.string().optional(),
