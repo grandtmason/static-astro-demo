@@ -2,7 +2,7 @@
 name: "Artemisia Afra"
 scientific_name: "Artemisia afra"
 family: "Asteraceae"
-image: "/public/artemisia-afra.jpg"
+image: "/artemisia-afra.jpg"
 stats:
   production: "500–1,500 t"
   revenue: "R50–100m"
