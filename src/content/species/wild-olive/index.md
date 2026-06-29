@@ -2,7 +2,7 @@
 name: "Wild Olive"
 scientific_name: "Olea europaea subsp. africana"
 family: "Oleaceae"
-image: "/Public/wild-olive.jpg"
+image: "/wild-olive.jpg"
 stats:
   production: "< 50 t"
   revenue: "R5–20m"
