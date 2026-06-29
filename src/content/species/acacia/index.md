@@ -2,7 +2,7 @@
 name: "Acacia"
 scientific_name: "Vachellia karroo"
 family: "Fabaceae"
-image: "/Public/acacia.jpg"
+image: "/public/acacia.jpg"
 stats:
   production: "Wild harvest only"
   revenue: "< R10m"
