@@ -5,20 +5,21 @@ import topoData from "../data/za-provinces.topojson";
 import { getCoords } from "../utils/mapCoords";
 import farmData from "../data/farms.json";
 
-const provinceData = feature(topoData, topoData.objects.layer1);
+// Safely extract features, handle potential null/undefined
+const provinceData = topoData ? feature(topoData, topoData.objects.layer1) : { features: [] };
 const { slug } = Astro.props;
 
-// Re-added path generator to convert coordinate arrays into path strings
+// Use a simpler projection setup
 const pathGenerator = geoPath().projection(geoIdentity().reflectY(true));
 
 const getMarkerColor = (type: string) => {
-  switch (type) {
-    case 'organic': return '#77DD77';
-    case 'commercial': return '#FDFD96';
-    case 'wild': return '#A8E4A0';
-    case 'small-scale': return '#FFB347';
-    default: return '#808080';
-  }
+  const colors: Record<string, string> = {
+    'organic': '#77DD77',
+    'commercial': '#FDFD96',
+    'wild': '#A8E4A0',
+    'small-scale': '#FFB347'
+  };
+  return colors[type] || '#808080';
 };
 ---
 
@@ -30,21 +31,24 @@ const getMarkerColor = (type: string) => {
         'KZN': '#E1E9E6', 'LIM': '#E6E3DE', 'MP': '#DED3C4', 
         'NC': '#D2C1A8', 'NW': '#CBB892', 'WC': '#C3B386'
       };
-      return (
+      
+      const pathData = pathGenerator(feature);
+      // Only render if pathData exists to prevent build crashes
+      return pathData ? (
         <path
-          d={pathGenerator(feature) || ""}
-          fill={colorMap[feature.properties.CODE] || '#f4f4f4'}
+          d={pathData}
+          fill={colorMap[feature.properties?.CODE] || '#f4f4f4'}
           stroke="white"
           stroke-width="0.5"
         />
-      );
+      ) : null;
     })}
 
-    {farmData.filter((f: any) => f.plant === slug).map((farm: any) => {
-      const { x, y } = getCoords(farm.provinceCode);
-      return (
-        <circle cx={x} cy={y} r="8" fill={getMarkerColor(farm.type)} stroke="black" stroke-width="1" />
-      );
+    {Array.isArray(farmData) && farmData.filter((f: any) => f.plant === slug).map((farm: any) => {
+      const coords = getCoords(farm.provinceCode);
+      return coords ? (
+        <circle cx={coords.x} cy={coords.y} r="8" fill={getMarkerColor(farm.type)} stroke="black" stroke-width="1" />
+      ) : null;
     })}
   </svg>
 </div>
