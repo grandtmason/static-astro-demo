@@ -2,7 +2,7 @@
 name: "African Ginger"
 scientific_name: "Siphonochilus aethiopicus"
 family: "Zingiberaceae"
-image: "/public/african-ginger.jpg"
+image: "/african-ginger.jpg"
 stats:
   production: "50–150 t"
   revenue: "R50m+ (domestic)"
