@@ -5,7 +5,6 @@ import { getCoords } from "../utils/mapCoords";
 
 const { slug } = Astro.props;
 
-// Accessing raw TopoJSON layers without external libraries
 const layerKey = Object.keys(topoData.objects)[0];
 const geometries = topoData.objects[layerKey].geometries;
 
@@ -18,18 +17,18 @@ const getMarkerColor = (type: string) => {
   };
   return colors[type] ?? '#808080';
 };
+
+const colorMap: Record<string, string> = {
+  'EC': '#2A5A40', 'FS': '#6A9983', 'GT': '#BCCEC6', 
+  'KZN': '#E1E9E6', 'LIM': '#E6E3DE', 'MP': '#DED3C4', 
+  'NC': '#D2C1A8', 'NW': '#CBB892', 'WC': '#C3B386'
+};
 ---
 
 <div class="map-wrapper">
   <svg viewBox="0 0 800 600" class="map-container" preserveAspectRatio="xMidYMid meet">
     {geometries.map((geo: any) => {
       const code = geo.properties?.CODE ?? 'UNKNOWN';
-      const colorMap: Record<string, string> = {
-        'EC': '#2A5A40', 'FS': '#6A9983', 'GT': '#BCCEC6', 
-        'KZN': '#E1E9E6', 'LIM': '#E6E3DE', 'MP': '#DED3C4', 
-        'NC': '#D2C1A8', 'NW': '#CBB892', 'WC': '#C3B386'
-      };
-      
       return (
         <path
           d={geo.arcs} 
@@ -44,9 +43,12 @@ const getMarkerColor = (type: string) => {
       const coords = getCoords(farm.provinceCode);
       return coords ? (
         <circle 
-          cx={coords.x} cy={coords.y} r="15" 
+          cx={coords.x} 
+          cy={coords.y} 
+          r="15" 
           fill={getMarkerColor(farm.type)} 
-          stroke="black" stroke-width="2" 
+          stroke="black" 
+          stroke-width="2" 
         />
       ) : null;
     })}
