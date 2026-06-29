@@ -2,7 +2,7 @@
 import { feature } from "topojson-client";
 import topoData from "../data/za-provinces.topojson";
 import { getCoords } from "../utils/mapCoords";
-import farmData from "../data/farms.json";
+import farmData from "../data/farms.json"; // force rebuild
 
 const provinceData = feature(topoData, topoData.objects.layer1);
 const { slug } = Astro.props;
