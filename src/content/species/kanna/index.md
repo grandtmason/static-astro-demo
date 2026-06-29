@@ -2,7 +2,7 @@
 name: "Kanna"
 scientific_name: "Sceletium tortuosum"
 family: "Aizoaceae"
-image: "/Public/kanna.jpg"
+image: "/public/kanna.jpg"
 stats:
   production: "20–80 t"
   revenue: "R30–80m"
