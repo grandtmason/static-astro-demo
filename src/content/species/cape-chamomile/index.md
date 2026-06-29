@@ -2,7 +2,7 @@
 name: "Cape Chamomile"
 scientific_name: "Eriocephalus punctulatus"
 family: "Asteraceae"
-image: "/Public/cape-chamomile.jpg"
+image: "/public/cape-chamomile.jpg"
 stats:
   production: "2–5 t oil"
   revenue: "R20–50m"
