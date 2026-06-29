@@ -2,7 +2,7 @@
 name: "Aloe Ferox"
 scientific_name: "Aloe ferox"
 family: "Asphodelaceae"
-image: "/public/aloe-ferox.jpg"
+image: "/aloe-ferox.jpg"
 stats:
   production: "~4,000 t"
   revenue: "R280m"
