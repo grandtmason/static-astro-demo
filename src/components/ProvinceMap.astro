@@ -1,17 +1,17 @@
 ---
-import { feature } from "topojson-client";
+// This version works without any external tools (no npm/package.json needed)
 import topoData from "../data/za-provinces.topojson";
 import { getCoords } from "../utils/mapCoords";
 import farmData from "../data/farms.json";
 
-const provinceData = feature(topoData, topoData.objects.layer1);
 const { slug } = Astro.props;
 
+// Helper to pick marker color
 const getMarkerColor = (type: string) => {
   switch (type) {
-    case 'organic': return '#77DD77';    
-    case 'commercial': return '#FDFD96'; 
-    case 'wild': return '#A8E4A0';       
+    case 'organic': return '#77DD77';
+    case 'commercial': return '#FDFD96';
+    case 'wild': return '#A8E4A0';
     case 'small-scale': return '#FFB347';
     default: return '#D3D3D3';
   }
@@ -20,7 +20,7 @@ const getMarkerColor = (type: string) => {
 
 <div class="map-wrapper">
   <svg viewBox="-7 0 809 709" class="map-container" preserveAspectRatio="xMidYMid meet">
-    {provinceData.features.map((feature: any) => {
+    {topoData.objects.layer1.geometries.map((geo: any) => {
       const colorMap: Record<string, string> = {
         'EC': '#2A5A40', 'FS': '#6A9983', 'GT': '#BCCEC6', 
         'KZN': '#E1E9E6', 'LIM': '#E6E3DE', 'MP': '#DED3C4', 
@@ -28,8 +28,8 @@ const getMarkerColor = (type: string) => {
       };
       return (
         <path
-          d={feature.geometry.coordinates}
-          fill={colorMap[feature.properties.CODE] || '#f4f4f4'}
+          d={geo.arcs} 
+          fill={colorMap[geo.properties.CODE] || '#f4f4f4'}
           stroke="white"
           stroke-width="0.5"
         />
@@ -50,14 +50,6 @@ const getMarkerColor = (type: string) => {
 </div>
 
 <style>
-  .map-wrapper {
-    background-color: #f0f4f8;
-    padding: 20px;
-    border-radius: 8px;
-  }
-  .map-container {
-    width: 100%;
-    height: auto;
-    background-color: #fafafa;
-  }
+  .map-wrapper { background-color: #f0f4f8; padding: 20px; border-radius: 8px; }
+  .map-container { width: 100%; height: auto; background-color: #fafafa; }
 </style>
