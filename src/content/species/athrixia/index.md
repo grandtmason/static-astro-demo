@@ -2,7 +2,7 @@
 name: "Athrixia"
 scientific_name: "Athrixia phylicoides"
 family: "Asteraceae"
-image: "/public/athrixia.jpg"
+image: "/athrixia.jpg"
 stats:
   production: "< 100 t"
   revenue: "R5–15m"
