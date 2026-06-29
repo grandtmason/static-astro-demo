@@ -2,7 +2,7 @@
 name: "Hoodia"
 scientific_name: "Hoodia gordonii"
 family: "Apocynaceae"
-image: "/Public/hoodia.jpg"
+image: "/public/hoodia.jpg"
 stats:
   production: "< 50 t"
   revenue: "R5–15m"
