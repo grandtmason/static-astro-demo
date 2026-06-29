@@ -2,7 +2,7 @@
 name: "Wild Sage"
 scientific_name: "Salvia africana-lutea"
 family: "Lamiaceae"
-image: "/Public/wild-sage.jpg"
+image: "/wild-sage.jpg"
 stats:
   production: "10–50 t"
   revenue: "R5–15m"
