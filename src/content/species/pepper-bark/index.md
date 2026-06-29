@@ -2,7 +2,7 @@
 name: "Pepper Bark"
 scientific_name: "Warburgia salutaris"
 family: "Canellaceae"
-image: "/Public/pepper-bark.jpg"
+image: "/public/pepper-bark.jpg"
 stats:
   production: "10–50 t"
   revenue: "Minimal"
