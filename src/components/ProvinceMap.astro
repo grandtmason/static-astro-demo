@@ -1,44 +1,17 @@
 ---
-// Simplified version to bypass build errors
+// This code is "Plain JavaScript" - it requires no installs.
 import topoData from "../data/za-provinces.topojson";
 import { getCoords } from "../utils/mapCoords";
 import farmData from "../data/farms.json";
 
 const { slug } = Astro.props;
 
-// Direct access to geometries without the library
-const geometries = topoData.objects.layer1.geometries;
+// Access the map data directly from the JSON object
+const objectKey = Object.keys(topoData.objects)[0];
+const features = topoData.objects[objectKey].geometries;
 
 const getMarkerColor = (type: string) => {
   const colors: Record<string, string> = {
     'organic': '#77DD77',
     'commercial': '#FDFD96',
     'wild': '#A8E4A0',
-    'small-scale': '#FFB347'
-  };
-  return colors[type] || '#808080';
-};
----
-
-<svg viewBox="-7 0 809 709" class="map-container">
-  {geometries.map((geo: any) => {
-    const colorMap: Record<string, string> = {
-      'EC': '#2A5A40', 'FS': '#6A9983', 'GT': '#BCCEC6', 
-      'KZN': '#E1E9E6', 'LIM': '#E6E3DE', 'MP': '#DED3C4', 
-      'NC': '#D2C1A8', 'NW': '#CBB892', 'WC': '#C3B386'
-    };
-    return (
-      <path
-        d={geo.arcs} 
-        fill={colorMap[geo.properties.CODE] || '#f4f4f4'}
-        stroke="white"
-        stroke-width="0.5"
-      />
-    );
-  })}
-
-  {farmData.filter(f => f.plant === slug).map(farm => {
-    const { x, y } = getCoords(farm.provinceCode);
-    return <circle cx={x} cy={y} r="12" fill={getMarkerColor(farm.type)} stroke="black" stroke-width="2" />;
-  })}
-</svg>
