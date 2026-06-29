@@ -2,7 +2,7 @@
 name: "Mphepho"
 scientific_name: "Helichrysum odoratissimum"
 family: "Asteraceae"
-image: "/Public/mphepho.jpg"
+image: "/public/mphepho.jpg"
 stats:
   production: "100–300 t"
   revenue: "R10–30m"
