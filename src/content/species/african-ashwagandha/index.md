@@ -2,7 +2,7 @@
 name: "African Ashwagandha"
 scientific_name: "Withania somnifera"
 family: "Solanaceae"
-image: "/public/african-ashwagandha.jpg"
+image: "/african-ashwagandha.jpg"
 stats:
   production: "50–200 t"
   revenue: "R5–20m"
