@@ -2,7 +2,7 @@
 name: "Baobab"
 scientific_name: "Adansonia digitata"
 family: "Malvaceae"
-image: "/Public/baobab.jpg"
+image: "/public/baobab.jpg"
 stats:
   production: "500–1,500 t"
   revenue: "R30–80m"
