@@ -8,19 +8,23 @@ const species = defineCollection({
     family: z.string().optional(),
     native_region: z.string().optional(),
     image: z.string().optional(),
-    images: z.any().optional(), // Relaxed to any to prevent crashing
+    images: z.any().optional(),
     description: z.string().optional(),
     introduction: z.string().optional(),
     conservation_status: z.string().optional(),
     naming_origins: z.string().optional(),
-    common_names: z.any().optional(), // Relaxed
-    medicinal_properties: z.any().optional(), // Relaxed
-    cultivation: z.any().optional(), // Relaxed
+    common_names: z.any().optional(),
+    medicinal_properties: z.any().optional(),
+    cultivation: z.object({
+      climate: z.string().optional(),
+      regions: z.union([z.string(), z.array(z.string())]).optional(),
+      commercial: z.string().optional(),
+    }).optional(),
     indigenous_knowledge: z.string().optional(),
-    quadrants: z.any().optional(), // Relaxed
-    stats: z.any().optional(), // Added to capture your stats field
-    provinces: z.any().optional(), // Added to capture your provinces field
-    protection: z.any().optional(), // Added to capture your protection field
+    quadrants: z.any().optional(),
+    stats: z.any().optional(),
+    provinces: z.any().optional(),
+    protection: z.any().optional(),
   }),
 });
 
