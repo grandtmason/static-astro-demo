@@ -2,7 +2,7 @@
 name: "Marula"
 scientific_name: "Sclerocarya birrea"
 family: "Anacardiaceae"
-image: "/Public/marula.jpg"
+image: "/public/marula.jpg"
 stats:
   production: "10,000–30,000 t"
   revenue: "R100–200m"
