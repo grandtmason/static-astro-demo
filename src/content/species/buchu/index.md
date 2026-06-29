@@ -2,7 +2,7 @@
 name: "Buchu"
 scientific_name: "Agathosma betulina"
 family: "Rutaceae"
-image: "/Public/buchu.jpg"
+image: "/public/buchu.jpg"
 stats:
   production: "300–600 t"
   revenue: "R80–150m"
