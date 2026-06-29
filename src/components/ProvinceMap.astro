@@ -1,12 +1,13 @@
 ---
+// ProvinceMap.astro: Defensive rendering for SABR satellite nodes
 import topoData from "../data/za-provinces.topojson";
 import { getCoords } from "../utils/mapCoords";
 import farmData from "../data/farms.json";
 
 const { slug } = Astro.props;
 
-// Defensive programming: check if the object exists before trying to access it
-const objectKey = topoData && topoData.objects ? Object.keys(topoData.objects)[0] : null;
+// Safe geometry extraction
+const objectKey = topoData?.objects ? Object.keys(topoData.objects)[0] : null;
 const geometries = objectKey ? topoData.objects[objectKey].geometries : [];
 
 const getMarkerColor = (type: string) => {
@@ -16,27 +17,23 @@ const getMarkerColor = (type: string) => {
     'wild': '#A8E4A0',
     'small-scale': '#FFB347'
   };
-  return colors[type] || '#808080';
+  return colors[type] ?? '#808080';
 };
 ---
 
 <div class="map-wrapper">
   <svg viewBox="-7 0 809 709" class="map-container" preserveAspectRatio="xMidYMid meet">
     {geometries.map((geo: any) => {
+      const code = geo.properties?.CODE ?? 'UNKNOWN';
       const colorMap: Record<string, string> = {
         'EC': '#2A5A40', 'FS': '#6A9983', 'GT': '#BCCEC6', 
         'KZN': '#E1E9E6', 'LIM': '#E6E3DE', 'MP': '#DED3C4', 
         'NC': '#D2C1A8', 'NW': '#CBB892', 'WC': '#C3B386'
       };
-      
-      // Safety check: ensure 'arcs' and 'properties' exist before rendering
-      const d = geo.arcs;
-      const code = geo.properties?.CODE || 'UNKNOWN';
-      
       return (
         <path
-          d={d} 
-          fill={colorMap[code] || '#f4f4f4'}
+          d={geo.arcs ?? ''} 
+          fill={colorMap[code] ?? '#f4f4f4'}
           stroke="white"
           stroke-width="0.5"
         />
@@ -45,16 +42,13 @@ const getMarkerColor = (type: string) => {
 
     {farmData.filter((f: any) => f.plant === slug).map((farm: any) => {
       const coords = getCoords(farm.provinceCode);
-      // Only render if coords exist
-      if (!coords) return null;
-      
-      return (
+      return coords ? (
         <circle 
           cx={coords.x} cy={coords.y} r="12" 
           fill={getMarkerColor(farm.type)} 
           stroke="black" stroke-width="2" 
         />
-      );
+      ) : null;
     })}
   </svg>
 </div>
