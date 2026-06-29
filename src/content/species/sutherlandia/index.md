@@ -2,7 +2,7 @@
 name: "Sutherlandia"
 scientific_name: "Lessertia frutescens"
 family: "Fabaceae"
-image: "/Public/sutherlandia.jpg"
+image: "/sutherlandia.jpg"
 stats:
   production: "50–200 t"
   revenue: "R20–50m"
