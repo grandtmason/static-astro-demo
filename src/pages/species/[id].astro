@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import ProvinceMap from '../../components/ProvinceMap.astro';
 
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
@@ -238,8 +237,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
   .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
   .stats-map-row { display: grid; grid-template-columns: 1fr 400px 170px; border-bottom: 1px solid var(--border); height: 280px; overflow: hidden; }
   .stats-col { display: flex; flex-direction: column; border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
-  .map-col { border-right: 1px solid var(--border); overflow: hidden; height: 280px; max-height: 280px; display: flex; align-items: center; justify-content: center; padding: 0 20px 0 20px; box-sizing: border-box; }
-  .key-col { padding: 8px 10px; display: flex; flex-direction: column; width: 170px; }
+ 
   .key-section-lbl { font-family: var(--sans); font-size: 8.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
   .key-prov-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
   .key-swatch { width: 12px; height: 12px; flex-shrink: 0; border: 0.5px solid rgba(0,0,0,0.1); }
@@ -367,8 +365,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
     .ds-row3 { grid-template-columns: 1fr; }
     .ds-row2 { grid-template-columns: 1fr; }
     .cards-grid { grid-template-columns: 1fr; }
-    .stats-map-row { grid-template-columns: 1fr; min-height: auto; }
-    .map-col { height: 200px; }
+    
     .key-col { display: none; }
     .id-three { grid-template-columns: 1fr; }
     .id-three .id-cell { border-right: none; border-bottom: 1px solid var(--border); }
@@ -472,66 +469,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
             <div class="native-val">{d.native_region ?? '—'}</div>
           </div>
 
-          <div class="stats-map-row">
-            <div class="stats-col">
-              <div class="stats-row">
-                <div class="stat-cell">
-                  <div class="block-lbl">Annual<br/>Production</div>
-                  <div class="stat-val">{stats.production}</div>
-                </div>
-                <div class="stat-cell">
-                  <div class="block-lbl">Export Revenue</div>
-                  <div class="stat-val">{stats.revenue}</div>
-                </div>
-                <div class="stat-cell">
-                  <div class="block-lbl">Export Markets</div>
-                  <div class="stat-val">{stats.markets}</div>
-                </div>
-                <div class="stat-cell">
-                  <div class="block-lbl">Livelihoods</div>
-                  <div class="stat-val">{stats.livelihoods}</div>
-                </div>
-              </div>
-              <div class="prot-block">
-                <div class="prot-block-lbl">Protection &amp; Benefit Sharing</div>
-                <div class="prot-row">
-                  <span class="prot-badge">{protection.gi_year}</span>
-                  <span class="prot-text">{protection.gi_status}</span>
-                </div>
-                <div class="prot-row">
-                  <span class="prot-badge">{protection.bsa_year}</span>
-                  <span class="prot-text">{protection.bsa_status}</span>
-                </div>
-                <div class="prot-row">
-                  <span class="prot-badge">Organic</span>
-                  <span class="prot-text">{protection.organic}</span>
-                </div>
-                <div class="prot-row">
-                  <span class="prot-badge">Wild Harvest</span>
-                  <span class="prot-text">{protection.wild_harvest}</span>
-                </div>
-              </div>
-            </div>
-            <div class="map-col">
-              <ProvinceMap slug={slug} />
-            </div>
-            <div class="key-col">
-              <div class="key-section-lbl">Provinces</div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#2A5A40"></span><span class="key-abbr">EC</span><span class="key-name">Eastern Cape</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#6A9E82"></span><span class="key-abbr">FS</span><span class="key-name">Free State</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#C2D4CA"></span><span class="key-abbr">GT</span><span class="key-name">Gauteng</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#E4EDE8"></span><span class="key-abbr">KZN</span><span class="key-name">KwaZulu-Natal</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#EDE9E0"></span><span class="key-abbr">LIM</span><span class="key-name">Limpopo</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#E8DFC8"></span><span class="key-abbr">MP</span><span class="key-name">Mpumalanga</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#DDD0B0"></span><span class="key-abbr">NC</span><span class="key-name">Northern Cape</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#D4C598"></span><span class="key-abbr">NW</span><span class="key-name">North West</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#C8BA88"></span><span class="key-abbr">WC</span><span class="key-name">Western Cape</span></div>
-              <div class="key-divider"></div>
-              <div class="key-section-lbl">Key</div>
-              <div class="key-dot-row"><span class="key-dot"></span><span class="key-name">Registered farm</span></div>
-              <div class="key-dot-row"><span class="key-dot-org"><span class="key-dot-inner"></span></span><span class="key-name">Certified organic</span></div>
-            </div>
-          </div>
+          
 
           {d.introduction && (
             <div class="intro-block">
