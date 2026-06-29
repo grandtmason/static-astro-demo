@@ -2,7 +2,7 @@
 name: "Devil's Claw"
 scientific_name: "Harpagophytum procumbens"
 family: "Pedaliaceae"
-image: "/public/devils-claw.jpg"
+image: "/devils-claw.jpg"
 stats:
   production: "~800 t"
   revenue: "R60–120m"
