@@ -2,7 +2,7 @@
 name: "Honeybush"
 scientific_name: "Cyclopia genistoides"
 family: "Fabaceae"
-image: "/Public/honeybush.jpg"
+image: "/public/honeybush.jpg"
 stats:
   production: "400–800 t"
   revenue: "R40–80m"
