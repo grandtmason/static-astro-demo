@@ -1,11 +1,15 @@
 ---
 import { feature } from "topojson-client";
+import { geoPath, geoIdentity } from "d3-geo";
 import topoData from "../data/za-provinces.topojson";
 import { getCoords } from "../utils/mapCoords";
 import farmData from "../data/farms.json";
 
 const provinceData = feature(topoData, topoData.objects.layer1);
 const { slug } = Astro.props;
+
+// Re-added path generator to convert coordinate arrays into path strings
+const pathGenerator = geoPath().projection(geoIdentity().reflectY(true));
 
 const getMarkerColor = (type: string) => {
   switch (type) {
@@ -28,7 +32,7 @@ const getMarkerColor = (type: string) => {
       };
       return (
         <path
-          d={feature.geometry.coordinates}
+          d={pathGenerator(feature) || ""}
           fill={colorMap[feature.properties.CODE] || '#f4f4f4'}
           stroke="white"
           stroke-width="0.5"
