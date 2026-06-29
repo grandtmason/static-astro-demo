@@ -1,12 +1,15 @@
 ---
-// This version works without any external tools (no npm/package.json needed)
+// This version is "Universal" - it doesn't need external libraries.
 import topoData from "../data/za-provinces.topojson";
 import { getCoords } from "../utils/mapCoords";
 import farmData from "../data/farms.json";
 
 const { slug } = Astro.props;
 
-// Helper to pick marker color
+// Automatically detect the object name in your TopoJSON file
+const objectName = Object.keys(topoData.objects)[0];
+const geometries = topoData.objects[objectName].geometries;
+
 const getMarkerColor = (type: string) => {
   switch (type) {
     case 'organic': return '#77DD77';
@@ -20,7 +23,7 @@ const getMarkerColor = (type: string) => {
 
 <div class="map-wrapper">
   <svg viewBox="-7 0 809 709" class="map-container" preserveAspectRatio="xMidYMid meet">
-    {topoData.objects.layer1.geometries.map((geo: any) => {
+    {geometries.map((geo: any) => {
       const colorMap: Record<string, string> = {
         'EC': '#2A5A40', 'FS': '#6A9983', 'GT': '#BCCEC6', 
         'KZN': '#E1E9E6', 'LIM': '#E6E3DE', 'MP': '#DED3C4', 
