@@ -1,21 +1,22 @@
 ---
 import { feature } from "topojson-client";
 import { geoPath, geoMercator } from "d3-geo";
-import topoData from "../data/za-provinces.topojson?json";
+import fs from "fs";
+import path from "path";
 import farmData from "../data/farms.json";
 import mapConfig from "../data/map-config.json";
 
 const { slug } = Astro.props;
 
-// Access the dynamic object key
+// Use Node's 'fs' to read the file directly at build-time
+const topoPath = path.join(process.cwd(), 'src/data/za-provinces.topojson');
+const topoData = JSON.parse(fs.readFileSync(topoPath, 'utf-8'));
+
 const objectKey = Object.keys(topoData.objects)[0];
 const provinceData = feature(topoData, topoData.objects[objectKey]) as any;
 
-// Projection: Fits TopoJSON to the SVG viewBox
 const projection = geoMercator().fitSize([800, 700], provinceData);
 const pathGenerator = geoPath().projection(projection);
-
-// Filter farms based on the plant slug
 const filteredFarms = farmData.filter(f => f.plant === slug);
 ---
 
