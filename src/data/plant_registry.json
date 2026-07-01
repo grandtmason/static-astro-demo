@@ -1,1 +1,26 @@
-
+{
+  "acacia": { "name": "Vachellia karroo" },
+  "african-ashwagandha": { "name": "Withania somnifera" },
+  "african-ginger": { "name": "Siphonochilus aethiopicus" },
+  "african-potato": { "name": "Hypoxis hemerocallidea" },
+  "aloe-ferox": { "name": "Aloe ferox" },
+  "artemisia-afra": { "name": "Artemisia afra" },
+  "athrixia": { "name": "Athrixia phylicoides" },
+  "baobab": { "name": "Adansonia digitata" },
+  "buchu": { "name": "Agathosma betulina" },
+  "bulbine": { "name": "Bulbine frutescens" },
+  "cape-chamomile": { "name": "Eriocephalus punctulatus" },
+  "devils-claw": { "name": "Harpagophytum procumbens" },
+  "honeybush": { "name": "Cyclopia genistoides" },
+  "hoodia": { "name": "Hoodia gordonii" },
+  "kanna": { "name": "Sceletium tortuosum" },
+  "marula": { "name": "Sclerocarya birrea" },
+  "mphepho": { "name": "Helichrysum odoratissimum" },
+  "pelargonium-sidoides": { "name": "Pelargonium sidoides" },
+  "pepper-bark": { "name": "Warburgia salutaris" },
+  "rooibos": { "name": "Aspalathus linearis" },
+  "sutherlandia": { "name": "Lessertia frutescens" },
+  "uzara": { "name": "Xysmalobium undulatum" },
+  "wild-olive": { "name": "Olea europaea subsp. cuspidata" },
+  "wild-sage": { "name": "Tarchonanthus camphoratus" }
+}
