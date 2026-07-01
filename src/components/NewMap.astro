@@ -7,12 +7,12 @@ import mapConfig from "../data/map-config.json";
 
 const { slug } = Astro.props;
 
-// Access the dynamic object key from the TopoJSON file
+// Access the dynamic object key
 const objectKey = Object.keys(topoData.objects)[0];
-const provinceData = feature(topoData, topoData.objects[objectKey]);
+const provinceData = feature(topoData, topoData.objects[objectKey]) as any;
 
 // Projection: Fits TopoJSON to the SVG viewBox
-const projection = geoMercator().fitSize([800, 700], provinceData as any);
+const projection = geoMercator().fitSize([800, 700], provinceData);
 const pathGenerator = geoPath().projection(projection);
 
 // Filter farms based on the plant slug
@@ -30,8 +30,12 @@ const filteredFarms = farmData.filter(f => f.plant === slug);
   ))}
 
   {filteredFarms.map(farm => {
-    const [x, y] = projection([farm.lng, farm.lat]) || [0, 0];
+    const coords = projection([farm.lng, farm.lat]);
+    if (!coords) return null; // Safety check: skip if projection fails
+    
+    const [x, y] = coords;
     const style = mapConfig.markerStyles[farm.type] || { fill: "#D3D3D3", stroke: "#000" };
+    
     return (
       <circle 
         cx={x} cy={y} r="8" 
@@ -45,8 +49,10 @@ const filteredFarms = farmData.filter(f => f.plant === slug);
 
 <style>
   .map-container {
+    display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    max-height: 280px;
     background-color: #fafafa;
   }
 </style>
