@@ -1,26 +1,24 @@
 {
-  "acacia": { "name": "Vachellia karroo" },
-  "african-ashwagandha": { "name": "Withania somnifera" },
-  "african-ginger": { "name": "Siphonochilus aethiopicus" },
-  "african-potato": { "name": "Hypoxis hemerocallidea" },
-  "aloe-ferox": { "name": "Aloe ferox" },
-  "artemisia-afra": { "name": "Artemisia afra" },
-  "athrixia": { "name": "Athrixia phylicoides" },
-  "baobab": { "name": "Adansonia digitata" },
-  "buchu": { "name": "Agathosma betulina" },
-  "bulbine": { "name": "Bulbine frutescens" },
-  "cape-chamomile": { "name": "Eriocephalus punctulatus" },
-  "devils-claw": { "name": "Harpagophytum procumbens" },
-  "honeybush": { "name": "Cyclopia genistoides" },
-  "hoodia": { "name": "Hoodia gordonii" },
-  "kanna": { "name": "Sceletium tortuosum" },
-  "marula": { "name": "Sclerocarya birrea" },
-  "mphepho": { "name": "Helichrysum odoratissimum" },
-  "pelargonium-sidoides": { "name": "Pelargonium sidoides" },
-  "pepper-bark": { "name": "Warburgia salutaris" },
-  "rooibos": { "name": "Aspalathus linearis" },
-  "sutherlandia": { "name": "Lessertia frutescens" },
-  "uzara": { "name": "Xysmalobium undulatum" },
-  "wild-olive": { "name": "Olea europaea subsp. cuspidata" },
-  "wild-sage": { "name": "Tarchonanthus camphoratus" }
+  "african-ginger": {
+    "common_names": {
+      "Afrikaans": "Wilde Gemmer",
+      "English": "African Ginger · Wild Ginger",
+      "Swati": "isiphephetho",
+      "Zulu": "isiphephetho · indungulo"
+    },
+    "stats": {
+      "production": "50–150 t",
+      "revenue": "R50m+",
+      "markets": "Domestic",
+      "livelihoods": "1,000–3,000"
+    },
+    "protection": {
+      "gi_year": "No GI",
+      "gi_status": "No GI protection. CITES Appendix II candidate due to overharvesting pressure.",
+      "bsa_year": "No BSA",
+      "bsa_status": "No formal agreement. Zulu and Swazi traditional knowledge holders not formally recognised.",
+      "organic": "No formal organic certification. Wild harvest only.",
+      "wild_harvest": "Critically threatened by wild harvest. Cultivation programmes essential."
+    }
+  }
 }
