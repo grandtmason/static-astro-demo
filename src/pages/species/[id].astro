@@ -99,6 +99,12 @@ const PLANT_PROTECTION = {
 
 const stats = PLANT_STATS[slug] ?? { production: '—', revenue: '—', markets: '—', livelihoods: '—' };
 const protection = PLANT_PROTECTION[slug] ?? { gi_year: '—', gi_status: '—', bsa_year: '—', bsa_status: '—', organic: '—', wild_harvest: '—' };
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": d.name,
+  "description": d.introduction
+};
 ---
 
 <Layout title={`${d.name} | South African Botanical Registry`} schema={jsonLd}>
