@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import ProvinceMap from '../../components/ProvinceMap.astro';
 
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
@@ -513,7 +512,7 @@ const protection = PLANT_PROTECTION[slug] ?? { gi_year: 'GI 2021', gi_status: 'E
               </div>
             </div>
             <div class="map-col">
-              <ProvinceMap slug={slug} />
+  
             </div>
             <div class="key-col">
               <div class="key-section-lbl">Provinces</div>
