@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import NewMap from '../../components/NewMap.astro'; // ADD THIS IMPORT
 
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
@@ -11,48 +12,10 @@ export async function getStaticPaths() {
 }
 
 const { plant } = Astro.props;
+// ... (rest of your const definitions remain exactly the same)
 
-const TABS = [
-  { id: 'wellness',     label: 'Health & Wellness'  },
-  { id: 'innovation',   label: 'Innovation & R&D'   },
-  { id: 'ik',           label: 'IK & Heritage'      },
-  { id: 'culture',      label: 'Culture'            },
-  { id: 'agronomy',     label: 'Agronomy'           },
-  { id: 'legislation',  label: 'Legislation'        },
-  { id: 'projects',     label: 'Projects'           },
-  { id: 'intelligence', label: 'Intelligence Pulse' },
-  { id: 'datasheet',    label: 'Data Sheet'         },
-];
-
-const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
-
-const d  = plant.data;
-const m  = d.medicinal_properties ?? {};
-const cv = d.cultivation ?? {};
-const ik = d.indigenous_knowledge ?? '';
-const q  = d.quadrants ?? {};
-const cn = d.common_names ?? {};
-
-const images: { src: string; credit: string }[] = Array.isArray(d.images)
-  ? d.images
-  : d.image
-    ? [{ src: d.image, credit: '' }]
-    : [];
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Thing',
-  name: d.name,
-  alternateName: d.scientific_name,
-  description: d.description,
-  image: `https://southafricanbotanical.org.za${d.image ?? ''}`,
-  url: `https://southafricanbotanical.org.za/species/${plant.id}`,
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': `https://southafricanbotanical.org.za/species/${plant.id}`,
-  },
-};
-
+const slug = plant.id.replace('/index', '').replace('.md', '');
+---
 const sortedNames = Object.entries(cn).sort(([a], [b]) => a.localeCompare(b));
 
 const COMMON_NAMES: Record<string, Record<string, string>> = {
