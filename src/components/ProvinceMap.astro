@@ -2,16 +2,16 @@
 import { feature } from "topojson-client";
 import topoData from "../data/za-provinces.topojson";
 import { getCoords } from "../utils/mapCoords";
-import farmData from "../data/farms.json"; // force rebuild
+import farmData from "../data/farms.json";
 
 const provinceData = feature(topoData, topoData.objects.layer1);
 const { slug } = Astro.props;
 
 const getMarkerColor = (type: string) => {
   switch (type) {
-    case 'organic': return '#77DD77';
-    case 'commercial': return '#FDFD96';
-    case 'wild': return '#A8E4A0';
+    case 'organic': return '#77DD77';    
+    case 'commercial': return '#FDFD96'; 
+    case 'wild': return '#A8E4A0';       
     case 'small-scale': return '#FFB347';
     default: return '#D3D3D3';
   }
