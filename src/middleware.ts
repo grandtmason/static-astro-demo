@@ -1,50 +1,85 @@
-import { defineMiddleware } from "astro:middleware";
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
 
-// 1. Strict array mapping known AI scrapers, search engines, and LLM web crawlers [cite: 535-536]
-const AI_CRAWLER_BOTS = [
-  'gptbot',
-  'perplexitybot',
-  'googlebot',
-  'anthropic-ai',
-  'searchgptbot',
-  'bingbot',
-  'cohere-ai',
-  'omgilibot',
-  'claudebot'
-]; // [cite: 536-546]
+const allPlants = await getCollection('species');
+const plants = allPlants
+  .map(p => ({ 
+    data: p.data, 
+    slug: p.id.replace('/index', '').replace('.md', '') 
+  }))
+  // SAFE SORT: Handles missing names to prevent build crashes
+  .sort((a, b) => (a.data.name || "").localeCompare(b.data.name || ""));
+---
 
-// Your map connecting your domains to your 24 Species Portals 
-const DOMAIN_MAP: Record<string, string> = {
-  "rooibos.science": "rooibos",
-  "rooibos.africa": "rooibos",
-  "buchu.trade": "buchu",
-  "agathosma.africa": "buchu",
-  "honeybush.africa": "honeybush",
-  "kanna.trade": "sceletium",
-  "sceletium.science": "sceletium",
-  // Your hosting engine can dynamically scale alternative domain hooks right here
-};
-
-export const onRequest = defineMiddleware(async (context, next) => {
-  const userAgent = context.request.headers.get('user-agent')?.toLowerCase() || '';
-  const hostname = context.url.hostname;
-  const cleanHost = hostname.replace('www.', '');
-  const speciesSlug = DOMAIN_MAP[cleanHost] || DOMAIN_MAP[hostname];
-
-  // ---- FORK A: THE AI CRAWLER SHIELD (ANSWER ENGINE OPTIMIZATION) ----
-  const isAiCrawler = AI_CRAWLER_BOTS.some((bot) => userAgent.includes(bot));
-  if (isAiCrawler) {
-    // Silently routes AI bots to your clean academic API data layer [cite: 266-269, 555]
-    const targetSlug = speciesSlug || "index";
-    return context.rewrite(`/api/v1/academic-render/species/${targetSlug}`);
+<Layout title="South African Botanical Registry">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #1A3A2A; --gold: #B8860B; --parch: #F9F8F4;
+    --ink: #2F2F2F; --muted: #7A7A7A; --sage: #9DB8A8; --border: #E1DED8;
   }
+  body { background: var(--parch); font-family: 'EB Garamond', Georgia, serif; color: var(--ink); }
+  .top-bar { background: var(--green); border-bottom: 2px solid var(--gold); padding: 12px 32px; text-align: center; }
+  .top-bar h1 { font-family: sans-serif; font-size: 9px; letter-spacing: 5px; text-transform: uppercase; color: var(--sage); font-weight: 400; }
+  .hero { text-align: center; padding: 60px 24px 50px; border-bottom: 1px solid var(--border); }
+  .hero-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; font-style: italic; color: var(--green); line-height: 1.1; margin-bottom: 20px; }
+  .hero-sub { font-family: sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+  .registry { max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px; }
+  .registry-title { font-family: sans-serif; font-size: 7px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 32px; }
+  .plant-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .plant-card { text-decoration: none; display: flex; flex-direction: column; border: 1px solid rgba(184, 134, 11, 0.3); background: var(--parch); transition: box-shadow .2s, transform .2s; }
+  .plant-card:hover { box-shadow: 0 4px 24px rgba(184,134,11,0.12); transform: translateY(-2px); border-color: rgba(184,134,11,0.7); }
+  .plant-card-img { width: 100%; aspect-ratio: 1/1; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(184,134,11,0.4); }
+  .plant-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+  .plant-card:hover .plant-card-img img { transform: scale(1.03); }
+  .plant-card-img-empty { width: 100%; aspect-ratio: 1/1; background: var(--green); display: flex; align-items: center; justify-content: center; }
+  .plant-card-img-empty span { font-family: sans-serif; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); }
+  .plant-card-body { padding: 14px 16px 16px; background: var(--parch); border-top: 1px solid rgba(184,134,11,0.2); }
+  .plant-card-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; font-style: italic; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 4px; }
+  .plant-card-sci { font-family: sans-serif; font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .footer { background: var(--green); border-top: 2px solid var(--gold); padding: 16px 32px; text-align: center; }
+  .footer p { font-family: sans-serif; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); }
 
-  // ---- FORK B: YOUR EXISTING MULTI-TENANT DOMAIN ROUTING ----
-  // If a species domain is detected on the home layout, execute the internal rewrite [cite: 891-893]
-  if (speciesSlug && context.url.pathname === "/") {
-    return context.rewrite(`/species/${speciesSlug}`); // [cite: 893]
+  @media (max-width: 768px) {
+    .registry { padding: 32px 20px 60px; }
+    .plant-grid { grid-template-columns: 1fr; }
   }
+</style>
 
-  // ---- FORK C: CATCH-ALL FOR STANDARD HUMAN BROWSERS ----
-  return next();
-});
+<div class="top-bar">
+  <h1>South African Botanical Registry</h1>
+</div>
+
+<div class="hero">
+  <div class="hero-title">South African Botanical Registry</div>
+  <div class="hero-sub">The definitive reference for South Africa's botanical heritage</div>
+</div>
+
+<div class="registry">
+  <div class="registry-title">{plants.length} Species Registered</div>
+  <div class="plant-grid">
+    {plants.map(plant => (
+      <a href={`/species/${plant.slug}`} class="plant-card">
+        {plant.data.image ? (
+          <div class="plant-card-img">
+            <img src={plant.data.image} alt={plant.data.name || "Plant species"} loading="lazy" />
+          </div>
+        ) : (
+          <div class="plant-card-img-empty">
+            <span>Image coming soon</span>
+          </div>
+        )}
+        <div class="plant-card-body">
+          <div class="plant-card-name">{plant.data.name || "Unnamed Species"}</div>
+          <div class="plant-card-sci">{plant.data.scientific_name || "Unknown Scientific Name"}</div>
+        </div>
+      </a>
+    ))}
+  </div>
+</div>
+
+<div class="footer">
+  <p>South African Botanical Registry · southafricanbotanical.org.za</p>
+</div>
+</Layout>
