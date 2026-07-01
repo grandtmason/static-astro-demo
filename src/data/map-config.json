@@ -1,1 +1,13 @@
-
+{
+  "provinceColors": {
+    "EC": "#2A5A40", "FS": "#6A9983", "GT": "#BCCEC6",
+    "KZN": "#E1E9E6", "LIM": "#E6E3DE", "MP": "#DED3C4",
+    "NC": "#D2C1A8", "NW": "#CBB892", "WC": "#C3B386"
+  },
+  "markerStyles": {
+    "organic": { "fill": "#77DD77", "stroke": "#2A5A40" },
+    "commercial": { "fill": "#FDFD96", "stroke": "#B8860B" },
+    "wild": { "fill": "#A8E4A0", "stroke": "#1A3A2A" },
+    "small-scale": { "fill": "#FFB347", "stroke": "#B8860B" }
+  }
+}
