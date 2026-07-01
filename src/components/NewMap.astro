@@ -1,1 +1,52 @@
+---
+import { feature } from "topojson-client";
+import { geoPath, geoMercator } from "d3-geo";
+import topoData from "../data/za-provinces.topojson";
+import farmData from "../data/farms.json";
+import mapConfig from "../data/map-config.json";
 
+const { slug } = Astro.props;
+
+// Access the dynamic object key from the TopoJSON file
+const objectKey = Object.keys(topoData.objects)[0];
+const provinceData = feature(topoData, topoData.objects[objectKey]);
+
+// Projection: Fits TopoJSON to the SVG viewBox
+const projection = geoMercator().fitSize([800, 700], provinceData as any);
+const pathGenerator = geoPath().projection(projection);
+
+// Filter farms based on the plant slug
+const filteredFarms = farmData.filter(f => f.plant === slug);
+---
+
+<svg viewBox="0 0 800 700" class="map-container" preserveAspectRatio="xMidYMid meet">
+  {provinceData.features.map((feature: any) => (
+    <path
+      d={pathGenerator(feature) || ""}
+      fill={mapConfig.provinceColors[feature.properties.CODE] || "#f4f4f4"}
+      stroke="white"
+      stroke-width="0.5"
+    />
+  ))}
+
+  {filteredFarms.map(farm => {
+    const [x, y] = projection([farm.lng, farm.lat]) || [0, 0];
+    const style = mapConfig.markerStyles[farm.type] || { fill: "#D3D3D3", stroke: "#000" };
+    return (
+      <circle 
+        cx={x} cy={y} r="8" 
+        fill={style.fill} 
+        stroke={style.stroke} 
+        stroke-width="2" 
+      />
+    );
+  })}
+</svg>
+
+<style>
+  .map-container {
+    width: 100%;
+    height: auto;
+    background-color: #fafafa;
+  }
+</style>
