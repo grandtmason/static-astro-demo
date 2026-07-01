@@ -16,6 +16,14 @@ const d = plant.data;
 const slug = plant.id.replace('/index', '').replace('.md', '');
 const FORMSPREE_CONNECT = "https://formspree.io/f/YOUR_FORM_ID_HERE";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Plant",
+  "name": d.name,
+  "scientificName": d.scientific_name,
+  "family": d.family
+};
+
 // Data dictionaries
 const COMMON_NAMES = {
   'acacia': { Afrikaans: 'Soetdoring · Karoodorin', English: 'Sweet Thorn · African Acacia', Khoikhoi: 'not documented', Ndebele: 'umkhaya', San: 'not documented', Sepedi: 'mooka', Sesotho: 'mooka', Setswana: 'mooka · mothoo', Swati: 'umkhaya', Tsonga: 'nkaya', Venda: 'mutshato', Xhosa: 'umNgcamplazi', Zulu: 'umNgcamplazi · umNgcampazane' },
