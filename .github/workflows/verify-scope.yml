@@ -1,1 +1,10 @@
-
+name: Verify Scope
+on: [push]
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect File
+        run: |
+          cat src/pages/species/[id].astro
