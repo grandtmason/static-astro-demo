@@ -1,23 +1,24 @@
 ---
 import { feature } from "topojson-client";
 import { geoPath, geoMercator } from "d3-geo";
-// Use the 'import ... with { type: 'json' }' syntax for modern bundler support
-import topoData from "../data/za-provinces.topojson" with { type: "json" };
-import farmData from "../data/farms.json" with { type: "json" };
-import mapConfig from "../data/map-config.json" with { type: "json" };
+// Import files as raw text strings
+import topoRaw from "../data/za-provinces.topojson?raw";
+import farmRaw from "../data/farms.json?raw";
+import configRaw from "../data/map-config.json?raw";
 
 const { slug } = Astro.props;
 
-// Access the .default property if the bundler assigns it there, 
-// or use the object directly if the import resolved correctly
-const data = topoData.default || topoData;
+// Parse the raw strings at build-time
+const topoData = JSON.parse(topoRaw);
+const farmData = JSON.parse(farmRaw);
+const mapConfig = JSON.parse(configRaw);
 
-const objectKey = Object.keys(data.objects)[0];
-const provinceData = feature(data, data.objects[objectKey]) as any;
+const objectKey = Object.keys(topoData.objects)[0];
+const provinceData = feature(topoData, topoData.objects[objectKey]) as any;
 
 const projection = geoMercator().fitSize([800, 700], provinceData);
 const pathGenerator = geoPath().projection(projection);
-const filteredFarms = farmData.filter(f => f.plant === slug);
+const filteredFarms = farmData.filter((f: any) => f.plant === slug);
 ---
 
 <svg viewBox="0 0 800 700" class="map-container" preserveAspectRatio="xMidYMid meet">
@@ -30,7 +31,7 @@ const filteredFarms = farmData.filter(f => f.plant === slug);
     />
   ))}
 
-  {filteredFarms.map(farm => {
+  {filteredFarms.map((farm: any) => {
     const coords = projection([farm.lng, farm.lat]);
     if (!coords) return null;
     
