@@ -1,1 +1,10 @@
-
+name: Check File Structure
+on: [push]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify TABS
+        run: |
+          sed -n '/---/,/---/p' src/pages/species/[id].astro | grep "const TABS"
