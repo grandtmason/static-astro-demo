@@ -4,7 +4,7 @@ export const prerender = true;
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import NewMap from '../../components/NewMap.astro';
-import COMMON_NAMES from '../../data/common_names.json';
+import COMMON_NAMES from '../../data/common_names.json'; 
 
 const { plant } = Astro.props;
 const d = plant.data;
@@ -19,7 +19,8 @@ const stats = d.stats || { production: '—', revenue: '—', markets: '—', li
 const protection = d.protection || { gi_year: '—', gi_status: '—', bsa_year: '—', bsa_status: '—', organic: '—', wild_harvest: '—' };
 
 // Updated: Map correctly to pillar_data to align with Zod schema
-const q = d.pillar_data || {};
+const q = d.quadrants || {};
+const provinces = d.provinces || [];
 
 const TABS = [
   { id: 'wellness',     label: 'Health & Wellness'  },
@@ -55,6 +56,30 @@ const jsonLd = {
 
 <Layout title={`${d.name} | South African Botanical Registry`} schema={jsonLd}>
   <style>
+    .quadrant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .card { border: 1px solid #ccc; padding: 1rem; }
+    .province-list { margin-top: 1rem; padding: 1rem; background: #f9f9f9; }
+  </style>
+
+  <section id="data-sheet" class="tab-content">
+    <div class="quadrant-grid">
+      {TABS.filter(t => t.id !== 'datasheet').map(tab => (
+        <div class="card">
+          <h4>{tab.label}</h4>
+          <p>{q[tab.id] || "Data pending verification by Guardian Swarm."}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="province-list">
+      <h4>Provinces</h4>
+      <p>{provinces.length > 0 ? provinces.join(', ') : 'Province data pending'}</p>
+    </div>
+  </section>
+
+  <!-- Map container -->
+  <NewMap slug={slug} />
+</Layout>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --green:    #1A3A2A;
