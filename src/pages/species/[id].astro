@@ -47,6 +47,12 @@ const COMMON_NAMES = {
   'pepper-bark': { Afrikaans: 'Peperbasboom', English: 'Pepper Bark Tree · Isibhaha', Khoikhoi: 'not documented', Ndebele: 'not documented', San: 'not documented', Sepedi: 'mulaladzi', Sesotho: 'not documented', Setswana: 'not documented', Swati: 'umphazane', Tsonga: 'ndhundhuma', Venda: 'mulanga', Xhosa: 'isibhaha', Zulu: 'isibhaha' },
  'rooibos': { Afrikaans: 'Rooibos · Rooibostee', English: 'Rooibos · Red Bush', Khoikhoi: 'rooibos (Khoikhoi origin)', Ndebele: 'irooibos (adopted)', San: 'not documented', Sepedi: 'not documented', Sesotho: 'not documented' }
 };
+const TABS = [
+  { id: 'datasheet', label: 'Datasheet' },
+  { id: 'commercial', label: 'Commercial' },
+  { id: 'medicinal', label: 'Medicinal' },
+  { id: 'legislative', label: 'Legislative' }
+];
 ---
 <Layout title={`${d.name} | South African Botanical Registry`} schema={jsonLd}>
 <style>
