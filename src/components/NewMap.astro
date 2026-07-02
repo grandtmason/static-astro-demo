@@ -1,16 +1,19 @@
 ---
 import { feature } from "topojson-client";
 import { geoPath, geoMercator } from "d3-geo";
-// Use direct import for static assets to ensure build-time inclusion
-import topoData from "../data/za-provinces.topojson";
-import farmData from "../data/farms.json";
-import mapConfig from "../data/map-config.json";
+// Use the 'import ... with { type: 'json' }' syntax for modern bundler support
+import topoData from "../data/za-provinces.topojson" with { type: "json" };
+import farmData from "../data/farms.json" with { type: "json" };
+import mapConfig from "../data/map-config.json" with { type: "json" };
 
 const { slug } = Astro.props;
 
-// TopoJSON structure is now imported as a standard JS object
-const objectKey = Object.keys(topoData.objects)[0];
-const provinceData = feature(topoData, topoData.objects[objectKey]) as any;
+// Access the .default property if the bundler assigns it there, 
+// or use the object directly if the import resolved correctly
+const data = topoData.default || topoData;
+
+const objectKey = Object.keys(data.objects)[0];
+const provinceData = feature(data, data.objects[objectKey]) as any;
 
 const projection = geoMercator().fitSize([800, 700], provinceData);
 const pathGenerator = geoPath().projection(projection);
