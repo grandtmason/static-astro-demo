@@ -1,30 +1,56 @@
 ---
-// ... (keep imports)
+export const prerender = true;
+
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import NewMap from '../../components/NewMap.astro';
+import COMMON_NAMES from '../../data/common_names.json';
+
 const { plant } = Astro.props;
 const d = plant.data;
 const slug = plant.id.replace('/index', '').replace('.md', '');
 
-// Map frontmatter fields to local variables used in template
+// Data mapping with fallbacks to prevent undefined runtime errors
 const images = d.images || [];
 const m = d.medicinal_properties || {};
 const cv = d.cultivation || {};
 const ik = d.indigenous_knowledge || '';
-const protection = d.protection || { gi_year: '—', gi_status: '—', bsa_year: '—', bsa_status: '—', organic: '—', wild_harvest: '—' };
 const stats = d.stats || { production: '—', revenue: '—', markets: '—', livelihoods: '—' };
-const q = d.quadrants || {};
+const protection = d.protection || { gi_year: '—', gi_status: '—', bsa_year: '—', bsa_status: '—', organic: '—', wild_harvest: '—' };
+
+// Updated: Map correctly to pillar_data to align with Zod schema
+const q = d.pillar_data || {};
 
 const TABS = [
   { id: 'wellness',     label: 'Health & Wellness'  },
   { id: 'innovation',   label: 'Innovation & R&D'   },
   { id: 'ik',           label: 'IK & Heritage'      },
-  { id: 'culture',      label: 'Culture'            },
+  { id: 'people',       label: 'People & Culture'   },
   { id: 'agronomy',     label: 'Agronomy'           },
   { id: 'legislation',  label: 'Legislation'        },
   { id: 'projects',     label: 'Projects'           },
   { id: 'intelligence', label: 'Intelligence Pulse' },
   { id: 'datasheet',    label: 'Data Sheet'         },
 ];
-// ... (rest of logic: displayNames, jsonLd)
+
+export async function getStaticPaths() {
+  const allPlants = await getCollection('species');
+  return allPlants.map(plant => ({
+    params: { id: plant.id.replace('/index', '').replace('.md', '') },
+    props: { plant },
+  }));
+}
+
+const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [];
+const FORMSPREE_CONNECT = "https://formspree.io/f/YOUR_FORM_ID_HERE";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Plant",
+  "name": d.name,
+  "scientificName": d.scientific_name,
+  "family": d.family
+};
 ---
 
 <Layout title={`${d.name} | South African Botanical Registry`} schema={jsonLd}>
