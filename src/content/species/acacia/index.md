@@ -26,16 +26,14 @@ cultivation:
   regions: ["Karoo", "Eastern Cape", "KZN midlands", "Limpopo bushveld", "Free State"]
   commercial: "Wild harvest; agroforestry potential explored by DAFF."
 indigenous_knowledge: "Used by Khoi, Xhosa, Zulu, and Sotho groups for food, medicine, and building material. Gum consumed as energy source; thorns used as needles; root decoctions for eye/fever treatment."
-quadrants:
+pillar_data:
   wellness: "General medicinal tonic."
   innovation: "Gum arabic alternative research; carbon sequestration potential."
   ik: "Historical use across Khoisan/Bantu groups."
-  culture: "Keystone savanna tree."
+  people: "Keystone savanna tree."
   agronomy: "Rangeland rehabilitation; livestock fodder."
   legislation: "General regulatory compliance."
   projects: "Agroforestry/rangeland recovery."
   intelligence: "Gum arabic market monitoring."
-  news: "Growing interest in traceable gum arabic alternatives."
-  heritage: "Keystone ecological and cultural species."
 provinces: ["EC", "NC", "WC", "FS", "KZN", "LIM", "MP", "NW", "GT"]
 ---
