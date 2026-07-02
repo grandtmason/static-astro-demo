@@ -1,1 +1,9 @@
-
+name: Find Line
+on: [push]
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Grep variable
+        run: grep -n "images" src/pages/species/[id].astro
