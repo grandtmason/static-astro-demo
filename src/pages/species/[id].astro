@@ -3,7 +3,17 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import NewMap from '../../components/NewMap.astro';
 import COMMON_NAMES from '../../data/common_names.json';
-
+const TABS = [
+  { id: 'wellness',     label: 'Health & Wellness'  },
+  { id: 'innovation',   label: 'Innovation & R&D'   },
+  { id: 'ik',           label: 'IK & Heritage'      },
+  { id: 'culture',      label: 'Culture'            },
+  { id: 'agronomy',     label: 'Agronomy'           },
+  { id: 'legislation',  label: 'Legislation'        },
+  { id: 'projects',     label: 'Projects'           },
+  { id: 'intelligence', label: 'Intelligence Pulse' },
+  { id: 'datasheet',    label: 'Data Sheet'         },
+];
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
   return allPlants.map(plant => ({
