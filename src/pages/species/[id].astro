@@ -54,22 +54,6 @@ const jsonLd = {
     .map-col { margin-top: 1rem; }
   </style>
 
-  <section id="data-sheet" class="tab-content">
-    <div class="quadrant-grid">
-      {TABS.map((tab) => (
-        <div class="card">
-          <h4>{tab.label}</h4>
-          <p>{q[tab.id] || "Data pending verification."}</p>
-        </div>
-      ))}
-    </div>
-
-    <div class="province-list">
-      <h4>Provinces</h4>
-      <p>{provinces.length > 0 ? provinces.join(', ') : 'Province data pending'}</p>
-    </div>
-  </section>
-
   <div class="map-col">
     <NewMap slug={slug} />
   </div>
