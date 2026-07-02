@@ -16,7 +16,8 @@ const d = plant.data;
 const images = d.images || [];
 const slug = plant.id.replace('/index', '').replace('.md', '');
 
-const COMMON_NAMES = {
+// 1. Define the dictionary as a standard JSON object
+const COMMON_NAMES = JSON.parse(`{
   "acacia": { "Afrikaans": "Soetdoring · Karoodorin", "English": "Sweet Thorn · African Acacia", "Khoikhoi": "not documented", "Ndebele": "umkhaya", "San": "not documented", "Sepedi": "mooka", "Sesotho": "mooka", "Setswana": "mooka · mothoo", "Swati": "umkhaya", "Tsonga": "nkaya", "Venda": "mutshato", "Xhosa": "umNgcamplazi", "Zulu": "umNgcamplazi · umNgcampazane" },
   "african-ashwagandha": { "Afrikaans": "Geneesblaarbossie · Slaapbossie", "English": "African Ashwagandha · Winter Cherry", "Khoikhoi": "not documented", "Ndebele": "not documented", "San": "not documented", "Sepedi": "not documented", "Sesotho": "ubuhlungu", "Setswana": "not documented", "Swati": "not documented", "Tsonga": "not documented", "Venda": "not documented", "Xhosa": "ubuvimba", "Zulu": "ubuvimba", "Sanskrit (global trade)": "Ashwagandha" },
   "african-ginger": { "Afrikaans": "Wilde Gemmer", "English": "African Ginger · Wild Ginger", "Khoikhoi": "not documented", "Ndebele": "not documented", "San": "not documented", "Sepedi": "lengane", "Sesotho": "lengane", "Setswana": "lengane", "Swati": "isiphephetho", "Tsonga": "not documented", "Venda": "not documented", "Xhosa": "isiphephetho", "Zulu": "isiphephetho · indungulo" },
@@ -37,7 +38,7 @@ const COMMON_NAMES = {
   "pelargonium-sidoides": { "Afrikaans": "Rabassam", "English": "South African Geranium · Umckaloabo", "Khoikhoi": "not documented", "Ndebele": "not documented", "San": "not documented", "Sepedi": "not documented", "Sesotho": "kaloba", "Setswana": "not documented", "Swati": "not documented", "Tsonga": "not documented", "Venda": "not documented", "Xhosa": "umckaloabo", "Zulu": "umckaloabo · isiqalaba" },
   "pepper-bark": { "Afrikaans": "Peperbasboom", "English": "Pepper Bark Tree · Isibhaha", "Khoikhoi": "not documented", "Ndebele": "not documented", "San": "not documented", "Sepedi": "mulaladzi", "Sesotho": "not documented", "Setswana": "not documented", "Swati": "umphazane", "Tsonga": "ndhundhuma", "Venda": "mulanga", "Xhosa": "isibhaha", "Zulu": "isibhaha" },
   "rooibos": { "Afrikaans": "Rooibos · Rooibostee", "English": "Rooibos · Red Bush", "Khoikhoi": "rooibos (Khoikhoi origin)", "Ndebele": "irooibos (adopted)", "San": "not documented", "Sepedi": "not documented", "Sesotho": "not documented" }
-};
+}`);
 
 // 2. Define displayNames SECOND
 const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [];
