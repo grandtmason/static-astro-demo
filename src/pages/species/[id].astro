@@ -14,8 +14,9 @@ export async function getStaticPaths() {
 
 const { plant } = Astro.props;
 const d = plant.data;
-const images = d.images || [];
 const slug = plant.id.replace('/index', '').replace('.md', '');
+
+// Data processing
 const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [];
 const FORMSPREE_CONNECT = "https://formspree.io/f/YOUR_FORM_ID_HERE";
 
@@ -27,13 +28,19 @@ const jsonLd = {
   "family": d.family
 };
 
-const TABS = [
-  { id: 'datasheet', label: 'Datasheet' },
-  { id: 'commercial', label: 'Commercial' },
-  { id: 'medicinal', label: 'Medicinal' },
-  { id: 'legislative', label: 'Legislative' }
+// Auto-population configuration for the 8 categories
+const contentSections = [
+  { key: 'wellness', label: 'Wellness Properties' },
+  { key: 'innovation', label: 'Innovation' },
+  { key: 'ik', label: 'Indigenous Knowledge' },
+  { key: 'culture', label: 'Cultural Significance' },
+  { key: 'agronomy', label: 'Agronomy' },
+  { key: 'legislation', label: 'Legislative Status' },
+  { key: 'projects', label: 'Related Projects' },
+  { key: 'intelligence', label: 'Intelligence Pulse' }
 ];
 ---
+
 <Layout title={`${d.name} | South African Botanical Registry`} schema={jsonLd}>
   <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
