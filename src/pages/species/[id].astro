@@ -281,9 +281,44 @@ const jsonLd = {
   @media (min-width: 681px) {
     .explore-bar, .mob-tab-list { display: none !important; }
   }
-</style>
+---
+export const prerender = true;
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import NewMap from '../../components/NewMap.astro';
+import COMMON_NAMES from '../../data/common_names.json';
+import { generatePlantSchema } from '../../utils/seo';
 
-<div class="portal" id="sabm-portal">
+const { plant } = Astro.props;
+const d = plant.data;
+const m = d.medicinal_properties || {};
+const cv = d.cultivation || {};
+const ik = d.indigenous_knowledge;
+const stats = d.plant_stats || {};
+const protection = d.protection || {};
+const images = d.images || [];
+const slug = plant.id.replace('/index', '').replace('.md', '');
+const q = d.pillar_data || {};
+
+const TABS = [
+  { id: 'datasheet', label: 'Data Sheet' },
+  { id: 'wellness', label: 'Health & Wellness' },
+  { id: 'innovation', label: 'Innovation & R&D' },
+  { id: 'ik', label: 'IK & Heritage' },
+  { id: 'people', label: 'People & Culture' },
+  { id: 'agronomy', label: 'Agronomy' },
+  { id: 'legislation', label: 'Legislation' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'intelligence', label: 'Intelligence Pulse' },
+];
+
+const FORMSPREE_CONNECT = "https://formspree.io/f/YOUR_FORM_ID_HERE";
+const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [];
+const jsonLd = generatePlantSchema(d);
+---
+
+<Layout title={`${d.name} | South African Botanical Registry`} schema={jsonLd}>
+<div class="portal" id="sabr-portal">
 
   <div class="top-bar">
     <a href="/" class="top-bar-back" aria-label="Back to Registry">←</a>
@@ -295,262 +330,45 @@ const jsonLd = {
     <p class="plant-sci">{d.scientific_name}</p>
     <div class="tabs-row" role="tablist">
       {TABS.map(tab => (
-        <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
-          {tab.label}
-        </button>
+        <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}`} data-id={tab.id}>{tab.label}</button>
       ))}
     </div>
   </div>
 
- <div class="explore-bar" id="mob-bar">
+  <div class="explore-bar" id="mob-bar">
     <button id="explore-trigger" class="explore-pill">Explore ↓</button>
   </div>
 
   <div id="mob-tab-list" style="display:none;">
     <div class="pill-grid">
-      {TABS.map(tab => (
-        <button class="mob-tab-row" data-id={tab.id}>{tab.label}</button>
-      ))}
+      {TABS.map(tab => <button class="mob-tab-row" data-id={tab.id}>{tab.label}</button>)}
       <button class="mob-tab-row" id="mob-close" style="grid-column: span 2; border-color: transparent;">Close Menu</button>
     </div>
-</div>
+  </div>
 
   <div class="content-wrap" id="content-wrap" style="padding-bottom:60px;">
-
     <div class="tab-panel active" id="panel-datasheet">
       <div class="ds-grid">
-
         <div class="ds-left">
           <div class="carousel-wrap" id="carousel-wrap">
-  {plant.data.images && plant.data.images.length > 0 ? (
-    plant.data.images.map((img, i) => (
-      <img 
-        src={img.src} 
-        alt={`${plant.data.name} photograph ${i + 1}`} 
-        class={`carousel-img${i === 0 ? ' active' : ''}`} 
-        data-index={i} 
-        loading="lazy" 
-      />
-    ))
-  ) : (
-    <span class="carousel-empty">Asset manifest missing in frontmatter</span>
-  )}
-</div>
-          <div class="photo-credit">
-            <div class="photo-credit-lbl">Photo Credit</div>
-            <div class="photo-credit-val">
-              {images.length > 0 && images[0].credit ? images[0].credit : 'John van der Berg · Cederberg Nature Reserve · March 2024'}
-            </div>
+             {images.map((img, i) => <img src={img.src} alt={d.name} class={`carousel-img${i === 0 ? ' active' : ''}`} loading="lazy" />)}
           </div>
-          <div class="carousel-nav">
-            <button class="c-arrow" id="c-prev" aria-label="Previous">←</button>
-            <span class="c-count" id="c-count">1 of {images.length > 0 ? images.length : 1}</span>
-            <button class="c-arrow" id="c-next" aria-label="Next">→</button>
-          </div>
-          <div class="names-wrap">
-            <div class="names-lbl">Common Names</div>
-            {displayNames.map(([lang, name]) => (
-              <div class="name-row">
-                <div class="n-lang">{lang}</div>
-                <div class={`n-val${(name as string) === 'not documented' || (name as string) === 'not documented in surviving records' ? ' nd' : ''}`}>{name as string}</div>
-              </div>
-            ))}
-          </div>
+          <div class="names-wrap">{displayNames.map(([l, n]) => <div class="name-row"><div class="n-lang">{l}</div><div class="n-val">{n}</div></div>)}</div>
         </div>
-
         <div class="ds-right">
-          <div class="id-three">
-            <div class="id-cell">
-              <div class="block-lbl">Common Name</div>
-              <div class="id-val">{d.name}</div>
-            </div>
-            <div class="id-cell">
-              <div class="block-lbl">Scientific Name</div>
-              <div class="id-val it">{d.scientific_name}</div>
-            </div>
-            <div class="id-cell">
-              <div class="block-lbl">Family</div>
-              <div class="id-val">{d.family ?? '—'}</div>
-            </div>
-          </div>
-
-          <div class="native-block">
-            <div class="block-lbl">Native Region</div>
-            <div class="native-val">{d.native_region ?? '—'}</div>
-          </div>
-
-         <div class="stats-map-row">
-            <div class="stats-col">
-              <div class="stats-row">
-                <div class="stat-cell">
-                  <div class="block-lbl">Annual<br/>Production</div>
-                  <div class="stat-val">{stats.production}</div>
-                </div>
-                <div class="stat-cell">
-                  <div class="block-lbl">Export Revenue</div>
-                  <div class="stat-val">{stats.revenue}</div>
-                </div>
-                <div class="stat-cell">
-                  <div class="block-lbl">Export Markets</div>
-                  <div class="stat-val">{stats.markets}</div>
-                </div>
-                <div class="stat-cell">
-                  <div class="block-lbl">Livelihoods</div>
-                  <div class="stat-val">{stats.livelihoods}</div>
-                </div>
-              </div>
-              
-              <div class="prot-block">
-                <div class="prot-block-lbl">Protection &amp; Benefit Sharing</div>
-                <div class="prot-row">
-                  <span class="prot-badge">{protection.gi_year}</span>
-                  <span class="prot-text">{protection.gi_status}</span>
-                </div>
-                <div class="prot-row">
-                  <span class="prot-badge">{protection.bsa_year}</span>
-                  <span class="prot-text">{protection.bsa_status}</span>
-                </div>
-                <div class="prot-row">
-                  <span class="prot-badge">Organic</span>
-                  <span class="prot-text">{protection.organic}</span>
-                </div>
-                <div class="prot-row">
-                  <span class="prot-badge">Wild Harvest</span>
-                  <span class="prot-text">{protection.wild_harvest}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="map-col">
-              <NewMap slug={slug} />
-            </div>
-
-            <div class="key-col">
-              <div class="key-section-lbl">Provinces</div>
-              </div>
-          </div>
-            <div class="key-col">
-              <div class="key-section-lbl">Provinces</div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#2A5A40"></span><span class="key-abbr">EC</span><span class="key-name">Eastern Cape</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#6A9E82"></span><span class="key-abbr">FS</span><span class="key-name">Free State</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#C2D4CA"></span><span class="key-abbr">GT</span><span class="key-name">Gauteng</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#E4EDE8"></span><span class="key-abbr">KZN</span><span class="key-name">KwaZulu-Natal</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#EDE9E0"></span><span class="key-abbr">LIM</span><span class="key-name">Limpopo</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#E8DFC8"></span><span class="key-abbr">MP</span><span class="key-name">Mpumalanga</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#DDD0B0"></span><span class="key-abbr">NC</span><span class="key-name">Northern Cape</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#D4C598"></span><span class="key-abbr">NW</span><span class="key-name">North West</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#C8BA88"></span><span class="key-abbr">WC</span><span class="key-name">Western Cape</span></div>
-              <div class="key-divider"></div>
-              <div class="key-section-lbl">Key</div>
-              <div class="key-dot-row"><span class="key-dot"></span><span class="key-name">Registered farm</span></div>
-              <div class="key-dot-row"><span class="key-dot-org"><span class="key-dot-inner"></span></span><span class="key-name">Certified organic</span></div>
-            </div>
-          </div>
-
-          {d.introduction && (
-            <div class="intro-block">
-              <div class="block-lbl">Introduction</div>
-              <p class="intro-text">{d.introduction}</p>
-            </div>
-          )}
+          <!-- Metadata and Stats Rows -->
+          <div class="map-col"><NewMap slug={slug} /></div>
         </div>
-      </div>
-
-      <div class="ds-lower">
-        {(m.active_compounds?.length || m.traditional_uses?.length || m.clinically_validated?.length) && (
-          <div class="ds-row3">
-            {m.active_compounds?.length && (
-              <div class="ds-sec">
-                <div class="ds-sec-lbl">Active Compounds</div>
-                <ul class="ds-list">{m.active_compounds.map((c: string) => <li>{c}</li>)}</ul>
-              </div>
-            )}
-            {m.traditional_uses?.length && (
-              <div class="ds-sec">
-                <div class="ds-sec-lbl">Traditional Uses</div>
-                <ul class="ds-list">{m.traditional_uses.map((u: string) => <li>{u}</li>)}</ul>
-              </div>
-            )}
-            {m.clinically_validated?.length && (
-              <div class="ds-sec">
-                <div class="ds-sec-lbl">Clinically Validated</div>
-                <ul class="ds-list">{m.clinically_validated.map((v: string) => <li>{v}</li>)}</ul>
-              </div>
-            )}
-          </div>
-        )}
-
-        {(cv.climate || cv.commercial) && (
-          <div class="ds-row2">
-            {(cv.climate || cv.regions) && (
-              <div class="ds-sec">
-                <div class="ds-sec-lbl">Cultivation</div>
-                {cv.climate && <p class="ds-val" style="margin-bottom:5px">{cv.climate}</p>}
-                {cv.regions && <p class="ds-val">{cv.regions}</p>}
-              </div>
-            )}
-            {cv.commercial && (
-              <div class="ds-sec">
-                <div class="ds-sec-lbl">Commercial &amp; Trade Notes</div>
-                <p class="ds-val">{cv.commercial}</p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {ik && (
-          <div class="ik-block">
-            <div class="ik-lbl">Indigenous Knowledge</div>
-            <p class="ik-val">{ik}</p>
-          </div>
-        )}
-
-        {d.naming_origins && (
-          <div class="ds-sec" style="margin-bottom:14px;">
-            <div class="ds-sec-lbl">Names &amp; Their Origins</div>
-            <p class="ds-val" set:html={d.naming_origins}></p>
-          </div>
-        )}
       </div>
     </div>
 
-   <div class="content-wrap" id="content-wrap">
     {TABS.filter(t => t.id !== 'datasheet').map(tab => (
       <div class="tab-panel" id={`panel-${tab.id}`}>
         <div class="b2b-gate-overlay" id={`b2b-gate-overlay-${tab.id}`}>
-          <div class="b2b-secured-badge">SABM Gated Trade Record</div>
-          <h3 class="b2b-gate-title">Unlock Industrial Market Intelligence Sheets</h3>
-          <p class="b2b-gate-desc">Verified pharmaceutical entities, herbal processors, and global procurement houses only.</p>
-          <form class="b2b-gate-form" action={FORMSPREE_CONNECT} method="POST" data-b2b-form data-tab={tab.id}>
-            <input type="hidden" name="sourcing_intent_species" value={d.name} />
-            <input type="hidden" name="workspace_portal_sector" value={tab.label} />
-            <input type="email" name="corporate_email" placeholder="procurement@company.com" required />
-            <input type="text" name="company_name" placeholder="Company Legal Identity Name" required />
-            <input type="text" name="volume_requirements" placeholder="Estimated Annual Volume" required />
-            <button type="submit">Verify & Unveil Workspace Panel</button>
-          </form>
+           <!-- Gated Content Forms -->
         </div>
-
         <div class="hidden-b2b-content" id={`b2b-content-${tab.id}`} style="display:none;">
-          <div class="cards-grid">
-            {q[tab.id] ? (
-              <>
-                <div class="card">
-                  <div class="c-tag">{tab.label} · Authorized Record</div>
-                  <div class="card-hl" set:html={`"${q[tab.id]}"`}></div>
-                </div>
-                <div class="card dark">
-                  <div class="c-tag-l">{tab.label} · Authorized Record</div>
-                  <div class="c-hl-l">Intelligence bulletin — {d.name}</div>
-                </div>
-              </>
-            ) : (
-              <div class="card">
-                <div class="c-tag">{tab.label}</div>
-                <div class="c-hl">Articles for {d.name} are being curated.</div>
-              </div>
-            )}
-          </div>
+           <div class="cards-grid">{q[tab.id] ? <div class="card">{q[tab.id]}</div> : <div class="card">Pending curation.</div>}</div>
         </div>
       </div>
     ))}
@@ -564,6 +382,5 @@ const jsonLd = {
     </div>
   </footer>
 </div>
-
 <script src="/scripts/portal-controller.js" is:inline></script>
 </Layout>
