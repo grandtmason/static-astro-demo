@@ -1,1 +1,23 @@
+// src/content/config.ts
+import { defineCollection, z } from 'astro:content';
 
+const speciesCollection = defineCollection({
+  schema: z.object({
+    name: z.string(),
+    scientific_name: z.string(),
+    family: z.string(),
+    // Your 8 Categories
+    wellness: z.object({}).passthrough().optional(),
+    innovation: z.object({}).passthrough().optional(),
+    ik: z.object({}).passthrough().optional(),
+    culture: z.object({}).passthrough().optional(),
+    agronomy: z.object({}).passthrough().optional(),
+    legislation: z.object({}).passthrough().optional(),
+    projects: z.array(z.string()).optional(),
+    intelligence: z.object({}).passthrough().optional(),
+    // Metadata for AI
+    last_updated: z.string().optional(),
+  }),
+});
+
+export const collections = { 'species': speciesCollection };
