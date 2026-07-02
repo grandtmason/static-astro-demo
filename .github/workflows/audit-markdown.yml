@@ -1,1 +1,9 @@
-
+name: Audit Markdown
+on: [push]
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Grep keys
+        run: grep -hE "^(image|images):" src/content/species/*.md | head -n 5
