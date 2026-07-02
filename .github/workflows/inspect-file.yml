@@ -1,1 +1,9 @@
-
+name: Inspect File
+on: [push]
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cat file
+        run: cat src/pages/species/[id].astro
