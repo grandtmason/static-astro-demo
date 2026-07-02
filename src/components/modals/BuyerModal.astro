@@ -1,1 +1,17 @@
-
+<div class="modal-overlay" id="modal-buyers">
+    <div class="modal">
+      <button class="modal-close" data-close="buyers">×</button>
+      <h2>Procurement Request: {d.name}</h2>
+      <p>Submit your procurement requirements. We will connect you with verified {d.name} stock availability and supplier logs.</p>
+      <form id="form-buyers" action={FORMSPREE_CONNECT} method="POST">
+        <input type="hidden" name="type" value="buyer-enquiry" />
+        <input type="hidden" name="plant" value={d.name} />
+        <div class="m-field"><label>Your Name</label><input type="text" name="name" required /></div>
+        <div class="m-field"><label>Corporate Email</label><input type="email" name="email" required /></div>
+        <div class="m-field"><label>Company</label><input type="text" name="company" /></div>
+        <div class="m-field"><label>Requirements</label><textarea name="message" placeholder="Annual Volume, Specification Grade, Destination…"></textarea></div>
+        <button type="submit" class="m-submit">Submit Requirements →</button>
+      </form>
+      <div class="m-thanks" id="thanks-buyers">Request submitted. Procurement officer will reach out shortly.</div>
+    </div>
+  </div>
