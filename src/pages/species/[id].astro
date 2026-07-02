@@ -10,7 +10,8 @@ const { plant } = Astro.props;
 const d = plant.data;
 const slug = plant.id.replace('/index', '').replace('.md', '');
 
-const q = d.quadrants || {};
+// Accessing pillar_data (8-pillar taxonomy) and provinces safely
+const q = d.pillar_data || {};
 const provinces = d.provinces || [];
 
 const TABS = [
@@ -32,6 +33,9 @@ export async function getStaticPaths() {
   }));
 }
 
+const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [];
+const FORMSPREE_CONNECT = "https://formspree.io/f/YOUR_FORM_ID_HERE";
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Plant",
@@ -43,9 +47,11 @@ const jsonLd = {
 
 <Layout title={`${d.name} | South African Botanical Registry`} schema={jsonLd}>
   <style>
+    /* Scoped component styles only */
     .quadrant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
     .card { border: 1px solid #ccc; padding: 1rem; }
     .province-list { margin-top: 1rem; padding: 1rem; background: #f9f9f9; }
+    .map-col { margin-top: 1rem; }
   </style>
 
   <section id="data-sheet" class="tab-content">
@@ -64,7 +70,9 @@ const jsonLd = {
     </div>
   </section>
 
-  <NewMap slug={slug} />
+  <div class="map-col">
+    <NewMap slug={slug} />
+  </div>
 </Layout>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
