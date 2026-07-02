@@ -1,17 +1,14 @@
 ---
 import { feature } from "topojson-client";
 import { geoPath, geoMercator } from "d3-geo";
-import fs from "fs";
-import path from "path";
+// Use direct import for static assets to ensure build-time inclusion
+import topoData from "../data/za-provinces.topojson";
 import farmData from "../data/farms.json";
 import mapConfig from "../data/map-config.json";
 
 const { slug } = Astro.props;
 
-// Use Node's 'fs' to read the file directly at build-time
-const topoPath = path.join(process.cwd(), 'src/data/za-provinces.topojson');
-const topoData = JSON.parse(fs.readFileSync(topoPath, 'utf-8'));
-
+// TopoJSON structure is now imported as a standard JS object
 const objectKey = Object.keys(topoData.objects)[0];
 const provinceData = feature(topoData, topoData.objects[objectKey]) as any;
 
@@ -32,7 +29,7 @@ const filteredFarms = farmData.filter(f => f.plant === slug);
 
   {filteredFarms.map(farm => {
     const coords = projection([farm.lng, farm.lat]);
-    if (!coords) return null; // Safety check: skip if projection fails
+    if (!coords) return null;
     
     const [x, y] = coords;
     const style = mapConfig.markerStyles[farm.type] || { fill: "#D3D3D3", stroke: "#000" };
