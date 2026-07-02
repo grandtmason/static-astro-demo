@@ -1,4 +1,26 @@
 [
-  { "id": "f1", "name": "Cape Buchu Estate", "lat": -33.9, "lng": 18.4, "type": "organic", "plant": "buchu" },
-  { "id": "f2", "name": "Wild Kanna Harvest", "lat": -32.5, "lng": 20.1, "type": "wild", "plant": "kanna" }
+  { "id": "f1", "plant": "buchu", "name": "Cape Buchu Estate", "lat": -33.9, "lng": 18.4, "type": "organic" },
+  { "id": "f2", "plant": "kanna", "name": "Wild Kanna Harvest", "lat": -32.5, "lng": 20.1, "type": "wild-harvest" },
+  { "id": "f3", "plant": "acacia", "name": "Karoo Pioneer Estate", "lat": -32.24, "lng": 24.67, "type": "commercial" },
+  { "id": "f4", "plant": "rooibos", "name": "Cedarberg Rooibos Co-op", "lat": -32.35, "lng": 19.13, "type": "small-scale" },
+  { "id": "f5", "plant": "aloe-ferox", "name": "Aloe Ferox Trust", "lat": -33.92, "lng": 22.14, "type": "wild-harvest" },
+  { "id": "f6", "plant": "honeybush", "name": "Genadendal Honeybush Hub", "lat": -34.03, "lng": 19.53, "type": "small-scale" },
+  { "id": "f7", "plant": "african-ashwagandha", "name": "Withania Wellness Farm", "lat": -25.74, "lng": 28.22, "type": "organic" },
+  { "id": "f8", "plant": "african-ginger", "name": "Siphonochilus Ginger Site", "lat": -29.85, "lng": 31.02, "type": "wild-harvest" },
+  { "id": "f9", "plant": "african-potato", "name": "Hypoxis Valley", "lat": -26.20, "lng": 28.04, "type": "wild-harvest" },
+  { "id": "f10", "plant": "artemisia-afra", "name": "Artemisia Plateau", "lat": -31.33, "lng": 25.00, "type": "wild-harvest" },
+  { "id": "f11", "plant": "athrixia", "name": "Athrixia Fields", "lat": -30.55, "lng": 22.93, "type": "organic" },
+  { "id": "f12", "plant": "baobab", "name": "Baobab Conservancy", "lat": -22.33, "lng": 30.00, "type": "wild-harvest" },
+  { "id": "f13", "plant": "bulbine", "name": "Bulbine Gardens", "lat": -33.92, "lng": 18.42, "type": "organic" },
+  { "id": "f14", "plant": "cape-chamomile", "name": "Eriocephalus Nursery", "lat": -34.12, "lng": 18.50, "type": "wild-harvest" },
+  { "id": "f15", "plant": "devils-claw", "name": "Harpagophytum Sands", "lat": -27.50, "lng": 21.00, "type": "wild-harvest" },
+  { "id": "f16", "plant": "hoodia", "name": "Hoodia Desert Reserve", "lat": -28.00, "lng": 20.00, "type": "wild-harvest" },
+  { "id": "f17", "plant": "kigelia", "name": "Kigelia Orchard", "lat": -23.00, "lng": 30.50, "type": "organic" },
+  { "id": "f18", "plant": "mphepho", "name": "Helichrysum Heights", "lat": -32.50, "lng": 26.50, "type": "wild-harvest" },
+  { "id": "f19", "plant": "pelargonium-sidoides", "name": "Pelargonium Sidoides Lab", "lat": -33.00, "lng": 25.00, "type": "organic" },
+  { "id": "f20", "plant": "pepper-bark-tree", "name": "Warburgia Forest", "lat": -24.50, "lng": 30.80, "type": "wild-harvest" },
+  { "id": "f21", "plant": "sutherlandia", "name": "Sutherlandia Farm", "lat": -32.00, "lng": 22.00, "type": "organic" },
+  { "id": "f22", "plant": "uzara", "name": "Uzara Meadow", "lat": -29.00, "lng": 29.00, "type": "wild-harvest" },
+  { "id": "f23", "plant": "wild-olive", "name": "Wild Olive Grove", "lat": -33.50, "lng": 19.00, "type": "wild-harvest" },
+  { "id": "f24", "plant": "wild-sage", "name": "Sage Plains", "lat": -32.00, "lng": 24.00, "type": "wild-harvest" }
 ]
