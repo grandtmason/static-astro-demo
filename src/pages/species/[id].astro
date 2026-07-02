@@ -572,42 +572,6 @@ const jsonLd = {
     </div>
   </footer>
 
-  <div class="modal-overlay" id="modal-suppliers">
-    <div class="modal">
-      <button class="modal-close" data-close="suppliers">×</button>
-      <h2>Connect with Suppliers</h2>
-      <p>Tell us what you need. We will connect you with verified {d.name} suppliers in South Africa.</p>
-      <form id="form-suppliers" action={FORMSPREE_CONNECT} method="POST">
-        <input type="hidden" name="type" value="supplier-enquiry" />
-        <input type="hidden" name="plant" value={d.name} />
-        <div class="m-field"><label>Your Name</label><input type="text" name="name" required /></div>
-        <div class="m-field"><label>Email</label><input type="email" name="email" required /></div>
-        <div class="m-field"><label>Company</label><input type="text" name="company" /></div>
-        <div class="m-field"><label>What you need</label><textarea name="message" placeholder="Quantity, product form, intended use…"></textarea></div>
-        <button type="submit" class="m-submit">Send Enquiry →</button>
-      </form>
-      <div class="m-thanks" id="thanks-suppliers">Thank you — we will be in touch shortly.</div>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="modal-buyers">
-    <div class="modal">
-      <button class="modal-close" data-close="buyers">×</button>
-      <h2>Connect with Buyers</h2>
-      <p>Register your interest. We will connect you with verified {d.name} buyers and market opportunities.</p>
-      <form id="form-buyers" action={FORMSPREE_CONNECT} method="POST">
-        <input type="hidden" name="type" value="buyer-enquiry" />
-        <input type="hidden" name="plant" value={d.name} />
-        <div class="m-field"><label>Your Name</label><input type="text" name="name" required /></div>
-        <div class="m-field"><label>Email</label><input type="email" name="email" required /></div>
-        <div class="m-field"><label>Company</label><input type="text" name="company" /></div>
-        <div class="m-field"><label>What you offer</label><textarea name="message" placeholder="Volume, certifications, location…"></textarea></div>
-        <button type="submit" class="m-submit">Send Enquiry →</button>
-      </form>
-      <div class="m-thanks" id="thanks-buyers">Thank you — we will be in touch shortly.</div>
-    </div>
-  </div>
-
 </div>
 
 <script is:inline>
