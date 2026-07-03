@@ -61,7 +61,13 @@ const jsonLd = {
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
  
   body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
-  .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+.portal { 
+    display: flex; 
+    flex-direction: column; 
+    height: 100vh; 
+    width: 100vw;
+    overflow: hidden; /* Keep portal fixed */
+}
   .top-bar { background: var(--green); border-bottom: 2px solid var(--gold); padding: 9px 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; }
   .top-bar-back { color: var(--gold); font-family: var(--sans); font-size: 24px; text-decoration: none; line-height: 1; position: absolute; left: 28px; }
   .top-bar-title { font-family: var(--sans); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); text-decoration: none; }
@@ -73,7 +79,12 @@ const jsonLd = {
   .tab-btn:last-child { border-right: none; }
   .tab-btn:hover { color: var(--gold); background: #fff; }
   .tab-btn.active { background: #fff; color: var(--gold); border-bottom: 3px solid var(--gold); }
-  .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; }
+  .content-wrap { 
+    flex: 1; 
+    overflow-y: auto; /* Enable scroll within the content area */
+    -webkit-overflow-scrolling: touch; 
+    width: 100%;
+}
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
   .ds-grid { display: grid; grid-template-columns: 202px 1fr; align-items: stretch; }
@@ -82,7 +93,7 @@ const jsonLd = {
  /* FIXED: Square geometry with spacing buffer restored */
   .carousel-wrap { 
     width: 186px; 
-    aspect-ratio: 1 / 1; 
+    height: 186px; /* Explicit height to prevent collapse */
     background: var(--parch); 
     display: flex; 
     align-items: center; 
@@ -90,9 +101,8 @@ const jsonLd = {
     overflow: hidden; 
     flex-shrink: 0; 
     margin: 8px; 
-    outline: 8px solid white; 
-    outline-offset: -8px;
-  }
+    position: relative; /* Ensure images are contained relative to wrap */
+}
   .carousel-img { 
     max-width: 100%; 
     max-height: 100%; 
