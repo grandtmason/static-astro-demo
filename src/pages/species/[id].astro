@@ -33,30 +33,31 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       <span class="top-bar-title">{d.name}</span>
     </div>
 
+    <!-- Mobile Nav Bar -->
+    <div class="explore-bar" id="mob-bar">
+      <button id="explore-trigger" class="explore-pill">Explore ↓</button>
+    </div>
+    <div id="mob-tab-list" style="display:none;">
+      <div class="pill-grid">
+        {TABS.map(tab => (<button class="mob-tab-row" data-id={tab.id}>{tab.label}</button>))}
+        <button class="mob-tab-row" id="mob-close" style="grid-column: span 2;">Close</button>
+      </div>
+    </div>
+
     <div id="content-wrap" class="content-wrap">
-      <!-- Data Sheet Tab -->
       <div id="panel-datasheet" class="tab-panel active">
         <div class="ds-grid">
           <div class="ds-left">
             <div id="carousel-wrap" class="carousel-wrap">
               {images.map((img, i) => <img src={img.src} alt={d.name} class={`carousel-img${i === 0 ? ' active' : ''}`} loading="lazy" />)}
             </div>
-            <div class="names-wrap">
-              {displayNames.map(([l, n]) => <div class="name-row"><strong>{l}:</strong> {n}</div>)}
-            </div>
+            <div class="names-wrap">{displayNames.map(([l, n]) => <div class="name-row"><strong>{l}:</strong> {n}</div>)}</div>
           </div>
-          <div class="ds-right">
-            <DataSheet plant={plant} />
-            <div class="map-col"><NewMap slug={slug} /></div>
-          </div>
+          <div class="ds-right"><DataSheet plant={plant} /><div class="map-col"><NewMap slug={slug} /></div></div>
         </div>
       </div>
-
-      <!-- Additional Tabs -->
       {TABS.filter(t => t.id !== 'datasheet').map(tab => (
-        <div id={`panel-${tab.id}`} class="tab-panel">
-           <div class="card">{q[tab.id] || "Pending curation."}</div>
-        </div>
+        <div id={`panel-${tab.id}`} class="tab-panel"><div class="card">{q[tab.id] || "Pending curation."}</div></div>
       ))}
     </div>
   </div>
@@ -66,52 +67,24 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 
   <script is:inline>
   (function () {
-    const PLANT_ID  = document.querySelector('.plant-name')?.textContent?.trim() ?? 'plant';
-    const LS_PREFIX = `sabm-${PLANT_ID}-`;
     const GLOBAL_LEAD_KEY = 'sabm_verified_b2b_lead';
-    
     function $(id) { return document.getElementById(id); }
-
-    const dtabs   = document.querySelectorAll('.tab-btn');
-    const dpanels = document.querySelectorAll('.tab-panel');
-    
     function activateTab(id) {
-      dtabs.forEach(t => { const on = t.dataset.id === id; t.classList.toggle('active', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
-      dpanels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
+      document.querySelectorAll('.tab-btn').forEach(t => t.classList.toggle('active', t.dataset.id === id));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
       if (id !== 'datasheet') checkB2BGateState(id);
-      $('content-wrap')?.scrollTo(0, 0);
     }
-    dtabs.forEach(t => t.addEventListener('click', () => activateTab(t.dataset.id)));
-
     function checkB2BGateState(tabId) {
-      const overlay = $(`b2b-gate-overlay-${tabId}`);
-      const clearContent = $(`b2b-content-${tabId}`);
-      if (!overlay || !clearContent) return;
       if (localStorage.getItem(GLOBAL_LEAD_KEY) === 'true') {
-        overlay.style.display = 'none';
-        clearContent.style.display = 'block';
-      } else {
-        overlay.style.display = 'block';
-        clearContent.style.display = 'none';
-      }
-    }
-
-    document.getElementById('explore-trigger')?.addEventListener('click', () => document.getElementById('mob-tab-list').style.display = 'flex');
-    document.getElementById('mob-close')?.addEventListener('click', () => document.getElementById('mob-tab-list').style.display = 'none');
-    
-    document.querySelectorAll('[data-b2b-form]').forEach(form => {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        await fetch(e.target.action, { method: 'POST', body: new FormData(e.target), headers: { 'Accept': 'application/json' } }).catch(() => {});
-        localStorage.setItem(GLOBAL_LEAD_KEY, 'true');
         document.querySelectorAll('.b2b-gate-overlay').forEach(o => o.style.display = 'none');
         document.querySelectorAll('.hidden-b2b-content').forEach(c => c.style.display = 'block');
-      });
-    });
-
+      }
+    }
+    document.getElementById('explore-trigger')?.addEventListener('click', () => $('mob-tab-list').style.display = 'flex');
+    document.getElementById('mob-close')?.addEventListener('click', () => $('mob-tab-list').style.display = 'none');
     $('btn-suppliers')?.addEventListener('click', () => $('modal-suppliers')?.classList.add('open'));
     $('btn-buyers')?.addEventListener('click', () => $('modal-buyers')?.classList.add('open'));
-    document.querySelectorAll('[data-close]').forEach(btn => { btn.addEventListener('click', () => $(`modal-${btn.dataset.close}`)?.classList.remove('open')); });
+    document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => $(`modal-${btn.dataset.close}`)?.classList.remove('open')));
   })();
   </script>
 </Layout>
