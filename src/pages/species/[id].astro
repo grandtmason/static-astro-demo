@@ -10,8 +10,8 @@ import { TABS } from '../../utils/constants';
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
   return allPlants.map(plant => ({
-    params: { id:
-   props: { plant: plant },
+    params: { id: plant.id.replace('/index', '').replace('.md', '') },
+    props: { plant },
   }));
 }
 
