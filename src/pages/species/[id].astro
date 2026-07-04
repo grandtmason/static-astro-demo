@@ -63,99 +63,13 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 
   <script is:inline>
   (function () {
-    const GLOBAL_LEAD_KEY = 'sabm_verified_b2b_lead';
     function $(id) { return document.getElementById(id); }
-    
     function activateTab(id) {
       document.querySelectorAll('.tab-btn').forEach(t => t.classList.toggle('active', t.dataset.id === id));
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
       $('content-wrap')?.scrollTo(0, 0);
     }
     document.querySelectorAll('.tab-btn').forEach(t => t.addEventListener('click', () => activateTab(t.dataset.id)));
-    
-    $('btn-suppliers')?.addEventListener('click', () => $('modal-suppliers')?.classList.add('open'));
-    $('btn-buyers')?.addEventListener('click', () => $('modal-buyers')?.classList.add('open'));
-    document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => $(`modal-${btn.dataset.close}`)?.classList.remove('open')));
-  })();
-  </script>
-</Layout>
-
-<Layout title={`${d.name} | SABR Registry`} schema={generatePlantSchema(d)}>
-  <div id="sabr-portal" class="portal">
-    <!-- ... (Top bar and content structure remains same) ... -->
-    <div id="content-wrap" class="content-wrap">
-       <!-- Ensure d is used locally here -->
-       <DataSheet plant={plant} d={d} /> 
-    </div>
-  </div>
-
-  <!-- Explicit Prop Passing -->
-  <BuyerModal d={d} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
-  <SupplierModal d={d} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
-
-  <script is:inline>
-     /* Consolidated Script as audited previously */
-  </script>
-</Layout>
-
-<Layout title={`${d.name} | SABR Registry`} schema={generatePlantSchema(d)}>
-  <div id="sabr-portal" class="portal">
-    <div class="top-bar">
-      <a href="/" class="top-bar-back">←</a>
-      <span class="top-bar-title">{d.name}</span>
-    </div>
-
-    <!-- Mobile Nav Bar -->
-    <div class="explore-bar" id="mob-bar">
-      <button id="explore-trigger" class="explore-pill">Explore ↓</button>
-    </div>
-    <div id="mob-tab-list" style="display:none;">
-      <div class="pill-grid">
-        {TABS.map(tab => (<button class="mob-tab-row" data-id={tab.id}>{tab.label}</button>))}
-        <button class="mob-tab-row" id="mob-close" style="grid-column: span 2;">Close</button>
-      </div>
-    </div>
-
-    <div id="content-wrap" class="content-wrap">
-      <div id="panel-datasheet" class="tab-panel active">
-        <div class="ds-grid">
-          <div class="ds-left">
-            <div id="carousel-wrap" class="carousel-wrap">
-              {images.map((img, i) => <img src={img.src} alt={d.name} class={`carousel-img${i === 0 ? ' active' : ''}`} loading="lazy" />)}
-            </div>
-            <div class="names-wrap">{displayNames.map(([l, n]) => <div class="name-row"><strong>{l}:</strong> {n}</div>)}</div>
-          </div>
-          <div class="ds-right"><DataSheet plant={plant} /><div class="map-col"><NewMap slug={slug} /></div></div>
-        </div>
-      </div>
-      {TABS.filter(t => t.id !== 'datasheet').map(tab => (
-        <div id={`panel-${tab.id}`} class="tab-panel"><div class="card">{q[tab.id] || "Pending curation."}</div></div>
-      ))}
-    </div>
-  </div>
-
-  <BuyerModal d={d} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
-  <SupplierModal d={d} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
-
-  <script is:inline>
-  (function () {
-    const GLOBAL_LEAD_KEY = 'sabm_verified_b2b_lead';
-    function $(id) { return document.getElementById(id); }
-    function activateTab(id) {
-      document.querySelectorAll('.tab-btn').forEach(t => t.classList.toggle('active', t.dataset.id === id));
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
-      if (id !== 'datasheet') checkB2BGateState(id);
-    }
-    function checkB2BGateState(tabId) {
-      if (localStorage.getItem(GLOBAL_LEAD_KEY) === 'true') {
-        document.querySelectorAll('.b2b-gate-overlay').forEach(o => o.style.display = 'none');
-        document.querySelectorAll('.hidden-b2b-content').forEach(c => c.style.display = 'block');
-      }
-    }
-    document.getElementById('explore-trigger')?.addEventListener('click', () => $('mob-tab-list').style.display = 'flex');
-    document.getElementById('mob-close')?.addEventListener('click', () => $('mob-tab-list').style.display = 'none');
-    $('btn-suppliers')?.addEventListener('click', () => $('modal-suppliers')?.classList.add('open'));
-    $('btn-buyers')?.addEventListener('click', () => $('modal-buyers')?.classList.add('open'));
     document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => $(`modal-${btn.dataset.close}`)?.classList.remove('open')));
   })();
   </script>
