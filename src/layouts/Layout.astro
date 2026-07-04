@@ -9,63 +9,25 @@ const { title, schema } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="The South African Botanical Registry — South Africa's authoritative scientific registry for 24 indigenous botanical species." />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="google-site-verification" content="K6KrNQwbkgpWH4vs3TIMlx1L50BYIIFeZ4doCInWhzM" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 		<title>{title}</title>
 		{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
-		<script is:inline>
-			if ('scrollRestoration' in history) {
-				history.scrollRestoration = 'manual';
-			}
-			window.addEventListener('pageshow', () => {
-				const savedPosition = sessionStorage.getItem('registryScroll');
-				if (savedPosition) {
-					sessionStorage.removeItem('registryScroll');
-					window.addEventListener('load', function() {
-						setTimeout(function() {
-							window.scrollTo({ top: parseInt(savedPosition), behavior: 'instant' });
-						}, 100);
-					});
-				}
-			});
-		</script>
+		<style is:global>
+			:root { --parchment: #F9F8F4; --ink: #2F2F2F; --gold: #B8860B; --muted: #7A7A7A; }
+			body { margin: 0; padding: 0; background: var(--parchment); font-family: 'EB Garamond', Georgia, serif; color: var(--ink); }
+			.portal { display: flex; flex-direction: column; height: 100vh; width: 100vw; overflow: hidden; }
+			.content-wrap { flex: 1; overflow-y: auto; width: 100%; padding-bottom: 60px; }
+			.ds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding: 2rem; }
+			.carousel-img { display: none; width: 100%; }
+			.carousel-img.active { display: block; }
+			.tab-panel { display: none; }
+			.tab-panel.active { display: block; }
+			.top-bar { padding: 1rem; border-bottom: 1px solid #ccc; }
+			.ds-sec-lbl { font-size: 0.8rem; text-transform: uppercase; color: var(--muted); margin: 0; }
+			.ds-val { font-size: 1.1rem; margin-top: 0.25rem; }
+		</style>
 	</head>
 	<body>
 		<slot />
-		<script is:inline>
-			document.addEventListener('click', function(e) {
-				const link = e.target.closest('a.plant-card');
-				if (link) {
-					sessionStorage.setItem('registryScroll', window.scrollY);
-				}
-			});
-		</script>
 	</body>
 </html>
-<style is:global>
-	:root {
-		--parchment: #F9F8F4;
-		--ink: #2F2F2F;
-		--gold: #B8860B;
-		--muted: #7A7A7A;
-	}
-	html {
-		font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
-		background: var(--parchment);
-		color: var(--ink);
-	}
-	body {
-		margin: 0;
-		padding: 0;
-		background: var(--parchment);
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, monospace;
-	}
-</style>
