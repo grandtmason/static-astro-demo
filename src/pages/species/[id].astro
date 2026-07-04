@@ -11,7 +11,7 @@ export async function getStaticPaths() {
   const allPlants = await getCollection('species');
   return allPlants.map(plant => ({
     params: { id:
-    props: { plant },
+   props: { plant: plant },
   }));
 }
 
