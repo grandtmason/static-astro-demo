@@ -18,7 +18,6 @@ const species = defineCollection({
     naming_origins: z.string().optional(),
     common_names: z.record(z.string()).optional(),
     
-    // New: Stats block for Trade Engine integration [cite: 102]
     stats: z.object({
       production: z.string().optional(),
       revenue: z.string().optional(),
@@ -26,7 +25,6 @@ const species = defineCollection({
       livelihoods: z.string().optional(),
     }).optional(),
 
-    // New: Protection block for Compliance/BSA [cite: 134]
     protection: z.object({
       gi_year: z.string().optional(),
       gi_status: z.string().optional(),
@@ -50,7 +48,6 @@ const species = defineCollection({
 
     indigenous_knowledge: z.string().optional(),
 
-    // Updated: Now follows the 8-pillar framework 
     pillar_data: z.object({
       wellness: z.string().optional(),
       innovation: z.string().optional(),
@@ -60,6 +57,7 @@ const species = defineCollection({
       legislation: z.string().optional(),
       projects: z.string().optional(),
       intelligence: z.string().optional(),
+      council_id: z.string().optional(), // New: Added for Fintech Trade Engine logic
     }).optional(),
   }),
 });
