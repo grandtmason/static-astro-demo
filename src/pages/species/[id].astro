@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import NewMap from '../../components/NewMap.astro';
+import DataSheet from '../../components/DataSheet.astro';
 import { getCollection } from 'astro:content';
 import { generatePlantSchema } from '../../utils/seo';
 import COMMON_NAMES from '../../data/common_names.json';
@@ -18,71 +19,61 @@ const d = plant.data;
 const slug = plant.id.replace('/index', '').replace('.md', '');
 const q = d.pillar_data || {};
 const images = d.images || [];
+const jsonLd = generatePlantSchema(d);
+const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [];
 
 const TABS = [
   { id: 'datasheet', label: 'Data Sheet' },
-  { id: 'wellness', label: 'Health & Wellness' },
-  { id: 'innovation', label: 'Innovation & R&D' },
-  { id: 'ik', label: 'IK & Heritage' },
-  { id: 'people', label: 'People & Culture' },
+  { id: 'wellness', label: 'Health' },
+  { id: 'innovation', label: 'Innovation' },
+  { id: 'ik', label: 'IK' },
+  { id: 'people', label: 'People' },
   { id: 'agronomy', label: 'Agronomy' },
   { id: 'legislation', label: 'Legislation' },
   { id: 'projects', label: 'Projects' },
-  { id: 'intelligence', label: 'Intelligence Pulse' },
+  { id: 'intelligence', label: 'Intelligence' },
 ];
-
-const jsonLd = generatePlantSchema(d);
-const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [];
 ---
 
 <Layout title={`${d.name} | SABR Registry`} schema={jsonLd}>
-  <style is:global>
-    .portal { display: flex; flex-direction: column; height: 100vh; width: 100vw; overflow: hidden; }
-    .content-wrap { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; width: 100%; }
-    .carousel-wrap { width: 186px; height: 186px; overflow: hidden; position: relative; }
-    .carousel-img { max-width: 100%; max-height: 100%; object-fit: contain; display: none; }
-    .carousel-img.active { display: block; }
-  </style>
-
   <div class="portal" id="sabr-portal">
     <div class="top-bar">
       <a href="/" class="top-bar-back">←</a>
-      <a href="/" class="top-bar-title">South African Botanical Registry</a>
+      <span class="top-bar-title">{d.name}</span>
     </div>
 
     <div class="content-wrap" id="content-wrap" style="padding-bottom:60px;">
-  <div class="tab-panel active" id="panel-datasheet">
-    <div class="ds-grid">
-      <div class="ds-left">
-        <div class="carousel-wrap" id="carousel-wrap">
-           {images.map((img, i) => <img src={img.src} alt={d.name} class={`carousel-img${i === 0 ? ' active' : ''}`} loading="lazy" />)}
-        </div>
-        <div class="names-wrap">
-          {displayNames.map(([l, n]) => <div class="name-row"><div class="n-lang">{l}</div><div class="n-val">{n}</div></div>)}
+      <div class="tab-panel active" id="panel-datasheet">
+        <div class="ds-grid">
+          <div class="ds-left">
+            <div class="carousel-wrap" id="carousel-wrap">
+               {images.map((img, i) => <img src={img.src} alt={d.name} class={`carousel-img${i === 0 ? ' active' : ''}`} loading="lazy" />)}
+            </div>
+            <div class="names-wrap">
+              {displayNames.map(([l, n]) => <div class="name-row"><strong>{l}:</strong> {n}</div>)}
+            </div>
+          </div>
+          <div class="ds-right">
+            <div class="ds-lower">
+               <div class="ds-sec"><h3 class="ds-sec-lbl">Taxonomic & Biological Data</h3></div>
+               <div class="ds-row3">
+                 <div class="ds-sec"><p class="ds-sec-lbl">Family</p><p class="ds-val">{d.family}</p></div>
+                 <div class="ds-sec"><p class="ds-sec-lbl">Native Region</p><p class="ds-val">{d.native_region}</p></div>
+                 <div class="ds-sec"><p class="ds-sec-lbl">Conservation</p><p class="ds-val">{d.conservation_status}</p></div>
+               </div>
+            </div>
+            <DataSheet plant={plant} />
+            <div class="map-col"><NewMap slug={slug} /></div>
+          </div>
         </div>
       </div>
-      <div class="ds-right">
-        <!-- Integrated DataSheet for Truth Validation -->
-        <div class="ds-lower">
-           <div class="ds-sec"><h3 class="ds-sec-lbl">Taxonomic & Biological Data</h3></div>
-           <div class="ds-row3">
-             <div class="ds-sec"><p class="ds-sec-lbl">Family</p><p class="ds-val">{d.family}</p></div>
-             <div class="ds-sec"><p class="ds-sec-lbl">Native Region</p><p class="ds-val">{d.native_region}</p></div>
-             <div class="ds-sec"><p class="ds-sec-lbl">Conservation</p><p class="ds-val">{d.conservation_status}</p></div>
-           </div>
+
+      {TABS.filter(t => t.id !== 'datasheet').map(tab => (
+        <div class="tab-panel" id={`panel-${tab.id}`}>
+           <div class="card">{q[tab.id] || "Pending curation."}</div>
         </div>
-        <div class="map-col"><NewMap slug={slug} /></div>
-      </div>
+      ))}
     </div>
   </div>
-
-  {TABS.filter(t => t.id !== 'datasheet').map(tab => (
-    <div class="tab-panel" id={`panel-${tab.id}`}>
-       <div class="cards-grid">
-         {q[tab.id] ? <div class="card">{q[tab.id]}</div> : <div class="card">Pending curation.</div>}
-       </div>
-    </div>
-  ))}
-</div>
-<script src="/scripts/portal-controller.js" is:inline></script>
+  <script src="/scripts/portal-controller.js" is:inline></script>
 </Layout>
