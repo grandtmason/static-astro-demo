@@ -18,30 +18,28 @@ export async function getStaticPaths() {
 }
 
 const { plant } = Astro.props;
+const d = plant.data;
 const slug = plant.id.replace('/index', '').replace('.md', '');
-const q = plant.data.pillar_data || {};
-const images = plant.data.images || [];
+const q = d.pillar_data || {};
+const images = d.images || [];
 const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [];
 const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 ---
 
-<Layout title={`${plant.data.name} | SABR Registry`} schema={generatePlantSchema(plant.data)}>
+<Layout title={`${d.name} | SABR Registry`} schema={generatePlantSchema(d)}>
   <div id="sabr-portal" class="portal">
     <div class="top-bar">
       <a href="/" class="top-bar-back">←</a>
-      <span class="top-bar-title">{plant.data.name}</span>
+      <span class="top-bar-title">{d.name}</span>
     </div>
-
     <div id="content-wrap" class="content-wrap">
       <div id="panel-datasheet" class="tab-panel active">
         <div class="ds-grid">
           <div class="ds-left">
             <div id="carousel-wrap" class="carousel-wrap">
-              {images.map((img, i) => <img src={img.src} alt={plant.data.name} class={`carousel-img${i === 0 ? ' active' : ''}`} loading="lazy" />)}
+              {images.map((img, i) => <img src={img.src} alt={d.name} class={`carousel-img${i === 0 ? ' active' : ''}`} loading="lazy" />)}
             </div>
-            <div class="names-wrap">
-              {displayNames.map(([l, n]) => <div class="name-row"><strong>{l}:</strong> {n}</div>)}
-            </div>
+            <div class="names-wrap">{displayNames.map(([l, n]) => <div class="name-row"><strong>{l}:</strong> {n}</div>)}</div>
           </div>
           <div class="ds-right">
             <DataSheet plant={plant} />
@@ -49,28 +47,20 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
           </div>
         </div>
       </div>
-
       {TABS.filter(t => t.id !== 'datasheet').map(tab => (
-        <div id={`panel-${tab.id}`} class="tab-panel">
-           <div class="card">{q[tab.id] || "Pending curation."}</div>
-        </div>
+        <div id={`panel-${tab.id}`} class="tab-panel"><div class="card">{q[tab.id] || "Pending curation."}</div></div>
       ))}
     </div>
   </div>
-
   <BuyerModal plant={plant} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
   <SupplierModal plant={plant} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
-
   <script is:inline>
-  (function () {
     function $(id) { return document.getElementById(id); }
     function activateTab(id) {
       document.querySelectorAll('.tab-btn').forEach(t => t.classList.toggle('active', t.dataset.id === id));
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
-      $('content-wrap')?.scrollTo(0, 0);
     }
     document.querySelectorAll('.tab-btn').forEach(t => t.addEventListener('click', () => activateTab(t.dataset.id)));
     document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => $(`modal-${btn.dataset.close}`)?.classList.remove('open')));
-  })();
   </script>
 </Layout>
