@@ -5,6 +5,7 @@ import DataSheet from '../../components/DataSheet.astro';
 import { getCollection } from 'astro:content';
 import { generatePlantSchema } from '../../utils/seo';
 import COMMON_NAMES from '../../data/common_names.json';
+import { TABS } from '../../utils/constants';
 
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
@@ -21,18 +22,6 @@ const q = d.pillar_data || {};
 const images = d.images || [];
 const jsonLd = generatePlantSchema(d);
 const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [];
-
-const TABS = [
-  { id: 'datasheet', label: 'Data Sheet' },
-  { id: 'wellness', label: 'Health' },
-  { id: 'innovation', label: 'Innovation' },
-  { id: 'ik', label: 'IK' },
-  { id: 'people', label: 'People' },
-  { id: 'agronomy', label: 'Agronomy' },
-  { id: 'legislation', label: 'Legislation' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'intelligence', label: 'Intelligence' },
-];
 ---
 
 <Layout title={`${d.name} | SABR Registry`} schema={jsonLd}>
@@ -68,12 +57,12 @@ const TABS = [
         </div>
       </div>
 
-     {TABS.filter(t => t.id !== 'datasheet').map(tab => (
+      {TABS.filter(t => t.id !== 'datasheet').map(tab => (
         <div class="tab-panel" id={`panel-${tab.id}`}>
            <div class="card">{q[tab.id] || "Pending curation."}</div>
         </div>
       ))}
-    </div> <!-- Closes content-wrap -->
-  </div> <!-- Closes portal -->
+    </div>
+  </div>
   <script src="/scripts/portal-controller.js" is:inline></script>
 </Layout>
