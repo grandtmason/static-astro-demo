@@ -18,6 +18,7 @@ export async function getStaticPaths() {
 }
 
 const { plant } = Astro.props;
+// Use explicit scoping
 const d = plant.data;
 const slug = plant.id.replace('/index', '').replace('.md', '');
 const q = d.pillar_data || {};
