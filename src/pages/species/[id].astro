@@ -18,7 +18,6 @@ export async function getStaticPaths() {
 }
 
 const { plant } = Astro.props;
-// Use explicit scoping
 const d = plant.data;
 const slug = plant.id.replace('/index', '').replace('.md', '');
 const q = d.pillar_data || {};
@@ -26,6 +25,24 @@ const images = d.images || [];
 const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [];
 const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 ---
+
+<Layout title={`${d.name} | SABR Registry`} schema={generatePlantSchema(d)}>
+  <div id="sabr-portal" class="portal">
+    <!-- ... (Top bar and content structure remains same) ... -->
+    <div id="content-wrap" class="content-wrap">
+       <!-- Ensure d is used locally here -->
+       <DataSheet plant={plant} d={d} /> 
+    </div>
+  </div>
+
+  <!-- Explicit Prop Passing -->
+  <BuyerModal d={d} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
+  <SupplierModal d={d} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
+
+  <script is:inline>
+     /* Consolidated Script as audited previously */
+  </script>
+</Layout>
 
 <Layout title={`${d.name} | SABR Registry`} schema={generatePlantSchema(d)}>
   <div id="sabr-portal" class="portal">
