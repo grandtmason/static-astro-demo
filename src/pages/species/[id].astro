@@ -43,14 +43,7 @@ const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [
             </div>
           </div>
           <div class="ds-right">
-            <div class="ds-lower">
-               <div class="ds-sec"><h3 class="ds-sec-lbl">Taxonomic & Biological Data</h3></div>
-               <div class="ds-row3">
-                 <div class="ds-sec"><p class="ds-sec-lbl">Family</p><p class="ds-val">{d.family}</p></div>
-                 <div class="ds-sec"><p class="ds-sec-lbl">Native Region</p><p class="ds-val">{d.native_region}</p></div>
-                 <div class="ds-sec"><p class="ds-sec-lbl">Conservation</p><p class="ds-val">{d.conservation_status}</p></div>
-               </div>
-            </div>
+           
             <DataSheet plant={plant} />
             <div class="map-col"><NewMap slug={slug} /></div>
           </div>
