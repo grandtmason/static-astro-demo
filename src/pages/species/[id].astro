@@ -20,38 +20,38 @@ const d = plant.data;
 const slug = plant.id.replace('/index', '').replace('.md', '');
 const q = d.pillar_data || {};
 const images = d.images || [];
-const jsonLd = generatePlantSchema(d);
 const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [];
 ---
 
-<Layout title={`${d.name} | SABR Registry`} schema={jsonLd}>
-  <div class="portal" id="sabr-portal">
+<Layout title={`${d.name} | SABR Registry`} schema={generatePlantSchema(d)}>
+  <div id="sabr-portal" class="portal">
     <div class="top-bar">
       <a href="/" class="top-bar-back">←</a>
       <span class="top-bar-title">{d.name}</span>
     </div>
 
-    <div class="content-wrap" id="content-wrap" style="padding-bottom:60px;">
-      <div class="tab-panel active" id="panel-datasheet">
+    <div id="content-wrap" class="content-wrap">
+      <!-- Data Sheet Tab -->
+      <div id="panel-datasheet" class="tab-panel active">
         <div class="ds-grid">
           <div class="ds-left">
-            <div class="carousel-wrap" id="carousel-wrap">
-               {images.map((img, i) => <img src={img.src} alt={d.name} class={`carousel-img${i === 0 ? ' active' : ''}`} loading="lazy" />)}
+            <div id="carousel-wrap" class="carousel-wrap">
+              {images.map((img, i) => <img src={img.src} alt={d.name} class={`carousel-img${i === 0 ? ' active' : ''}`} loading="lazy" />)}
             </div>
             <div class="names-wrap">
               {displayNames.map(([l, n]) => <div class="name-row"><strong>{l}:</strong> {n}</div>)}
             </div>
           </div>
           <div class="ds-right">
-           
             <DataSheet plant={plant} />
             <div class="map-col"><NewMap slug={slug} /></div>
           </div>
         </div>
       </div>
 
+      <!-- Additional Tabs -->
       {TABS.filter(t => t.id !== 'datasheet').map(tab => (
-        <div class="tab-panel" id={`panel-${tab.id}`}>
+        <div id={`panel-${tab.id}`} class="tab-panel">
            <div class="card">{q[tab.id] || "Pending curation."}</div>
         </div>
       ))}
