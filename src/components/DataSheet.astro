@@ -3,11 +3,7 @@ const { plant } = Astro.props;
 const d = plant.data;
 ---
 <div class="ds-section">
-  <h3 class="ds-sec-lbl">Taxonomic & Biological Data</h3>
-  <div class="ds-info-grid">
-    <div class="ds-sec"><p class="ds-sec-lbl">Family</p><p class="ds-val">{d.family}</p></div>
-    <div class="ds-sec"><p class="ds-sec-lbl">Native Region</p><p class="ds-val">{d.native_region}</p></div>
-    <div class="ds-sec"><p class="ds-sec-lbl">Conservation</p><p class="ds-val">{d.conservation_status}</p></div>
-  </div>
-  <!-- Add remaining DataSheet fields here -->
+  <div class="ds-sec"><p class="ds-sec-lbl">Family</p><p class="ds-val">{d.family}</p></div>
+  <div class="ds-sec"><p class="ds-sec-lbl">Native Region</p><p class="ds-val">{d.native_region}</p></div>
+  <div class="ds-sec"><p class="ds-sec-lbl">Conservation</p><p class="ds-val">{d.conservation_status}</p></div>
 </div>
