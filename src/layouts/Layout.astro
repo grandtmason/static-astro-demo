@@ -13,19 +13,24 @@ const { title, schema } = Astro.props;
 		<title>{title}</title>
 		{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 		<style is:global>
-			:root { --parchment: #F9F8F4; --ink: #2F2F2F; --gold: #B8860B; --muted: #7A7A7A; }
-			body { margin: 0; padding: 0; background: var(--parchment); font-family: 'EB Garamond', Georgia, serif; color: var(--ink); }
-			.portal { display: flex; flex-direction: column; height: 100vh; width: 100vw; overflow: hidden; }
-			.content-wrap { flex: 1; overflow-y: auto; width: 100%; padding-bottom: 60px; }
-			.ds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding: 2rem; }
-			.carousel-img { display: none; width: 100%; }
-			.carousel-img.active { display: block; }
-			.tab-panel { display: none; }
-			.tab-panel.active { display: block; }
-			.top-bar { padding: 1rem; border-bottom: 1px solid #ccc; }
-			.ds-sec-lbl { font-size: 0.8rem; text-transform: uppercase; color: var(--muted); margin: 0; }
-			.ds-val { font-size: 1.1rem; margin-top: 0.25rem; }
-		</style>
+    :root { --parchment: #F9F8F4; --ink: #2F2F2F; --gold: #B8860B; --muted: #7A7A7A; }
+    body { margin: 0; padding: 0; background: var(--parchment); font-family: 'EB Garamond', Georgia, serif; color: var(--ink); }
+    
+    /* Layout Containers */
+    #sabr-portal { display: flex; flex-direction: column; height: 100vh; width: 100vw; overflow: hidden; }
+    #content-wrap { flex: 1; overflow-y: auto; width: 100%; }
+    
+    /* Grid & Panels */
+    .ds-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 2rem !important; padding: 2rem !important; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    
+    /* Elements */
+    .carousel-img { display: none; width: 100%; border-radius: 8px; }
+    .carousel-img.active { display: block; }
+    .ds-sec-lbl { font-size: 0.8rem; text-transform: uppercase; color: var(--muted); margin: 0; }
+    .ds-val { font-size: 1.1rem; margin-top: 0.25rem; font-weight: 600; }
+</style>
 	</head>
 	<body>
 		<slot />
