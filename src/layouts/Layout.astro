@@ -12,13 +12,15 @@ const { title, schema } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
-    <style>
+    <style is:inline>
         :root { --parchment: #F9F8F4; --ink: #2F2F2F; --gold: #B8860B; --muted: #7A7A7A; }
         body { margin: 0; padding: 0; background: var(--parchment); font-family: 'EB Garamond', Georgia, serif; color: var(--ink); }
         .portal { display: flex !important; flex-direction: column !important; min-height: 100vh !important; }
         .ds-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 40px !important; padding: 40px !important; }
         .tab-panel { display: none !important; }
         .tab-panel.active { display: block !important; }
+        .carousel-img { display: none !important; width: 100% !important; border-radius: 8px !important; }
+        .carousel-img.active { display: block !important; }
     </style>
 </head>
 	<body>
