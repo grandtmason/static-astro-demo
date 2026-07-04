@@ -50,26 +50,39 @@ const displayNames = COMMON_NAMES[slug] ? Object.entries(COMMON_NAMES[slug]) : [
       <a href="/" class="top-bar-title">South African Botanical Registry</a>
     </div>
 
-    <div class="content-wrap" id="content-wrap">
-       <div class="tab-panel active" id="panel-datasheet">
-         <div class="ds-grid">
-            <div class="ds-left">
-              <div class="carousel-wrap">
-                 {images.map((img, i) => <img src={img.src} alt={d.name} class={`carousel-img${i === 0 ? ' active' : ''}`} loading="lazy" />)}
-              </div>
-            </div>
-            <div class="ds-right">
-              <div class="map-col"><NewMap slug={slug} /></div>
-            </div>
-         </div>
-       </div>
-
-       {TABS.filter(t => t.id !== 'datasheet').map(tab => (
-         <div class="tab-panel" id={`panel-${tab.id}`}>
-            <div class="cards-grid">{q[tab.id] ? <div class="card">{q[tab.id]}</div> : <div class="card">Pending curation.</div>}</div>
-         </div>
-       ))}
+    <div class="content-wrap" id="content-wrap" style="padding-bottom:60px;">
+  <div class="tab-panel active" id="panel-datasheet">
+    <div class="ds-grid">
+      <div class="ds-left">
+        <div class="carousel-wrap" id="carousel-wrap">
+           {images.map((img, i) => <img src={img.src} alt={d.name} class={`carousel-img${i === 0 ? ' active' : ''}`} loading="lazy" />)}
+        </div>
+        <div class="names-wrap">
+          {displayNames.map(([l, n]) => <div class="name-row"><div class="n-lang">{l}</div><div class="n-val">{n}</div></div>)}
+        </div>
+      </div>
+      <div class="ds-right">
+        <!-- Integrated DataSheet for Truth Validation -->
+        <div class="ds-lower">
+           <div class="ds-sec"><h3 class="ds-sec-lbl">Taxonomic & Biological Data</h3></div>
+           <div class="ds-row3">
+             <div class="ds-sec"><p class="ds-sec-lbl">Family</p><p class="ds-val">{d.family}</p></div>
+             <div class="ds-sec"><p class="ds-sec-lbl">Native Region</p><p class="ds-val">{d.native_region}</p></div>
+             <div class="ds-sec"><p class="ds-sec-lbl">Conservation</p><p class="ds-val">{d.conservation_status}</p></div>
+           </div>
+        </div>
+        <div class="map-col"><NewMap slug={slug} /></div>
+      </div>
     </div>
   </div>
-  <script src="/scripts/portal-controller.js" is:inline></script>
+
+  {TABS.filter(t => t.id !== 'datasheet').map(tab => (
+    <div class="tab-panel" id={`panel-${tab.id}`}>
+       <div class="cards-grid">
+         {q[tab.id] ? <div class="card">{q[tab.id]}</div> : <div class="card">Pending curation.</div>}
+       </div>
+    </div>
+  ))}
+</div>
+<script src="/scripts/portal-controller.js" is:inline></script>
 </Layout>
