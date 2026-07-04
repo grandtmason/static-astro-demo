@@ -68,12 +68,12 @@ const TABS = [
         </div>
       </div>
 
-      {TABS.filter(t => t.id !== 'datasheet').map(tab => (
+     {TABS.filter(t => t.id !== 'datasheet').map(tab => (
         <div class="tab-panel" id={`panel-${tab.id}`}>
            <div class="card">{q[tab.id] || "Pending curation."}</div>
         </div>
       ))}
-    </div>
-  </div>
+    </div> <!-- Closes content-wrap -->
+  </div> <!-- Closes portal -->
   <script src="/scripts/portal-controller.js" is:inline></script>
 </Layout>
