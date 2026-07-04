@@ -6,28 +6,33 @@ const { title, schema } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{title}</title>
 		{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 		
 		<style is:inline>
-			:root { --parchment: #F9F8F4; --ink: #2F2F2F; --gold: #B8860B; --green: #1A3A2A; --sage: #9DB8A8; }
-			html, body { font-family: 'EB Garamond', Georgia, serif; background: var(--parchment); color: var(--ink); margin: 0; padding: 0; height: 100%; }
-			.responsive-botanical-img { width: 100%; height: auto; object-fit: contain; display: block; }
-			.portal { display: flex !important; flex-direction: column !important; min-height: 100vh !important; }
-			.ds-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 40px !important; padding: 40px !important; }
-			.tab-panel { display: none !important; }
-			.tab-panel.active { display: block !important; }
-			.carousel-img { display: none !important; width: 100% !important; border-radius: 8px !important; }
-			.carousel-img.active { display: block !important; }
-			.top-bar { padding: 20px; font-size: 1.2rem; border-bottom: 1px solid #ccc; }
+			:root { --parchment: #F9F8F4; --ink: #2F2F2F; --gold: #B8860B; }
+			body { margin: 0; padding: 0; background: var(--parchment); font-family: 'EB Garamond', Georgia, serif; color: var(--ink); }
+			.portal { display: flex; flex-direction: column; min-height: 100vh; }
+			.top-bar { padding: 20px; border-bottom: 1px solid #ccc; font-size: 1.2rem; }
+			.content-wrap { padding: 20px; }
+			.ds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+			.tab-panel { display: none; }
+			.tab-panel.active { display: block; }
+			.carousel-img { display: none; width: 100%; border-radius: 8px; }
+			.carousel-img.active { display: block; }
 		</style>
 	</head>
 	<body>
 		<slot />
 		<script is:inline>
-			if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+			// Inlined controller logic
+			window.addEventListener('DOMContentLoaded', () => {
+				document.querySelectorAll('.tab-btn').forEach(t => t.addEventListener('click', (e) => {
+					const id = e.target.dataset.id;
+					document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + id));
+				}));
+			});
 		</script>
-		<script src="/scripts/portal-controller.js" is:inline></script>
 	</body>
 </html>
