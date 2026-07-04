@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 
 const { plant } = Astro.props;
 // Force explicit scope for the template
-export const d = plant.data; 
+const d = plant.data;
 const slug = plant.id.replace('/index', '').replace('.md', '');
 const q = d.pillar_data || {};
 const images = d.images || [];
