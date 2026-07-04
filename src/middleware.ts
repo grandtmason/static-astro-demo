@@ -30,11 +30,14 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const hostname = context.url.hostname.replace('www.', '');
   const speciesSlug = DOMAIN_MAP[hostname];
 
+  // If bot, rewrite to academic render
   if (AI_CRAWLER_BOTS.some(bot => userAgent.includes(bot))) {
-    return context.rewrite(`/api/v1/academic-render/species/${speciesSlug || "index"}`);
+    const target = speciesSlug === "index" ? "/index" : `/api/v1/academic-render/species/${speciesSlug}`;
+    return context.rewrite(target);
   }
 
-  if (speciesSlug && context.url.pathname === "/") {
+  // Only rewrite to species page if slug is a valid plant (not index)
+  if (speciesSlug && speciesSlug !== "index" && context.url.pathname === "/") {
     return context.rewrite(`/species/${speciesSlug}`);
   }
 
