@@ -1,41 +1,17 @@
-<script>
-  import { feature } from "topojson-client";
-  import { geoPath, geoMercator } from "d3-geo";
+// Replace your existing fetch block in NewMap.astro with this:
+const fetchJson = async (url) => {
+  const res = await fetch(url);
+  const text = await res.text(); // Get raw text first
+  try {
+    return JSON.parse(text); // Try to parse
+  } catch (e) {
+    console.warn(`Could not load ${url} - Server returned:`, text.substring(0, 50));
+    return null; // Return null if it's not JSON (like an HTML error page)
+  }
+};
 
-  const initMap = async () => {
-    try {
-      const slug = document.getElementById('map-root')?.dataset.slug;
-      
-      // We wrap the fetches in a way that doesn't crash the whole page if they fail
-      const [topoData, farmData, mapConfig] = await Promise.all([
-        fetch('/data/za-provinces.topojson').then(r => r.json()).catch(() => null),
-        fetch('/data/farms.json').then(r => r.json()).catch(() => []),
-        fetch('/data/map-config.json').then(r => r.json()).catch(() => ({ provinceColors: {}, markerStyles: {} }))
-      ]);
-
-      // If topoData is missing, we log it but don't throw an error that stops the page
-      if (!topoData) {
-        console.warn("Map data files not found in /public/data/ - Skipping map render");
-        return; 
-      }
-
-      const svg = document.getElementById('map-svg');
-      const objectKey = Object.keys(topoData.objects)[0];
-      const provinceData = feature(topoData, topoData.objects[objectKey]);
-      
-      const projection = geoMercator().fitSize([800, 700], provinceData as any);
-      const pathGenerator = geoPath().projection(projection);
-
-      // Rendering logic
-      const provincesHtml = provinceData.features.map(f => `
-        <path d="${pathGenerator(f as any)}" fill="#f4f4f4" stroke="white" stroke-width="0.5" />
-      `).join('');
-
-      if (svg) svg.innerHTML = provincesHtml;
-    } catch (err) {
-      console.error("Map initialization failed:", err);
-    }
-  };
-
-  initMap();
-</script>
+const [topoData, farmData, mapConfig] = await Promise.all([
+  fetchJson('/data/za-provinces.topojson'),
+  fetchJson('/data/farms.json'),
+  fetchJson('/data/map-config.json')
+]);
