@@ -1,19 +1,15 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import node from '@astrojs/node'; // Add this adapter
 
 export default defineConfig({
   site: 'https://southafricanbotanical.org.za',
-  output: 'static',
+  output: 'server', // Changed from 'static' to 'server'
+  adapter: node({
+    mode: 'standalone',
+  }),
   integrations: [sitemap()],
-  // This explicitly sets the build mode to ignore the request header warning
   build: {
     inlineStylesheets: 'always',
-    format: 'directory'
-  },
-  vite: {
-    ssr: {
-      // This forces the build to ignore server-only objects during static build
-      external: ['Astro']
-    }
   }
 });
