@@ -1,1 +1,7 @@
-/* /index.html   200
+# Serve static assets directly (CSS, JS, Images)
+/styles/* /styles/:splat 200
+/_astro/* /_astro/:splat 200
+
+# Route only root and species pages to index.html
+/species/* /species/:splat/index.html 200
+/ /index.html 200
