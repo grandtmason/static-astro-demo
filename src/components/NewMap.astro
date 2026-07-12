@@ -1,58 +1,52 @@
----
-// Clean frontmatter: No heavy math or D3 logic here.
-const { slug } = Astro.props;
----
-
-<div id="map-root" data-slug={slug}>
-  <svg id="map-svg" viewBox="0 0 800 700" preserveAspectRatio="xMidYMid meet"></svg>
-</div>
-
 <script>
   import { feature } from "topojson-client";
   import { geoPath, geoMercator } from "d3-geo";
-  // These imports work in the browser via Vite
-  import topoRaw from "../data/za-provinces.topojson?raw";
-  import farmRaw from "../data/farms.json?raw";
-  import configRaw from "../data/map-config.json?raw";
 
   const initMap = async () => {
-    const slug = document.getElementById('map-root')?.dataset.slug;
-    const topoData = JSON.parse(topoRaw);
-    const farmData = JSON.parse(farmRaw);
-    const mapConfig = JSON.parse(configRaw);
+    try {
+      const slug = document.getElementById('map-root')?.dataset.slug;
+      
+      // Attempt to fetch. If these files don't exist yet, we catch the error.
+      const responses = await Promise.all([
+        fetch('/data/za-provinces.topojson').then(res => res.json()),
+        fetch('/data/farms.json').catch(() => []), // Fallback to empty array
+        fetch('/data/map-config.json').catch(() => ({ provinceColors: {}, markerStyles: {} }))
+      ]);
 
-    const svg = document.getElementById('map-svg');
-    const objectKey = Object.keys(topoData.objects)[0];
-    const provinceData = feature(topoData, topoData.objects[objectKey]);
-    
-    const projection = geoMercator().fitSize([800, 700], provinceData as any);
-    const pathGenerator = geoPath().projection(projection);
+      const [topoData, farmData, mapConfig] = responses;
+      const svg = document.getElementById('map-svg');
+      
+      // If topoData is missing, stop here so we don't crash
+      if (!topoData || !topoData.objects) return;
 
-    // Render provinces
-    const provincesHtml = provinceData.features.map(feature => `
-      <path
-        d="${pathGenerator(feature as any)}"
-        fill="${mapConfig.provinceColors[feature.properties.CODE] || "#f4f4f4"}"
-        stroke="white"
-        stroke-width="0.5"
-      />
-    `).join('');
+      const objectKey = Object.keys(topoData.objects)[0];
+      const provinceData = feature(topoData, topoData.objects[objectKey]);
+      
+      const projection = geoMercator().fitSize([800, 700], provinceData as any);
+      const pathGenerator = geoPath().projection(projection);
 
-    // Render farm markers
-    const filteredFarms = farmData.filter((f: any) => f.plant === slug);
-    const markersHtml = filteredFarms.map((farm: any) => {
-      const coords = projection([farm.lng, farm.lat]);
-      if (!coords) return '';
-      const style = mapConfig.markerStyles[farm.type] || { fill: "#D3D3D3", stroke: "#000" };
-      return `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="${style.fill}" stroke="${style.stroke}" stroke-width="2" />`;
-    }).join('');
+      const provincesHtml = provinceData.features.map(feature => `
+        <path
+          d="${pathGenerator(feature as any)}"
+          fill="${mapConfig.provinceColors?.[feature.properties.CODE] || "#f4f4f4"}"
+          stroke="white"
+          stroke-width="0.5"
+        />
+      `).join('');
 
-    if (svg) svg.innerHTML = provincesHtml + markersHtml;
+      const filteredFarms = Array.isArray(farmData) ? farmData.filter((f: any) => f.plant === slug) : [];
+      const markersHtml = filteredFarms.map((farm: any) => {
+        const coords = projection([farm.lng, farm.lat]);
+        if (!coords) return '';
+        const style = mapConfig.markerStyles?.[farm.type] || { fill: "#D3D3D3", stroke: "#000" };
+        return `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="${style.fill}" stroke="${style.stroke}" stroke-width="2" />`;
+      }).join('');
+
+      if (svg) svg.innerHTML = provincesHtml + markersHtml;
+    } catch (err) {
+      console.warn("Map data not yet available, rendering empty shell:", err);
+    }
   };
 
   initMap();
 </script>
-
-<style>
-  .map-container { width: 100%; height: auto; }
-</style>
