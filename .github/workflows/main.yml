@@ -1,26 +1,19 @@
-name: Deploy SABR Site
-
-on:
-  push:
-    branches: ["main"]
-
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build
+      - name: Install and Build
         uses: withastro/action@v2
         with:
           package-manager: npm
 
-      - name: Deploy to Sevalla
-        uses: Sevalla/deploy-action@v1
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          dist_dir: dist
-          token: ${{ secrets.SEVALLA_TOKEN }}
+          path: 'dist'
 
       - name: Purge Cloudflare Cache
         uses: jakejarvis/cloudflare-purge-action@master
