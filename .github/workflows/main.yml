@@ -1,10 +1,28 @@
-name: Final Audit
-on: [push]
+name: Deploy SABR Site
+
+on:
+  push:
+    branches: ["main"]
+
 jobs:
-  debug:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: npm install && npm run build
-      - name: List files
-        run: find dist -name "*.html"
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install and Build
+        uses: withastro/action@v2
+        with:
+          package-manager: npm
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'dist'
+
+      - name: Purge Cloudflare Cache
+        uses: jakejarvis/cloudflare-purge-action@master
+        env:
+          CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
