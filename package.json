@@ -1,25 +1,20 @@
-{
-  "name": "static-astro-demo",
-  "version": "0.0.1",
-  "engines": {
-    "node": "20.x"
-  },
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "astro": "^5.6.0",
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/sitemap": "^3.0.0",
-    "d3-geo": "^3.1.1",
-    "topojson-client": "^3.1.0",
-    "typescript": "^5.8.2"
-  },
-  "devDependencies": {
-    "@types/d3-geo": "^3.0.0"
-  }
+---
+// src/pages/species/[id].astro
+export async function getStaticPaths() {
+  // Add your logic to fetch all species IDs here
+  // Returning sample data for demonstration
+  return [
+    { params: { id: 'acacia' } },
+    { params: { id: 'african-ginger' } },
+    { params: { id: 'aloe-ferox' } }
+  ];
 }
+
+const { id } = Astro.params;
+---
+<html>
+  <body>
+    <h1>Species: {id}</h1>
+    <p>This is the static page for {id}.</p>
+  </body>
+</html>
