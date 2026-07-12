@@ -1,27 +1,27 @@
-name: Deploy SABR Site
+name: Deploy SABR Registry
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
 
 jobs:
-  build_and_deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Build
-        uses: withastro/action@v2
-        with:
-          package-manager: npm
+      - name: Install Dependencies
+        run: npm install
 
-      # Force all files into a single archive to prevent platform pruning
-      - name: Package for Deployment
-        run: tar -czf site.tar.gz -C dist .
+      - name: Build Project
+        run: npm run build
 
-      - name: Upload
-        uses: actions/upload-artifact@v4
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@1
         with:
-          name: site-artifact
-          path: site.tar.gz
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: 'sabr-registry'
+          directory: 'dist'
