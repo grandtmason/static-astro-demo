@@ -1,21 +1,23 @@
 name: Deploy SABR Site
+
 on:
   push:
     branches: ["main"]
+
 jobs:
-  build_site:
-    runs-on: ubuntu-latest 
+  deploy:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Clean Environment
-        run: rm -rf .astro dist
-
-      - name: Install, Build, and Deploy
+      - name: Build and Deploy
         uses: withastro/action@v2
         with:
           package-manager: npm
 
-      - name: Run Build with Verbose Logging
-        run: npm run build -- --verbose
+      - name: Purge Cloudflare Cache
+        uses: jakejarvis/cloudflare-purge-action@master
+        env:
+          CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
