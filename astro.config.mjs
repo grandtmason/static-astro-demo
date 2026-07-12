@@ -4,7 +4,7 @@ import node from '@astrojs/node';
 
 export default defineConfig({
   site: 'https://southafricanbotanical.org.za',
-  output: 'hybrid', // Hybrid mode allows static generation + server features
+  output: 'static',
   adapter: node({ mode: 'standalone' }),
   integrations: [sitemap()],
   build: {
