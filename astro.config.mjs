@@ -4,12 +4,9 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   site: 'https://southafricanbotanical.org.za',
-  output: 'hybrid',
-  adapter: cloudflare(),
+  output: 'hybrid', // This forces dynamic behavior
+  adapter: cloudflare({
+    mode: 'directory',
+  }),
   integrations: [sitemap()],
-  build: {
-    format: 'file',
-    inlineStylesheets: 'always'
-  },
-  base: '/'
 });
