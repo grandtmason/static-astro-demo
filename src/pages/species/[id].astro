@@ -17,7 +17,6 @@ export async function getStaticPaths() {
   }));
 }
 
-// Ensure NO Astro.request calls exist above this line
 const { plant } = Astro.props;
 const d = plant.data;
 const slug = plant.id.replace('/index', '').replace('.md', '');
@@ -28,4 +27,26 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 ---
 
 <Layout title={`${d.name} | SABR Registry`} schema={generatePlantSchema(d)}>
-    </Layout>
+  <div class="portal">
+    <div class="top-bar">
+      <a href="/">←</a>
+      <span>{d.name}</span>
+    </div>
+    <div class="content-wrap">
+      <div class="tab-panel active">
+        <div class="ds-grid">
+          <div class="ds-left">
+            {images.map((img: any) => <img src={img.src} alt={d.name} loading="lazy" />)}
+            {displayNames.map(([l, n]) => <div><strong>{l}:</strong> {n}</div>)}
+          </div>
+          <div class="ds-right">
+            <DataSheet plant={plant} />
+            <NewMap slug={slug} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <BuyerModal plant={plant} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
+  <SupplierModal plant={plant} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
+</Layout>
