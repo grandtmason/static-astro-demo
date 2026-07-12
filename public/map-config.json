@@ -1,12 +1,14 @@
-// Replace your existing fetch block in NewMap.astro with this:
 const fetchJson = async (url) => {
-  const res = await fetch(url);
-  const text = await res.text(); // Get raw text first
   try {
-    return JSON.parse(text); // Try to parse
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.warn(`Could not load ${url} - Status: ${res.status}`);
+      return null;
+    }
+    return await res.json();
   } catch (e) {
-    console.warn(`Could not load ${url} - Server returned:`, text.substring(0, 50));
-    return null; // Return null if it's not JSON (like an HTML error page)
+    console.warn(`Could not load ${url} - Error:`, e);
+    return null;
   }
 };
 
