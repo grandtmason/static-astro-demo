@@ -11,14 +11,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install and Build
+      - name: Build
         uses: withastro/action@v2
         with:
           package-manager: npm
 
-      # This is the fix: Ensure the action is pointed at the output directory
       - name: Deploy to Sevalla
-        uses: Sevalla/deploy-action@v1 # Replace with your specific deployment action name
+        uses: Sevalla/deploy-action@v1
         with:
           dist_dir: dist
           token: ${{ secrets.SEVALLA_TOKEN }}
