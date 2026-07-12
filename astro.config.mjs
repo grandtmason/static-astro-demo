@@ -4,7 +4,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   site: 'https://southafricanbotanical.org.za',
-  output: 'hybrid', // This forces dynamic behavior
+  // REMOVE THE OUTPUT LINE ENTIRELY
   adapter: cloudflare({
     mode: 'directory',
   }),
