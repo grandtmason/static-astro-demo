@@ -1,6 +1,5 @@
 {
   "name": "static-astro-demo",
-  "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
@@ -13,18 +12,11 @@
     "astro": "^5.6.0",
     "@astrojs/check": "^0.9.4",
     "@astrojs/sitemap": "^3.0.0",
-    "@astrojs/node": "^9.0.0",
-    "typescript": "^5.8.2",
     "d3-geo": "^3.1.1",
-    "topojson-client": "^3.1.0"
+    "topojson-client": "^3.1.0",
+    "typescript": "^5.8.2"
   },
   "devDependencies": {
     "@types/d3-geo": "^3.0.0"
-  },
-  "overrides": {
-    "yoctocolours": "2.0.0"
-  },
-  "volta": {
-    "node": "22.14.0"
   }
 }
