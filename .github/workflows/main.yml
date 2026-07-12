@@ -1,21 +1,26 @@
-name: Deploy to Cloudflare Pages
+name: Deploy
 on:
   push:
     branches:
       - main
+# ADD THIS BLOCK BELOW
+permissions:
+  contents: read
+  deployments: write
+# --------------------
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install dependencies
+      - name: Install
         run: npm install
-      - name: Build site
+      - name: Build
         run: npm run build
-      - name: Publish to Cloudflare Pages
+      - name: Deploy
         uses: cloudflare/pages-action@1
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ ${{ secrets.CLOUDFLARE_API_TOKEN }} }}
+          accountId: ${{ 7cb5248925a45ca9762bd867099ef098 }}
           projectName: 'southafricanbotanical'
           directory: 'dist'
