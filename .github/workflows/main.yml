@@ -20,7 +20,7 @@ jobs:
       - name: Deploy
         uses: cloudflare/pages-action@1
         with:
-          apiToken: ${{ ${{ secrets.CLOUDFLARE_API_TOKEN }} }}
-          accountId: ${{ 7cb5248925a45ca9762bd867099ef098 }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: 'southafricanbotanical'
           directory: 'dist'
