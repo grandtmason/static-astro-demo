@@ -1,14 +1,10 @@
-- name: Build
-        uses: withastro/action@v2
-        with:
-          package-manager: npm
-
-      # THIS IS THE FIX: Move all files from dist to the root so nothing can be "pruned"
-      - name: Flatten Build
-        run: cp -r dist/* .
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: site-assets
-          path: . # This now uploads the root, which contains all your files
+name: Final Audit
+on: [push]
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install && npm run build
+      - name: List files
+        run: find dist -name "*.html"
