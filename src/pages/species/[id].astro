@@ -1,6 +1,5 @@
 ---
 export const prerender = true;
-// ... your existing imports
 import Layout from '../../layouts/Layout.astro';
 import NewMap from '../../components/NewMap.astro';
 import DataSheet from '../../components/DataSheet.astro';
@@ -41,7 +40,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
           </div>
           <div class="ds-right">
             <DataSheet plant={plant} />
-            <NewMap slug={slug} />
+            <NewMap client:only="browser" slug={slug} />
           </div>
         </div>
       </div>
