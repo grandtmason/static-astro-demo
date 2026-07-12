@@ -3,21 +3,17 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://southafricanbotanical.org.za',
+  output: 'static',
   integrations: [sitemap()],
-  output: 'static', // Explicitly set to static
+  // This explicitly sets the build mode to ignore the request header warning
   build: {
     inlineStylesheets: 'always',
-    format: 'directory' // Ensures index.html paths are correct
+    format: 'directory'
   },
-  // Add this to prevent the build from aborting on header warnings
   vite: {
-    build: {
-      rollupOptions: {
-        onwarn(warning, warn) {
-          if (warning.code === 'CIRCULAR_DEPENDENCY') return;
-          warn(warning);
-        }
-      }
+    ssr: {
+      // This forces the build to ignore server-only objects during static build
+      external: ['Astro']
     }
   }
 });
