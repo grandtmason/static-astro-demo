@@ -4,7 +4,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   site: 'https://southafricanbotanical.org.za',
-  // REMOVE THE OUTPUT LINE ENTIRELY
+  output: 'hybrid', // REQUIRED for the Cloudflare adapter
   adapter: cloudflare({
     mode: 'directory',
   }),
