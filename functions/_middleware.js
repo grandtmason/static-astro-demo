@@ -1,7 +1,8 @@
 export async function onRequest(context) {
   const url = new URL(context.request.url);
 
-  // CRITICAL: If the request is for an asset, let it pass through immediately
+  // Bypass for static assets - if the path starts with these, 
+  // return immediately and don't run any more logic.
   if (
     url.pathname.startsWith('/styles/') || 
     url.pathname.startsWith('/_astro/') || 
@@ -10,10 +11,9 @@ export async function onRequest(context) {
     return context.next();
   }
 
-  // Registry Routing logic: Apply only to the base path
-  const hostname = url.hostname.replace('www.', '');
-  if (hostname === "southafricanbotanical.org.za" && url.pathname === "/") {
-     return context.next("/index.html");
+  // Registry Routing: Only for the root
+  if (url.pathname === "/") {
+     return context.next();
   }
 
   return context.next();
