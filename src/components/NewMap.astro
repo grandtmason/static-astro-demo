@@ -1,23 +1,37 @@
+---
+// Get the slug passed from the page
+const { slug } = Astro.props;
+---
+
+<div id="map-root" data-slug={slug}>
+  <div id="map-container" style="width: 100%; height: 500px; border: 1px solid #eee;">
+    <svg id="map-svg" viewBox="0 0 800 700" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%;"></svg>
+  </div>
+</div>
+
 <script>
   import { feature } from "topojson-client";
   import { geoPath, geoMercator } from "d3-geo";
 
   const initMap = async () => {
     try {
-      const slug = document.getElementById('map-root')?.dataset.slug;
+      const root = document.getElementById('map-root');
+      const svg = document.getElementById('map-svg');
+      if (!root || !svg) return;
+
+      const slug = root.dataset.slug;
       
-      // Attempt to fetch. If these files don't exist yet, we catch the error.
-      const responses = await Promise.all([
-        fetch('/data/za-provinces.topojson').then(res => res.json()),
-        fetch('/data/farms.json').catch(() => []), // Fallback to empty array
-        fetch('/data/map-config.json').catch(() => ({ provinceColors: {}, markerStyles: {} }))
+      // Fetch with error handling to avoid 404s/HTML parsing errors
+      const [topoData, farmData, mapConfig] = await Promise.all([
+        fetch('/data/za-provinces.topojson').then(res => res.ok ? res.json() : null),
+        fetch('/data/farms.json').then(res => res.ok ? res.json() : []),
+        fetch('/data/map-config.json').then(res => res.ok ? res.json() : { provinceColors: {}, markerStyles: {} })
       ]);
 
-      const [topoData, farmData, mapConfig] = responses;
-      const svg = document.getElementById('map-svg');
-      
-      // If topoData is missing, stop here so we don't crash
-      if (!topoData || !topoData.objects) return;
+      if (!topoData || !topoData.objects) {
+        console.warn("TopoJSON data not found or invalid.");
+        return;
+      }
 
       const objectKey = Object.keys(topoData.objects)[0];
       const provinceData = feature(topoData, topoData.objects[objectKey]);
@@ -25,15 +39,17 @@
       const projection = geoMercator().fitSize([800, 700], provinceData as any);
       const pathGenerator = geoPath().projection(projection);
 
-      const provincesHtml = provinceData.features.map(feature => `
+      // Create provinces
+      const provincesHtml = provinceData.features.map((feature: any) => `
         <path
-          d="${pathGenerator(feature as any)}"
+          d="${pathGenerator(feature)}"
           fill="${mapConfig.provinceColors?.[feature.properties.CODE] || "#f4f4f4"}"
           stroke="white"
           stroke-width="0.5"
         />
       `).join('');
 
+      // Create markers
       const filteredFarms = Array.isArray(farmData) ? farmData.filter((f: any) => f.plant === slug) : [];
       const markersHtml = filteredFarms.map((farm: any) => {
         const coords = projection([farm.lng, farm.lat]);
@@ -42,9 +58,9 @@
         return `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="${style.fill}" stroke="${style.stroke}" stroke-width="2" />`;
       }).join('');
 
-      if (svg) svg.innerHTML = provincesHtml + markersHtml;
+      svg.innerHTML = provincesHtml + markersHtml;
     } catch (err) {
-      console.warn("Map data not yet available, rendering empty shell:", err);
+      console.error("Map initialization failed:", err);
     }
   };
 
