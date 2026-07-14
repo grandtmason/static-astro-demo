@@ -1,9 +1,6 @@
 ---
-// Updated to match your exact file names in src/data/
-import topoData from '../data/za-provinces.topojson';
 import farmData from '../data/plant_registry.json';
-// Using common_names.json as your configuration reference
-import mapConfig from '../data/common_names.json'; 
+import mapConfig from '../data/common_names.json';
 
 const { slug } = Astro.props;
 ---
@@ -11,7 +8,6 @@ const { slug } = Astro.props;
 <div 
   id="map-root" 
   data-slug={slug}
-  data-topo={JSON.stringify(topoData)}
   data-farms={JSON.stringify(farmData)}
   data-config={JSON.stringify(mapConfig)}
 >
@@ -24,13 +20,16 @@ const { slug } = Astro.props;
   import { feature } from "topojson-client";
   import { geoPath, geoMercator } from "d3-geo";
 
-  const initMap = () => {
+  const initMap = async () => {
     try {
       const root = document.getElementById('map-root');
       const svg = document.getElementById('map-svg');
-      if (!root || !svg || !root.dataset.topo) return;
+      if (!root || !svg) return;
 
-      const topoData = JSON.parse(root.dataset.topo);
+      // Fetch the TopoJSON separately (the route will work now that this is the only fetch)
+      const topoResponse = await fetch('/data/za-provinces.topojson');
+      const topoData = await topoResponse.json();
+
       const farmData = JSON.parse(root.dataset.farms);
       const mapConfig = JSON.parse(root.dataset.config);
       const slug = root.dataset.slug;
@@ -41,22 +40,16 @@ const { slug } = Astro.props;
       const projection = geoMercator().fitSize([800, 700], provinceData as any);
       const pathGenerator = geoPath().projection(projection);
 
-      // Create provinces
-      const provincesHtml = provinceData.features.map((feature: any) => `
-        <path
-          d="${pathGenerator(feature)}"
-          fill="#f4f4f4"
-          stroke="white"
-          stroke-width="0.5"
-        />
+      // Render...
+      const provincesHtml = provinceData.features.map((f: any) => `
+        <path d="${pathGenerator(f)}" fill="#f4f4f4" stroke="white" stroke-width="0.5" />
       `).join('');
 
-      // Create markers
       const filteredFarms = Array.isArray(farmData) ? farmData.filter((f: any) => f.plant === slug) : [];
       const markersHtml = filteredFarms.map((farm: any) => {
         const coords = projection([farm.lng, farm.lat]);
         if (!coords) return '';
-        return `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="#2ecc71" stroke="#fff" stroke-width="2" />`;
+        return `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="#2ecc71" />`;
       }).join('');
 
       svg.innerHTML = provincesHtml + markersHtml;
