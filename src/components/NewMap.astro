@@ -1,9 +1,9 @@
 ---
-// Import data directly from your src/data folder.
-// Astro will bundle these files during the build process.
+// Updated to match your exact file names in src/data/
 import topoData from '../data/za-provinces.topojson';
 import farmData from '../data/plant_registry.json';
-import mapConfig from '../data/config.json';
+// Using common_names.json as your configuration reference
+import mapConfig from '../data/common_names.json'; 
 
 const { slug } = Astro.props;
 ---
@@ -30,7 +30,6 @@ const { slug } = Astro.props;
       const svg = document.getElementById('map-svg');
       if (!root || !svg || !root.dataset.topo) return;
 
-      // Parse the data passed from the Astro frontmatter
       const topoData = JSON.parse(root.dataset.topo);
       const farmData = JSON.parse(root.dataset.farms);
       const mapConfig = JSON.parse(root.dataset.config);
@@ -46,7 +45,7 @@ const { slug } = Astro.props;
       const provincesHtml = provinceData.features.map((feature: any) => `
         <path
           d="${pathGenerator(feature)}"
-          fill="${mapConfig?.provinceColors?.[feature.properties.CODE] || "#f4f4f4"}"
+          fill="#f4f4f4"
           stroke="white"
           stroke-width="0.5"
         />
@@ -57,8 +56,7 @@ const { slug } = Astro.props;
       const markersHtml = filteredFarms.map((farm: any) => {
         const coords = projection([farm.lng, farm.lat]);
         if (!coords) return '';
-        const style = mapConfig?.markerStyles?.[farm.type] || { fill: "#D3D3D3", stroke: "#000" };
-        return `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="${style.fill}" stroke="${style.stroke}" stroke-width="2" />`;
+        return `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="#2ecc71" stroke="#fff" stroke-width="2" />`;
       }).join('');
 
       svg.innerHTML = provincesHtml + markersHtml;
