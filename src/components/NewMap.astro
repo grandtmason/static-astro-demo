@@ -1,8 +1,20 @@
 ---
+// Import data directly from your src/data folder.
+// Astro will bundle these files during the build process.
+import topoData from '../data/za-provinces.topojson';
+import farmData from '../data/plant_registry.json';
+import mapConfig from '../data/config.json';
+
 const { slug } = Astro.props;
 ---
 
-<div id="map-root" data-slug={slug}>
+<div 
+  id="map-root" 
+  data-slug={slug}
+  data-topo={JSON.stringify(topoData)}
+  data-farms={JSON.stringify(farmData)}
+  data-config={JSON.stringify(mapConfig)}
+>
   <div id="map-container" style="width: 100%; height: 500px; border: 1px solid #eee;">
     <svg id="map-svg" viewBox="0 0 800 700" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%;"></svg>
   </div>
@@ -12,38 +24,17 @@ const { slug } = Astro.props;
   import { feature } from "topojson-client";
   import { geoPath, geoMercator } from "d3-geo";
 
-  const initMap = async () => {
+  const initMap = () => {
     try {
       const root = document.getElementById('map-root');
       const svg = document.getElementById('map-svg');
-      if (!root || !svg) return;
+      if (!root || !svg || !root.dataset.topo) return;
 
+      // Parse the data passed from the Astro frontmatter
+      const topoData = JSON.parse(root.dataset.topo);
+      const farmData = JSON.parse(root.dataset.farms);
+      const mapConfig = JSON.parse(root.dataset.config);
       const slug = root.dataset.slug;
-      
-      // Helper to fetch and validate JSON
-      const safeFetch = async (url: string) => {
-        const response = await fetch(url);
-        if (!response.ok) return null;
-        
-        const contentType = response.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-          console.error(`Fetch error: Expected JSON from ${url} but got ${contentType}`);
-          return null;
-        }
-        return response.json();
-      };
-
-      // FETCH WITH ABSOLUTE PATHS (starts with /)
-      const [topoData, farmData, mapConfig] = await Promise.all([
-        safeFetch('/data/za-provinces.topojson'),
-        safeFetch('/data/farms.json'),
-        safeFetch('/data/map-config.json')
-      ]);
-
-      if (!topoData || !topoData.objects) {
-        console.warn("Map data missing or invalid.");
-        return;
-      }
 
       const objectKey = Object.keys(topoData.objects)[0];
       const provinceData = feature(topoData, topoData.objects[objectKey]);
