@@ -1,7 +1,7 @@
-# Serve static assets directly (CSS, JS, Images)
+# 1. Bypass: Force these paths to be treated as static files
 /styles/* /styles/:splat 200
 /_astro/* /_astro/:splat 200
+/data/* /data/:splat  200
 
-# Route only root and species pages to index.html
-/species/* /species/:splat/index.html 200
-/ /index.html 200
+# 2. Catch-all: Route everything else to the index page for SPA-like behavior
+/* /index.html 200
