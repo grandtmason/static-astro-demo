@@ -1,5 +1,4 @@
 ---
-// Get the slug passed from the page
 const { slug } = Astro.props;
 ---
 
@@ -21,15 +20,28 @@ const { slug } = Astro.props;
 
       const slug = root.dataset.slug;
       
-      // Fetch with error handling to avoid 404s/HTML parsing errors
+      // Helper to fetch and validate JSON
+      const safeFetch = async (url: string) => {
+        const response = await fetch(url);
+        if (!response.ok) return null;
+        
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          console.error(`Fetch error: Expected JSON from ${url} but got ${contentType}`);
+          return null;
+        }
+        return response.json();
+      };
+
+      // FETCH WITH ABSOLUTE PATHS (starts with /)
       const [topoData, farmData, mapConfig] = await Promise.all([
-        fetch('/data/za-provinces.topojson').then(res => res.ok ? res.json() : null),
-        fetch('/data/farms.json').then(res => res.ok ? res.json() : []),
-        fetch('/data/map-config.json').then(res => res.ok ? res.json() : { provinceColors: {}, markerStyles: {} })
+        safeFetch('/data/za-provinces.topojson'),
+        safeFetch('/data/farms.json'),
+        safeFetch('/data/map-config.json')
       ]);
 
       if (!topoData || !topoData.objects) {
-        console.warn("TopoJSON data not found or invalid.");
+        console.warn("Map data missing or invalid.");
         return;
       }
 
@@ -43,7 +55,7 @@ const { slug } = Astro.props;
       const provincesHtml = provinceData.features.map((feature: any) => `
         <path
           d="${pathGenerator(feature)}"
-          fill="${mapConfig.provinceColors?.[feature.properties.CODE] || "#f4f4f4"}"
+          fill="${mapConfig?.provinceColors?.[feature.properties.CODE] || "#f4f4f4"}"
           stroke="white"
           stroke-width="0.5"
         />
@@ -54,7 +66,7 @@ const { slug } = Astro.props;
       const markersHtml = filteredFarms.map((farm: any) => {
         const coords = projection([farm.lng, farm.lat]);
         if (!coords) return '';
-        const style = mapConfig.markerStyles?.[farm.type] || { fill: "#D3D3D3", stroke: "#000" };
+        const style = mapConfig?.markerStyles?.[farm.type] || { fill: "#D3D3D3", stroke: "#000" };
         return `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="${style.fill}" stroke="${style.stroke}" stroke-width="2" />`;
       }).join('');
 
