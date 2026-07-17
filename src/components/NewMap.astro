@@ -39,3 +39,20 @@ const farmData = JSON.parse(fs.readFileSync(farmsPath, 'utf-8'));
       const slug = root.dataset.slug || "";
 
       // Map generation logic...
+      const objectKey = Object.keys(topoData.objects)[0];
+      const provinceData = feature(topoData, topoData.objects[objectKey]);
+      const projection = geoMercator().fitSize([800, 700], provinceData as any);
+      const pathGenerator = geoPath().projection(projection);
+      svg.innerHTML = provinceData.features.map((f: any) => `
+        <path d="${pathGenerator(f)}" fill="#f4f4f4" stroke="white" stroke-width="0.5" />
+      `).join('') + farmData.filter((f: any) => f.plant === slug).map((farm: any) => {
+        const coords = projection([farm.lng, farm.lat]);
+        return coords ? `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="#2ecc71" />` : '';
+      }).join('');
+
+    } catch (err) {
+      console.error("Map initialization failed:", err);
+    }
+  };
+  initMap();
+</script>
