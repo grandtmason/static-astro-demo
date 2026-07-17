@@ -1,6 +1,10 @@
 ---
-interface Props { title: string; schema?: object; }
-const { title, schema } = Astro.props;
+interface Props {
+  title: string;
+  schema?: object;
+  noindex?: boolean;
+}
+const { title, schema, noindex = false } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -8,9 +12,11 @@ const { title, schema } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>{title}</title>
-    
+
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
    <link rel="stylesheet" href="/styles/global.css">
-    
+
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 </head>
 	<body>
