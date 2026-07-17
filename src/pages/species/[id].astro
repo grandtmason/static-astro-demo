@@ -11,11 +11,10 @@ import COMMON_NAMES from '../../data/common_names.json';
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
   return allPlants.map(plant => {
-    // Standardize slug to match [id] segment exactly
-    const slug = plant.id.replace(/\/index$/, '').replace(/\.md$/, '');
+    // Files are flattened: plant.id is now the clean slug (e.g., 'acacia')
     return {
-      params: { id: slug },
-      props: { plant, slug },
+      params: { id: plant.id },
+      props: { plant, slug: plant.id },
     };
   });
 }
