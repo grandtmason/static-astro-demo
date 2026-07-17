@@ -8,15 +8,13 @@
       const svg = document.getElementById('map-svg');
       if (!root || !svg) return;
 
-      // Use window.location.origin to ensure absolute pathing, bypassing router interception
+      // FIX: Force absolute pathing to bypass Astro router interception
       const topoUrl = new URL('/data/za-provinces.topojson', window.location.origin).toString();
       const topoResponse = await fetch(topoUrl, {
         headers: { 'Accept': 'application/json' }
       });
 
-      if (!topoResponse.ok) {
-        throw new Error(`HTTP error! status: ${topoResponse.status}`);
-      }
+      if (!topoResponse.ok) throw new Error(`HTTP error! status: ${topoResponse.status}`);
       
       const topoData = await topoResponse.json();
       const farmData = JSON.parse(root.dataset.farms || '[]');
