@@ -1,18 +1,1 @@
-/* Hard-coded values to remove variable dependency issues */
-html, body { 
-    font-family: 'EB Garamond', Georgia, serif; 
-    background-color: #F9F8F4; 
-    color: #2F2F2F; 
-    margin: 0; 
-    padding: 0; 
-    height: 100%; 
-}
-
-.portal { display: flex !important; flex-direction: column !important; min-height: 100vh !important; }
-.ds-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 40px !important; padding: 40px !important; }
-.tab-panel { display: none !important; }
-.tab-panel.active { display: block !important; }
-.carousel-img { display: none !important; width: 100% !important; border-radius: 8px !important; }
-.carousel-img.active { display: block !important; }
-.top-bar { padding: 20px; font-size: 1.2rem; border-bottom: 1px solid #ccc; }
-.content-wrap { padding: 20px; }
+html, body { margin: 0; padding: 0; height: 100%; }
