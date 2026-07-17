@@ -6,19 +6,24 @@
     try {
       const root = document.getElementById('map-root');
       const svg = document.getElementById('map-svg');
-      if (!root || !svg) return;
-
-      // FIX: Force absolute pathing to bypass Astro router interception
-      const topoUrl = new URL('/data/za-provinces.topojson', window.location.origin).toString();
-      const topoResponse = await fetch(topoUrl, {
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (!topoResponse.ok) throw new Error(`HTTP error! status: ${topoResponse.status}`);
       
+      // Safety check: ensure elements exist and data attributes are populated
+      if (!root || !svg || !root.dataset.farms || !root.dataset.config) {
+        console.warn("Map initialization skipped: Missing data attributes.");
+        return;
+      }
+
+      // Explicit validation before parsing
+      const farmData = JSON.parse(root.dataset.farms);
+      const mapConfig = JSON.parse(root.dataset.config);
+      const slug = root.dataset.slug || "";
+
+      // Fetch TopoJSON with absolute path
+      const topoUrl = new URL('/data/za-provinces.topojson', window.location.origin).toString();
+      const topoResponse = await fetch(topoUrl, { headers: { 'Accept': 'application/json' } });
+      
+      if (!topoResponse.ok) throw new Error(`TopoJSON fetch failed: ${topoResponse.status}`);
       const topoData = await topoResponse.json();
-      const farmData = JSON.parse(root.dataset.farms || '[]');
-      const slug = root.dataset.slug;
 
       const objectKey = Object.keys(topoData.objects)[0];
       const provinceData = feature(topoData, topoData.objects[objectKey]);
