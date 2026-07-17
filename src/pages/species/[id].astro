@@ -11,10 +11,11 @@ import COMMON_NAMES from '../../data/common_names.json';
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
   return allPlants.map(plant => {
-    // Files are flattened: plant.id is now the clean slug (e.g., 'acacia')
+    // FIX: use plant.slug (extension-stripped, e.g. 'acacia'),
+    // not plant.id (raw filename, e.g. 'acacia.md')
     return {
-      params: { id: plant.id },
-      props: { plant, slug: plant.id },
+      params: { id: plant.slug },
+      props: { plant, slug: plant.slug },
     };
   });
 }
@@ -25,7 +26,6 @@ const images = d?.images || [];
 const displayNames = (COMMON_NAMES as any)[slug] ? Object.entries((COMMON_NAMES as any)[slug]) : [];
 const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 ---
-
 <Layout title={`${d?.name || 'Plant'} | SABR Registry`} schema={generatePlantSchema(d)}>
   <div class="portal">
     {d ? (
