@@ -6,24 +6,18 @@
     try {
       const root = document.getElementById('map-root');
       const svg = document.getElementById('map-svg');
-      
-      // Safety check: ensure elements exist and data attributes are populated
-      if (!root || !svg || !root.dataset.farms || !root.dataset.config) {
-        console.warn("Map initialization skipped: Missing data attributes.");
-        return;
-      }
+      if (!root || !svg) return;
 
-      // Explicit validation before parsing
-      const farmData = JSON.parse(root.dataset.farms);
-      const mapConfig = JSON.parse(root.dataset.config);
-      const slug = root.dataset.slug || "";
-
-      // Fetch TopoJSON with absolute path
+      // FIX: Use window.location.origin to force an absolute URL
+      // This bypasses the Astro router interception
       const topoUrl = new URL('/data/za-provinces.topojson', window.location.origin).toString();
-      const topoResponse = await fetch(topoUrl, { headers: { 'Accept': 'application/json' } });
+      const response = await fetch(topoUrl, { headers: { 'Accept': 'application/json' } });
       
-      if (!topoResponse.ok) throw new Error(`TopoJSON fetch failed: ${topoResponse.status}`);
-      const topoData = await topoResponse.json();
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const topoData = await response.json();
+      
+      const farmData = root.dataset.farms ? JSON.parse(root.dataset.farms) : [];
+      const slug = root.dataset.slug || "";
 
       const objectKey = Object.keys(topoData.objects)[0];
       const provinceData = feature(topoData, topoData.objects[objectKey]);
@@ -31,22 +25,17 @@
       const projection = geoMercator().fitSize([800, 700], provinceData as any);
       const pathGenerator = geoPath().projection(projection);
 
-      const provincesHtml = provinceData.features.map((f: any) => `
+      svg.innerHTML = provinceData.features.map((f: any) => `
         <path d="${pathGenerator(f)}" fill="#f4f4f4" stroke="white" stroke-width="0.5" />
-      `).join('');
-
-      const filteredFarms = Array.isArray(farmData) ? farmData.filter((f: any) => f.plant === slug) : [];
-      const markersHtml = filteredFarms.map((farm: any) => {
+      `).join('') + 
+      (Array.isArray(farmData) ? farmData.filter((f: any) => f.plant === slug).map((farm: any) => {
         const coords = projection([farm.lng, farm.lat]);
-        if (!coords) return '';
-        return `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="#2ecc71" />`;
-      }).join('');
+        return coords ? `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="#2ecc71" />` : '';
+      }).join('') : '');
 
-      svg.innerHTML = provincesHtml + markersHtml;
     } catch (err) {
       console.error("Map initialization failed:", err);
     }
   };
-
   initMap();
 </script>
