@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /trade/
+Sitemap: https://southafricanbotanical.org.za/sitemap-index.xml
