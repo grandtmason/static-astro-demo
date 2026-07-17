@@ -11,7 +11,7 @@ import COMMON_NAMES from '../../data/common_names.json';
 export async function getStaticPaths() {
   const allPlants = await getCollection('species');
   return allPlants.map(plant => {
-    // Standardise ID cleaning
+    // Sanitise the ID to create a clean slug
     const slug = plant.id.replace(/\/index$/, '').replace(/\.md$/, '');
     return {
       params: { id: slug },
@@ -28,14 +28,14 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 ---
 
 <Layout title={`${d?.name || 'Plant'} | SABR Registry`} schema={generatePlantSchema(d)}>
-  <div class="portal" style="display: block !important;">
+  <div class="portal">
     {d ? (
-      <div class="content-wrap" style="display: block !important;">
+      <div class="content-wrap">
         <div class="top-bar">
           <a href="/">←</a>
           <span>{d.name}</span>
         </div>
-        <div class="tab-panel active" id={`panel-${slug}`} style="display: block !important;">
+        <div class="tab-panel active" id={`panel-${slug}`}>
           <div class="ds-grid">
             <div class="ds-left">
               {images.map((img: any) => <img src={img.src} alt={d.name} loading="lazy" />)}
