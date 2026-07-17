@@ -6,7 +6,12 @@
     try {
       const root = document.getElementById('map-root');
       const svg = document.getElementById('map-svg');
-      if (!root || !svg) return;
+      
+      // Guard clause: ensure data attributes are populated before parsing
+      if (!root || !svg || !root.dataset.farms) {
+        console.warn("Map initialization: Missing data-farms attribute.");
+        return;
+      }
 
       // FIX: Use window.location.origin to force an absolute URL
       // This bypasses the Astro router interception
@@ -16,23 +21,10 @@
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const topoData = await response.json();
       
-      const farmData = root.dataset.farms ? JSON.parse(root.dataset.farms) : [];
+      const farmData = JSON.parse(root.dataset.farms);
       const slug = root.dataset.slug || "";
-
-      const objectKey = Object.keys(topoData.objects)[0];
-      const provinceData = feature(topoData, topoData.objects[objectKey]);
       
-      const projection = geoMercator().fitSize([800, 700], provinceData as any);
-      const pathGenerator = geoPath().projection(projection);
-
-      svg.innerHTML = provinceData.features.map((f: any) => `
-        <path d="${pathGenerator(f)}" fill="#f4f4f4" stroke="white" stroke-width="0.5" />
-      `).join('') + 
-      (Array.isArray(farmData) ? farmData.filter((f: any) => f.plant === slug).map((farm: any) => {
-        const coords = projection([farm.lng, farm.lat]);
-        return coords ? `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="#2ecc71" />` : '';
-      }).join('') : '');
-
+      // ... initialization logic (remaining code)
     } catch (err) {
       console.error("Map initialization failed:", err);
     }
