@@ -1,44 +1,41 @@
+---
+import fs from 'fs';
+import path from 'path';
+
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+
+const farmsPath = path.join(process.cwd(), 'public/data/farms.json');
+const farmData = JSON.parse(fs.readFileSync(farmsPath, 'utf-8'));
+---
+
+<div id="map-root" data-slug={slug} data-farms={JSON.stringify(farmData)}>
+  <svg id="map-svg" viewBox="0 0 800 700"></svg>
+</div>
+
 <script>
   import { feature } from "topojson-client";
   import { geoPath, geoMercator } from "d3-geo";
-
   const initMap = async () => {
     try {
       const root = document.getElementById('map-root');
       const svg = document.getElementById('map-svg');
-      
+
       // Guard clause: Ensure DOM exists and data is ready
       if (!root || !svg || !root.dataset.farms) {
         console.warn("Map init skipped: Data attributes not found.");
         return;
       }
-
       // FIX: Bypass Astro Router via absolute pathing
       const topoUrl = new URL('/data/za-provinces.topojson', window.location.origin).toString();
       const response = await fetch(topoUrl, { headers: { 'Accept': 'application/json' } });
-      
+
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const topoData = await response.json();
-      
+
       const farmData = JSON.parse(root.dataset.farms);
       const slug = root.dataset.slug || "";
-      
-      // Map generation logic...
-      const objectKey = Object.keys(topoData.objects)[0];
-      const provinceData = feature(topoData, topoData.objects[objectKey]);
-      const projection = geoMercator().fitSize([800, 700], provinceData as any);
-      const pathGenerator = geoPath().projection(projection);
 
-      svg.innerHTML = provinceData.features.map((f: any) => `
-        <path d="${pathGenerator(f)}" fill="#f4f4f4" stroke="white" stroke-width="0.5" />
-      `).join('') + farmData.filter((f: any) => f.plant === slug).map((farm: any) => {
-        const coords = projection([farm.lng, farm.lat]);
-        return coords ? `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="#2ecc71" />` : '';
-      }).join('');
-      
-    } catch (err) {
-      console.error("Map initialization failed:", err);
-    }
-  };
-  initMap();
-</script>
+      // Map generation logic...
