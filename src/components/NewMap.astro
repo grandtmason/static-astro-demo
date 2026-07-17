@@ -8,7 +8,7 @@
       const svg = document.getElementById('map-svg');
       if (!root || !svg) return;
 
-      // FIX: Absolute pathing to prevent router interception
+      // FIX: Use absolute URL to bypass the Astro router and fetch directly from /public
       const topoUrl = new URL('/data/za-provinces.topojson', window.location.origin).toString();
       const topoResponse = await fetch(topoUrl, {
         headers: { 'Accept': 'application/json' }
@@ -20,7 +20,6 @@
       
       const topoData = await topoResponse.json();
       const farmData = JSON.parse(root.dataset.farms || '[]');
-      const mapConfig = JSON.parse(root.dataset.config || '{}');
       const slug = root.dataset.slug;
 
       const objectKey = Object.keys(topoData.objects)[0];
