@@ -1,21 +1,3 @@
----
-import farmData from '../data/plant_registry.json';
-import mapConfig from '../data/common_names.json';
-
-const { slug } = Astro.props;
----
-
-<div 
-  id="map-root" 
-  data-slug={slug}
-  data-farms={JSON.stringify(farmData)}
-  data-config={JSON.stringify(mapConfig)}
->
-  <div id="map-container" style="width: 100%; height: 500px; border: 1px solid #eee;">
-    <svg id="map-svg" viewBox="0 0 800 700" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%;"></svg>
-  </div>
-</div>
-
 <script>
   import { feature } from "topojson-client";
   import { geoPath, geoMercator } from "d3-geo";
@@ -26,12 +8,19 @@ const { slug } = Astro.props;
       const svg = document.getElementById('map-svg');
       if (!root || !svg) return;
 
-      // Fetch the TopoJSON separately (the route will work now that this is the only fetch)
-      const topoResponse = await fetch('/data/za-provinces.topojson');
-      const topoData = await topoResponse.json();
+      // FIX: Absolute pathing to prevent router interception
+      const topoUrl = new URL('/data/za-provinces.topojson', window.location.origin).toString();
+      const topoResponse = await fetch(topoUrl, {
+        headers: { 'Accept': 'application/json' }
+      });
 
-      const farmData = JSON.parse(root.dataset.farms);
-      const mapConfig = JSON.parse(root.dataset.config);
+      if (!topoResponse.ok) {
+        throw new Error(`HTTP error! status: ${topoResponse.status}`);
+      }
+      
+      const topoData = await topoResponse.json();
+      const farmData = JSON.parse(root.dataset.farms || '[]');
+      const mapConfig = JSON.parse(root.dataset.config || '{}');
       const slug = root.dataset.slug;
 
       const objectKey = Object.keys(topoData.objects)[0];
@@ -40,7 +29,6 @@ const { slug } = Astro.props;
       const projection = geoMercator().fitSize([800, 700], provinceData as any);
       const pathGenerator = geoPath().projection(projection);
 
-      // Render...
       const provincesHtml = provinceData.features.map((f: any) => `
         <path d="${pathGenerator(f)}" fill="#f4f4f4" stroke="white" stroke-width="0.5" />
       `).join('');
