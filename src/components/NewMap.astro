@@ -8,7 +8,7 @@
       const svg = document.getElementById('map-svg');
       if (!root || !svg) return;
 
-      // FIX: Use absolute URL to bypass the Astro router and fetch directly from /public
+      // Use window.location.origin to ensure absolute pathing, bypassing router interception
       const topoUrl = new URL('/data/za-provinces.topojson', window.location.origin).toString();
       const topoResponse = await fetch(topoUrl, {
         headers: { 'Accept': 'application/json' }
