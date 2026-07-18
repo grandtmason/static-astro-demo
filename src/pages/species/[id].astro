@@ -189,7 +189,12 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .article-editorial-frame { border: 1px solid; border-radius: 3px; padding: 14px 16px; margin-bottom: 14px; background: rgba(255,255,255,0.4); }
   .article-title { font-family: var(--serif); font-size: 18px; font-weight: 600; font-style: italic; color: var(--ink); line-height: 1.35; margin-bottom: 8px; }
   .article-teaser { font-family: var(--serif); font-size: 14px; font-style: normal; color: var(--muted); line-height: 1.55; margin-bottom: 0; }
-  .article-body-wrap { position: relative; }
+  .article-body-wrap { position: relative; display: none; margin-top: 12px; }
+  .article-body-wrap.expanded { display: block; }
+  .read-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+  .read-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; background: transparent; color: var(--gold); border: 1px solid var(--gold); border-radius: 16px; padding: 5px 16px; cursor: pointer; }
+  .read-btn:hover { background: var(--gold); color: var(--parch); }
+  .read-indicator { font-family: var(--sans); font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); font-style: italic; }
   .article-body { font-family: var(--serif); font-size: 14px; line-height: 1.75; color: var(--ink); white-space: pre-line; }
   .article-body-wrap.gated .article-body { max-height: 90px; overflow: hidden; filter: blur(4px); user-select: none; }
   .gate-overlay {
@@ -574,8 +579,12 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
                     )}
                     <div class="article-title">{article.title}</div>
                     <p class="article-teaser">{article.teaser}</p>
+                    <div class="read-row">
+                      <button class="read-btn" data-article-id={`${slug}-${tab.id}-${i}`}>Read</button>
+                      <span class="read-indicator" data-article-id={`${slug}-${tab.id}-${i}`} style="display:none;">Already read</span>
+                    </div>
                   </div>
-                  <div class={`article-body-wrap${isGated ? ' gated' : ''}`}>
+                  <div class={`article-body-wrap${isGated ? ' gated' : ''}`} data-article-id={`${slug}-${tab.id}-${i}`}>
                     <p class="article-body">{article.body}</p>
                     {isGated && (
                       <div class="gate-overlay">
@@ -695,9 +704,34 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
         closeMobMenu();
         $('content-wrap')?.scrollTo(0, 0);
       });
+    });     
+const READ_KEY = 'sabr_read_articles';
+    function getReadSet() {
+      try { return new Set(JSON.parse(localStorage.getItem(READ_KEY) || '[]')); } catch { return new Set(); }
+    }
+    function markRead(id) {
+      const s = getReadSet();
+      s.add(id);
+      localStorage.setItem(READ_KEY, JSON.stringify([...s]));
+    }
+    const readSet = getReadSet();
+    document.querySelectorAll('.read-btn').forEach(btn => {
+      const id = btn.dataset.articleId;
+      const wrap = document.querySelector(`.article-body-wrap[data-article-id="${id}"]`);
+      const indicator = document.querySelector(`.read-indicator[data-article-id="${id}"]`);
+      if (readSet.has(id) && indicator) indicator.style.display = 'inline';
+      btn.addEventListener('click', () => {
+        const isExpanded = wrap?.classList.toggle('expanded');
+        btn.textContent = isExpanded ? 'Hide' : 'Read';
+        if (isExpanded) {
+          markRead(id);
+          if (indicator) indicator.style.display = 'inline';
+        }
+      });
     });
 
     function goHomeRememberingPlant() {
+
       if (currentSlug) sessionStorage.setItem('sabr_last_plant', currentSlug);
     }
     $('top-bar-back-link')?.addEventListener('click', goHomeRememberingPlant);
