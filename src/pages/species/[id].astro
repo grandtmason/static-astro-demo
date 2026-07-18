@@ -40,9 +40,6 @@ const protection = {
   wild_harvest: v(registryEntry.protection?.wild_harvest, 'Not yet documented.'),
 };
 
-// Pillar content now comes from the scraper's dedicated per-plant feeder files,
-// not from each plant's own .md frontmatter. Files won't exist yet until the
-// scraper is built — that's expected; tabs show "being curated" until then.
 const pillarModules = import.meta.glob('../../data/pillars/*.json', { eager: true });
 const pillarMap: Record<string, any> = {};
 for (const path in pillarModules) {
@@ -74,14 +71,14 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     --serif:   'EB Garamond', Georgia, serif;
     --display: 'Cormorant Garamond', Georgia, serif;
     --sans:    sans-serif;
-    --tab-1: #6A9E82; --tab-1-t: #4a7a63;
-    --tab-2: #2A5A40; --tab-2-t: #2A5A40;
-    --tab-3: #DDD0B0; --tab-3-t: #8a7350;
-    --tab-4: #E8DFC8; --tab-4-t: #8f8360;
-    --tab-5: #C8BA88; --tab-5-t: #7d7150;
-    --tab-6: #D4C598; --tab-6-t: #8a7b4c;
-    --tab-7: #EDE9E0; --tab-7-t: #9c9686;
-    --tab-8: #C2D4CA; --tab-8-t: #5f7d6c;
+    --tab-1: #2A5A40;
+    --tab-2: #6A9E82;
+    --tab-3: #C2D4CA;
+    --tab-4: #E4EDE8;
+    --tab-5: #EDE9E0;
+    --tab-6: #E8DFC8;
+    --tab-7: #DDD0B0;
+    --tab-8: #D4C598;
   }
   body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
   .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
@@ -98,14 +95,14 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .tab-btn:last-child { border-right: none; }
   .tab-btn:hover { color: var(--gold); background: #fff; }
   .tab-btn.active { background: #fff; color: var(--gold); border-bottom: 3px solid var(--gold); }
-  .tabs-row .tab-btn:nth-child(2).active { background: var(--tab-1); color: #000; border-bottom-color: var(--tab-1); }
-  .tabs-row .tab-btn:nth-child(3).active { background: var(--tab-2); color: #000; border-bottom-color: var(--tab-2); }
-  .tabs-row .tab-btn:nth-child(4).active { background: var(--tab-3); color: #000; border-bottom-color: var(--tab-3); }
-  .tabs-row .tab-btn:nth-child(5).active { background: var(--tab-4); color: #000; border-bottom-color: var(--tab-4); }
-  .tabs-row .tab-btn:nth-child(6).active { background: var(--tab-5); color: #000; border-bottom-color: var(--tab-5); }
-  .tabs-row .tab-btn:nth-child(7).active { background: var(--tab-6); color: #000; border-bottom-color: var(--tab-6); }
-  .tabs-row .tab-btn:nth-child(8).active { background: var(--tab-7); color: #000; border-bottom-color: var(--tab-7); }
-  .tabs-row .tab-btn:nth-child(9).active { background: var(--tab-8); color: #000; border-bottom-color: var(--tab-8); }
+  .tabs-row button.tab-btn:nth-child(2).active { background: var(--tab-1) !important; color: #000 !important; border-bottom-color: var(--tab-1) !important; }
+  .tabs-row button.tab-btn:nth-child(3).active { background: var(--tab-2) !important; color: #000 !important; border-bottom-color: var(--tab-2) !important; }
+  .tabs-row button.tab-btn:nth-child(4).active { background: var(--tab-3) !important; color: #000 !important; border-bottom-color: var(--tab-3) !important; }
+  .tabs-row button.tab-btn:nth-child(5).active { background: var(--tab-4) !important; color: #000 !important; border-bottom-color: var(--tab-4) !important; }
+  .tabs-row button.tab-btn:nth-child(6).active { background: var(--tab-5) !important; color: #000 !important; border-bottom-color: var(--tab-5) !important; }
+  .tabs-row button.tab-btn:nth-child(7).active { background: var(--tab-6) !important; color: #000 !important; border-bottom-color: var(--tab-6) !important; }
+  .tabs-row button.tab-btn:nth-child(8).active { background: var(--tab-7) !important; color: #000 !important; border-bottom-color: var(--tab-7) !important; }
+  .tabs-row button.tab-btn:nth-child(9).active { background: var(--tab-8) !important; color: #000 !important; border-bottom-color: var(--tab-8) !important; }
   .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: 70px; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
@@ -119,7 +116,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .photo-credit-lbl { font-family: var(--sans); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 2px; }
   .photo-credit-val { font-family: var(--sans); font-size: 8.5px; color: var(--muted); line-height: 1.4; }
   .carousel-nav { display: flex; align-items: center; justify-content: space-between; padding: 3px 10px; background: var(--parch); border-bottom: 1px solid var(--border); }
-  .c-arrow { background: none; border: none; font-size: 22px; color: var(--gold); padding: 0; cursor: pointer; line-height: 1; }
+  .c-arrow { background: none; border: none; font-size: 22px; font-family: var(--sans); color: var(--gold); padding: 0; cursor: pointer; line-height: 1; }
   .c-arrow:hover { opacity: 0.75; }
   .c-count { font-family: var(--sans); font-size: 9px; color: var(--muted); }
   .names-wrap { padding: 8px; flex: 1; }
@@ -146,7 +143,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .prot-block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; padding: 0 14px; }
   .prot-row { display: flex; align-items: stretch; padding: 4px 0; border-bottom: 1px solid #F5F4F0; }
   .prot-row:last-child { border-bottom: none; }
-  .prot-badge { font-family: var(--sans); font-size: 7.5px; letter-spacing: .8px; text-transform: uppercase; padding: 5px 0; flex-shrink: 0; white-space: nowrap; background: var(--green); color: var(--sage); width: 90px; text-align: center; display: flex; align-items: center; justify-content: center; }
+  .prot-badge { font-family: var(--sans); font-size: 7.5px; letter-spacing: .8px; text-transform: uppercase; padding: 5px 12px 5px 10px; flex-shrink: 0; white-space: nowrap; background: var(--green); color: var(--gold); width: 90px; text-align: center; display: flex; align-items: center; justify-content: center; border-radius: 0 999px 999px 0; }
   .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; padding: 4px 14px; }
   .intro-block { padding: 10px 14px; border-bottom: none; }
   .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
@@ -168,7 +165,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .ds-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .ds-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .ds-sec { border-top: 1px solid var(--border); padding-top: 8px; }
-  .ds-sec-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
+  .ds-sec-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
   .ds-list { padding-left: 14px; }
   .ds-list li { font-family: var(--serif); font-size: 13.5px; line-height: 1.55; color: var(--ink); margin-bottom: 2px; }
   .ds-val { font-family: var(--serif); font-size: 13.5px; line-height: 1.65; color: var(--ink); }
@@ -240,7 +237,8 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       text-transform: uppercase; color: #000; background: var(--item-color, #fff);
       border: none; border-radius: 22px; padding: 11px 14px; cursor: pointer;
     }
-    .mob-menu-special { background: var(--gold); color: #000; font-weight: 700; }
+    .mob-menu-return { background: var(--green); color: var(--gold); font-weight: 700; }
+    .mob-menu-explore-other { background: var(--gold); color: #000; font-weight: 700; }
 
     .top-bar-back { display: none; }
 
@@ -259,6 +257,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       padding: 0 20px;
       color: var(--gold);
       font-size: 22px;
+      font-family: var(--sans);
       text-decoration: none;
       flex-shrink: 0;
     }
@@ -309,11 +308,11 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       </div>
       <div class="mob-menu-backdrop" id="mob-menu-overlay"></div>
       <div class="mob-menu-panel" id="mob-menu-panel">
-        <button class="mob-menu-item mob-menu-special" id="mob-return-datasheet">Return to Data Sheet</button>
+        <button class="mob-menu-item mob-menu-return" id="mob-return-datasheet">Return to Data Sheet</button>
         {TABS.filter(t => t.id !== 'datasheet').map((tab, i) => (
           <button class="mob-menu-item" data-id={tab.id} style={`--item-color: var(--tab-${i+1})`}>{tab.label}</button>
         ))}
-        <button class="mob-menu-item mob-menu-special" id="mob-explore-other">Explore Other Plants</button>
+        <button class="mob-menu-item mob-menu-explore-other" id="mob-explore-other">Explore Other Plants</button>
       </div>
     </div>
   </div>
@@ -537,10 +536,28 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     const panels = document.querySelectorAll('.tab-panel');
     const currentSlug = document.querySelector('.portal')?.dataset.slug || '';
 
+    const TAB_COLORS = {
+      datasheet: { bg: 'transparent', color: 'var(--sage)' },
+      wellness: { bg: 'var(--tab-1)', color: '#000' },
+      innovation: { bg: 'var(--tab-2)', color: '#000' },
+      ik: { bg: 'var(--tab-3)', color: '#000' },
+      people: { bg: 'var(--tab-4)', color: '#000' },
+      agronomy: { bg: 'var(--tab-5)', color: '#000' },
+      legislation: { bg: 'var(--tab-6)', color: '#000' },
+      projects: { bg: 'var(--tab-7)', color: '#000' },
+      intelligence: { bg: 'var(--tab-8)', color: '#000' },
+    };
+    const mobExplore = $('mob-explore-btn');
+    function setMobExploreColor(id) {
+      const c = TAB_COLORS[id] || TAB_COLORS.datasheet;
+      if (mobExplore) { mobExplore.style.background = c.bg; mobExplore.style.color = c.color; }
+    }
+
     tabs.forEach(t => t.addEventListener('click', () => {
       const id = t.dataset.id;
       tabs.forEach(x => { const on = x.dataset.id === id; x.classList.toggle('active', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
       panels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
+      setMobExploreColor(id);
       $('content-wrap')?.scrollTo(0, 0);
     }));
 
@@ -570,7 +587,6 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       });
     });
 
-    // Mobile "Explore" menu
     const mobBtn = $('mob-explore-btn');
     const mobOverlay = $('mob-menu-overlay');
     const mobPanel = $('mob-menu-panel');
@@ -582,6 +598,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     $('mob-return-datasheet')?.addEventListener('click', () => {
       tabs.forEach(x => { const on = x.dataset.id === 'datasheet'; x.classList.toggle('active', on); });
       panels.forEach(p => p.classList.toggle('active', p.id === 'panel-datasheet'));
+      setMobExploreColor('datasheet');
       closeMobMenu();
       $('content-wrap')?.scrollTo(0, 0);
     });
@@ -591,12 +608,12 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
         const id = btn.dataset.id;
         tabs.forEach(x => x.classList.toggle('active', x.dataset.id === id));
         panels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
+        setMobExploreColor(id);
         closeMobMenu();
         $('content-wrap')?.scrollTo(0, 0);
       });
     });
 
-    // Remember which plant we're on whenever the user leaves this page
     function goHomeRememberingPlant() {
       if (currentSlug) sessionStorage.setItem('sabr_last_plant', currentSlug);
     }
