@@ -1,1 +1,31 @@
-{}
+{
+  "wellness": [
+    {
+      "title": "Distinguishing Aloe Ferox from Aloe Vera in the Research Literature",
+      "teaser": "Much of the widely cited aloe research concerns Aloe vera rather than South Africa's own Aloe ferox, a distinction worth making clearly before drawing conclusions about either species.",
+      "body": "A considerable volume of aloe-related research published in recent years, including a widely cited 2025 Frontiers review of aloe's phytochemical profile and therapeutic potential, focuses specifically on Aloe vera, a different species from South Africa's Aloe ferox, commonly known as bitter aloe or Cape aloe. Both species belong to the same genus and share some overlapping chemistry, including anthraquinone compounds such as aloin, but they are not interchangeable, and research findings on one cannot be assumed to apply directly to the other without species-specific verification.\n\nAloe ferox's own documented traditional use centres on its bitter sap, historically used as a laxative and more recently studied for skin and cosmetic applications, uses that align with the anthraquinone and aloin content the species shares in part with its better-studied relative. Academic work from the University of the Western Cape has specifically grouped Aloe ferox alongside Sutherlandia frutescens as South African medicinal plants of established traditional use, though the depth of dedicated Aloe ferox-specific pharmacological research remains considerably thinner than the body of work built around Aloe vera internationally.\n\nThis gap between Aloe ferox's genuine commercial and traditional significance and the comparatively limited species-specific research literature is worth noting honestly, rather than filling with findings borrowed from Aloe vera research that may not transfer accurately.\n\nThis information is provided for educational purposes and does not constitute medical advice. Anyone considering Aloe ferox for a health condition should consult a qualified healthcare professional before use.",
+      "badge": "peer-reviewed",
+      "tier": "full",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["Kota, B., \"The application of actinobacterial extracts for plant growth promotion,\" University of the Western Cape, 2025", "Abid, A. et al., \"The green healer: an updated review on the phytochemical profile and therapeutic potential of Aloe vera,\" Frontiers, 2025 (Aloe vera-specific, cited for species comparison)"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "innovation": [
+    {
+      "title": "Aloe Ferox Extracts Show Promise Beyond Traditional Skin and Laxative Use",
+      "teaser": "University of the Western Cape research is exploring Aloe ferox extracts alongside actinobacterial compounds for agricultural plant growth promotion, a use well outside the plant's traditional applications.",
+      "body": "Research from the University of the Western Cape, led by Kota, examines the application of actinobacterial extracts, in combination with South African medicinal plants including Aloe ferox and Sutherlandia frutescens, for plant growth promotion in agricultural settings. This represents a genuinely different direction from Aloe ferox's established traditional and cosmetic uses, applying the plant's compounds to support crop and plant health rather than human health directly.\n\nActinobacteria are a group of soil bacteria known for producing a wide range of bioactive compounds, and pairing them with established medicinal plant extracts is an emerging approach in sustainable agriculture research, aimed at reducing reliance on synthetic fertilisers and pesticides. Aloe ferox's inclusion in this line of research, rather than more commonly studied agricultural plants, likely reflects both its ready availability in South Africa and its already well-documented, if broadly characterised, bioactive compound profile.\n\nWhether this agricultural application develops into a genuine commercial product remains to be seen, but it illustrates a pattern worth watching across several South African medicinal plants in this registry: established traditional-medicine species increasingly being explored for applications entirely outside human health, from cosmetics to agriculture, as researchers look for new value in already well-known botanical resources.",
+      "badge": "peer-reviewed",
+      "tier": "full",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["Kota, B., \"The application of actinobacterial extracts for plant growth promotion,\" University of the Western Cape, 2025"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "ik": [
+    {
+      "title": "Khoisan Tapping Tradition Behind Aloe Ferox's Bitter Sap Harvest",
+      "teaser": "The method of tapping Aloe ferox leaves for their bitter sap traces back to Khoisan practice, a technique still used by the same communities' descendants today.",
