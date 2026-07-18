@@ -679,7 +679,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       $(`form-${type}`)?.addEventListener('submit', async e => {
         e.preventDefault();
         const form = e.target;
-        try { await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } }); } catch {}
+        try { await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } }); } catch (err) {}
         form.style.display = 'none';
         $(`thanks-${type}`).style.display = 'block';
       });
@@ -701,53 +701,30 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       $('content-wrap')?.scrollTo(0, 0);
     });
 
-    document.querySelectorAll('.mob-menu-item[data-id]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const isExpanded = wrap?.classList.toggle('expanded');
-        btn.textContent = isExpanded ? 'Hide' : 'Read';
-        const isGated = wrap?.classList.contains('gated');
-        const isUnlocked = document.body.classList.contains('community-member');
-        if (isExpanded && (!isGated || isUnlocked)) {
-          markRead(id);
-          if (indicator) indicator.style.display = 'inline';
-        }
-      });     
-const READ_KEY = 'sabr_read_articles';
+    document.querySelectorAll('.mob-menu-item[data-id]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const id = btn.dataset.id;
+        const idx = tabsArr.findIndex(x => x.dataset.id === id);
+        tabsArr.forEach(x => x.classList.toggle('active', x.dataset.id === id));
+        panels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
+        if (idx >= 0) applyTabColorByIndex(idx);
+        closeMobMenu();
+        $('content-wrap')?.scrollTo(0, 0);
+      });
+    });
+
+    const READ_KEY = 'sabr_read_articles';
     function getReadSet() {
-      try { return new Set(JSON.parse(localStorage.getItem(READ_KEY) || '[]')); } catch { return new Set(); }
+      try { return new Set(JSON.parse(localStorage.getItem(READ_KEY) || '[]')); } catch (err) { return new Set(); }
     }
     function markRead(id) {
       const s = getReadSet();
       s.add(id);
-      localStorage.setItem(READ_KEY, JSON.stringify([...s]));
+      localStorage.setItem(READ_KEY, JSON.stringify(Array.from(s)));
     }
     const readSet = getReadSet();
-    document.querySelectorAll('.read-btn').forEach(btn => {
+    document.querySelectorAll('.read-btn').forEach(function (btn) {
       const id = btn.dataset.articleId;
-      const wrap = document.querySelector(`.article-body-wrap[data-article-id="${id}"]`);
-      const indicator = document.querySelector(`.read-indicator[data-article-id="${id}"]`);
-      if (readSet.has(id) && indicator) indicator.style.display = 'inline';
-      btn.addEventListener('click', () => {
-        const isExpanded = wrap?.classList.toggle('expanded');
-        btn.textContent = isExpanded ? 'Hide' : 'Read';
-        if (isExpanded) {
-          markRead(id);
-          if (indicator) indicator.style.display = 'inline';
-        }
-      });
-    });
-
-    function goHomeRememberingPlant() {
-
-      if (currentSlug) sessionStorage.setItem('sabr_last_plant', currentSlug);
-    }
-    $('top-bar-back-link')?.addEventListener('click', goHomeRememberingPlant);
-    $('top-bar-title-link')?.addEventListener('click', goHomeRememberingPlant);
-    $('mob-nav-back-link')?.addEventListener('click', goHomeRememberingPlant);
-    $('mob-explore-other')?.addEventListener('click', () => {
-      goHomeRememberingPlant();
-      window.location.href = '/';
-    });
-  })();
-</script>
+      const wrap = document.querySelector('.article-body-wrap[data-article-id="' + id + '"]');
+      const indicator =
 </Layout>
