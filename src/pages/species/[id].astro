@@ -154,14 +154,15 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .key-dot-org { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; border: 1px solid #fff; display: flex; align-items: center; justify-content: center; }
   .key-dot-inner { width: 3px; height: 3px; background: var(--green); border-radius: 50%; }
   .ds-lower { padding: 14px 16px; }
-  .ds-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-  .ds-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-  .ds-sec { border-top: 1px solid var(--border); padding-top: 8px; }
+  .ds-unified-card { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 16px 18px; }
+  .ds-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+  .ds-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .ds-sec { border-top: none; padding-top: 0; }
   .ds-sec-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
   .ds-list { padding-left: 14px; }
   .ds-list li { font-family: var(--serif); font-size: 13.5px; line-height: 1.55; color: var(--ink); margin-bottom: 2px; }
   .ds-val { font-family: var(--serif); font-size: 13.5px; line-height: 1.65; color: var(--ink); }
-  .ik-block { background: var(--parch); border: 1px solid var(--border); padding: 13px 16px; margin-bottom: 14px; }
+  .ik-block { background: var(--parch); border: 1px solid var(--border); padding: 13px 16px; margin-top: 14px !important; }
   .ik-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
   .ik-val { font-family: var(--serif); font-size: 14px; line-height: 1.8; color: var(--ink); font-style: normal; }
   .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px; }
@@ -170,6 +171,21 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .c-tag   { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
   .c-hl    { font-size: 15px; color: var(--ink); line-height: 1.45; margin-bottom: 6px; font-style: italic; }
   .c-tsr   { font-family: var(--sans); font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+  .article-card { grid-column: 1 / -1; }
+  .article-title { font-family: var(--serif); font-size: 18px; font-weight: 600; color: var(--ink); line-height: 1.35; margin-bottom: 8px; }
+  .article-teaser { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+  .article-body-wrap { position: relative; }
+  .article-body { font-family: var(--serif); font-size: 14px; line-height: 1.75; color: var(--ink); white-space: pre-line; }
+  .article-body-wrap.gated .article-body { max-height: 90px; overflow: hidden; filter: blur(4px); user-select: none; }
+  .gate-overlay {
+    position: absolute; inset: 0; top: -20px;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    padding-bottom: 14px;
+    background: linear-gradient(to bottom, rgba(249,248,244,0) 0%, rgba(249,248,244,0.92) 45%, var(--parch) 75%);
+  }
+  .gate-text { font-family: var(--sans); font-size: 11px; letter-spacing: 0.8px; color: var(--gold); text-align: center; margin-bottom: 10px; padding: 0 20px; }
+  .gate-btn { font-family: var(--sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; background: var(--parch); color: var(--gold); border: 1px solid var(--gold); border-radius: 22px; padding: 10px 24px; cursor: pointer; }
+  .gate-btn:hover { background: var(--gold); color: var(--parch); }
   .site-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green); border-top: 2px solid var(--gold); display: flex; align-items: stretch; z-index: 500; }
   .ft-label { font-family: var(--sans); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--sage); padding: 12px 20px; display: flex; align-items: center; border-right: 1px solid rgba(184,134,11,.3); white-space: nowrap; }
   .ft-btns { display: flex; flex: 1; }
@@ -442,6 +458,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       </div>
 
       <div class="ds-lower">
+        <div class="ds-unified-card">
         {!!(d.medicinal_properties?.active_compounds?.length || d.medicinal_properties?.traditional_uses?.length || d.medicinal_properties?.clinically_validated?.length) && (
           <div class="ds-row3">
             {!!d.medicinal_properties?.active_compounds?.length && (
@@ -489,30 +506,46 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
             <p class="ik-val">{d.indigenous_knowledge}</p>
           </div>
         )}
+        </div>
       </div>
     </div>
 
-    {TABS.filter(t => t.id !== 'datasheet').map(tab => (
-      <div class="tab-panel" id={`panel-${tab.id}`}>
-        <div class="cards-grid">
-          {pillarEntry[tab.id] ? (
-            <div class="card">
-              <div class="c-tag">{tab.label}</div>
-              <div class="c-hl">{pillarEntry[tab.id].text}</div>
-              {pillarEntry[tab.id].updated_at && (
-                <div class="c-tsr">Updated {pillarEntry[tab.id].updated_at}</div>
-              )}
-            </div>
-          ) : (
-            <div class="card">
-              <div class="c-tag">{tab.label}</div>
-              <div class="c-hl">Content for {d.name} is being curated.</div>
-              <div class="c-tsr">Check back soon for updates.</div>
-            </div>
-          )}
+    {TABS.filter(t => t.id !== 'datasheet').map(tab => {
+      const gatedTabs = ['legislation', 'intelligence', 'projects', 'wellness', 'innovation'];
+      const isGated = gatedTabs.includes(tab.id);
+      const article = pillarEntry[tab.id];
+      return (
+        <div class="tab-panel" id={`panel-${tab.id}`}>
+          <div class="cards-grid">
+            {article ? (
+              <div class="card article-card">
+                <div class="c-tag">{tab.label}</div>
+                <div class="article-title">{article.title}</div>
+                <p class="article-teaser">{article.teaser}</p>
+                <div class={`article-body-wrap${isGated ? ' gated' : ''}`}>
+                  <p class="article-body">{article.body}</p>
+                  {isGated && (
+                    <div class="gate-overlay">
+                      <p class="gate-text">Join the Registry community to read the full {tab.label} update</p>
+                      <button class="gate-btn" data-gate-category={tab.id}>Join Free</button>
+                    </div>
+                  )}
+                </div>
+                {article.updated_at && (
+                  <div class="c-tsr">Updated {article.updated_at}</div>
+                )}
+              </div>
+            ) : (
+              <div class="card">
+                <div class="c-tag">{tab.label}</div>
+                <div class="c-hl">Content for {d.name} is being curated.</div>
+                <div class="c-tsr">Check back soon for updates.</div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    ))}
+      );
+    })}
   </div>
 
   <footer class="site-footer">
