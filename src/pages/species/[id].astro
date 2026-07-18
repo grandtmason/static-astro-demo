@@ -1,4 +1,5 @@
 ---
+import PLANT_REGISTRY from '../../data/plant_registry.json';
 import Layout from '../../layouts/Layout.astro';
 import NewMap from '../../components/NewMap.astro';
 import BuyerModal from '../../components/modals/BuyerModal.astro';
@@ -18,15 +19,25 @@ export async function getStaticPaths() {
 
 const { plant, slug } = Astro.props;
 const d = plant.data;
+const v = (field: any, fallback = '—') => field?.value ?? field ?? fallback;
 
 const images = d?.images || [];
 const displayNames = (COMMON_NAMES as any)[slug] ? Object.entries((COMMON_NAMES as any)[slug]) : [];
 
-const stats = d?.stats ?? { production: '—', revenue: '—', markets: '—', livelihoods: '—' };
-const protection = d?.protection ?? {
-  gi_year: '—', gi_status: 'Not yet documented.',
-  bsa_year: '—', bsa_status: 'Not yet documented.',
-  organic: 'Not yet documented.', wild_harvest: 'Not yet documented.',
+const registryEntry = (PLANT_REGISTRY as any)[slug] ?? {};
+const stats = {
+  production: v(registryEntry.stats?.production),
+  revenue: v(registryEntry.stats?.revenue),
+  markets: v(registryEntry.stats?.markets),
+  livelihoods: v(registryEntry.stats?.livelihoods),
+};
+const protection = {
+  gi_year: v(registryEntry.protection?.gi_year),
+  gi_status: v(registryEntry.protection?.gi_status, 'Not yet documented.'),
+  bsa_year: v(registryEntry.protection?.bsa_year),
+  bsa_status: v(registryEntry.protection?.bsa_status, 'Not yet documented.'),
+  organic: v(registryEntry.protection?.organic, 'Not yet documented.'),
+  wild_harvest: v(registryEntry.protection?.wild_harvest, 'Not yet documented.'),
 };
 const pillars = d?.pillar_data ?? {};
 
@@ -245,7 +256,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 
           <div class="native-block">
             <div class="block-lbl">Native Region</div>
-            <div class="native-val">{d.native_region ?? '—'}</div>
+            <div class="native-val">{v(registryEntry.native_region)}</div>
           </div>
 
           <div class="stats-map-row">
