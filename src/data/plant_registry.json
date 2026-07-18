@@ -101,9 +101,7 @@
       "organic": { "value": "No certified organic production. Wild harvest only.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
       "wild_harvest": { "value": "Predominantly wild-harvested; wild stock severely depleted. Cultivation takes 3–5 years to maturity.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
     }
-  }
-}
-{
+  },
   "aloe-ferox": {
     "council_id": "IK-K-005",
     "native_region": {
@@ -217,9 +215,7 @@
       "organic": { "value": "Certified organic production available from Limpopo producers.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
       "wild_harvest": { "value": "Entirely wild-harvested in South Africa. Venda communities hold traditional harvesting rights; sustainable at current scale.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
     }
-  }
-}
-{
+  },
   "buchu": {
     "council_id": "IK-K-009",
     "native_region": {
@@ -327,9 +323,7 @@
       "organic": { "value": "Certified organic wild harvest available from Northern Cape.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
       "wild_harvest": { "value": "Entirely wild-harvested. Secondary tubers regenerate if harvested correctly but takes 3–5 years.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
     }
-  }
-}
-{
+  },
   "honeybush": {
     "council_id": "IK-H-013",
     "native_region": {
@@ -447,9 +441,7 @@
       "organic": { "value": "Certified organic oil available from community-based processors in Limpopo.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
       "wild_harvest": { "value": "Predominantly wild-harvested fruit. Venda communities hold traditional harvesting rights; sustainable at current scale.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
     }
-  }
-}
-{
+  },
   "mphepho": {
     "council_id": "IK-Z-017",
     "native_region": {
@@ -575,9 +567,7 @@
       "organic": { "value": "35% of total production certified organic — the highest proportion of any South African botanical export crop.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
       "wild_harvest": { "value": "Fully cultivated — no wild harvest. Commercial production entirely from planted farms in the Cederberg GI zone.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
     }
-  }
-}
-{
+  },
   "sutherlandia": {
     "council_id": "IK-K-021",
     "native_region": {
