@@ -74,31 +74,38 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     --serif:   'EB Garamond', Georgia, serif;
     --display: 'Cormorant Garamond', Georgia, serif;
     --sans:    sans-serif;
-    --tab-1: #2A5A40; --tab-2: #6A9E82; --tab-3: #8a7a4a; --tab-4: #8a7a4a;
-    --tab-5: #7a6a3a; --tab-6: #8a7a4a; --tab-7: #9a9078; --tab-8: #6a8a76;
+    --tab-1: #6A9E82; --tab-1-t: #4a7a63;
+    --tab-2: #2A5A40; --tab-2-t: #2A5A40;
+    --tab-3: #DDD0B0; --tab-3-t: #8a7350;
+    --tab-4: #E8DFC8; --tab-4-t: #8f8360;
+    --tab-5: #C8BA88; --tab-5-t: #7d7150;
+    --tab-6: #D4C598; --tab-6-t: #8a7b4c;
+    --tab-7: #EDE9E0; --tab-7-t: #9c9686;
+    --tab-8: #C2D4CA; --tab-8-t: #5f7d6c;
   }
   body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
   .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+  .sticky-header { position: sticky; top: 0; z-index: 50; background: var(--parch); flex-shrink: 0; }
   .top-bar { background: var(--green); border-bottom: 2px solid var(--gold); padding: 9px 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; }
   .top-bar-back { color: var(--gold); font-family: var(--sans); font-size: 24px; text-decoration: none; line-height: 1; position: absolute; left: 28px; }
   .top-bar-title { font-family: var(--sans); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); text-decoration: none; }
   .plant-band { background: var(--parch); display: flex; flex-direction: column; align-items: center; padding: 12px 20px 0; flex-shrink: 0; }
-  .plant-name { font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: 4px; }
-  .plant-sci { font-family: var(--sans); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0; }
+  .plant-name { font-family: var(--sans); font-size: clamp(1.3rem, 2.6vw, 1.9rem); font-weight: 600; font-style: normal; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); line-height: 1.15; margin-bottom: 6px; }
+  .plant-sci { font-family: var(--sans); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; font-style: italic; color: var(--muted); margin-bottom: 10px; }
   .plant-updated { font-family: var(--sans); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--sage); margin-top: 4px; }
   .tabs-row { display: flex; width: 100%; margin-top: 10px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
   .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; background: var(--parch); color: var(--ink); border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .1s, background .1s; text-align: center; }
   .tab-btn:last-child { border-right: none; }
   .tab-btn:hover { color: var(--gold); background: #fff; }
   .tab-btn.active { background: #fff; color: var(--gold); border-bottom: 3px solid var(--gold); }
-  .tab-btn:nth-child(2).active { color: var(--tab-1); border-bottom-color: var(--tab-1); }
-  .tab-btn:nth-child(3).active { color: var(--tab-2); border-bottom-color: var(--tab-2); }
-  .tab-btn:nth-child(4).active { color: var(--tab-3); border-bottom-color: var(--tab-3); }
-  .tab-btn:nth-child(5).active { color: var(--tab-4); border-bottom-color: var(--tab-4); }
-  .tab-btn:nth-child(6).active { color: var(--tab-5); border-bottom-color: var(--tab-5); }
-  .tab-btn:nth-child(7).active { color: var(--tab-6); border-bottom-color: var(--tab-6); }
-  .tab-btn:nth-child(8).active { color: var(--tab-7); border-bottom-color: var(--tab-7); }
-  .tab-btn:nth-child(9).active { color: var(--tab-8); border-bottom-color: var(--tab-8); }
+  .tabs-row .tab-btn:nth-child(2).active { color: var(--tab-1-t); border-bottom-color: var(--tab-1); }
+  .tabs-row .tab-btn:nth-child(3).active { color: var(--tab-2-t); border-bottom-color: var(--tab-2); }
+  .tabs-row .tab-btn:nth-child(4).active { color: var(--tab-3-t); border-bottom-color: var(--tab-3); }
+  .tabs-row .tab-btn:nth-child(5).active { color: var(--tab-4-t); border-bottom-color: var(--tab-4); }
+  .tabs-row .tab-btn:nth-child(6).active { color: var(--tab-5-t); border-bottom-color: var(--tab-5); }
+  .tabs-row .tab-btn:nth-child(7).active { color: var(--tab-6-t); border-bottom-color: var(--tab-6); }
+  .tabs-row .tab-btn:nth-child(8).active { color: var(--tab-7-t); border-bottom-color: var(--tab-7); }
+  .tabs-row .tab-btn:nth-child(9).active { color: var(--tab-8-t); border-bottom-color: var(--tab-8); }
   .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: 70px; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
@@ -112,8 +119,8 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .photo-credit-lbl { font-family: var(--sans); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 2px; }
   .photo-credit-val { font-family: var(--sans); font-size: 8.5px; color: var(--muted); line-height: 1.4; }
   .carousel-nav { display: flex; align-items: center; justify-content: space-between; padding: 3px 10px; background: var(--parch); border-bottom: 1px solid var(--border); }
-  .c-arrow { background: none; border: none; font-size: 12px; color: var(--muted); padding: 0; cursor: pointer; line-height: 1; }
-  .c-arrow:hover { color: var(--gold); }
+  .c-arrow { background: none; border: none; font-size: 22px; color: var(--gold); padding: 0; cursor: pointer; line-height: 1; }
+  .c-arrow:hover { opacity: 0.75; }
   .c-count { font-family: var(--sans); font-size: 9px; color: var(--muted); }
   .names-wrap { padding: 8px; flex: 1; }
   .names-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); padding-bottom: 4px; border-bottom: 1px solid var(--border); margin-bottom: 1px; }
@@ -202,7 +209,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     .content-wrap { overflow: visible; padding-bottom: 0; }
     .ds-grid { grid-template-columns: 1fr; }
     .ds-left { border-right: none; border-bottom: 1px solid var(--border); }
-    .carousel-wrap { width: 100%; aspect-ratio: 1 / 1; height: auto; }
+    .carousel-wrap { width: auto; aspect-ratio: 1 / 1; height: auto; margin: 8px; }
     .ds-row3 { grid-template-columns: 1fr; }
     .ds-row2 { grid-template-columns: 1fr; }
     .cards-grid { grid-template-columns: 1fr; }
@@ -215,21 +222,24 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     .ft-label { border-right: none; border-bottom: 1px solid rgba(184,134,11,.3); justify-content: center; }
     .ft-btns { flex-direction: row; }
 
+    .plant-band { padding-bottom: 4px; }
+
     .mob-menu-overlay {
       display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 300;
     }
     .mob-menu-overlay.open { display: flex; justify-content: flex-end; }
     .mob-menu-panel {
       background: var(--parch); width: 220px; max-width: 80vw; height: 100%;
-      display: flex; flex-direction: column; padding-top: 12px; box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+      display: flex; flex-direction: column; align-items: flex-start; padding-top: 16px; box-shadow: -4px 0 16px rgba(0,0,0,0.15);
       overflow-y: auto;
     }
     .mob-menu-item {
-      width: 100%; text-align: left; font-family: var(--sans); font-size: 12px; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--item-color, var(--ink)); background: none; border: none;
-      border-bottom: 1px solid var(--border); padding: 14px 18px; cursor: pointer; flex-shrink: 0;
+      width: auto; text-align: center; font-family: var(--sans); font-size: 11px; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--item-color, var(--ink)); background: #fff;
+      border: 1px solid var(--item-color, var(--border)); border-radius: 22px;
+      padding: 10px 16px; margin: 0 14px 8px; cursor: pointer; flex-shrink: 0;
     }
-    .mob-menu-special { color: var(--gold); font-weight: 600; }
+    .mob-menu-special { color: var(--gold); font-weight: 600; background: var(--green); border-color: var(--gold); }
 
     .top-bar-back { display: none; }
 
@@ -272,27 +282,29 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 </style>
 
 <div class="portal" data-slug={slug}>
-  <div class="top-bar">
-    <a href="/" class="top-bar-back" aria-label="Back to Registry">←</a>
-    <a href="/" class="top-bar-title">South African Botanical Registry</a>
-  </div>
-
-  <div class="plant-band">
-    <h1 class="plant-name">{d.name}</h1>
-    <p class="plant-sci">{d.scientific_name}</p>
-    {lastUpdated && <p class="plant-updated">Last updated {lastUpdated}</p>}
-    <div class="tabs-row" role="tablist">
-      {TABS.map(tab => (
-        <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
-          {tab.label}
-        </button>
-      ))}
+  <div class="sticky-header">
+    <div class="top-bar">
+      <a href="/" class="top-bar-back" id="top-bar-back-link" aria-label="Back to Registry">←</a>
+      <a href="/" class="top-bar-title" id="top-bar-title-link">South African Botanical Registry</a>
     </div>
-  </div>
 
-  <div class="mob-nav-band">
-    <a href="/" class="mob-nav-back" aria-label="Back to Registry">←</a>
-    <button class="mob-nav-explore" id="mob-explore-btn">Explore</button>
+    <div class="plant-band">
+      <h1 class="plant-name">{d.name}</h1>
+      <p class="plant-sci">{d.scientific_name}</p>
+      {lastUpdated && <p class="plant-updated">Last updated {lastUpdated}</p>}
+      <div class="tabs-row" role="tablist">
+        {TABS.map(tab => (
+          <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="mob-nav-band">
+      <a href="/" class="mob-nav-back" id="mob-nav-back-link" aria-label="Back to Registry">←</a>
+      <button class="mob-nav-explore" id="mob-explore-btn">Explore</button>
+    </div>
   </div>
 
   <div class="mob-menu-overlay" id="mob-menu-overlay">
@@ -432,21 +444,21 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       </div>
 
       <div class="ds-lower">
-        {(d.medicinal_properties?.active_compounds?.length || d.medicinal_properties?.traditional_uses?.length || d.medicinal_properties?.clinically_validated?.length) && (
+        {!!(d.medicinal_properties?.active_compounds?.length || d.medicinal_properties?.traditional_uses?.length || d.medicinal_properties?.clinically_validated?.length) && (
           <div class="ds-row3">
-            {d.medicinal_properties?.active_compounds?.length && (
+            {!!d.medicinal_properties?.active_compounds?.length && (
               <div class="ds-sec">
                 <div class="ds-sec-lbl">Active Compounds</div>
                 <ul class="ds-list">{d.medicinal_properties.active_compounds.map((c: string) => <li>{c}</li>)}</ul>
               </div>
             )}
-            {d.medicinal_properties?.traditional_uses?.length && (
+            {!!d.medicinal_properties?.traditional_uses?.length && (
               <div class="ds-sec">
                 <div class="ds-sec-lbl">Traditional Uses</div>
                 <ul class="ds-list">{d.medicinal_properties.traditional_uses.map((u: string) => <li>{u}</li>)}</ul>
               </div>
             )}
-            {d.medicinal_properties?.clinically_validated?.length && (
+            {!!d.medicinal_properties?.clinically_validated?.length && (
               <div class="ds-sec">
                 <div class="ds-sec-lbl">Clinically Validated</div>
                 <ul class="ds-list">{d.medicinal_properties.clinically_validated.map((val: string) => <li>{val}</li>)}</ul>
@@ -580,8 +592,15 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       });
     });
 
-    $('mob-explore-other')?.addEventListener('click', () => {
+    // Remember which plant we're on whenever the user leaves this page
+    function goHomeRememberingPlant() {
       if (currentSlug) sessionStorage.setItem('sabr_last_plant', currentSlug);
+    }
+    $('top-bar-back-link')?.addEventListener('click', goHomeRememberingPlant);
+    $('top-bar-title-link')?.addEventListener('click', goHomeRememberingPlant);
+    $('mob-nav-back-link')?.addEventListener('click', goHomeRememberingPlant);
+    $('mob-explore-other')?.addEventListener('click', () => {
+      goHomeRememberingPlant();
       window.location.href = '/';
     });
   })();
