@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-
 const allPlants = await getCollection('species');
 const plants = allPlants
   .map(p => ({ 
@@ -10,22 +9,19 @@ const plants = allPlants
   }))
   .sort((a, b) => (a.data.name || "").localeCompare(b.data.name || ""));
 ---
-
 <Layout title="South African Botanical Registry">
   <div class="top-bar">
     <h1>South African Botanical Registry</h1>
   </div>
-
   <div class="hero">
     <div class="hero-title">South African Botanical Registry</div>
     <div class="hero-sub">The definitive reference for South Africa's botanical heritage</div>
   </div>
-
   <div class="registry">
     <div class="registry-title">{plants.length} Species Registered</div>
     <div class="plant-grid">
       {plants.map(plant => (
-        <a href={`/species/${plant.slug}`} class="plant-card">
+        <a href={`/species/${plant.slug}`} class="plant-card" data-slug={plant.slug} id={`card-${plant.slug}`}>
           {plant.data.image ? (
             <div class="plant-card-img">
               <img src={plant.data.image} alt={plant.data.name || "Plant species"} loading="lazy" />
@@ -43,12 +39,10 @@ const plants = allPlants
       ))}
     </div>
   </div>
-
   <div class="footer">
     <p>South African Botanical Registry · southafricanbotanical.org.za</p>
   </div>
 </Layout>
-
 <style>
   /* Local overrides for index-specific layout */
   .hero { text-align: center; padding: 60px 24px 50px; border-bottom: 1px solid var(--border, #E1DED8); }
@@ -66,9 +60,26 @@ const plants = allPlants
   .plant-card-body { padding: 14px 16px 16px; background: #F9F8F4; border-top: 1px solid rgba(184,134,11,0.2); }
   .plant-card-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; font-style: italic; font-weight: 300; color: #B8860B; line-height: 1; margin-bottom: 4px; }
   .plant-card-sci { font-family: sans-serif; font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: #7A7A7A; }
-  
+  .plant-card.sabr-highlight { animation: sabr-pulse 1.6s ease-out 1; }
+  @keyframes sabr-pulse {
+    0%   { box-shadow: 0 0 0 4px rgba(184,134,11,0.5); }
+    100% { box-shadow: 0 0 0 4px rgba(184,134,11,0); }
+  }
+
   @media (max-width: 768px) {
     .registry { padding: 32px 20px 60px; }
     .plant-grid { grid-template-columns: 1fr; }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    const lastPlant = sessionStorage.getItem('sabr_last_plant');
+    if (!lastPlant) return;
+    sessionStorage.removeItem('sabr_last_plant');
+    const card = document.getElementById(`card-${lastPlant}`);
+    if (!card) return;
+    card.scrollIntoView({ block: 'center', behavior: 'instant' });
+    card.classList.add('sabr-highlight');
+  })();
+</script>
