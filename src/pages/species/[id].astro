@@ -82,7 +82,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   }
   body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
   .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-  .sticky-header { position: sticky; top: 0; z-index: 50; background: var(--parch); flex-shrink: 0; }
+  .sticky-header { position: sticky; top: 0; z-index: 500; background: var(--parch); flex-shrink: 0; }
   .top-bar { background: var(--green); border-bottom: 2px solid var(--gold); padding: 9px 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; }
   .top-bar-back { color: var(--gold); font-family: var(--sans); text-decoration: none; line-height: 1; position: absolute; left: 28px; display: flex; align-items: center; justify-content: center; }
   .top-bar-title { font-family: var(--sans); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); text-decoration: none; }
@@ -105,24 +105,24 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .carousel-img.active { display: block; }
   .carousel-wrap { width: 186px; height: 186px; background: var(--parch); position: relative; overflow: hidden; flex-shrink: 0; outline: 1px solid var(--border); outline-offset: -1px; margin: 8px; }
   .photo-credit { background: var(--parch); padding: 6px 10px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .photo-credit-lbl { font-family: var(--sans); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 2px; }
+  .photo-credit-lbl { font-family: var(--sans); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
   .photo-credit-val { font-family: var(--sans); font-size: 8.5px; color: var(--muted); line-height: 1.4; }
   .carousel-nav { display: flex; align-items: center; justify-content: space-between; padding: 3px 10px; background: var(--parch); border-bottom: 1px solid var(--border); }
   .c-arrow { background: none; border: none; color: var(--gold); padding: 0; cursor: pointer; line-height: 1; display: flex; align-items: center; justify-content: center; }
   .c-arrow:hover { opacity: 0.75; }
   .c-count { font-family: var(--sans); font-size: 9px; color: var(--muted); }
   .names-wrap { padding: 8px; flex: 1; }
-  .names-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); padding-bottom: 4px; border-bottom: 1px solid var(--border); margin-bottom: 1px; }
+  .names-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); padding-bottom: 4px; border-bottom: 1px solid var(--border); margin-bottom: 1px; }
   .name-row { display: grid; grid-template-columns: 62px 1fr; padding: 2.5px 0; border-bottom: 1px solid #F5F4F0; gap: 4px; align-items: start; }
   .name-row:last-child { border-bottom: none; }
-  .n-lang { font-family: var(--sans); font-size: 8px; color: var(--sage); text-transform: uppercase; letter-spacing: .3px; padding-top: 1px; }
+  .n-lang { font-family: var(--sans); font-size: 8px; color: var(--gold); text-transform: uppercase; letter-spacing: .3px; padding-top: 1px; }
   .n-val { font-family: var(--serif); font-size: 12px; color: var(--ink); line-height: 1.3; }
   .n-val.nd { color: #C8C6BE; font-style: italic; font-size: 11px; }
   .ds-right { display: flex; flex-direction: column; }
   .id-three { display: grid; grid-template-columns: 1fr 1.4fr 1fr; border-bottom: 1px solid var(--border); }
   .id-cell { padding: 9px 14px; border-right: 1px solid var(--border); }
   .id-cell:last-child { border-right: none; }
-  .block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 4px; }
+  .block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
   .id-val { font-family: var(--serif); font-size: 16px; color: var(--ink); }
   .id-val.it { font-style: italic; }
   .native-block { padding: 9px 14px; border-bottom: 1px solid var(--border); }
@@ -130,9 +130,9 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; }
   .stat-cell { padding: 8px 14px; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; min-height: 58px; }
   .stat-cell:last-child { border-right: none; }
-  .stat-val { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.3px; color: var(--gold); margin-top: auto; line-height: 1; }
+  .stat-val { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.3px; color: var(--green); margin-top: auto; line-height: 1; }
   .prot-block { padding: 9px 0; }
-  .prot-block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; padding: 0 14px; }
+  .prot-block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; padding: 0 14px; }
   .prot-row { display: flex; align-items: flex-end; padding: 4px 0; border-bottom: 1px solid #F5F4F0; }
   .prot-row:last-child { border-bottom: none; }
   .prot-badge { font-family: var(--sans); font-size: 9px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; padding: 9px 16px 9px 12px; flex-shrink: 0; white-space: nowrap; background: var(--green); color: var(--gold); width: 108px; text-align: center; display: flex; align-items: center; justify-content: center; border-radius: 0 22px 22px 0; margin-bottom: 3px; }
@@ -143,7 +143,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .stats-col { display: flex; flex-direction: column; border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
   .map-col { border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; min-height: 280px; }
   .key-col { padding: 8px 10px; display: flex; flex-direction: column; width: 170px; }
-  .key-section-lbl { font-family: var(--sans); font-size: 8.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
+  .key-section-lbl { font-family: var(--sans); font-size: 8.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
   .key-prov-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
   .key-swatch { width: 12px; height: 12px; flex-shrink: 0; border: 0.5px solid rgba(0,0,0,0.1); }
   .key-abbr { font-family: var(--sans); font-size: 8.5px; letter-spacing: 1px; color: var(--green); font-weight: 500; width: 26px; flex-shrink: 0; }
@@ -162,7 +162,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .ds-list li { font-family: var(--serif); font-size: 13.5px; line-height: 1.55; color: var(--ink); margin-bottom: 2px; }
   .ds-val { font-family: var(--serif); font-size: 13.5px; line-height: 1.65; color: var(--ink); }
   .ik-block { background: var(--parch); border: 1px solid var(--border); padding: 13px 16px; margin-bottom: 14px; }
-  .ik-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
+  .ik-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
   .ik-val { font-family: var(--serif); font-size: 14px; line-height: 1.8; color: var(--ink); font-style: normal; }
   .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px; }
   .card { background: #fff; border: 1px solid var(--border); border-top: 2px solid var(--gold); padding: 16px 18px; }
@@ -170,7 +170,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .c-tag   { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
   .c-hl    { font-size: 15px; color: var(--ink); line-height: 1.45; margin-bottom: 6px; font-style: italic; }
   .c-tsr   { font-family: var(--sans); font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
-  .site-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green); border-top: 2px solid var(--gold); display: flex; align-items: stretch; z-index: 100; }
+  .site-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green); border-top: 2px solid var(--gold); display: flex; align-items: stretch; z-index: 500; }
   .ft-label { font-family: var(--sans); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--sage); padding: 12px 20px; display: flex; align-items: center; border-right: 1px solid rgba(184,134,11,.3); white-space: nowrap; }
   .ft-btns { display: flex; flex: 1; }
   .ft-btn { flex: 1; padding: 12px 8px; font-family: var(--sans); font-size: 20px; letter-spacing: 2px; text-transform: uppercase; text-align: center; cursor: pointer; border: none; background: transparent; color: var(--gold); transition: background .2s, color .2s; }
@@ -214,10 +214,10 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     .plant-band { padding-bottom: 4px; }
 
     .mob-nav-wrap { position: relative; }
-    .mob-menu-backdrop { display: none; position: fixed; inset: 0; background: rgba(249, 248, 244, 0.88); z-index: 299; }
+    .mob-menu-backdrop { display: none; position: fixed; inset: 0; background: rgba(249, 248, 244, 0.88); z-index: 400; }
     .mob-menu-backdrop.open { display: block; }
     .mob-menu-panel {
-      display: none; position: absolute; top: calc(100% + 8px); right: 0; z-index: 300;
+      display: none; position: absolute; top: calc(100% + 8px); right: 0; z-index: 401;
       width: 220px; background: transparent;
       padding: 0 0 12px; flex-direction: column; gap: 8px;
     }
@@ -534,46 +534,31 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     const panels = document.querySelectorAll('.tab-panel');
     const currentSlug = document.querySelector('.portal')?.dataset.slug || '';
 
-    const TAB_COLORS = {
-      datasheet: { bg: 'transparent', color: 'var(--sage)' },
-      wellness: { bg: 'var(--tab-1)', color: '#000' },
-      innovation: { bg: 'var(--tab-2)', color: '#000' },
-      ik: { bg: 'var(--tab-3)', color: '#000' },
-      people: { bg: 'var(--tab-4)', color: '#000' },
-      agronomy: { bg: 'var(--tab-5)', color: '#000' },
-      legislation: { bg: 'var(--tab-6)', color: '#000' },
-      projects: { bg: 'var(--tab-7)', color: '#000' },
-      intelligence: { bg: 'var(--tab-8)', color: '#000' },
-    };
-
+    const TAB_COLOR_LIST = ['var(--tab-1)','var(--tab-2)','var(--tab-3)','var(--tab-4)','var(--tab-5)','var(--tab-6)','var(--tab-7)','var(--tab-8)'];
+    const tabsArr = Array.from(tabs);
     const mobExplore = $('mob-explore-btn');
     const mobNavBand = document.querySelector('.mob-nav-band');
-    function applyTabColor(id) {
-      const c = TAB_COLORS[id] || TAB_COLORS.datasheet;
-      const isDefault = id === 'datasheet';
-      if (mobNavBand) mobNavBand.style.background = isDefault ? '' : c.bg;
-      if (mobExplore) {
-        mobExplore.style.background = isDefault ? 'transparent' : c.bg;
-        mobExplore.style.color = c.color;
-      }
-      tabs.forEach(x => {
-        if (x.dataset.id === id && id !== 'datasheet') {
-          x.style.background = c.bg;
-          x.style.color = c.color;
-          x.style.borderBottomColor = c.bg;
+
+    function applyTabColorByIndex(idx) {
+      const isDefault = idx === 0;
+      const bg = isDefault ? '' : TAB_COLOR_LIST[idx - 1];
+      const color = isDefault ? '' : '#000';
+      if (mobNavBand) mobNavBand.style.background = bg;
+      if (mobExplore) { mobExplore.style.background = isDefault ? 'transparent' : bg; mobExplore.style.color = isDefault ? 'var(--sage)' : color; }
+      tabsArr.forEach((x, i) => {
+        if (i === idx && !isDefault) {
+          x.style.background = bg; x.style.color = color; x.style.borderBottomColor = bg;
         } else {
-          x.style.background = '';
-          x.style.color = '';
-          x.style.borderBottomColor = '';
+          x.style.background = ''; x.style.color = ''; x.style.borderBottomColor = '';
         }
       });
     }
 
-    tabs.forEach(t => t.addEventListener('click', () => {
+    tabsArr.forEach((t, i) => t.addEventListener('click', () => {
       const id = t.dataset.id;
-      tabs.forEach(x => { const on = x.dataset.id === id; x.classList.toggle('active', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
+      tabsArr.forEach(x => { const on = x.dataset.id === id; x.classList.toggle('active', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
       panels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
-      applyTabColor(id);
+      applyTabColorByIndex(i);
       $('content-wrap')?.scrollTo(0, 0);
     }));
 
@@ -612,19 +597,20 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     mobOverlay?.addEventListener('click', closeMobMenu);
 
     $('mob-return-datasheet')?.addEventListener('click', () => {
-      tabs.forEach(x => { const on = x.dataset.id === 'datasheet'; x.classList.toggle('active', on); });
+      tabsArr.forEach(x => { const on = x.dataset.id === 'datasheet'; x.classList.toggle('active', on); });
       panels.forEach(p => p.classList.toggle('active', p.id === 'panel-datasheet'));
-      applyTabColor('datasheet');
+      applyTabColorByIndex(0);
       closeMobMenu();
       $('content-wrap')?.scrollTo(0, 0);
     });
 
-    document.querySelectorAll('.mob-menu-item[data-id]').forEach(btn => {
+    document.querySelectorAll('.mob-menu-item[data-id]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.id;
-        tabs.forEach(x => x.classList.toggle('active', x.dataset.id === id));
+        const idx = tabsArr.findIndex(x => x.dataset.id === id);
+        tabsArr.forEach(x => x.classList.toggle('active', x.dataset.id === id));
         panels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
-        applyTabColor(id);
+        if (idx >= 0) applyTabColorByIndex(idx);
         closeMobMenu();
         $('content-wrap')?.scrollTo(0, 0);
       });
