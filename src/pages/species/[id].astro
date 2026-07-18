@@ -563,14 +563,16 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
               sortedArticles.map((article: any, i: number) => (
                 <div class="card article-card">
                   <div class="c-tag">{tab.label}</div>
-                  {article.badge && badgeLabel(article.badge) && (
-                    <div class="article-badge">
-                      <span class={`badge-dot badge-${article.badge}`}></span>
-                      {badgeLabel(article.badge)}
-                    </div>
-                  )}
-                  <div class="article-title">{article.title}</div>
-                  <p class="article-teaser">{article.teaser}</p>
+                  <div class="article-editorial-frame" style={`border-color: var(--tab-${TABS.findIndex(t => t.id === tab.id)})`}>
+                    {article.badge && badgeLabel(article.badge) && (
+                      <div class="article-badge">
+                        <span class={`badge-dot badge-${article.badge}`}></span>
+                        {badgeLabel(article.badge)}
+                      </div>
+                    )}
+                    <div class="article-title">{article.title}</div>
+                    <p class="article-teaser">{article.teaser}</p>
+                  </div>
                   <div class={`article-body-wrap${isGated ? ' gated' : ''}`}>
                     <p class="article-body">{article.body}</p>
                     {isGated && (
