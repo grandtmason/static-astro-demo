@@ -1,9 +1,21 @@
 ---
-const { plant } = Astro.props;
+const { plant, FORMSPREE_CONNECT } = Astro.props;
 const d = plant.data;
 ---
-<div class="ds-section">
-  <div class="ds-sec"><p class="ds-sec-lbl">Family</p><p class="ds-val">{d.family}</p></div>
-  <div class="ds-sec"><p class="ds-sec-lbl">Native Region</p><p class="ds-val">{d.native_region}</p></div>
-  <div class="ds-sec"><p class="ds-sec-lbl">Conservation</p><p class="ds-val">{d.conservation_status}</p></div>
+<div class="modal-overlay" id="modal-buyers">
+  <div class="modal">
+    <button class="modal-close" data-close="buyers">×</button>
+    <h2>Connect with Suppliers</h2>
+    <p>Tell us what you need. We will connect you with verified {d.name} suppliers in South Africa.</p>
+    <form id="form-buyers" action={FORMSPREE_CONNECT} method="POST">
+      <input type="hidden" name="type" value="supplier-enquiry" />
+      <input type="hidden" name="plant" value={d.name} />
+      <div class="m-field"><label>Your Name</label><input type="text" name="name" required /></div>
+      <div class="m-field"><label>Email</label><input type="email" name="email" required /></div>
+      <div class="m-field"><label>Company</label><input type="text" name="company" /></div>
+      <div class="m-field"><label>What you need</label><textarea name="message" placeholder="Quantity, product form, intended use…"></textarea></div>
+      <button type="submit" class="m-submit">Send Enquiry →</button>
+    </form>
+    <div class="m-thanks" id="thanks-buyers">Thank you — we will be in touch shortly.</div>
+  </div>
 </div>
