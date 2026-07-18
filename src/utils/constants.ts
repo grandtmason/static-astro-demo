@@ -1,7 +1,7 @@
 // src/utils/constants.ts
 export const TABS = [
   { id: 'datasheet', label: 'Data Sheet' },
-  { id: 'wellness', label: 'Health' },
+  { id: 'wellness', label: 'Health and Wellness' },
   { id: 'innovation', label: 'Innovation' },
   { id: 'ik', label: 'Indigenous Knowledge' },
   { id: 'people', label: 'People' },
