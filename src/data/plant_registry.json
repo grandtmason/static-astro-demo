@@ -1,26 +1,705 @@
 {
-  "acacia": { "council_id": "IK-V-001", "common_names": { "Afrikaans": "Soetdoring", "English": "Sweet Thorn", "Zulu": "umNgcamplazi" }, "stats": { "production": "Wild", "revenue": "R5m+", "markets": "Local", "livelihoods": "500" }, "protection": { "gi_year": "None", "gi_status": "Protected", "bsa_year": "None", "bsa_status": "N/A", "organic": "Yes", "wild_harvest": "Sustainable" } },
-  "african-ashwagandha": { "council_id": "IK-N-002", "common_names": { "Afrikaans": "Geneesblaarbossie", "English": "African Ashwagandha", "Zulu": "ubuvimba" }, "stats": { "production": "20 t", "revenue": "R10m", "markets": "Global", "livelihoods": "200" }, "protection": { "gi_year": "None", "gi_status": "Unregulated", "bsa_year": "None", "bsa_status": "Pending", "organic": "No", "wild_harvest": "Managed" } },
-  "african-ginger": { "council_id": "IK-Z-003", "common_names": { "Afrikaans": "Wilde Gemmer", "English": "African Ginger", "Zulu": "isiphephetho" }, "stats": { "production": "50 t", "revenue": "R50m", "markets": "Domestic", "livelihoods": "1000" }, "protection": { "gi_year": "None", "gi_status": "Threatened", "bsa_year": "None", "bsa_status": "Pending", "organic": "No", "wild_harvest": "Prohibited" } },
-  "african-potato": { "council_id": "IK-S-004", "common_names": { "Afrikaans": "Sterblom", "English": "African Potato", "Zulu": "inkomfe" }, "stats": { "production": "100 t", "revenue": "R30m", "markets": "Domestic", "livelihoods": "500" }, "protection": { "gi_year": "None", "gi_status": "Protected", "bsa_year": "None", "bsa_status": "Active", "organic": "Yes", "wild_harvest": "Sustainable" } },
-  "aloe-ferox": { "council_id": "IK-K-005", "common_names": { "Afrikaans": "Bitteraalwyn", "English": "Cape Aloe", "Zulu": "inhlaba" }, "stats": { "production": "5000 t", "revenue": "R280m", "markets": "Global", "livelihoods": "5000" }, "protection": { "gi_year": "2024", "gi_status": "GI-Registered", "bsa_year": "2019", "bsa_status": "Compliant", "organic": "Yes", "wild_harvest": "Regulated" } },
-  "artemisia-afra": { "council_id": "IK-A-006", "common_names": { "Afrikaans": "Wilde Als", "English": "African Wormwood", "Zulu": "umhlonyane" }, "stats": { "production": "200 t", "revenue": "R15m", "markets": "Domestic/Global", "livelihoods": "800" }, "protection": { "gi_year": "None", "gi_status": "Unregulated", "bsa_year": "None", "bsa_status": "Pending", "organic": "Yes", "wild_harvest": "Sustainable" } },
-  "athrixia": { "council_id": "IK-B-007", "common_names": { "Afrikaans": "Bosbietee", "English": "Bush Tea", "Zulu": "isihaqa" }, "stats": { "production": "10 t", "revenue": "R2m", "markets": "Artisanal", "livelihoods": "100" }, "protection": { "gi_year": "None", "gi_status": "Unregulated", "bsa_year": "None", "bsa_status": "None", "organic": "No", "wild_harvest": "Sustainable" } },
-  "baobab": { "council_id": "IK-T-008", "common_names": { "Afrikaans": "Kremetart", "English": "Baobab", "Venda": "muvhuyu" }, "stats": { "production": "800 t", "revenue": "R40m", "markets": "Global", "livelihoods": "2000" }, "protection": { "gi_year": "None", "gi_status": "Protected", "bsa_year": "None", "bsa_status": "Managed", "organic": "Yes", "wild_harvest": "Sustainable" } },
-  "buchu": { "council_id": "IK-K-009", "common_names": { "Afrikaans": "Boegoe", "English": "Buchu", "Xhosa": "ibuchu" }, "stats": { "production": "400 t", "revenue": "R150m", "markets": "Global", "livelihoods": "1200" }, "protection": { "gi_year": "Pending", "gi_status": "GI-Pending", "bsa_year": "2019", "bsa_status": "Compliant", "organic": "Yes", "wild_harvest": "Regulated" } },
-  "bulbine": { "council_id": "IK-Z-010", "common_names": { "Afrikaans": "Rankkopieva", "English": "Burn Jelly Plant", "Zulu": "ibhucu" }, "stats": { "production": "5 t", "revenue": "R1m", "markets": "Local", "livelihoods": "50" }, "protection": { "gi_year": "None", "gi_status": "None", "bsa_year": "None", "bsa_status": "None", "organic": "Yes", "wild_harvest": "N/A" } },
-  "cape-chamomile": { "council_id": "IK-C-011", "common_names": { "Afrikaans": "Kapokbossie", "English": "Cape Chamomile" }, "stats": { "production": "2 t", "revenue": "R5m", "markets": "Global", "livelihoods": "30" }, "protection": { "gi_year": "None", "gi_status": "Unregulated", "bsa_year": "None", "bsa_status": "None", "organic": "No", "wild_harvest": "Sustainable" } },
-  "devils-claw": { "council_id": "IK-S-012", "common_names": { "Afrikaans": "Duiwelsklou", "English": "Devil's Claw", "Tswana": "sengaparile" }, "stats": { "production": "600 t", "revenue": "R120m", "markets": "Global", "livelihoods": "3000" }, "protection": { "gi_year": "None", "gi_status": "CITES-App-II", "bsa_year": "2005", "bsa_status": "Compliant", "organic": "Yes", "wild_harvest": "Strictly Regulated" } },
-  "honeybush": { "council_id": "IK-H-013", "common_names": { "Afrikaans": "Heuningbos", "English": "Honeybush" }, "stats": { "production": "450 t", "revenue": "R90m", "markets": "Global", "livelihoods": "1500" }, "protection": { "gi_year": "Pending", "gi_status": "GI-Pending", "bsa_year": "2019", "bsa_status": "Compliant", "organic": "Yes", "wild_harvest": "Sustainable" } },
-  "hoodia": { "council_id": "IK-K-014", "common_names": { "Afrikaans": "Bobbejaanghaap", "English": "Hoodia", "San": "/xhoba" }, "stats": { "production": "10 t", "revenue": "R15m", "markets": "Pharma", "livelihoods": "100" }, "protection": { "gi_year": "None", "gi_status": "Protected", "bsa_year": "2003", "bsa_status": "Compliant", "organic": "Yes", "wild_harvest": "Prohibited" } },
-  "kanna": { "council_id": "IK-K-015", "common_names": { "Afrikaans": "Kougoed", "English": "Kanna", "Khoi": "kanna" }, "stats": { "production": "15 t", "revenue": "R40m", "markets": "Global", "livelihoods": "250" }, "protection": { "gi_year": "None", "gi_status": "Protected", "bsa_year": "None", "bsa_status": "Active", "organic": "Yes", "wild_harvest": "Restricted" } },
-  "kigelia": { "council_id": "IK-T-016", "common_names": { "Afrikaans": "Worsboom", "English": "Sausage Tree", "Zulu": "umfongothi" }, "stats": { "production": "100 t", "revenue": "R10m", "markets": "Cosmetic", "livelihoods": "300" }, "protection": { "gi_year": "None", "gi_status": "None", "bsa_year": "None", "bsa_status": "None", "organic": "Yes", "wild_harvest": "Sustainable" } },
-  "mphepho": { "council_id": "IK-Z-017", "common_names": { "Afrikaans": "Kooigoed", "English": "Imphepho", "Zulu": "imphepho" }, "stats": { "production": "50 t", "revenue": "R8m", "markets": "Domestic", "livelihoods": "600" }, "protection": { "gi_year": "None", "gi_status": "None", "bsa_year": "None", "bsa_status": "None", "organic": "Yes", "wild_harvest": "Sustainable" } },
-  "pelargonium-sidoides": { "council_id": "IK-Z-018", "common_names": { "Afrikaans": "Rabassam", "English": "African Geranium", "Zulu": "umckaloabo" }, "stats": { "production": "300 t", "revenue": "R200m", "markets": "Global", "livelihoods": "1500" }, "protection": { "gi_year": "None", "gi_status": "Protected", "bsa_year": "2008", "bsa_status": "Compliant", "organic": "Yes", "wild_harvest": "Regulated" } },
-  "pepper-bark": { "council_id": "IK-Z-019", "common_names": { "Afrikaans": "Peperbasboom", "English": "Pepper Bark", "Zulu": "isibhaha" }, "stats": { "production": "Wild", "revenue": "R5m", "markets": "Domestic", "livelihoods": "200" }, "protection": { "gi_year": "None", "gi_status": "Endangered", "bsa_year": "None", "bsa_status": "Active", "organic": "No", "wild_harvest": "Prohibited" } },
-  "rooibos": { "council_id": "IK-K-020", "common_names": { "Afrikaans": "Rooibos", "English": "Rooibos" }, "stats": { "production": "15000 t", "revenue": "R820m", "markets": "Global", "livelihoods": "8000" }, "protection": { "gi_year": "2021", "gi_status": "GI-Registered", "bsa_year": "2019", "bsa_status": "Compliant", "organic": "Yes", "wild_harvest": "N/A" } },
-  "sutherlandia": { "council_id": "IK-K-021", "common_names": { "Afrikaans": "Kankerbos", "English": "Cancer Bush", "Zulu": "unwele" }, "stats": { "production": "40 t", "revenue": "R20m", "markets": "Global", "livelihoods": "400" }, "protection": { "gi_year": "None", "gi_status": "None", "bsa_year": "None", "bsa_status": "Active", "organic": "Yes", "wild_harvest": "Sustainable" } },
-  "uzara": { "council_id": "IK-Z-022", "common_names": { "Afrikaans": "Bitterwortel", "English": "Uzara", "Zulu": "uzara" }, "stats": { "production": "20 t", "revenue": "R12m", "markets": "Global", "livelihoods": "200" }, "protection": { "gi_year": "None", "gi_status": "None", "bsa_year": "None", "bsa_status": "None", "organic": "No", "wild_harvest": "Sustainable" } },
-  "wild-olive": { "council_id": "IK-S-023", "common_names": { "Afrikaans": "Olienhout", "English": "Wild Olive", "Zulu": "umquma" }, "stats": { "production": "Wild", "revenue": "R5m", "markets": "Domestic", "livelihoods": "300" }, "protection": { "gi_year": "None", "gi_status": "Protected", "bsa_year": "None", "bsa_status": "None", "organic": "Yes", "wild_harvest": "Sustainable" } },
-  "wild-sage": { "council_id": "IK-C-024", "common_names": { "Afrikaans": "Geelslangbos", "English": "Wild Sage" }, "stats": { "production": "10 t", "revenue": "R3m", "markets": "Domestic", "livelihoods": "100" }, "protection": { "gi_year": "None", "gi_status": "None", "bsa_year": "None", "bsa_status": "None", "organic": "No", "wild_harvest": "Sustainable" } }
+  "acacia": {
+    "council_id": "IK-V-001",
+    "native_region": {
+      "value": "Vachellia karroo is the most widely distributed indigenous tree in South Africa, ranging from the Western Cape and Eastern Cape northward through the Savanna and Grassland biomes, from sea level to the highveld.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/vachellia-karroo",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "Wild harvest only", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "< R10m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Domestic", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "Not formally counted", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "SANBI PlantZAfrica", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": { "value": "No Geographical Indication protection. Historically traded as 'Cape Gum', similar to gum arabic.", "source": "SANBI PlantZAfrica", "source_url": "https://pza.sanbi.org/vachellia-karroo", "verified_at": "2026-07-18", "history": [] },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal Benefit-Sharing Agreement. Commercial extracts fall under NEMBA/BABS framework as 'Sovereign Heritage' assets requiring future benefit-sharing transparency.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "No certified organic production. Wild harvest from unmanaged rangeland.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Predominantly wild-harvested. Sustainable via controlled bark stripping and gum collection.", "source": "SANBI PlantZAfrica", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "african-ashwagandha": {
+    "council_id": "IK-N-002",
+    "native_region": {
+      "value": "Occurs naturally across drier regions of southern Africa as part of a much wider Old World range extending from the Mediterranean through tropical Africa to India and southern China.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/withania-somnifera",
+      "verified_at": "2026-07-18",
+      "history": [
+        { "value": "Northern Cape, Limpopo, and North West Province.", "source": "internal", "verified_at": "2026-07-18" }
+      ]
+    },
+    "stats": {
+      "production": { "value": "20–50 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R5–20m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "EU, UK, USA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "200–500", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": { "value": "No GI protection. South African ecotype differentiation research ongoing.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Commercial access to South African chemotypes falls under the BABS (Bioprospecting, Access and Benefit-Sharing) framework.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Small certified organic production in Northern Cape.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Mix of wild harvest and semi-cultivation; roots typically harvested in autumn at peak bioactive concentration.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "african-ginger": {
+    "council_id": "IK-Z-003",
+    "native_region": {
+      "value": "KwaZulu-Natal, Limpopo, and Mpumalanga, favouring forest-floor habitats.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/siphonochilus-aethiopicus",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "50–150 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R50m+", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Domestic", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "1,000–3,000", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": { "value": "No GI protection. Critically endangered — SANBI describes wild populations as harvested to a point just short of total extinction.", "source": "SANBI PlantZAfrica", "source_url": "https://pza.sanbi.org/siphonochilus-aethiopicus", "verified_at": "2026-07-18", "history": [ { "value": "No GI protection. CITES Appendix II candidate due to overharvesting pressure.", "source": "internal", "verified_at": "2026-07-18" } ] },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Zulu and Swazi traditional knowledge holders not formally recognised in commercial frameworks.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "No formal organic certification. Wild harvest only.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Critically threatened by wild harvest. Shade-cloth cultivation is now the primary sustainable supply pathway.", "source": "SANBI PlantZAfrica", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "african-potato": {
+    "council_id": "IK-S-004",
+    "native_region": {
+      "value": "Eastern and northern grasslands of South Africa (KwaZulu-Natal, Mpumalanga, Gauteng).",
+      "source": "internal",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "naming_note": {
+      "value": "SANBI PlantZAfrica states this species is 'wrongly called African potato' — Hypoxis hemerocallidea is botanically unrelated to a potato. 'African Potato' is retained here as the primary name for commercial and market-recognition reasons; this note is preserved for transparency.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/hypoxis-hemerocallidea",
+      "verified_at": "2026-07-18"
+    },
+    "stats": {
+      "production": { "value": "100–500 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R30–400m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Domestic", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "500–10,000", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": { "value": "No GI protection. Listed as protected in several provinces.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Zulu and Sotho traditional knowledge holders not formally compensated in commercial frameworks.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "No certified organic production. Wild harvest only.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Predominantly wild-harvested; wild stock severely depleted. Cultivation takes 3–5 years to maturity.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  }
+}
+{
+  "aloe-ferox": {
+    "council_id": "IK-K-005",
+    "native_region": {
+      "value": "Widespread across the Eastern and Western Cape, with a notable form in KwaZulu-Natal between the midlands and coast (Umkomaas and Umlaas river catchments).",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/aloe-ferox",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "~4,000 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R280m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "40+ countries", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "3,000–5,000", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "No formal Geographical Indication. Subject of an EU Herbal Monograph (European Medicines Agency, 2006/2016) covering Aloe ferox and hybrids. Established export trade documented by TRAFFIC (2006).",
+        "source": "EMA / TRAFFIC",
+        "source_url": "https://www.ema.europa.eu",
+        "verified_at": "2026-07-18",
+        "history": [
+          { "value": "EU Geographical Indication — GI-Registered. European Pharmacopoeia monograph holder.", "source": "internal", "verified_at": "2026-07-18" }
+        ]
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal BSA. Khoisan tapping tradition acknowledged but not formally compensated.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Certified organic production available. Demand from EU and Japanese cosmetic manufacturers.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Sustainably wild-harvested across ~1.2 million hectares. Traditional tapping method does not kill the plant; CapeNature and DAFF monitor sustainability.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "artemisia-afra": {
+    "council_id": "IK-A-006",
+    "native_region": {
+      "value": "Widespread across South Africa, used across nearly all provinces in traditional medicine.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/artemisia-afra",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "500–1,500 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R50–100m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Domestic", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "2,000–5,000", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": { "value": "No GI protection. One of the most widely used traditional medicines in South Africa across all provinces.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Knowledge held broadly across Zulu, Xhosa, Sotho, Venda and Tsonga communities — no single rights holder identified.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Informal organic production widespread. No formal certification structure.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Mix of wild harvest and widespread household cultivation. No sustainability concerns at current scale.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "athrixia": {
+    "council_id": "IK-B-007",
+    "naming_note": {
+      "value": "SANBI PlantZAfrica records the common name as 'Bushman's Tea' (Boesmanstee) and isiZulu names as 'Icholocholo, itshelo, umthsanelo' — materially different from the 'Bush Tea'/'Magoebaskloof Tea' and Zulu 'isihaqa' currently used on this site. Flagged for editorial decision; SANBI naming not yet adopted pending your review.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/athrixia-phylicoides",
+      "verified_at": "2026-07-18"
+    },
+    "native_region": {
+      "value": "Magoebaskloof and Drakensberg foothills, KwaZulu-Natal midlands, Mpumalanga and Limpopo highlands.",
+      "source": "internal",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "< 100 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R5–15m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Domestic", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "200–500", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": { "value": "No GI protection. Commercial identity underdeveloped; potential for Magoebaskloof GI designation being discussed.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Zulu highland communities hold primary traditional knowledge.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Small-scale organic production in Limpopo highlands.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Primarily wild-harvested from highland communities. No sustainability concerns at current scale.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "baobab": {
+    "council_id": "IK-T-008",
+    "native_region": {
+      "value": "Widespread across warmer regions of Africa; in South Africa concentrated in Limpopo province.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/adansonia-digitata",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "500–1,500 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R30–80m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "EU, UK, USA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "1,000–3,000", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "No GI protection. EU Novel Food approval confirmed 27 June 2008, unlocking the European market.",
+        "source": "Buchmann et al., Ecology of Food and Nutrition, 2010",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Venda, Tsonga and Sotho communities hold deep traditional knowledge; PhytoTrade Africa advocates for community benefit.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Certified organic production available from Limpopo producers.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Entirely wild-harvested in South Africa. Venda communities hold traditional harvesting rights; sustainable at current scale.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  }
+}
+{
+  "buchu": {
+    "council_id": "IK-K-009",
+    "native_region": {
+      "value": "Endemic to the fynbos mountains of the Western Cape, South Africa.",
+      "source": "internal",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "300–600 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R80–150m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "USA, Germany, France", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "3,000–5,000", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "SA Government / DFFE / Elsenburg", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "No confirmed Geographical Indication. Western Cape officials publicly flagged Buchu as a future GI candidate (2021 Premier Winde statement) alongside Aloe ferox, following Rooibos's model, but no registration has been confirmed as of 2026. Regulatory/gazette searches (DFFE, Elsenburg 2026 Annual Report) show ongoing Buchu Association funding, not GI status.",
+        "source": "SA Government media statement (2021); DFFE Gazette; Elsenburg Annual Report 2024/2025",
+        "verified_at": "2026-07-18",
+        "history": [
+          { "value": "Geographical Indication application in progress.", "source": "internal", "verified_at": "2026-07-18" }
+        ]
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. The word 'buchu' is Khoikhoi in origin — one of the few indigenous plant names to survive colonialism intact into global trade.", "source": "SANBI PlantZAfrica", "source_url": "https://pza.sanbi.org/agathosma-crenulata", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Significant certified organic production. Premium prices for certified organic leaf in pharmaceutical and flavour markets.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Predominantly cultivated. Wild harvest historically depleted stocks; now regulated with permit requirements.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "bulbine": {
+    "council_id": "IK-Z-010",
+    "native_region": {
+      "value": "Widespread across South Africa; popular in waterwise and rock gardens as well as medicinal cultivation.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/bulbine-frutescens",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "5 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R1m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Local", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "50", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": { "value": "No GI protection. Often marketed internationally as an Aloe vera alternative without geographic designation.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Khoikhoi traditional knowledge preserved in Afrikaans naming but communities not formally recognised.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Small certified organic production for cosmeceutical ingredient market.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Mix of cultivation and wild harvest. Widely available — no sustainability concerns.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "cape-chamomile": {
+    "council_id": "IK-C-011",
+    "native_region": {
+      "value": "Cultivated in the Western Cape; wild populations occur in Cape mountain fynbos.",
+      "source": "internal",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "2–5 t oil", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R20–50m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Germany, France, Switzerland", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "100–300", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": { "value": "No GI protection. Adulteration with other Eriocephalus species is a significant commercial problem; certification is critical.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Khoikhoi communities held primary knowledge — largely lost before documentation was possible.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Certified organic production available; commands highest premium in the aromatherapy market.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Mix of wild harvest and cultivation in Western Cape mountains. Small producer base — certification protects premium pricing.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "devils-claw": {
+    "council_id": "IK-S-012",
+    "native_region": {
+      "value": "Kalahari sand regions of the Northern Cape and neighbouring Namibia/Botswana.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/harpagophytum-procumbens",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "~800 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R60–120m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Germany, France, UK", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "5,000–10,000", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No CITES confirmed", "source": "Strohbach & Cole (2007); Lavelle (2023)", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "Subject of ongoing advocacy for CITES Appendix II listing; export volumes to Europe remain substantial. Not confirmed as currently CITES-listed in sources checked.",
+        "source": "Strohbach & Cole, 2007; Lavelle, 2023",
+        "verified_at": "2026-07-18",
+        "history": [
+          { "value": "CITES Appendix II — export permits required and sustainable harvest verification mandatory.", "source": "internal", "verified_at": "2026-07-18" }
+        ]
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. San and Sotho communities whose knowledge underpins the global industry receive no formal royalties.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Certified organic wild harvest available from Northern Cape.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Entirely wild-harvested. Secondary tubers regenerate if harvested correctly but takes 3–5 years.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  }
+}
+{
+  "honeybush": {
+    "council_id": "IK-H-013",
+    "native_region": {
+      "value": "Fynbos regions of the Western Cape (Overberg and Garden Route areas).",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/cyclopia-genistoides",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "450–800 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R40–80m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Germany, Netherlands, USA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "1,000–2,000", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "GI Pending", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": { "value": "Geographical Indication application in progress. Western Cape fynbos designation will protect against international counterfeiting.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": {
+        "value": "No formal agreement. Khoikhoi communities brewed Honeybush for generations before Dutch settlers arrived. Note: the Rooibos Benefit Sharing Agreement (RBSA, 2019) is confirmed to be Rooibos-specific; no separate, dedicated Honeybush BSA was found.",
+        "source": "McGregor, 2024 (aspects of the sustainability of the wild honeybush industry)",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "organic": { "value": "Certified organic production growing rapidly; organic segment commands 25–40% price premium in EU market.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Predominantly cultivated. Wild harvest minimal; sustainable cultivation practices well established in Overberg and Garden Route.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "hoodia": {
+    "council_id": "IK-K-014",
+    "native_region": {
+      "value": "Arid Northern Cape and Namib desert regions, spanning into Namibia and Botswana.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/hoodia-gordonii",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "< 50 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R5–15m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "EU, USA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "100–200", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": { "value": "No GI protection. Market largely collapsed after P57 patents lapsed. San benefit-sharing agreement (2003) remains an internationally significant legal precedent.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_year": { "value": "BSA 2003", "source": "Wynberg, 2010 (8 citations); Vermeylen & Walker, 2011 (29 citations)", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": {
+        "value": "Landmark 2003 CSIR-SASI benefit-sharing agreement explicitly acknowledged San rights over Hoodia traditional knowledge — the first time a San community's rights carried legal weight in international IP law. CSIR withdrew from the P57 licensing agreement in July 2003.",
+        "source": "Wynberg (2010); Vermeylen & Walker (2011)",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "organic": { "value": "Small certified organic production in Northern Cape.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Mix of cultivation and controlled wild harvest. Trade in this species is restricted per SANBI.", "source": "SANBI PlantZAfrica", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "kanna": {
+    "council_id": "IK-K-015",
+    "native_region": {
+      "value": "Namaqualand and Western Cape semi-arid regions; known to the Cape from the 17th century.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/sceletium-tortuosum",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "15–80 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R30–80m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "USA, EU, Australia", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "250–800", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "No GI protection. Regulatory pathway to commercialisation runs through SAHPRA's standard drug registration procedure. A specific 2013 streamlined guidance referenced in earlier internal notes could not be independently confirmed.",
+        "source": "Brendler et al., 2021 (38 citations)",
+        "verified_at": "2026-07-18",
+        "history": [
+          { "value": "SAHPRA regulatory guidance (2013) enabled commercialisation.", "source": "internal", "verified_at": "2026-07-18" }
+        ]
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Khoikhoi and San communities hold 3,000+ years of traditional knowledge; commercial exploitation without benefit-sharing is an ongoing concern.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Certified organic production available from Namaqualand and Western Cape producers.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Mix of cultivation and limited wild harvest. Cultivation preferred to protect wild San heritage populations.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "marula": {
+    "council_id": "IK-T-016",
+    "native_region": {
+      "value": "Savanna regions of Limpopo, Mpumalanga, and northern KwaZulu-Natal.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/sclerocarya-birrea",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "10,000–30,000 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R100–200m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "EU, USA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "10,000–20,000", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "No GI protection. Amarula brand provides international recognition, but benefits accrue primarily to commercial producers, not traditional communities.",
+        "source": "Wynberg et al., 2002 (82 and 18 citations)",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Venda, Tsonga, Sotho and Zulu communities hold deep traditional knowledge. Community-based processing programmes growing but not formalised.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Certified organic oil available from community-based processors in Limpopo.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Predominantly wild-harvested fruit. Venda communities hold traditional harvesting rights; sustainable at current scale.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  }
+}
+{
+  "mphepho": {
+    "council_id": "IK-Z-017",
+    "native_region": {
+      "value": "Widespread across South Africa, used across Xhosa and Zulu communities for spiritual and purification purposes.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/helichrysum-odoratissimum",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "50–300 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R8–30m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "EU, USA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "500–1,500", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": { "value": "No GI protection. Global smudge-alternative trend is driving export demand without cultural context — a risk this registry is positioned to document.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": {
+        "value": "No formal agreement. Nguni communities hold deep spiritual traditional knowledge encoded in the name imphepho itself; ritual/purification/ancestor-connection use is well documented academically.",
+        "source": "Hutchings, Alternation, 2007 (38 citations)",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "organic": { "value": "Informal organic production widespread. No formal certification structure established.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Mix of wild harvest and cultivation. No sustainability concerns at current commercial scale.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "pelargonium-sidoides": {
+    "council_id": "IK-Z-018",
+    "naming_note": {
+      "value": "SANBI PlantZAfrica notes that 'umckaloabo' is the German trade/remedy name for this plant, not a Xhosa name as previously listed. Actual Xhosa names per SANBI are 'ikubalo, iyeza lesikhali'. Common names file corrected accordingly.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/pelargonium-sidoides",
+      "verified_at": "2026-07-18"
+    },
+    "native_region": {
+      "value": "Eastern Cape grasslands and adjoining regions of South Africa.",
+      "source": "SANBI PlantZAfrica",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "200–500 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R80–150m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Germany, EU", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "2,000–5,000", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "No GI protection. European Umckaloabo product generates significant annual revenue using a Zulu-associated diagnostic term as a brand name without formal recognition or compensation.",
+        "source": "internal",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": {
+        "value": "2008 African Centre for Biosafety (ACB) formally challenged the Umckaloabo extraction-process patent held by Schwabe, citing Zulu and Basotho knowledge appropriation. Benefit-sharing advocacy ongoing; no formal agreement reached.",
+        "source": "van Niekerk & Wynberg, Development Southern Africa, 2012 (43 citations)",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "organic": { "value": "Certified organic production available from Eastern Cape producers.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Mix of wild harvest and contract farming. Eastern Cape cultivation programmes expanding to reduce wild harvest pressure.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "pepper-bark": {
+    "council_id": "IK-Z-019",
+    "native_region": {
+      "value": "Low-altitude forests of Limpopo, Mpumalanga, and KwaZulu-Natal.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/warburgia-salutaris",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "Wild harvest only", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R5m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Domestic", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "200", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "No GI protection. IUCN Red List: Endangered, confirmed via multiple peer-reviewed sources. A priority species for conservation and cultivation per SANBI.",
+        "source": "Senkoro et al., Scientific Reports (Nature), 2020 (27 citations); Rasethe et al., 2019 (94 citations)",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Venda healing lineages hold specialist knowledge; Zulu izinyanga consider isibhaha a high-potency specialist medicine.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "No commercial production. Endangered status prevents formal industry development.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Wild harvest critically unsustainable. Wild populations severely depleted; cultivation programmes at SANBI and private estates early-stage.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "rooibos": {
+    "council_id": "IK-K-020",
+    "native_region": {
+      "value": "Endemic to the Cederberg mountains, Western Cape.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/aspalathus-linearis",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "~15,000 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R820m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "60+ countries", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "5,000+", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "GI 2021", "source": "Meyer & Naicker, Research Policy, 2023 (36 citations)", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "EU Geographical Indication — South Africa the sole legally recognised producer. Name protected in European markets; SA Rooibos Council governs GI compliance. Confirmed as the model case for GI + industry-wide benefit-sharing.",
+        "source": "Meyer & Naicker (2023); Ross (2020)",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "bsa_year": { "value": "BSA 2019", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "Khoisan Benefit-Sharing Agreement (RBSA) — ongoing royalties paid to traditional knowledge holders from industry revenues. Globally cited as the model for ethical botanical trade.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "35% of total production certified organic — the highest proportion of any South African botanical export crop.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Fully cultivated — no wild harvest. Commercial production entirely from planted farms in the Cederberg GI zone.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  }
+}
+{
+  "sutherlandia": {
+    "council_id": "IK-K-021",
+    "native_region": {
+      "value": "Western and Northern Cape, indigenous to South Africa and Lesotho.",
+      "source": "Ndjoubi et al., Plants (MDPI), 2025",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "40–200 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R20–50m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "EU, USA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "400–1,500", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "No GI protection. Now botanically classified as Lessertia frutescens (synonym: Sutherlandia frutescens), commonly known as cancer bush — an adaptogenic tonic with confirmed immune-modulating research.",
+        "source": "Ndjoubi et al., Plants (MDPI), 2025",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Khoikhoi, Xhosa, Cape Malay and Afrikaner healing traditions all contributed to the kankerbos knowledge base — no single rights holder.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Certified organic production available from Western Cape producers.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Mix of cultivation and wild harvest across Western and Northern Cape.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "uzara": {
+    "council_id": "IK-Z-022",
+    "naming_note": {
+      "value": "SANBI PlantZAfrica lists the primary isiZulu name as 'iShongwane' (also 'iShongwe, iShinga'). Confirm current common_names.json entry against this before publishing.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/xysmalobium-undulatum",
+      "verified_at": "2026-07-18"
+    },
+    "native_region": {
+      "value": "Grassland biome, common along highway verges and open grassland across much of South Africa.",
+      "source": "SANBI PlantZAfrica",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "20–60 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R10–30m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "Germany", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "200–500", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "No GI protection. German Commission E monograph (1990) confirmed and directly documented — one of only a handful of African plants with full European pharmaceutical monograph status. Recommended in Germany only as an antidiarrhoeal agent.",
+        "source": "Sosnowski & Melzig, Zeitschrift für Phytotherapie, 2017",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Zulu and Xhosa communities hold traditional knowledge; the German pharmaceutical name preserved the African name, unusual in colonial botanical history.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Small certified organic production available.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Mix of cultivation and wild harvest. Cultivation essential as wild stock is at risk.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "wild-olive": {
+    "council_id": "IK-S-023",
+    "native_region": {
+      "value": "Widespread across South Africa in forest margins and woodland.",
+      "source": "internal",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "< 50 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R5–20m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "EU, USA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "Limited", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "No GI protection. Significant underutilised commercial potential; oleuropein content in South African wild olive leaf confirmed via dedicated pharmacognosy study.",
+        "source": "Long, Tilney & Van Wyk, South African Journal of Botany, 2010 (72 citations)",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Zulu communities associate umquma with spiritual protection; knowledge distributed across multiple language communities.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Small certified organic leaf extract production.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Primarily wild-harvested leaves. No sustainability concerns at current minimal commercial scale.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  },
+  "wild-sage": {
+    "council_id": "IK-C-024",
+    "naming_note": {
+      "value": "SANBI PlantZAfrica notes this species is now classified as Salvia aurea (previously Salvia africana-lutea). Consider updating the scientific name shown on-site, or noting the reclassification alongside the existing name.",
+      "source": "SANBI PlantZAfrica",
+      "source_url": "https://pza.sanbi.org/salvia-africana-lutea",
+      "verified_at": "2026-07-18"
+    },
+    "native_region": {
+      "value": "Coastal and dune fynbos of the Western Cape.",
+      "source": "SANBI PlantZAfrica",
+      "verified_at": "2026-07-18",
+      "history": []
+    },
+    "stats": {
+      "production": { "value": "10–50 t", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "revenue": { "value": "R3–15m", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "markets": { "value": "EU, UK, USA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "livelihoods": { "value": "100–300", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    },
+    "protection": {
+      "gi_year": { "value": "No GI", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "gi_status": {
+        "value": "No GI protection. Cape Malay culinary tradition is the primary commercial driver; undercommercialised relative to its documented phytochemical profile.",
+        "source": "Kamatou et al., 2008 (444 citations); Ezema et al. (ethnobotany review)",
+        "verified_at": "2026-07-18",
+        "history": []
+      },
+      "bsa_year": { "value": "No BSA", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "bsa_status": { "value": "No formal agreement. Khoikhoi knowledge partially preserved in Cape Malay cooking tradition — communities not formally recognised.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "organic": { "value": "Small certified organic production from Western Cape coastal fynbos.", "source": "internal", "verified_at": "2026-07-18", "history": [] },
+      "wild_harvest": { "value": "Primarily wild-harvested. No sustainability concerns at current scale.", "source": "internal", "verified_at": "2026-07-18", "history": [] }
+    }
+  }
 }
