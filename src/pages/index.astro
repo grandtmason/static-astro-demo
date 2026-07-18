@@ -66,13 +66,14 @@ const plants = allPlants
 
   @media (max-width: 768px) {
     .hero {
-      position: sticky; top: 0; z-index: 40;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 400;
       background: var(--parch, #F9F8F4);
-      padding: 18px 20px 14px;
+      padding: 22px 24px 18px;
+      border-bottom: 2px solid var(--gold, #B8860B);
     }
-    .hero-title { font-size: 1.5rem; margin-bottom: 4px; }
-    .hero-sub { font-size: 8px; }
-    .registry { padding: 32px 20px 60px; }
+    .hero-title { font-size: 1.7rem; margin-bottom: 10px; }
+    .hero-sub { font-size: 9px; }
+    .registry { padding: 110px 20px 100px; }
     .registry-title { margin-bottom: 32px; }
     .plant-grid { grid-template-columns: 1fr; }
   }
