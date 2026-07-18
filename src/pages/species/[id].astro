@@ -106,12 +106,12 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: 70px; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
-  .ds-grid { display: grid; grid-template-columns: 202px 1fr; align-items: stretch; }
+  .ds-grid { display: grid; grid-template-columns: 252px 1fr; align-items: stretch; }
   .ds-left { border-right: 1px solid var(--border); display: flex; flex-direction: column; }
   .carousel-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-align: center; line-height: 1.8; padding: 0 16px; border: 1px dashed var(--border); }
   .carousel-img { width: 100%; height: 100%; object-fit: cover; display: none; }
   .carousel-img.active { display: block; }
-  .carousel-wrap { width: 186px; height: 186px; background: var(--parch); position: relative; overflow: hidden; flex-shrink: 0; outline: 1px solid var(--border); outline-offset: -1px; margin: 8px; }
+  .carousel-wrap { width: 236px; height: 236px; background: var(--parch); position: relative; overflow: hidden; flex-shrink: 0; outline: 1px solid var(--border); outline-offset: -1px; margin: 8px; }
   .photo-credit { background: var(--parch); padding: 6px 10px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .photo-credit-lbl { font-family: var(--sans); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
   .photo-credit-val { font-family: var(--sans); font-size: 8.5px; color: var(--muted); line-height: 1.4; }
@@ -141,9 +141,9 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .stat-val { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.3px; color: var(--green); margin-top: auto; line-height: 1; }
   .prot-block { padding: 9px 0; }
   .prot-block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; padding: 0 14px; }
-  .prot-row { display: flex; align-items: flex-end; padding: 4px 0; border-bottom: 1px solid #F5F4F0; }
+  .prot-row { display: flex; align-items: flex-start; padding: 4px 0; border-bottom: 1px solid #F5F4F0; }
   .prot-row:last-child { border-bottom: none; }
-  .prot-badge { font-family: var(--sans); font-size: 9px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; padding: 9px 16px 9px 12px; flex-shrink: 0; white-space: nowrap; background: var(--green); color: var(--gold); width: 108px; text-align: center; display: flex; align-items: center; justify-content: center; border-radius: 0 22px 22px 0; margin-bottom: 3px; }
+  .prot-badge { font-family: var(--sans); font-size: 8px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; flex-shrink: 0; white-space: nowrap; color: #000; width: 108px; text-align: center; display: flex; align-items: center; justify-content: center; border-radius: 0; }
   .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; padding: 4px 14px; }
   .intro-block { padding: 10px 14px; border-bottom: none; }
   .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
@@ -152,18 +152,21 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .map-col { border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; min-height: 280px; }
   .key-col { padding: 8px 10px; display: flex; flex-direction: column; width: 170px; }
   .key-section-lbl { font-family: var(--sans); font-size: 8.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-  .key-prov-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .key-prov-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
   .key-swatch { width: 12px; height: 12px; flex-shrink: 0; border: 0.5px solid rgba(0,0,0,0.1); }
   .key-abbr { font-family: var(--sans); font-size: 8.5px; letter-spacing: 1px; color: var(--green); font-weight: 500; width: 26px; flex-shrink: 0; }
-  .key-name { font-family: var(--sans); font-size: 8.5px; color: var(--muted); line-height: 1.2; }
+  .key-name { font-family: var(--sans); font-size: 10.5px; color: var(--muted); line-height: 1.3; }
   .key-divider { border-top: 1px solid var(--border); margin: 6px 0; }
-  .key-dot-row { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
-  .key-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; border: 1px solid #fff; }
+  .key-dot-row { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+  .key-dot { width: 9px; height: 9px; background: var(--gold); border-radius: 50%; flex-shrink: 0; border: 1px solid #fff; }
+  .key-dot-commercial { background: var(--gold); }
+  .key-dot-smallscale { width: 6px; height: 6px; }
+  .key-dot-wild { background: transparent; border: 1.5px solid var(--gold); }
   .key-dot-org { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; border: 1px solid #fff; display: flex; align-items: center; justify-content: center; }
   .key-dot-inner { width: 3px; height: 3px; background: var(--green); border-radius: 50%; }
   .ds-lower { padding: 14px 16px; }
   .ds-unified-card { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 16px 18px; }
-  .ds-row4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+  .ds-row4 { display: grid; grid-template-columns: 1fr 1fr 1.4fr 0.75fr; gap: 16px; }
   .ds-sec { border-top: none; padding-top: 0; }
   .ds-sec-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
   .ds-list { padding-left: 14px; }
@@ -416,19 +419,19 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
               <div class="prot-block">
                 <div class="prot-block-lbl">Protection &amp; Benefit Sharing</div>
                 <div class="prot-row">
-                  <span class="prot-badge">{protection.gi_year}</span>
+                  <span class="prot-badge" style="background: var(--tab-3);">{protection.gi_year}</span>
                   <span class="prot-text">{protection.gi_status}</span>
                 </div>
                 <div class="prot-row">
-                  <span class="prot-badge">{protection.bsa_year}</span>
+                  <span class="prot-badge" style="background: var(--tab-4);">{protection.bsa_year}</span>
                   <span class="prot-text">{protection.bsa_status}</span>
                 </div>
                 <div class="prot-row">
-                  <span class="prot-badge">Organic</span>
+                  <span class="prot-badge" style="background: var(--tab-5);">Organic</span>
                   <span class="prot-text">{protection.organic}</span>
                 </div>
                 <div class="prot-row">
-                  <span class="prot-badge">Wild Harvest</span>
+                  <span class="prot-badge" style="background: var(--tab-6);">Wild Harvest</span>
                   <span class="prot-text">{protection.wild_harvest}</span>
                 </div>
               </div>
@@ -449,7 +452,9 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
               <div class="key-prov-row"><span class="key-swatch" style="background:#C8BA88"></span><span class="key-abbr">WC</span><span class="key-name">Western Cape</span></div>
               <div class="key-divider"></div>
               <div class="key-section-lbl">Key</div>
-              <div class="key-dot-row"><span class="key-dot"></span><span class="key-name">Registered farm</span></div>
+              <div class="key-dot-row"><span class="key-dot key-dot-commercial"></span><span class="key-name">Commercial</span></div>
+              <div class="key-dot-row"><span class="key-dot key-dot-smallscale"></span><span class="key-name">Small-scale</span></div>
+              <div class="key-dot-row"><span class="key-dot key-dot-wild"></span><span class="key-name">Wild harvest</span></div>
               <div class="key-dot-row"><span class="key-dot-org"><span class="key-dot-inner"></span></span><span class="key-name">Certified organic</span></div>
             </div>
           </div>
