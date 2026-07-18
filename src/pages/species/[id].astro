@@ -73,12 +73,12 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     --sans:    sans-serif;
     --tab-1: #2A5A40;
     --tab-2: #6A9E82;
-    --tab-3: #C2D4CA;
-    --tab-4: #E4EDE8;
-    --tab-5: #EDE9E0;
-    --tab-6: #E8DFC8;
-    --tab-7: #DDD0B0;
-    --tab-8: #D4C598;
+    --tab-3: #9BB3A8;
+    --tab-4: #C3D6CC;
+    --tab-5: #D9CDA8;
+    --tab-6: #D0BC8A;
+    --tab-7: #C7A96E;
+    --tab-8: #B98F5A;
   }
   body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
   .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
@@ -91,10 +91,18 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .plant-sci { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: none; font-style: italic; color: var(--muted); margin-bottom: 10px; }
   .plant-updated { font-family: var(--sans); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--sage); margin-top: 4px; }
   .tabs-row { display: flex; width: 100%; margin-top: 10px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
-  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; background: var(--parch); color: var(--ink); border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: background .15s, color .15s; text-align: center; }
+  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .15s; text-align: center; }
   .tab-btn:last-child { border-right: none; }
-  .tab-btn:hover { color: var(--gold); background: #fff; }
-  .tab-btn.active { background: #fff; color: var(--gold); border-bottom: 3px solid var(--gold); }
+  .tab-btn.active { color: var(--gold) !important; border-bottom-color: var(--gold) !important; }
+  .tabs-row .tab-btn:nth-child(1) { background: var(--green); color: var(--sage); border-bottom-color: var(--green); }
+  .tabs-row .tab-btn:nth-child(2) { background: var(--tab-1); color: #000; border-bottom-color: var(--tab-1); }
+  .tabs-row .tab-btn:nth-child(3) { background: var(--tab-2); color: #000; border-bottom-color: var(--tab-2); }
+  .tabs-row .tab-btn:nth-child(4) { background: var(--tab-3); color: #000; border-bottom-color: var(--tab-3); }
+  .tabs-row .tab-btn:nth-child(5) { background: var(--tab-4); color: #000; border-bottom-color: var(--tab-4); }
+  .tabs-row .tab-btn:nth-child(6) { background: var(--tab-5); color: #000; border-bottom-color: var(--tab-5); }
+  .tabs-row .tab-btn:nth-child(7) { background: var(--tab-6); color: #000; border-bottom-color: var(--tab-6); }
+  .tabs-row .tab-btn:nth-child(8) { background: var(--tab-7); color: #000; border-bottom-color: var(--tab-7); }
+  .tabs-row .tab-btn:nth-child(9) { background: var(--tab-8); color: #000; border-bottom-color: var(--tab-8); }
   .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: 70px; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
@@ -230,7 +238,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     .plant-band { padding-bottom: 4px; }
 
     .mob-nav-wrap { position: relative; }
-    .mob-menu-backdrop { display: none; position: fixed; inset: 0; background: rgba(249, 248, 244, 0.88); z-index: 400; }
+    .mob-menu-backdrop { display: none; position: fixed; top: 145px; left: 0; right: 0; bottom: 72px; background: rgba(249, 248, 244, 0.88); z-index: 400; }
     .mob-menu-backdrop.open { display: block; }
     .mob-menu-panel {
       display: none; position: absolute; top: calc(100% + 8px); right: 0; z-index: 401;
@@ -574,17 +582,10 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 
     function applyTabColorByIndex(idx) {
       const isDefault = idx === 0;
-      const bg = isDefault ? '' : TAB_COLOR_LIST[idx - 1];
-      const color = isDefault ? '' : '#000';
+      const bg = isDefault ? 'var(--green)' : TAB_COLOR_LIST[idx - 1];
+      const color = isDefault ? 'var(--sage)' : '#000';
       if (mobNavBand) mobNavBand.style.background = bg;
-      if (mobExplore) { mobExplore.style.background = isDefault ? 'transparent' : bg; mobExplore.style.color = isDefault ? 'var(--sage)' : color; }
-      tabsArr.forEach((x, i) => {
-        if (i === idx && !isDefault) {
-          x.style.background = bg; x.style.color = color; x.style.borderBottomColor = bg;
-        } else {
-          x.style.background = ''; x.style.color = ''; x.style.borderBottomColor = '';
-        }
-      });
+      if (mobExplore) { mobExplore.style.background = bg; mobExplore.style.color = color; }
     }
 
     tabsArr.forEach((t, i) => t.addEventListener('click', () => {
