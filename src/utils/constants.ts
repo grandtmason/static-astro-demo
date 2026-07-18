@@ -3,7 +3,7 @@ export const TABS = [
   { id: 'datasheet', label: 'Data Sheet' },
   { id: 'wellness', label: 'Health and Wellness' },
   { id: 'innovation', label: 'Innovation' },
-  { id: 'ik', label: 'Indigenous Knowledge' },
+  { id: 'ik', label: 'IK & Heritage' },
   { id: 'people', label: 'People' },
   { id: 'agronomy', label: 'Agronomy' },
   { id: 'legislation', label: 'Legislation' },
