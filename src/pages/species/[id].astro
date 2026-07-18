@@ -49,6 +49,7 @@ for (const path in pillarModules) {
 const pillarEntry = pillarMap[slug] ?? {};
 
 const pillarDates = Object.values(pillarEntry)
+  .flatMap((cat: any) => Array.isArray(cat) ? cat : [cat])
   .map((p: any) => p?.updated_at)
   .filter(Boolean)
   .sort()
@@ -59,7 +60,6 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 ---
 <Layout title={`${d?.name || 'Plant'} | SABR Registry`} schema={generatePlantSchema(d, lastUpdated)}>
 <style>
-.stale-flag { color: var(--gold); font-style: italic; }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --green:   #1A3A2A;
@@ -162,15 +162,12 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .key-name { font-family: var(--sans); font-size: 10.5px; color: var(--muted); line-height: 1.3; }
   .key-divider { border-top: 1px solid var(--border); margin: 6px 0; }
   .key-dot-row { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
-  .key-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-  .key-dot-commercial { background: #000; }
-  .key-dot-inner-commercial { width: 5px; height: 5px; background: #FFD700; border-radius: 50%; }
-  .key-dot-smallscale { background: #fff; border: 1px solid #000; }
-  .key-dot-inner-smallscale { width: 5px; height: 5px; background: #CC6600; border-radius: 50%; }
-  .key-dot-organic { background: #fff; border: 1px solid #000; }
-  .key-dot-inner-organic { width: 5px; height: 5px; background: #4CAF50; border-radius: 50%; }
-  .key-dot-wild { background: #000; }
-  .key-dot-inner-wild { width: 5px; height: 5px; background: #fff; border-radius: 50%; }
+  .key-dot { width: 9px; height: 9px; background: var(--gold); border-radius: 50%; flex-shrink: 0; border: 1px solid #fff; }
+  .key-dot-commercial { background: var(--gold); }
+  .key-dot-smallscale { width: 6px; height: 6px; }
+  .key-dot-wild { background: transparent; border: 1.5px solid var(--gold); }
+  .key-dot-org { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; border: 1px solid #fff; display: flex; align-items: center; justify-content: center; }
+  .key-dot-inner { width: 3px; height: 3px; background: var(--green); border-radius: 50%; }
   .ds-lower { padding: 14px 16px; }
   .ds-unified-card { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 16px 18px; }
   .ds-row4 { display: grid; grid-template-columns: 1fr 1fr 1.4fr 0.75fr; gap: 16px; }
@@ -203,6 +200,15 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .gate-text { font-family: var(--sans); font-size: 11px; letter-spacing: 0.8px; color: var(--gold); text-align: center; margin-bottom: 10px; padding: 0 20px; }
   .gate-btn { font-family: var(--sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; background: var(--parch); color: var(--gold); border: 1px solid var(--gold); border-radius: 22px; padding: 10px 24px; cursor: pointer; }
   .gate-btn:hover { background: var(--gold); color: var(--parch); }
+  .stale-flag { color: var(--gold); font-style: italic; }
+  .badge-legend { display: flex; flex-wrap: wrap; gap: 14px; padding: 10px 16px 0; font-family: var(--sans); font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .article-badge { display: inline-flex; align-items: center; gap: 6px; font-family: var(--sans); font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 8px; }
+  .badge-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
+  .badge-dot.badge-traditional { background: #1A3A2A; }
+  .badge-dot.badge-industry { background: #C7A96E; }
+  .badge-dot.badge-indigenous { background: #CC6600; }
+  .badge-dot.badge-peer-reviewed { background: #C3D6CC; border: 1px solid #999; }
   .site-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green); border-top: 2px solid var(--gold); display: flex; align-items: stretch; z-index: 500; }
   .ft-label { font-family: var(--sans); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--sage); padding: 12px 20px; display: flex; align-items: center; border-right: 1px solid rgba(184,134,11,.3); white-space: nowrap; }
   .ft-btns { display: flex; flex: 1; }
@@ -537,13 +543,32 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
         const months = (now.getFullYear() - then.getFullYear()) * 12 + (now.getMonth() - then.getMonth());
         return months >= STALE_MONTHS;
       };
+      const badgeLabel = (b: string) => {
+        if (b === 'traditional') return 'Natural / Traditional Medicine';
+        if (b === 'industry') return 'Industry / Trade / Regulatory';
+        if (b === 'indigenous') return 'Indigenous Knowledge';
+        if (b === 'peer-reviewed') return 'Peer-Reviewed Research';
+        return null;
+      };
       return (
         <div class="tab-panel" id={`panel-${tab.id}`}>
+          <div class="badge-legend">
+            <span class="legend-item"><span class="badge-dot badge-traditional"></span>Natural / Traditional Medicine</span>
+            <span class="legend-item"><span class="badge-dot badge-industry"></span>Industry / Trade / Regulatory</span>
+            <span class="legend-item"><span class="badge-dot badge-indigenous"></span>Indigenous Knowledge</span>
+            <span class="legend-item"><span class="badge-dot badge-peer-reviewed"></span>Peer-Reviewed Research</span>
+          </div>
           <div class="cards-grid">
             {sortedArticles.length > 0 ? (
               sortedArticles.map((article: any, i: number) => (
                 <div class="card article-card">
                   <div class="c-tag">{tab.label}</div>
+                  {article.badge && badgeLabel(article.badge) && (
+                    <div class="article-badge">
+                      <span class={`badge-dot badge-${article.badge}`}></span>
+                      {badgeLabel(article.badge)}
+                    </div>
+                  )}
                   <div class="article-title">{article.title}</div>
                   <p class="article-teaser">{article.teaser}</p>
                   <div class={`article-body-wrap${isGated ? ' gated' : ''}`}>
