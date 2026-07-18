@@ -1,4 +1,4 @@
-export function generatePlantSchema(data) {
+export function generatePlantSchema(data, lastUpdated) {
   if (!data) return null;
 
   const schema = {
@@ -32,6 +32,10 @@ export function generatePlantSchema(data) {
 
   if (data.image) {
     schema.image = `https://southafricanbotanical.org.za${data.image}`;
+  }
+
+  if (lastUpdated) {
+    schema.dateModified = lastUpdated;
   }
 
   return schema;
