@@ -18,17 +18,58 @@ const farmData = JSON.parse(fs.readFileSync(farmsPath, 'utf-8'));
 <script>
   import { feature } from "topojson-client";
   import { geoPath, geoMercator } from "d3-geo";
+
+  const PROVINCE_COLORS: Record<string, string> = {
+    "eastern cape": "#2A5A40",
+    "free state": "#6A9E82",
+    "gauteng": "#C2D4CA",
+    "kwazulu-natal": "#E4EDE8",
+    "kwazulu natal": "#E4EDE8",
+    "limpopo": "#EDE9E0",
+    "mpumalanga": "#E8DFC8",
+    "northern cape": "#DDD0B0",
+    "north west": "#D4C598",
+    "western cape": "#C8BA88",
+  };
+
+  function getProvinceColor(props: any): string {
+    if (!props) return "#f4f4f4";
+    const candidates = [props.name, props.NAME_1, props.PROVINCE, props.province, props.Province];
+    for (const c of candidates) {
+      if (typeof c === "string" && PROVINCE_COLORS[c.trim().toLowerCase()]) {
+        return PROVINCE_COLORS[c.trim().toLowerCase()];
+      }
+    }
+    return "#f4f4f4";
+  }
+
+  function farmMarker(farm: any, x: number, y: number): string {
+    const type = (farm.type || "").toLowerCase();
+    if (type === "commercial") {
+      return `<circle cx="${x}" cy="${y}" r="7" fill="#000" /><circle cx="${x}" cy="${y}" r="3" fill="#FFD700" />`;
+    }
+    if (type === "small-scale") {
+      return `<circle cx="${x}" cy="${y}" r="7" fill="#fff" stroke="#000" stroke-width="1" /><circle cx="${x}" cy="${y}" r="3" fill="#CC6600" />`;
+    }
+    if (type === "organic") {
+      return `<circle cx="${x}" cy="${y}" r="7" fill="#fff" stroke="#000" stroke-width="1" /><circle cx="${x}" cy="${y}" r="3" fill="#4CAF50" />`;
+    }
+    if (type === "wild-harvest") {
+      return `<circle cx="${x}" cy="${y}" r="7" fill="#000" /><circle cx="${x}" cy="${y}" r="3" fill="#fff" />`;
+    }
+    // Fallback for any unrecognized/missing type
+    return `<circle cx="${x}" cy="${y}" r="7" fill="#000" /><circle cx="${x}" cy="${y}" r="3" fill="#FFD700" />`;
+  }
+
   const initMap = async () => {
     try {
       const root = document.getElementById('map-root');
       const svg = document.getElementById('map-svg');
 
-      // Guard clause: Ensure DOM exists and data is ready
       if (!root || !svg || !root.dataset.farms) {
         console.warn("Map init skipped: Data attributes not found.");
         return;
       }
-      // FIX: Bypass Astro Router via absolute pathing
       const topoUrl = new URL('/data/za-provinces.topojson', window.location.origin).toString();
       const response = await fetch(topoUrl, { headers: { 'Accept': 'application/json' } });
 
@@ -38,17 +79,21 @@ const farmData = JSON.parse(fs.readFileSync(farmsPath, 'utf-8'));
       const farmData = JSON.parse(root.dataset.farms);
       const slug = root.dataset.slug || "";
 
-      // Map generation logic...
       const objectKey = Object.keys(topoData.objects)[0];
       const provinceData = feature(topoData, topoData.objects[objectKey]);
       const projection = geoMercator().fitSize([800, 700], provinceData as any);
       const pathGenerator = geoPath().projection(projection);
-      svg.innerHTML = provinceData.features.map((f: any) => `
-        <path d="${pathGenerator(f)}" fill="#f4f4f4" stroke="white" stroke-width="0.5" />
-      `).join('') + farmData.filter((f: any) => f.plant === slug).map((farm: any) => {
+
+      const provincePaths = provinceData.features.map((f: any) => `
+        <path d="${pathGenerator(f)}" fill="${getProvinceColor(f.properties)}" stroke="white" stroke-width="0.5" />
+      `).join('');
+
+      const farmMarkers = farmData.filter((f: any) => f.plant === slug).map((farm: any) => {
         const coords = projection([farm.lng, farm.lat]);
-        return coords ? `<circle cx="${coords[0]}" cy="${coords[1]}" r="8" fill="#2ecc71" />` : '';
+        return coords ? farmMarker(farm, coords[0], coords[1]) : '';
       }).join('');
+
+      svg.innerHTML = provincePaths + farmMarkers;
 
     } catch (err) {
       console.error("Map initialization failed:", err);
