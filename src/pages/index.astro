@@ -12,7 +12,7 @@ const plants = allPlants
 <Layout title="South African Botanical Registry">
   <div class="hero">
     <div class="hero-title">South African Botanical Registry</div>
-    <div class="hero-sub">The definitive reference for South Africa's botanical heritage</div>
+    <div class="hero-sub">South Africa's medicinal plant heritage</div>
   </div>
   <div class="registry">
     <div class="registry-title">{plants.length} Species Registered</div>
@@ -67,19 +67,19 @@ const plants = allPlants
     100% { box-shadow: 0 0 0 4px rgba(184,134,11,0); }
   }
 
-  .site-cta-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green, #1A3A2A); border-top: 2px solid var(--gold, #B8860B); z-index: 410; display: block; }
+  .site-cta-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--parch, #F9F8F4); border-top: 2px solid var(--gold, #B8860B); z-index: 410; display: block; }
   .cta-btn { width: 100%; padding: 14px; font-family: sans-serif; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; background: transparent; border: none; color: var(--gold, #B8860B); cursor: pointer; }
 
   @media (max-width: 768px) {
     .hero {
       position: fixed; top: 0; left: 0; right: 0; z-index: 400;
       background: var(--parch, #F9F8F4);
-      padding: 22px 24px 18px;
+      padding: 18px 24px 14px;
       border-bottom: 2px solid var(--gold, #B8860B);
     }
-    .hero-title { font-size: 1.7rem; margin-bottom: 10px; }
+    .hero-title { font-size: 1.15rem; margin-bottom: 8px; white-space: nowrap; }
     .hero-sub { font-size: 9px; }
-    .registry { padding: 110px 20px 100px; }
+    .registry { padding: 95px 20px 100px; }
     .registry-title { margin-bottom: 32px; }
     .plant-grid { grid-template-columns: 1fr; }
   }
