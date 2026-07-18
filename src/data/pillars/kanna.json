@@ -1,1 +1,106 @@
-{}
+{
+  "wellness": [
+    {
+      "title": "A Newly Isolated Kanna Alkaloid Shows Anxiolytic Activity in Early Research",
+      "teaser": "Researchers have identified normesembrenone, a previously minor kanna alkaloid, and found early evidence of anxiety-reducing activity distinct from the plant's better-known mesembrine content.",
+      "body": "Most of the commercial and scientific attention on Sceletium tortuosum has historically centred on mesembrine, the alkaloid most associated with the plant's mood-elevating reputation. Research from Pérez-Ranea, de Ceglia, Fuentes-Ríos and colleagues has now turned to a less-studied corner of the plant's chemistry, isolating minor mesembrine-type alkaloids and identifying a new compound, normesembrenone, with anxiolytic-like activity in laboratory testing.\n\nThe significance here sits less in any single finding and more in what it suggests about kanna's chemical complexity. A plant marketed for decades on the strength of one well-known compound is turning out to contain a wider family of related alkaloids, each with potentially distinct effects worth investigating on their own terms rather than treating as minor variants of mesembrine.\n\nSeparately, a 2026 study published in Phytomedicine Plus by de Jong, van Niekerk and van der Kooy raises a quality-control concern directly relevant to anyone using kanna products for wellness purposes. The researchers found meaningful variation in mesembrine-alkaloid content between non-standardised kanna products and Zembrin, a patented, standardised commercial extract, with differences even detected across batches with different expiry dates. This matters practically. Two products both labelled as kanna extract may deliver substantially different alkaloid doses depending on whether they come from a standardised or non-standardised source.\n\nThis information is provided for educational purposes and does not constitute medical advice. Anyone considering kanna for anxiety, mood, or any other health concern should consult a qualified healthcare professional before use.",
+      "badge": "peer-reviewed",
+      "tier": "full",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["Pérez-Ranea, L., de Ceglia, M., Fuentes-Ríos, D. et al., \"Bioactive compounds from Sceletium tortuosum: Anxiolytic-like Activity of New Normesembrenone,\" SSRN", "de Jong, M.M., van Niekerk, S.E., van der Kooy, F., \"The importance of standardisation in phytomedicine: Variation in mood-enhancing mesembrine-alkaloids in non-standardised vs. Zembrin commercial products,\" Phytomedicine Plus, 2026"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "innovation": [
+    {
+      "title": "Stellenbosch-Linked Patent Targets Two Overlooked Kanna Alkaloids",
+      "teaser": "A recently granted US patent covers mesembrenol and mesembranol, two kanna alkaloids that have received far less commercial attention than mesembrine.",
+      "body": "Patent activity is often one of the clearer signals of where serious commercial research investment is heading, well before products reach a shelf. US patent US12059404B2, filed in connection with Sensorium Therapeutics and the University of Stellenbosch, covers mesembrenol and mesembranol specifically, two alkaloids present in Sceletium tortuosum that have historically sat in mesembrine's shadow despite belonging to the same chemical family.\n\nThe patent's own framing describes Zembrin, the established standardised Sceletium extract, as having low reported side effects, and positions this newer composition work as building on that safety profile while targeting different components of the plant's alkaloid mix. University involvement, in this case Stellenbosch, alongside a dedicated therapeutics company suggests a deliberate, longer-term research programme rather than an isolated filing.\n\nThis pairs directly with the standardisation research described in Phytomedicine Plus, which found real variation in mesembrine-alkaloid content across non-standardised kanna products. Read together, these two developments point toward an industry actively working to move kanna from a loosely defined herbal product category into a more precisely characterised, patent-protected botanical ingredient space, the kind of shift that typically precedes a wider set of pharmaceutical-adjacent product launches.",
+      "badge": "peer-reviewed",
+      "tier": "full",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["US12059404B2, Google Patents, Sensorium Therapeutics / University of Stellenbosch", "de Jong, M.M. et al., Phytomedicine Plus, 2026"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "ik": [
+    {
+      "title": "Kanna's Long Journey from Khoisan Medicine to Global Wellness Market",
+      "teaser": "Kanna's mood-elevating properties were known to Khoisan communities for centuries before European colonisers ever encountered the plant.",
+      "body": "Sceletium tortuosum holds a distinction few South African plants share: it is one of the oldest mesembs known to the Western world, first encountered by European colonisers at the Cape in the seventeenth century and cultivated in England since 1732, according to SANBI's own botanical record. Carl von Linnaeus formally described and named the species in 1753, more than a century after it was already known to European settlers.\n\nWhat SANBI's record states plainly, and what deserves equal weight to those European dates, is that it was the Khoisan people of South Africa, using the plant in folk medicine long before any of this documentation began, who introduced kanna's mood-elevating properties to the Western world in the first place. The knowledge did not originate with colonisation. It was carried into colonial awareness by people who already held it.\n\nThis history matters directly to how kanna is understood today. The plant's current commercialisation as an anti-anxiety and mood-support product draws on chemistry the Khoisan had already identified and applied through direct, generational engagement with the plant, centuries before mesembrine was isolated in any laboratory.",
+      "badge": "indigenous",
+      "tier": "free",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["SANBI PlantZAfrica, pza.sanbi.org/sceletium-tortuosum"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "people": [
+    {
+      "title": "Growing Commercial Demand Puts Real Pressure on Kanna's Wild Populations",
+      "teaser": "As kanna's global market grows, SANBI itself acknowledges tremendous conservation pressure on wild harvesting of the species.",
+      "body": "SANBI's own PlantZAfrica record states the tension directly: although kanna is now grown commercially on a large scale, there is tremendous conservation pressure on wild harvesting of Sceletium species. This is not a minor caveat buried in academic literature. It is the country's own biodiversity institute acknowledging that rising commercial demand and wild population health are currently pulling in opposite directions.\n\nThe communities most affected by this tension are the same ones whose traditional knowledge underpins the entire commercial category in the first place. Namaqualand and broader Cape region communities with historical ties to kanna harvesting face a genuine dilemma as international demand rises: participate in a growing export market that depends on their traditional knowledge and local access to the plant, or watch that market develop around them, sourced increasingly from commercial cultivation that may or may not involve the same communities as beneficiaries.\n\nHerbalgram's March 2026 herb profile describes kanna as one of the most commercially promising native plants of South Africa, with commercial cultivation sites already established. Whether that commercial expansion translates into genuine benefit for the communities historically connected to the plant, rather than simply relieving pressure on wild stock while commercial value accrues elsewhere, remains an open question the industry has not yet fully answered.",
+      "badge": "indigenous",
+      "tier": "free",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["SANBI PlantZAfrica, pza.sanbi.org/sceletium-tortuosum", "Herbalgram.org, \"Sneak Peek Herb Profile: Kanna,\" 18 March 2026"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "agronomy": [
+    {
+      "title": "Kanna's Narrow Planting Window and the Shift Toward Commercial Cultivation",
+      "teaser": "Official planting guidance restricts kanna cultivation to autumn, winter, and spring, with the industry now actively establishing commercial growing sites to ease pressure on wild stock.",
+      "body": "South Africa's Department of Agriculture, Forestry and Fisheries publishes specific planting guidance for Sceletium tortuosum: the plant can be planted in autumn, winter, and spring, but requires a rest period through summer during which it should not be watered at all. This is a fairly unusual cultivation requirement compared with most commercially grown herbs, and it reflects kanna's origin as a plant adapted to South Africa's winter-rainfall regions rather than a crop suited to year-round irrigation.\n\nHerbalgram's March 2026 profile notes that commercial cultivation sites for kanna have already been established, a direct response to the conservation pressure SANBI has documented on wild populations. Moving cultivation away from wild harvest and toward managed growing sites is, in principle, exactly the kind of shift needed to protect remaining wild stock while still meeting rising commercial demand.\n\nWhether cultivated kanna matches wild-harvested plants in alkaloid content and profile is a separate, still-developing question, one closely tied to the standardisation concerns raised in recent Zembrin research. A cultivation programme that successfully protects wild populations but produces inconsistent or lower-potency plant material would only shift the industry's problem from an ecological one to a quality-control one.",
+      "badge": "peer-reviewed",
+      "tier": "basic",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["National Department of Agriculture, Forestry and Fisheries, nda.gov.za", "Herbalgram.org, 18 March 2026"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "legislation": [
+    {
+      "title": "US Patent Extends Legal Protection to Two Kanna Alkaloids Beyond Mesembrine",
+      "teaser": "A granted US patent involving the University of Stellenbosch covers mesembrenol and mesembranol, extending intellectual property protection into previously uncovered parts of kanna's chemistry.",
+      "body": "Patent US12059404B2, associated with Sensorium Therapeutics and the University of Stellenbosch, covers compositions involving mesembrenol and mesembranol, two Sceletium tortuosum alkaloids. This sits alongside the existing patented status of Zembrin, the standardised extract that has anchored most of kanna's commercial and clinical development to date.\n\nFor a plant with deep roots in Khoisan traditional knowledge, patent activity of this kind raises a question worth naming plainly rather than avoiding. Intellectual property protection over specific extraction methods or alkaloid compositions is a different legal category from ownership of the plant or the traditional knowledge that first identified its properties, and South African bioprospecting law under the Biodiversity Act generally requires benefit-sharing arrangements with knowledge-holding communities before commercial access proceeds. Whether this specific patent, or the broader body of kanna-related patent activity, includes such arrangements with Khoisan communities is not something confirmed in the patent record itself, and is worth flagging as an open question rather than assuming either a positive or negative answer.\n\nThe existence of continued, active patent filing around kanna's individual alkaloids, well beyond mesembrine alone, signals an industry treating the plant's chemistry as a genuinely deep and still only partially mapped resource.",
+      "badge": "industry",
+      "tier": "full",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["US12059404B2, Google Patents, Sensorium Therapeutics / University of Stellenbosch"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "projects": [
+    {
+      "title": "New Commercial Cultivation Sites Mark a Turning Point for Kanna Supply",
+      "teaser": "Herbalgram's 2026 profile confirms kanna now has established commercial cultivation sites, a concrete step toward relieving pressure on wild populations.",
+      "body": "Herbalgram's herb profile, published in March 2026, describes Sceletium tortuosum as one of the most commercially promising native plants of South Africa, and confirms that commercial cultivation sites have now been established for the species. This is a meaningful practical development rather than an aspirational industry statement, since it directly addresses the conservation pressure on wild kanna populations that SANBI's own record explicitly flags as tremendous.\n\nEstablishing viable commercial cultivation for a plant with kanna's specific agronomic requirements, a narrow autumn-to-spring planting window and a strict no-irrigation summer rest period, is not a trivial undertaking. Getting cultivation right at commercial scale typically requires years of trial plots before yields and alkaloid consistency are reliable enough to support a genuine supply chain.\n\nThe practical test for this development will be whether cultivated kanna can match wild-harvested material closely enough in alkaloid content to satisfy both the standardisation concerns raised in recent Zembrin research and the broader commercial market's quality expectations, rather than simply existing as a parallel, lower-quality supply stream running alongside continued wild harvest.",
+      "badge": "industry",
+      "tier": "full",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["Herbalgram.org, \"Sneak Peek Herb Profile: Kanna,\" 18 March 2026"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "intelligence": [
+    {
+      "title": "Kanna Supplement Market Set to Double by 2034 Amid Broader Adaptogen Boom",
+      "teaser": "Market research values the kanna supplement category at 0.3 billion US dollars in 2025, projecting growth to 0.6 billion by 2034 as the wider adaptogens market expands strongly.",
+      "body": "Market research from Market Intelo, published in June 2026, values the global kanna Sceletium supplements market at 0.3 billion US dollars in 2025, with projected growth to 0.6 billion US dollars by 2034, an annual growth rate of 7.8 percent over that period. This sits within a considerably larger adaptogens market, which Fortune Business Insights values at a projected 22.46 billion US dollars by 2034, and which Future Market Insights separately places at 8.96 billion US dollars in 2025, growing toward 9.26 billion in 2026 alone.\n\nThe specific figures across these three reports differ, which is typical of market sizing research generally, where methodology and category definitions vary between firms. What is consistent across all three is a clear growth trajectory for both kanna specifically and adaptogens broadly, at a rate meaningfully outpacing general consumer goods categories.\n\nFor South African producers and commercial partners, kanna's position within this growth is worth noting carefully rather than assuming automatically favourable. A smaller, specific category growing inside a much larger adaptogens boom can benefit from rising general consumer interest in the space, but it also faces competition from better-funded, more heavily marketed adaptogen ingredients originating elsewhere, meaning market share within the category is not guaranteed simply by overall sector growth. This is market observation, not investment advice, and any commercial decision should be made with independent financial guidance.",
+      "badge": "industry",
+      "tier": "full",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["Market Intelo, \"Kanna Sceletium Supplements Market Research Report,\" 10 June 2026", "Fortune Business Insights, \"Adaptogens Market Size, Share, Growth, Report, 2026-2034,\" 22 June 2026", "Future Market Insights, \"Adaptogens Market | Global Market Report,\" 15 April 2026"],
+      "updated_at": "2026-07-19"
+    }
+  ]
+}
