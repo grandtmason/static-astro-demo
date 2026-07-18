@@ -39,11 +39,28 @@ const protection = {
   organic: v(registryEntry.protection?.organic, 'Not yet documented.'),
   wild_harvest: v(registryEntry.protection?.wild_harvest, 'Not yet documented.'),
 };
-const pillars = d?.pillar_data ?? {};
+
+// Pillar content now comes from the scraper's dedicated per-plant feeder files,
+// not from each plant's own .md frontmatter. Files won't exist yet until the
+// scraper is built — that's expected; tabs show "being curated" until then.
+const pillarModules = import.meta.glob('../../data/pillars/*.json', { eager: true });
+const pillarMap: Record<string, any> = {};
+for (const path in pillarModules) {
+  const fileSlug = path.split('/').pop()?.replace('.json', '');
+  if (fileSlug) pillarMap[fileSlug] = (pillarModules[path] as any).default;
+}
+const pillarEntry = pillarMap[slug] ?? {};
+
+const pillarDates = Object.values(pillarEntry)
+  .map((p: any) => p?.updated_at)
+  .filter(Boolean)
+  .sort()
+  .reverse();
+const lastUpdated = pillarDates[0] ?? null;
 
 const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 ---
-<Layout title={`${d?.name || 'Plant'} | SABR Registry`} schema={generatePlantSchema(d)}>
+<Layout title={`${d?.name || 'Plant'} | SABR Registry`} schema={generatePlantSchema(d, lastUpdated)}>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -57,6 +74,8 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     --serif:   'EB Garamond', Georgia, serif;
     --display: 'Cormorant Garamond', Georgia, serif;
     --sans:    sans-serif;
+    --tab-1: #2A5A40; --tab-2: #6A9E82; --tab-3: #8a7a4a; --tab-4: #8a7a4a;
+    --tab-5: #7a6a3a; --tab-6: #8a7a4a; --tab-7: #9a9078; --tab-8: #6a8a76;
   }
   body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
   .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
@@ -66,12 +85,13 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .plant-band { background: var(--parch); display: flex; flex-direction: column; align-items: center; padding: 12px 20px 0; flex-shrink: 0; }
   .plant-name { font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: 4px; }
   .plant-sci { font-family: var(--sans); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0; }
+  .plant-updated { font-family: var(--sans); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--sage); margin-top: 4px; }
   .tabs-row { display: flex; width: 100%; margin-top: 10px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
   .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; background: var(--parch); color: var(--ink); border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .1s, background .1s; text-align: center; }
   .tab-btn:last-child { border-right: none; }
   .tab-btn:hover { color: var(--gold); background: #fff; }
   .tab-btn.active { background: #fff; color: var(--gold); border-bottom: 3px solid var(--gold); }
-  .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; }
+  .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: 70px; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
   .ds-grid { display: grid; grid-template-columns: 202px 1fr; align-items: stretch; }
@@ -164,28 +184,86 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   :global(.m-field textarea) { height: 80px; resize: vertical; }
   :global(.m-submit) { width: 100%; padding: 12px; background: var(--gold); color: var(--green); border: none; font-family: var(--sans); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; cursor: pointer; margin-top: 8px; }
   :global(.m-thanks) { display: none; text-align: center; padding: 20px 0; font-family: var(--sans); font-size: 11px; color: var(--gold); letter-spacing: 1px; }
+
+  .mob-nav-band { display: none; }
+  .mob-menu-overlay { display: none; }
+
   @media (max-width: 680px) {
     .tabs-row { display: none; }
     .portal { padding-bottom: 72px; height: auto; overflow: visible; }
-    .content-wrap { overflow: visible; }
+    .content-wrap { overflow: visible; padding-bottom: 0; }
     .ds-grid { grid-template-columns: 1fr; }
     .ds-left { border-right: none; border-bottom: 1px solid var(--border); }
-    .carousel-wrap { width: 100%; height: 240px; }
+    .carousel-wrap { width: 100%; aspect-ratio: 1 / 1; height: auto; }
     .ds-row3 { grid-template-columns: 1fr; }
     .ds-row2 { grid-template-columns: 1fr; }
     .cards-grid { grid-template-columns: 1fr; }
     .stats-map-row { grid-template-columns: 1fr; min-height: auto; }
-    .map-col { height: 200px; }
+    .map-col { width: 100%; aspect-ratio: 1 / 1; height: auto; min-height: 0; }
     .key-col { display: none; }
     .id-three { grid-template-columns: 1fr; }
     .id-three .id-cell { border-right: none; border-bottom: 1px solid var(--border); }
     .site-footer { flex-direction: column; }
     .ft-label { border-right: none; border-bottom: 1px solid rgba(184,134,11,.3); justify-content: center; }
     .ft-btns { flex-direction: row; }
+
+    .mob-menu-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 300;
+    }
+    .mob-menu-overlay.open { display: flex; justify-content: flex-end; }
+    .mob-menu-panel {
+      background: var(--parch); width: 220px; max-width: 80vw; height: 100%;
+      display: flex; flex-direction: column; padding-top: 12px; box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+      overflow-y: auto;
+    }
+    .mob-menu-item {
+      width: 100%; text-align: left; font-family: var(--sans); font-size: 12px; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--item-color, var(--ink)); background: none; border: none;
+      border-bottom: 1px solid var(--border); padding: 14px 18px; cursor: pointer; flex-shrink: 0;
+    }
+    .mob-menu-special { color: var(--gold); font-weight: 600; }
+
+    .top-bar-back { display: none; }
+
+    .mob-nav-band {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      background: var(--green);
+      border-bottom: 2px solid var(--gold);
+      flex-shrink: 0;
+    }
+    .mob-nav-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      color: var(--gold);
+      font-size: 22px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .mob-nav-explore {
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--sage);
+      background: none;
+      border: none;
+      border-left: 1px solid rgba(184,134,11,.3);
+      padding: 10px 0;
+      min-width: 140px;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+  @media (min-width: 681px) {
+    .mob-nav-band, .mob-menu-overlay { display: none !important; }
   }
 </style>
 
-<div class="portal">
+<div class="portal" data-slug={slug}>
   <div class="top-bar">
     <a href="/" class="top-bar-back" aria-label="Back to Registry">←</a>
     <a href="/" class="top-bar-title">South African Botanical Registry</a>
@@ -194,12 +272,28 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   <div class="plant-band">
     <h1 class="plant-name">{d.name}</h1>
     <p class="plant-sci">{d.scientific_name}</p>
+    {lastUpdated && <p class="plant-updated">Last updated {lastUpdated}</p>}
     <div class="tabs-row" role="tablist">
       {TABS.map(tab => (
         <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
           {tab.label}
         </button>
       ))}
+    </div>
+  </div>
+
+  <div class="mob-nav-band">
+    <a href="/" class="mob-nav-back" aria-label="Back to Registry">←</a>
+    <button class="mob-nav-explore" id="mob-explore-btn">Explore</button>
+  </div>
+
+  <div class="mob-menu-overlay" id="mob-menu-overlay">
+    <div class="mob-menu-panel">
+      <button class="mob-menu-item mob-menu-special" id="mob-return-datasheet">Return to Data Sheet</button>
+      {TABS.filter(t => t.id !== 'datasheet').map((tab, i) => (
+        <button class="mob-menu-item" data-id={tab.id} style={`--item-color: var(--tab-${i+1})`}>{tab.label}</button>
+      ))}
+      <button class="mob-menu-item mob-menu-special" id="mob-explore-other">Explore Other Plants</button>
     </div>
   </div>
 
@@ -347,7 +441,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
             {d.medicinal_properties?.clinically_validated?.length && (
               <div class="ds-sec">
                 <div class="ds-sec-lbl">Clinically Validated</div>
-                <ul class="ds-list">{d.medicinal_properties.clinically_validated.map((v: string) => <li>{v}</li>)}</ul>
+                <ul class="ds-list">{d.medicinal_properties.clinically_validated.map((val: string) => <li>{val}</li>)}</ul>
               </div>
             )}
           </div>
@@ -359,7 +453,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
               <div class="ds-sec">
                 <div class="ds-sec-lbl">Cultivation</div>
                 {d.cultivation?.climate && <p class="ds-val" style="margin-bottom:5px">{d.cultivation.climate}</p>}
-                {d.cultivation?.regions && <p class="ds-val">{d.cultivation.regions}</p>}
+                {d.cultivation?.regions && <p class="ds-val">{Array.isArray(d.cultivation.regions) ? d.cultivation.regions.join(', ') : d.cultivation.regions}</p>}
               </div>
             )}
             {d.cultivation?.commercial && (
@@ -383,10 +477,13 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     {TABS.filter(t => t.id !== 'datasheet').map(tab => (
       <div class="tab-panel" id={`panel-${tab.id}`}>
         <div class="cards-grid">
-          {pillars[tab.id] ? (
+          {pillarEntry[tab.id] ? (
             <div class="card">
               <div class="c-tag">{tab.label}</div>
-              <div class="c-hl">{pillars[tab.id]}</div>
+              <div class="c-hl">{pillarEntry[tab.id].text}</div>
+              {pillarEntry[tab.id].updated_at && (
+                <div class="c-tsr">Updated {pillarEntry[tab.id].updated_at}</div>
+              )}
             </div>
           ) : (
             <div class="card">
@@ -415,9 +512,10 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 <script is:inline>
   (function () {
     function $(id) { return document.getElementById(id); }
-
     const tabs = document.querySelectorAll('.tab-btn');
     const panels = document.querySelectorAll('.tab-panel');
+    const currentSlug = document.querySelector('.portal')?.dataset.slug || '';
+
     tabs.forEach(t => t.addEventListener('click', () => {
       const id = t.dataset.id;
       tabs.forEach(x => { const on = x.dataset.id === id; x.classList.toggle('active', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
@@ -449,6 +547,34 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
         form.style.display = 'none';
         $(`thanks-${type}`).style.display = 'block';
       });
+    });
+
+    // Mobile "Explore" menu
+    const mobBtn = $('mob-explore-btn');
+    const mobOverlay = $('mob-menu-overlay');
+    mobBtn?.addEventListener('click', () => mobOverlay?.classList.add('open'));
+    mobOverlay?.addEventListener('click', (e) => { if (e.target === mobOverlay) mobOverlay.classList.remove('open'); });
+
+    $('mob-return-datasheet')?.addEventListener('click', () => {
+      tabs.forEach(x => { const on = x.dataset.id === 'datasheet'; x.classList.toggle('active', on); });
+      panels.forEach(p => p.classList.toggle('active', p.id === 'panel-datasheet'));
+      mobOverlay?.classList.remove('open');
+      $('content-wrap')?.scrollTo(0, 0);
+    });
+
+    document.querySelectorAll('.mob-menu-item[data-id]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        tabs.forEach(x => x.classList.toggle('active', x.dataset.id === id));
+        panels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
+        mobOverlay?.classList.remove('open');
+        $('content-wrap')?.scrollTo(0, 0);
+      });
+    });
+
+    $('mob-explore-other')?.addEventListener('click', () => {
+      if (currentSlug) sessionStorage.setItem('sabr_last_plant', currentSlug);
+      window.location.href = '/';
     });
   })();
 </script>
