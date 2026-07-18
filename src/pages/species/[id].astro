@@ -59,6 +59,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 ---
 <Layout title={`${d?.name || 'Plant'} | SABR Registry`} schema={generatePlantSchema(d, lastUpdated)}>
 <style>
+.stale-flag { color: var(--gold); font-style: italic; }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --green:   #1A3A2A;
@@ -525,28 +526,41 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     {TABS.filter(t => t.id !== 'datasheet').map(tab => {
       const gatedTabs = ['legislation', 'intelligence', 'projects', 'wellness', 'innovation'];
       const isGated = gatedTabs.includes(tab.id);
-      const article = pillarEntry[tab.id];
+      const rawEntry = pillarEntry[tab.id];
+      const articles = Array.isArray(rawEntry) ? rawEntry : (rawEntry ? [rawEntry] : []);
+      const sortedArticles = [...articles].sort((a: any, b: any) => (b.updated_at || '').localeCompare(a.updated_at || ''));
+      const STALE_MONTHS = 6;
+      const isStale = (dateStr: string) => {
+        if (!dateStr) return false;
+        const then = new Date(dateStr);
+        const now = new Date();
+        const months = (now.getFullYear() - then.getFullYear()) * 12 + (now.getMonth() - then.getMonth());
+        return months >= STALE_MONTHS;
+      };
       return (
         <div class="tab-panel" id={`panel-${tab.id}`}>
           <div class="cards-grid">
-            {article ? (
-              <div class="card article-card">
-                <div class="c-tag">{tab.label}</div>
-                <div class="article-title">{article.title}</div>
-                <p class="article-teaser">{article.teaser}</p>
-                <div class={`article-body-wrap${isGated ? ' gated' : ''}`}>
-                  <p class="article-body">{article.body}</p>
-                  {isGated && (
-                    <div class="gate-overlay">
-                      <p class="gate-text">Join the Registry community to read the full {tab.label} update</p>
-                      <button class="gate-btn" data-gate-category={tab.id}>Join Free</button>
-                    </div>
-                  )}
+            {sortedArticles.length > 0 ? (
+              sortedArticles.map((article: any, i: number) => (
+                <div class="card article-card">
+                  <div class="c-tag">{tab.label}</div>
+                  <div class="article-title">{article.title}</div>
+                  <p class="article-teaser">{article.teaser}</p>
+                  <div class={`article-body-wrap${isGated ? ' gated' : ''}`}>
+                    <p class="article-body">{article.body}</p>
+                    {isGated && (
+                      <div class="gate-overlay">
+                        <p class="gate-text">Join the Registry community to read the full {tab.label} update</p>
+                        <button class="gate-btn" data-gate-category={tab.id}>Join Free</button>
+                      </div>
+                    )}
+                  </div>
+                  <div class="c-tsr">
+                    {article.updated_at && <span>Updated {article.updated_at}</span>}
+                    {isStale(article.updated_at) && <span class="stale-flag"> · May be outdated — check for newer coverage</span>}
+                  </div>
                 </div>
-                {article.updated_at && (
-                  <div class="c-tsr">Updated {article.updated_at}</div>
-                )}
-              </div>
+              ))
             ) : (
               <div class="card">
                 <div class="c-tag">{tab.label}</div>
