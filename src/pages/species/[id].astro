@@ -141,18 +141,18 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .ft-btn { flex: 1; padding: 12px 8px; font-family: var(--sans); font-size: 20px; letter-spacing: 2px; text-transform: uppercase; text-align: center; cursor: pointer; border: none; background: transparent; color: var(--gold); transition: background .2s, color .2s; }
   .ft-btn:first-child { border-right: 1px solid rgba(184,134,11,.3); }
   .ft-btn:hover { background: var(--gold); color: var(--green); }
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; align-items: center; justify-content: center; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: #fff; border-top: 3px solid var(--gold); padding: 32px 36px; width: 100%; max-width: 480px; position: relative; }
-  .modal-close { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--muted); }
-  .modal h2 { font-family: var(--display); font-size: 1.5rem; font-style: italic; color: var(--green); margin-bottom: 6px; }
-  .modal p { font-family: var(--sans); font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
-  .m-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
-  .m-field label { font-family: var(--sans); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
-  .m-field input, .m-field textarea { padding: 8px 10px; font-family: var(--sans); font-size: 13px; border: 1px solid var(--border); background: var(--parch); color: var(--ink); outline: none; width: 100%; }
-  .m-field textarea { height: 80px; resize: vertical; }
-  .m-submit { width: 100%; padding: 12px; background: var(--gold); color: var(--green); border: none; font-family: var(--sans); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; cursor: pointer; margin-top: 8px; }
-  .m-thanks { display: none; text-align: center; padding: 20px 0; font-family: var(--sans); font-size: 11px; color: var(--gold); letter-spacing: 1px; }
+  :global(.modal-overlay) { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; align-items: center; justify-content: center; }
+  :global(.modal-overlay.open) { display: flex; }
+  :global(.modal) { background: #fff; border-top: 3px solid var(--gold); padding: 32px 36px; width: 100%; max-width: 480px; position: relative; }
+  :global(.modal-close) { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--muted); }
+  :global(.modal h2) { font-family: var(--display); font-size: 1.5rem; font-style: italic; color: var(--green); margin-bottom: 6px; }
+  :global(.modal p) { font-family: var(--sans); font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+  :global(.m-field) { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+  :global(.m-field label) { font-family: var(--sans); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  :global(.m-field input), :global(.m-field textarea) { padding: 8px 10px; font-family: var(--sans); font-size: 13px; border: 1px solid var(--border); background: var(--parch); color: var(--ink); outline: none; width: 100%; }
+  :global(.m-field textarea) { height: 80px; resize: vertical; }
+  :global(.m-submit) { width: 100%; padding: 12px; background: var(--gold); color: var(--green); border: none; font-family: var(--sans); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; cursor: pointer; margin-top: 8px; }
+  :global(.m-thanks) { display: none; text-align: center; padding: 20px 0; font-family: var(--sans); font-size: 11px; color: var(--gold); letter-spacing: 1px; }
   @media (max-width: 680px) {
     .tabs-row { display: none; }
     .portal { padding-bottom: 72px; height: auto; overflow: visible; }
