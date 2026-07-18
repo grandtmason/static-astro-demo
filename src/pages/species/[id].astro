@@ -726,5 +726,41 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     document.querySelectorAll('.read-btn').forEach(function (btn) {
       const id = btn.dataset.articleId;
       const wrap = document.querySelector('.article-body-wrap[data-article-id="' + id + '"]');
-      const indicator =
+      const indicator = document.querySelector('.read-indicator[data-article-id="' + id + '"]');
+      if (readSet.has(id) && indicator && document.body.classList.contains('community-member')) {
+        indicator.style.display = 'inline';
+      }
+      btn.addEventListener('click', function () {
+        const isExpanded = wrap ? wrap.classList.toggle('expanded') : false;
+        btn.textContent = isExpanded ? 'Hide' : 'Read';
+        const isGated = wrap ? wrap.classList.contains('gated') : false;
+        const isUnlocked = document.body.classList.contains('community-member');
+        if (isExpanded && (!isGated || isUnlocked)) {
+          markRead(id);
+          if (indicator) indicator.style.display = 'inline';
+        }
+      });
+    });
+
+    function promptJoinCommunity() {
+      alert('Join the community to unlock all categories. (Signup form coming soon.)');
+    }
+    const legendTrigger = $('legend-join-trigger');
+    if (legendTrigger) legendTrigger.addEventListener('click', promptJoinCommunity);
+    document.querySelectorAll('.gate-btn').forEach(function (btn) {
+      btn.addEventListener('click', promptJoinCommunity);
+    });
+
+    function goHomeRememberingPlant() {
+      if (currentSlug) sessionStorage.setItem('sabr_last_plant', currentSlug);
+    }
+    $('top-bar-back-link')?.addEventListener('click', goHomeRememberingPlant);
+    $('top-bar-title-link')?.addEventListener('click', goHomeRememberingPlant);
+    $('mob-nav-back-link')?.addEventListener('click', goHomeRememberingPlant);
+    $('mob-explore-other')?.addEventListener('click', function () {
+      goHomeRememberingPlant();
+      window.location.href = '/';
+    });
+  })();
+</script>
 </Layout>
