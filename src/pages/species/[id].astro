@@ -163,8 +163,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .key-dot-inner { width: 3px; height: 3px; background: var(--green); border-radius: 50%; }
   .ds-lower { padding: 14px 16px; }
   .ds-unified-card { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 16px 18px; }
-  .ds-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
-  .ds-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .ds-row4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
   .ds-sec { border-top: none; padding-top: 0; }
   .ds-sec-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
   .ds-list { padding-left: 14px; }
@@ -223,8 +222,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     .ds-grid { grid-template-columns: 1fr; }
     .ds-left { border-right: none; border-bottom: 1px solid var(--border); }
     .carousel-wrap { width: auto; aspect-ratio: 1 / 1; height: auto; margin: 8px; }
-    .ds-row3 { grid-template-columns: 1fr; }
-    .ds-row2 { grid-template-columns: 1fr; }
+    .ds-row4 { grid-template-columns: 1fr; }
     .cards-grid { grid-template-columns: 1fr; }
     .stats-map-row { grid-template-columns: 1fr; min-height: auto; }
     .map-col { width: 100%; aspect-ratio: 1 / 1; height: auto; min-height: 0; }
@@ -462,13 +460,20 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
               <p class="intro-text">{d.introduction}</p>
             </div>
           )}
+          {(d.cultivation?.climate || d.cultivation?.regions) && (
+            <div class="intro-block">
+              <div class="block-lbl">Cultivation</div>
+              {d.cultivation?.climate && <p class="intro-text" style="margin-bottom:4px">{d.cultivation.climate}</p>}
+              {d.cultivation?.regions && <p class="intro-text">{Array.isArray(d.cultivation.regions) ? d.cultivation.regions.join(', ') : d.cultivation.regions}</p>}
+            </div>
+          )}
         </div>
       </div>
 
       <div class="ds-lower">
         <div class="ds-unified-card">
-        {!!(d.medicinal_properties?.active_compounds?.length || d.medicinal_properties?.traditional_uses?.length || d.medicinal_properties?.clinically_validated?.length) && (
-          <div class="ds-row3">
+        {!!(d.medicinal_properties?.active_compounds?.length || d.medicinal_properties?.traditional_uses?.length || d.medicinal_properties?.clinically_validated?.length || d.cultivation?.commercial) && (
+          <div class="ds-row4">
             {!!d.medicinal_properties?.active_compounds?.length && (
               <div class="ds-sec">
                 <div class="ds-sec-lbl">Active Compounds</div>
@@ -485,18 +490,6 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
               <div class="ds-sec">
                 <div class="ds-sec-lbl">Clinically Validated</div>
                 <ul class="ds-list">{d.medicinal_properties.clinically_validated.map((val: string) => <li>{val}</li>)}</ul>
-              </div>
-            )}
-          </div>
-        )}
-
-        {(d.cultivation?.climate || d.cultivation?.commercial) && (
-          <div class="ds-row2">
-            {(d.cultivation?.climate || d.cultivation?.regions) && (
-              <div class="ds-sec">
-                <div class="ds-sec-lbl">Cultivation</div>
-                {d.cultivation?.climate && <p class="ds-val" style="margin-bottom:5px">{d.cultivation.climate}</p>}
-                {d.cultivation?.regions && <p class="ds-val">{Array.isArray(d.cultivation.regions) ? d.cultivation.regions.join(', ') : d.cultivation.regions}</p>}
               </div>
             )}
             {d.cultivation?.commercial && (
