@@ -29,6 +29,17 @@ To keep articles reading as genuinely human-written rather than detectably AI-ge
 
 These rules apply to every article added to any `pillars/[slug].json` file, checked by re-reading the draft against this list before finalizing.
 
+## Cross-Plant Repetition Check
+
+Before finalising any article, it must be checked against previously written articles in the same category across other plants, not just checked for internal quality in isolation.
+
+Specifically prohibited:
+1. **Reused opening sentence structures.** No two articles in the same category, across any plants, may share the same opening clause shape (e.g. "For most of its [X] history, [plant] has been marketed/positioned as...").
+2. **Reused rhetorical devices.** If one plant's article sets up a "modest reputation, then new research changes the picture" framing, that same framing cannot be reused as the opening device for another plant's article in the same category.
+3. **Reused phrase pairs.** Distinctive phrase combinations (e.g. "caffeine-free, antioxidant-rich alternative") should not appear verbatim across multiple plants' articles unless the underlying fact is genuinely identical and unavoidable (e.g. a specific compound name).
+
+Before writing a new article, the specific opening sentence and overall structural approach of the most recently written article in the same category should be checked, and a genuinely different structure and opening used.
+
 ## Language Standard
 
 All pillar articles, and all site copy generally, must be written in UK English (South African usage). This means:
@@ -104,4 +115,4 @@ Writing rules:
 
 Trigger: "Write all 8 category articles for [Plant Name]."
 
-Process: check existing pillars/[slug].json for duplicates, research each of the 8 categories via live verification per the Source Hierarchy, write each article applying the Editorial Writing Constraints, Per-Category Guidelines, Knowledge Equity rules, and UK/SA English standard, assign the correct badge, output as a complete pillars/[slug].json file ready to paste in.
+Process: check existing pillars/[slug].json for duplicates, research each of the 8 categories via live verification per the Source Hierarchy, write each article applying the Editorial Writing Constraints, Cross-Plant Repetition Check, Per-Category Guidelines, Knowledge Equity rules, and UK/SA English standard, assign the correct badge, output as a complete pillars/[slug].json file ready to paste in.
