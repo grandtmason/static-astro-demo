@@ -186,8 +186,9 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .c-hl    { font-size: 15px; color: var(--ink); line-height: 1.45; margin-bottom: 6px; font-style: italic; }
   .c-tsr   { font-family: var(--sans); font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
   .article-card { grid-column: 1 / -1; }
-  .article-title { font-family: var(--serif); font-size: 18px; font-weight: 600; color: var(--ink); line-height: 1.35; margin-bottom: 8px; }
-  .article-teaser { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+  .article-editorial-frame { border: 1px solid; border-radius: 3px; padding: 14px 16px; margin-bottom: 14px; background: rgba(255,255,255,0.4); }
+  .article-title { font-family: var(--serif); font-size: 18px; font-weight: 600; font-style: italic; color: var(--ink); line-height: 1.35; margin-bottom: 8px; }
+  .article-teaser { font-family: var(--serif); font-size: 14px; font-style: normal; color: var(--muted); line-height: 1.55; margin-bottom: 0; }
   .article-body-wrap { position: relative; }
   .article-body { font-family: var(--serif); font-size: 14px; line-height: 1.75; color: var(--ink); white-space: pre-line; }
   .article-body-wrap.gated .article-body { max-height: 90px; overflow: hidden; filter: blur(4px); user-select: none; }
@@ -550,6 +551,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
         if (b === 'peer-reviewed') return 'Peer-Reviewed Research';
         return null;
       };
+      const tabColorVar = `var(--tab-${TABS.findIndex(t => t.id === tab.id)})`;
       return (
         <div class="tab-panel" id={`panel-${tab.id}`}>
           <div class="badge-legend">
@@ -563,7 +565,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
               sortedArticles.map((article: any, i: number) => (
                 <div class="card article-card">
                   <div class="c-tag">{tab.label}</div>
-                  <div class="article-editorial-frame" style={`border-color: var(--tab-${TABS.findIndex(t => t.id === tab.id)})`}>
+                  <div class="article-editorial-frame" style={`border-color: ${tabColorVar}`}>
                     {article.badge && badgeLabel(article.badge) && (
                       <div class="article-badge">
                         <span class={`badge-dot badge-${article.badge}`}></span>
