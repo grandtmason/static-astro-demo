@@ -94,6 +94,8 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .tabs-row { display: flex; width: 100%; margin-top: 10px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
   .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .15s; text-align: center; }
   .tab-btn:last-child { border-right: none; }
+  .tab-lock { margin-right: 4px; font-size: 9px; }
+  body.community-member .tab-lock { display: none; }
   .tab-btn.active { color: #000 !important; border-bottom-color: var(--gold) !important; }
   .tabs-row .tab-btn:nth-child(1) { background: var(--green); color: var(--sage); border-bottom-color: var(--green); }
   .tabs-row .tab-btn:nth-child(1).active { color: var(--sage) !important; border-bottom-color: var(--gold) !important; }
@@ -329,11 +331,16 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       <p class="plant-sci">{d.scientific_name}</p>
       {lastUpdated && <p class="plant-updated">Last updated {lastUpdated}</p>}
       <div class="tabs-row" role="tablist">
-        {TABS.map(tab => (
-          <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
-            {tab.label}
-          </button>
-        ))}
+        {TABS.map(tab => {
+          const gatedTabIds = ['legislation', 'intelligence', 'projects', 'wellness', 'innovation'];
+          const isGatedTab = gatedTabIds.includes(tab.id);
+          return (
+            <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}${isGatedTab ? ' gated-tab' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
+              {isGatedTab && <span class="tab-lock">🔒</span>}
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
     </div>
 
@@ -696,15 +703,15 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 
     document.querySelectorAll('.mob-menu-item[data-id]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        const id = btn.dataset.id;
-        const idx = tabsArr.findIndex(x => x.dataset.id === id);
-        tabsArr.forEach(x => x.classList.toggle('active', x.dataset.id === id));
-        panels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
-        if (idx >= 0) applyTabColorByIndex(idx);
-        closeMobMenu();
-        $('content-wrap')?.scrollTo(0, 0);
-      });
-    });     
+        const isExpanded = wrap?.classList.toggle('expanded');
+        btn.textContent = isExpanded ? 'Hide' : 'Read';
+        const isGated = wrap?.classList.contains('gated');
+        const isUnlocked = document.body.classList.contains('community-member');
+        if (isExpanded && (!isGated || isUnlocked)) {
+          markRead(id);
+          if (indicator) indicator.style.display = 'inline';
+        }
+      });     
 const READ_KEY = 'sabr_read_articles';
     function getReadSet() {
       try { return new Set(JSON.parse(localStorage.getItem(READ_KEY) || '[]')); } catch { return new Set(); }
