@@ -84,25 +84,17 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
   .sticky-header { position: sticky; top: 0; z-index: 50; background: var(--parch); flex-shrink: 0; }
   .top-bar { background: var(--green); border-bottom: 2px solid var(--gold); padding: 9px 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; }
-  .top-bar-back { color: var(--gold); font-family: var(--sans); font-size: 22px; text-decoration: none; line-height: 1; position: absolute; left: 28px; }
+  .top-bar-back { color: var(--gold); font-family: var(--sans); text-decoration: none; line-height: 1; position: absolute; left: 28px; display: flex; align-items: center; justify-content: center; }
   .top-bar-title { font-family: var(--sans); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); text-decoration: none; }
   .plant-band { background: var(--parch); display: flex; flex-direction: column; align-items: center; padding: 12px 20px 0; flex-shrink: 0; }
   .plant-name { font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 400; font-style: italic; text-transform: none; letter-spacing: 0; color: var(--gold); line-height: 1.15; margin-bottom: 6px; }
   .plant-sci { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: none; font-style: italic; color: var(--muted); margin-bottom: 10px; }
   .plant-updated { font-family: var(--sans); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--sage); margin-top: 4px; }
   .tabs-row { display: flex; width: 100%; margin-top: 10px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
-  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; background: var(--parch); color: var(--ink); border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .1s, background .1s; text-align: center; }
+  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; background: var(--parch); color: var(--ink); border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: background .15s, color .15s; text-align: center; }
   .tab-btn:last-child { border-right: none; }
   .tab-btn:hover { color: var(--gold); background: #fff; }
   .tab-btn.active { background: #fff; color: var(--gold); border-bottom: 3px solid var(--gold); }
-  .tabs-row button.tab-btn:nth-child(2).active { background: var(--tab-1) !important; color: #000 !important; border-bottom-color: var(--tab-1) !important; }
-  .tabs-row button.tab-btn:nth-child(3).active { background: var(--tab-2) !important; color: #000 !important; border-bottom-color: var(--tab-2) !important; }
-  .tabs-row button.tab-btn:nth-child(4).active { background: var(--tab-3) !important; color: #000 !important; border-bottom-color: var(--tab-3) !important; }
-  .tabs-row button.tab-btn:nth-child(5).active { background: var(--tab-4) !important; color: #000 !important; border-bottom-color: var(--tab-4) !important; }
-  .tabs-row button.tab-btn:nth-child(6).active { background: var(--tab-5) !important; color: #000 !important; border-bottom-color: var(--tab-5) !important; }
-  .tabs-row button.tab-btn:nth-child(7).active { background: var(--tab-6) !important; color: #000 !important; border-bottom-color: var(--tab-6) !important; }
-  .tabs-row button.tab-btn:nth-child(8).active { background: var(--tab-7) !important; color: #000 !important; border-bottom-color: var(--tab-7) !important; }
-  .tabs-row button.tab-btn:nth-child(9).active { background: var(--tab-8) !important; color: #000 !important; border-bottom-color: var(--tab-8) !important; }
   .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: 70px; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
@@ -116,7 +108,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .photo-credit-lbl { font-family: var(--sans); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 2px; }
   .photo-credit-val { font-family: var(--sans); font-size: 8.5px; color: var(--muted); line-height: 1.4; }
   .carousel-nav { display: flex; align-items: center; justify-content: space-between; padding: 3px 10px; background: var(--parch); border-bottom: 1px solid var(--border); }
-  .c-arrow { background: none; border: none; font-size: 22px; font-family: var(--sans); color: var(--gold); padding: 0; cursor: pointer; line-height: 1; }
+  .c-arrow { background: none; border: none; color: var(--gold); padding: 0; cursor: pointer; line-height: 1; display: flex; align-items: center; justify-content: center; }
   .c-arrow:hover { opacity: 0.75; }
   .c-count { font-family: var(--sans); font-size: 9px; color: var(--muted); }
   .names-wrap { padding: 8px; flex: 1; }
@@ -141,9 +133,9 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .stat-val { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.3px; color: var(--gold); margin-top: auto; line-height: 1; }
   .prot-block { padding: 9px 0; }
   .prot-block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; padding: 0 14px; }
-  .prot-row { display: flex; align-items: stretch; padding: 4px 0; border-bottom: 1px solid #F5F4F0; }
+  .prot-row { display: flex; align-items: flex-end; padding: 4px 0; border-bottom: 1px solid #F5F4F0; }
   .prot-row:last-child { border-bottom: none; }
-  .prot-badge { font-family: var(--sans); font-size: 7.5px; letter-spacing: .8px; text-transform: uppercase; padding: 5px 12px 5px 10px; flex-shrink: 0; white-space: nowrap; background: var(--green); color: var(--gold); width: 90px; text-align: center; display: flex; align-items: center; justify-content: center; border-radius: 0 999px 999px 0; }
+  .prot-badge { font-family: var(--sans); font-size: 9px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; padding: 9px 16px 9px 12px; flex-shrink: 0; white-space: nowrap; background: var(--green); color: var(--gold); width: 108px; text-align: center; display: flex; align-items: center; justify-content: center; border-radius: 0 22px 22px 0; margin-bottom: 3px; }
   .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; padding: 4px 14px; }
   .intro-block { padding: 10px 14px; border-bottom: none; }
   .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
@@ -222,20 +214,19 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     .plant-band { padding-bottom: 4px; }
 
     .mob-nav-wrap { position: relative; }
-    .mob-menu-backdrop { display: none; position: fixed; inset: 0; background: transparent; z-index: 299; }
+    .mob-menu-backdrop { display: none; position: fixed; inset: 0; background: rgba(249, 248, 244, 0.88); z-index: 299; }
     .mob-menu-backdrop.open { display: block; }
     .mob-menu-panel {
-      display: none; position: absolute; top: calc(100% + 8px); right: 12px; z-index: 300;
-      width: 220px; background: rgba(249, 248, 244, 0.82);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      border-radius: 18px; box-shadow: 0 12px 32px rgba(0,0,0,0.2);
-      padding: 12px; flex-direction: column; gap: 8px;
+      display: none; position: absolute; top: calc(100% + 8px); right: 0; z-index: 300;
+      width: 220px; background: transparent;
+      padding: 0 0 12px; flex-direction: column; gap: 8px;
     }
     .mob-menu-panel.open { display: flex; }
     .mob-menu-item {
       width: 100%; text-align: center; font-family: var(--sans); font-size: 11px; letter-spacing: 1px;
       text-transform: uppercase; color: #000; background: var(--item-color, #fff);
-      border: none; border-radius: 22px; padding: 11px 14px; cursor: pointer;
+      border: none; border-radius: 999px 0 0 999px; padding: 11px 14px; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
     }
     .mob-menu-return { background: var(--green); color: var(--gold); font-weight: 700; }
     .mob-menu-explore-other { background: var(--gold); color: #000; font-weight: 700; }
@@ -249,6 +240,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       background: var(--green);
       border-bottom: 2px solid var(--gold);
       flex-shrink: 0;
+      transition: background .2s;
     }
     .mob-nav-back {
       display: flex;
@@ -256,8 +248,6 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       justify-content: center;
       padding: 0 20px;
       color: var(--gold);
-      font-size: 22px;
-      font-family: var(--sans);
       text-decoration: none;
       flex-shrink: 0;
     }
@@ -284,7 +274,9 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 <div class="portal" data-slug={slug}>
   <div class="sticky-header">
     <div class="top-bar">
-      <a href="/" class="top-bar-back" id="top-bar-back-link" aria-label="Back to Registry">←</a>
+      <a href="/" class="top-bar-back" id="top-bar-back-link" aria-label="Back to Registry">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
       <a href="/" class="top-bar-title" id="top-bar-title-link">South African Botanical Registry</a>
     </div>
 
@@ -303,7 +295,9 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 
     <div class="mob-nav-wrap">
       <div class="mob-nav-band">
-        <a href="/" class="mob-nav-back" id="mob-nav-back-link" aria-label="Back to Registry">←</a>
+        <a href="/" class="mob-nav-back" id="mob-nav-back-link" aria-label="Back to Registry">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </a>
         <button class="mob-nav-explore" id="mob-explore-btn">Explore</button>
       </div>
       <div class="mob-menu-backdrop" id="mob-menu-overlay"></div>
@@ -337,9 +331,13 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
             </div>
           </div>
           <div class="carousel-nav">
-            <button class="c-arrow" id="c-prev" aria-label="Previous">←</button>
+            <button class="c-arrow" id="c-prev" aria-label="Previous">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
             <span class="c-count" id="c-count">1 of {images.length > 0 ? images.length : 1}</span>
-            <button class="c-arrow" id="c-next" aria-label="Next">→</button>
+            <button class="c-arrow" id="c-next" aria-label="Next">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
           </div>
           <div class="names-wrap">
             <div class="names-lbl">Common Names</div>
@@ -547,17 +545,35 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       projects: { bg: 'var(--tab-7)', color: '#000' },
       intelligence: { bg: 'var(--tab-8)', color: '#000' },
     };
+
     const mobExplore = $('mob-explore-btn');
-    function setMobExploreColor(id) {
+    const mobNavBand = document.querySelector('.mob-nav-band');
+    function applyTabColor(id) {
       const c = TAB_COLORS[id] || TAB_COLORS.datasheet;
-      if (mobExplore) { mobExplore.style.background = c.bg; mobExplore.style.color = c.color; }
+      const isDefault = id === 'datasheet';
+      if (mobNavBand) mobNavBand.style.background = isDefault ? '' : c.bg;
+      if (mobExplore) {
+        mobExplore.style.background = isDefault ? 'transparent' : c.bg;
+        mobExplore.style.color = c.color;
+      }
+      tabs.forEach(x => {
+        if (x.dataset.id === id && id !== 'datasheet') {
+          x.style.background = c.bg;
+          x.style.color = c.color;
+          x.style.borderBottomColor = c.bg;
+        } else {
+          x.style.background = '';
+          x.style.color = '';
+          x.style.borderBottomColor = '';
+        }
+      });
     }
 
     tabs.forEach(t => t.addEventListener('click', () => {
       const id = t.dataset.id;
       tabs.forEach(x => { const on = x.dataset.id === id; x.classList.toggle('active', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
       panels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
-      setMobExploreColor(id);
+      applyTabColor(id);
       $('content-wrap')?.scrollTo(0, 0);
     }));
 
@@ -598,7 +614,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     $('mob-return-datasheet')?.addEventListener('click', () => {
       tabs.forEach(x => { const on = x.dataset.id === 'datasheet'; x.classList.toggle('active', on); });
       panels.forEach(p => p.classList.toggle('active', p.id === 'panel-datasheet'));
-      setMobExploreColor('datasheet');
+      applyTabColor('datasheet');
       closeMobMenu();
       $('content-wrap')?.scrollTo(0, 0);
     });
@@ -608,7 +624,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
         const id = btn.dataset.id;
         tabs.forEach(x => x.classList.toggle('active', x.dataset.id === id));
         panels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
-        setMobExploreColor(id);
+        applyTabColor(id);
         closeMobMenu();
         $('content-wrap')?.scrollTo(0, 0);
       });
