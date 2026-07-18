@@ -56,6 +56,8 @@ const pillarDates = Object.values(pillarEntry)
   .reverse();
 const lastUpdated = pillarDates[0] ?? null;
 
+const gatedTabIds = ['legislation', 'intelligence', 'projects', 'wellness', 'innovation', 'ik'];
+
 const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 ---
 <Layout title={`${d?.name || 'Plant'} | SABR Registry`} schema={generatePlantSchema(d, lastUpdated)}>
@@ -92,9 +94,9 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .plant-sci { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: none; font-style: italic; color: var(--muted); margin-bottom: 10px; }
   .plant-updated { font-family: var(--sans); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--sage); margin-top: 4px; }
   .tabs-row { display: flex; width: 100%; margin-top: 10px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
-  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .15s; text-align: center; }
+  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; padding-left: 10px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .15s; text-align: center; display: flex; align-items: center; justify-content: flex-start; gap: 4px; }
   .tab-btn:last-child { border-right: none; }
-  .tab-lock { margin-right: 4px; font-size: 9px; }
+  .tab-lock { font-size: 13px; color: #000; }
   body.community-member .tab-lock { display: none; }
   .tab-btn.active { color: #000 !important; border-bottom-color: var(--gold) !important; }
   .tabs-row .tab-btn:nth-child(1) { background: var(--green); color: var(--sage); border-bottom-color: var(--green); }
@@ -191,12 +193,12 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .article-editorial-frame { border: 1px solid; border-radius: 3px; padding: 14px 16px; margin-bottom: 14px; background: rgba(255,255,255,0.4); }
   .article-title { font-family: var(--serif); font-size: 18px; font-weight: 600; font-style: italic; color: var(--ink); line-height: 1.35; margin-bottom: 8px; }
   .article-teaser { font-family: var(--serif); font-size: 14px; font-style: normal; color: var(--muted); line-height: 1.55; margin-bottom: 0; }
-  .article-body-wrap { position: relative; display: none; margin-top: 12px; }
-  .article-body-wrap.expanded { display: block; }
   .read-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
   .read-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; background: transparent; color: var(--gold); border: 1px solid var(--gold); border-radius: 16px; padding: 5px 16px; cursor: pointer; }
   .read-btn:hover { background: var(--gold); color: var(--parch); }
   .read-indicator { font-family: var(--sans); font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); font-style: italic; }
+  .article-body-wrap { position: relative; display: none; margin-top: 12px; }
+  .article-body-wrap.expanded { display: block; }
   .article-body { font-family: var(--serif); font-size: 14px; line-height: 1.75; color: var(--ink); white-space: pre-line; }
   .article-body-wrap.gated .article-body { max-height: 90px; overflow: hidden; filter: blur(4px); user-select: none; }
   .gate-overlay {
@@ -209,8 +211,12 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .gate-btn { font-family: var(--sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; background: var(--parch); color: var(--gold); border: 1px solid var(--gold); border-radius: 22px; padding: 10px 24px; cursor: pointer; }
   .gate-btn:hover { background: var(--gold); color: var(--parch); }
   .stale-flag { color: var(--gold); font-style: italic; }
-  .badge-legend { display: flex; flex-wrap: wrap; gap: 14px; padding: 10px 16px 0; font-family: var(--sans); font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 10px 16px; font-family: var(--sans); font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
   .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-lock-item { display: flex; align-items: center; gap: 6px; margin-left: auto; cursor: pointer; }
+  .legend-lock-item .lock-icon { font-size: 13px; color: #000; }
+  .legend-lock-item .legend-lock-text { color: var(--gold); font-weight: 600; }
+  body.community-member .legend-lock-item { display: none; }
   .article-badge { display: inline-flex; align-items: center; gap: 6px; font-family: var(--sans); font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 8px; }
   .badge-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
   .badge-dot.badge-traditional { background: #1A3A2A; }
@@ -273,7 +279,10 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       text-transform: uppercase; color: #000; background: var(--item-color, #fff);
       border: none; border-radius: 999px 0 0 999px; padding: 11px 14px; cursor: pointer;
       box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      display: flex; align-items: center; justify-content: center; gap: 6px;
     }
+    .mob-lock { font-size: 12px; color: #000; }
+    body.community-member .mob-lock { display: none; }
     .mob-menu-return { background: var(--green); color: var(--gold); font-weight: 700; }
     .mob-menu-explore-other { background: var(--gold); color: #000; font-weight: 700; }
 
@@ -287,7 +296,26 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       border-bottom: 2px solid var(--gold);
       flex-shrink: 0;
       transition: background .2s;
+      position: relative;
     }
+    .mob-nav-current {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #000;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .mob-nav-current .mob-nav-lock { font-size: 12px; color: #000; }
+    body.community-member .mob-nav-lock { display: none; }
     .mob-nav-back {
       display: flex;
       align-items: center;
@@ -332,10 +360,9 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       {lastUpdated && <p class="plant-updated">Last updated {lastUpdated}</p>}
       <div class="tabs-row" role="tablist">
         {TABS.map(tab => {
-          const gatedTabIds = ['legislation', 'intelligence', 'projects', 'wellness', 'innovation'];
           const isGatedTab = gatedTabIds.includes(tab.id);
           return (
-            <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}${isGatedTab ? ' gated-tab' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
+            <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
               {isGatedTab && <span class="tab-lock">🔒</span>}
               {tab.label}
             </button>
@@ -349,14 +376,21 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
         <a href="/" class="mob-nav-back" id="mob-nav-back-link" aria-label="Back to Registry">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
         </a>
+        <span class="mob-nav-current" id="mob-nav-current">Data Sheet</span>
         <button class="mob-nav-explore" id="mob-explore-btn">Explore</button>
       </div>
       <div class="mob-menu-backdrop" id="mob-menu-overlay"></div>
       <div class="mob-menu-panel" id="mob-menu-panel">
         <button class="mob-menu-item mob-menu-return" id="mob-return-datasheet">Return to Data Sheet</button>
-        {TABS.filter(t => t.id !== 'datasheet').map((tab, i) => (
-          <button class="mob-menu-item" data-id={tab.id} style={`--item-color: var(--tab-${i+1})`}>{tab.label}</button>
-        ))}
+        {TABS.filter(t => t.id !== 'datasheet').map((tab, i) => {
+          const isGatedTab = gatedTabIds.includes(tab.id);
+          return (
+            <button class="mob-menu-item" data-id={tab.id} style={`--item-color: var(--tab-${i+1})`}>
+              {tab.label}
+              {isGatedTab && <span class="mob-lock">🔒</span>}
+            </button>
+          );
+        })}
         <button class="mob-menu-item mob-menu-explore-other" id="mob-explore-other">Explore Other Plants</button>
       </div>
     </div>
@@ -543,8 +577,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     </div>
 
     {TABS.filter(t => t.id !== 'datasheet').map(tab => {
-      const gatedTabs = ['legislation', 'intelligence', 'projects', 'wellness', 'innovation'];
-      const isGated = gatedTabs.includes(tab.id);
+      const isGated = gatedTabIds.includes(tab.id);
       const rawEntry = pillarEntry[tab.id];
       const articles = Array.isArray(rawEntry) ? rawEntry : (rawEntry ? [rawEntry] : []);
       const sortedArticles = [...articles].sort((a: any, b: any) => (b.updated_at || '').localeCompare(a.updated_at || ''));
@@ -571,6 +604,10 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
             <span class="legend-item"><span class="badge-dot badge-industry"></span>Industry / Trade / Regulatory</span>
             <span class="legend-item"><span class="badge-dot badge-indigenous"></span>Indigenous Knowledge</span>
             <span class="legend-item"><span class="badge-dot badge-peer-reviewed"></span>Peer-Reviewed Research</span>
+            <span class="legend-lock-item" id="legend-join-trigger">
+              <span class="lock-icon">🔒</span>
+              <span class="legend-lock-text">Join the SABR community to unlock all categories</span>
+            </span>
           </div>
           <div class="cards-grid">
             {sortedArticles.length > 0 ? (
@@ -587,7 +624,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
                     <div class="article-title">{article.title}</div>
                     <p class="article-teaser">{article.teaser}</p>
                     <div class="read-row">
-                      <button class="read-btn" data-article-id={`${slug}-${tab.id}-${i}`}>Read</button>
+                      <button class="read-btn" data-article-id={`${slug}-${tab.id}-${i}`} data-gated={isGated ? 'true' : 'false'} data-gate-category={tab.id}>Read</button>
                       <span class="read-indicator" data-article-id={`${slug}-${tab.id}-${i}`} style="display:none;">Already read</span>
                     </div>
                   </div>
@@ -595,7 +632,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
                     <p class="article-body">{article.body}</p>
                     {isGated && (
                       <div class="gate-overlay">
-                        <p class="gate-text">Join the Registry community to read the full {tab.label} update</p>
+                        <p class="gate-text">Join the community to unlock all categories</p>
                         <button class="gate-btn" data-gate-category={tab.id}>Join Free</button>
                       </div>
                     )}
@@ -642,6 +679,8 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     const tabsArr = Array.from(tabs);
     const mobExplore = $('mob-explore-btn');
     const mobNavBand = document.querySelector('.mob-nav-band');
+    const GATED_TAB_IDS = ['legislation', 'intelligence', 'projects', 'wellness', 'innovation', 'ik'];
+    const mobNavCurrent = $('mob-nav-current');
 
     function applyTabColorByIndex(idx) {
       const isDefault = idx === 0;
@@ -649,6 +688,12 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       const color = isDefault ? 'var(--sage)' : '#000';
       if (mobNavBand) mobNavBand.style.background = bg;
       if (mobExplore) { mobExplore.style.background = bg; mobExplore.style.color = color; }
+      if (mobNavCurrent) {
+        const activeTab = tabsArr[idx];
+        const label = activeTab ? activeTab.textContent.replace('🔒', '').trim() : 'Data Sheet';
+        const isGated = activeTab && GATED_TAB_IDS.indexOf(activeTab.dataset.id) !== -1;
+        mobNavCurrent.innerHTML = label + (isGated ? ' <span class="mob-nav-lock">🔒</span>' : '');
+      }
     }
 
     tabsArr.forEach((t, i) => t.addEventListener('click', () => {
