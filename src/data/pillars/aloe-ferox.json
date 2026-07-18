@@ -29,3 +29,78 @@
     {
       "title": "Khoisan Tapping Tradition Behind Aloe Ferox's Bitter Sap Harvest",
       "teaser": "The method of tapping Aloe ferox leaves for their bitter sap traces back to Khoisan practice, a technique still used by the same communities' descendants today.",
+      "body": "Aloe ferox is known by several names reflecting its long history with South Africa's indigenous communities, including inhlaba in Zulu and ikhala in Xhosa, alongside bitteraalwyn in Afrikaans. The practice of tapping the plant, cutting its leaves and collecting the bitter yellow sap that drains from them, is a traditional harvesting method with roots in Khoisan practice, developed long before any commercial aloe industry existed.\n\nThis tapping method has proven remarkably durable, remaining the primary commercial harvesting technique for Aloe ferox sap and crystals into the present day, largely unchanged in its fundamentals from its indigenous origins. The Albertinia Aloe Tappers Agricultural Cooperative, a community-based operation in the Western Cape, continues this tradition directly, producing aloe sap and crystals through sustainable tapping practices that trace their technique lineage back to this same indigenous knowledge base.\n\nThe continuity here is genuinely notable. Rather than indigenous knowledge being documented, extracted, and then commercialised through an entirely separate industrial process, as has happened with several other South African medicinal plants, Aloe ferox's commercial harvest today still uses substantially the same physical technique the Khoisan developed, carried forward through communities with direct historical and often familial connection to that origin.",
+      "badge": "indigenous",
+      "tier": "free",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["SANBI PlantZAfrica, pza.sanbi.org/aloe-ferox", "CapeNature, Albertinia Aloe Tappers Agricultural Cooperative project"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "people": [
+    {
+      "title": "The Albertinia Aloe Tappers Cooperative Keeps a Sustainable Industry in Community Hands",
+      "teaser": "The Albertinia Aloe Tappers Agricultural Cooperative demonstrates how sustainable harvesting can remain a genuine community enterprise rather than shifting entirely to large commercial operations.",
+      "body": "CapeNature documents the Albertinia Aloe Tappers Agricultural Cooperative as a community-based operation that taps Aloe ferox through sustainable harvesting practices, producing aloe sap and crystals for commercial sale. Cooperative structures of this kind matter for how commercial value is distributed. Rather than a single company controlling the harvest and processing while paying individual tappers a wage, a cooperative model means the people doing the physical harvesting work also hold a direct stake in the enterprise's overall success.\n\nThis stands in useful contrast to several other South African medicinal plants covered in this registry, where wild harvest increasingly gives way to large-scale commercial cultivation controlled by estates or corporations, with the original harvesting communities' economic role diminishing as a result. Albertinia's cooperative model suggests an alternative path is viable, one where sustainable harvest practice and community economic ownership can coexist with meeting genuine commercial export demand.\n\nSANBI's own conservation assessment work, discussed further under Legislation, has found Aloe ferox harvest to pose only low to moderate risk to wild populations, a finding that likely reflects, at least in part, the kind of carefully managed, sustainable tapping practices cooperatives like Albertinia's have maintained over an extended period, rather than being purely a function of the plant's natural resilience alone.",
+      "badge": "industry",
+      "tier": "free",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["CapeNature, Albertinia Aloe Tappers Agricultural Cooperative project"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "agronomy": [
+    {
+      "title": "Sustainable Tapping Keeps Aloe Ferox Harvest Assessed as Low Risk",
+      "teaser": "A March 2026 SANBI assessment found that harvest and international trade in Aloe ferox poses only low to moderate risk to wild populations, a notably positive conservation finding.",
+      "body": "SANBI's Scientific Authority published a Non-Detriment Finding assessment for Aloe ferox in March 2026, concluding that the harvest and international trade in the species is non-detrimental, posing low to moderate risk to wild populations. This is a formally significant finding under the framework governing trade in species covered by CITES, the international convention regulating trade in species whose survival could be threatened by commerce, and it places Aloe ferox in a meaningfully different position from several other plants in this registry currently facing critical endangerment or significant conservation pressure.\n\nSANBI's own documentation notes that in the Western Cape specifically, CapeNature seldom receives reports of illegal Aloe ferox harvest, attributing this in part to most harvesting occurring on small areas of private land rather than more difficult-to-monitor communal or wild conservation areas. This distinction, private-land harvest under known ownership versus open-access wild harvest, likely contributes meaningfully to the species' comparatively favourable conservation assessment, since accountability and traceability are considerably easier to establish and enforce on privately held land.\n\nDedicated sustainable harvesting guidelines exist specifically for Aloe ferox, published through the ABS Biotrade initiative, further supporting the kind of managed tapping practice that cooperatives such as Albertinia's have maintained, and which the March 2026 assessment's favourable finding appears to validate as genuinely effective conservation practice rather than simply good fortune.",
+      "badge": "industry",
+      "tier": "basic",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["SANBI, Non-Detriment Finding assessment for Aloe ferox, March 2026", "ABS Biotrade, Aloe Ferox Sustainable Harvesting Guidelines"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "legislation": [
+    {
+      "title": "SANBI Confirms Aloe Ferox Trade Poses Low to Moderate Conservation Risk",
+      "teaser": "A formal March 2026 Non-Detriment Finding places Aloe ferox among the more conservation-secure indigenous plants covered by this registry, in clear contrast to several critically endangered species.",
+      "body": "South Africa's Scientific Authority, operating under SANBI, published a Non-Detriment Finding for Aloe ferox in March 2026, part of a formal list of such assessments the Minister publishes for species subject to CITES trade regulation. The finding states directly that the harvest and international trade in Aloe ferox is non-detrimental, posing low to moderate risk to the population in the wild, a conclusion consistent with an earlier assessment reached by the Scientific Authority in April 2024, suggesting this is a stable, repeated finding rather than a one-off or provisional judgement.\n\nThis regulatory status carries real practical significance for anyone trading in or sourcing Aloe ferox. A confirmed non-detriment finding provides a documented, government-backed basis for continued legal international trade, distinct from species where harvest restrictions, permit requirements, or outright trade limitations apply due to conservation concern. For Aloe ferox specifically, this means the existing tapping-based supply chain, including cooperative operations such as Albertinia's, currently operates within a regulatory environment that recognises and formally endorses its sustainability rather than treating it as a source of ongoing conservation risk requiring tightening restriction.\n\nThis favourable finding should not be read as a permanent or unconditional status. Non-detriment findings are periodically reassessed, and continued favourable outcomes will likely depend on harvesting practices remaining as carefully managed as they currently appear to be.",
+      "badge": "industry",
+      "tier": "full",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["SANBI, Non-Detriment Finding assessment for Aloe ferox, March 2026", "SANBI, Non-detriment findings made by the Scientific Authority, April 2024"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "projects": [
+    {
+      "title": "Albertinia Cooperative Offers a Working Model for Sustainable Aloe Ferox Harvest",
+      "teaser": "The Albertinia Aloe Tappers Agricultural Cooperative demonstrates a functioning, community-run model for sustainable Aloe ferox production that other indigenous plant industries could draw on.",
+      "body": "The Albertinia Aloe Tappers Agricultural Cooperative, documented by CapeNature, represents an established, functioning example of community-run sustainable harvest rather than a pilot or experimental initiative. The cooperative taps Aloe ferox through sustainable practices to produce aloe sap and crystals, apparently successfully enough to have contributed to the species' favourable March 2026 conservation assessment discussed elsewhere in this profile.\n\nWhat makes this project worth highlighting specifically as a model, rather than simply as one plant's harvest operation, is the combination it demonstrates working together in practice: indigenous tapping technique preserved largely intact, community economic ownership through a cooperative structure rather than estate or corporate control, and a measurable, government-verified conservation outcome. Several other plants covered in this registry are still working through how to balance these same three elements, often treating community benefit and conservation as separate problems requiring separate solutions.\n\nWhether Albertinia's specific cooperative model could be adapted for other wild-harvested South African medicinal plants facing more severe conservation pressure is a genuine open question, since Aloe ferox's particular biology, its tapping-based harvest not requiring the plant's destruction, differs from species where the whole plant or its root system must be removed to harvest useful material, a distinction that likely limits how directly this specific model transfers to other species.",
+      "badge": "industry",
+      "tier": "full",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["CapeNature, Albertinia Aloe Tappers Agricultural Cooperative project"],
+      "updated_at": "2026-07-19"
+    }
+  ],
+  "intelligence": [
+    {
+      "title": "Favourable Conservation Status Gives Aloe Ferox a Supply Advantage Over Other Indigenous Exports",
+      "teaser": "A confirmed low-to-moderate-risk conservation assessment gives Aloe ferox meaningfully more supply-chain stability than several other South African medicinal plants currently facing tighter harvest restriction.",
+      "body": "Aloe ferox's March 2026 Non-Detriment Finding, confirming low to moderate conservation risk and consistent with an earlier 2024 assessment, gives the species a genuine competitive advantage in supply-chain terms compared with several other South African indigenous plants covered in this registry, many of which face critical endangerment status, tightening harvest permits, or active government conservation interventions that constrain available supply.\n\nFor buyers and product developers, this translates into a comparatively lower supply-risk profile when sourcing Aloe ferox, supported by an established, community-run harvest infrastructure through cooperatives such as Albertinia's, and backed by a documented, repeated government finding of sustainability. This is a meaningfully different risk position than, for example, African Ginger or Pelargonium Sidoides, both of which face active conservation management responses to documented harvest pressure.\n\nThe existing established use of Aloe ferox in cosmetic and skincare applications, alongside its traditional laxative use, suggests continued demand across multiple product categories rather than dependence on a single market. Combined with its favourable conservation status, this positions Aloe ferox as one of the more supply-stable options among South Africa's export-oriented indigenous medicinal plants for commercial entities evaluating sourcing decisions. This is market observation based on currently available conservation and industry documentation, not investment advice, and any commercial decision should involve independent guidance.",
+      "badge": "industry",
+      "tier": "full",
+      "verified_by": "G. Mason",
+      "verified_at": "2026-07-19",
+      "source_urls": ["SANBI, Non-Detriment Finding assessment for Aloe ferox, March 2026", "CapeNature, Albertinia Aloe Tappers Agricultural Cooperative project"],
+      "updated_at": "2026-07-19"
+    }
+  ]
+}
