@@ -92,17 +92,18 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .plant-band { background: var(--parch); display: flex; flex-direction: column; align-items: center; padding: 12px 20px 0; flex-shrink: 0; }
   .plant-name { font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 400; font-style: italic; text-transform: none; letter-spacing: 0; color: var(--gold); line-height: 1.15; margin-bottom: 6px; }
   .plant-sci { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: none; font-style: italic; color: var(--muted); margin-bottom: 10px; }
-  .plant-updated { font-family: var(--sans); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--sage); margin-top: 4px; }
-  .tabs-row { display: flex; width: 100%; margin-top: 10px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
-  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; padding-left: 10px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .15s; text-align: center; display: flex; align-items: center; justify-content: flex-start; gap: 4px; }
+  .tabs-row { display: flex; width: 100%; margin-top: 10px; margin-bottom: 6px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
+  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .15s; text-align: center; display: flex; align-items: center; justify-content: center; }
   .tab-btn:last-child { border-right: none; }
-  .tab-lock { font-size: 13px; color: #000; }
-  body.community-member .tab-lock { display: none; }
+  .tab-btn.locked { box-shadow: inset 0 2px 0 var(--gold), inset 2px 0 0 var(--gold), inset -2px 0 0 var(--gold); }
+  body.community-member .tab-btn.locked { box-shadow: none; }
   .tab-btn.active { color: #000 !important; border-bottom-color: var(--gold) !important; }
   .tabs-row .tab-btn:nth-child(1) { background: var(--green); color: var(--sage); border-bottom-color: var(--green); }
   .tabs-row .tab-btn:nth-child(1).active { color: var(--sage) !important; border-bottom-color: var(--gold) !important; }
-  .tabs-row .tab-btn:nth-child(2) { background: var(--tab-1); color: #000; border-bottom-color: var(--tab-1); }
-  .tabs-row .tab-btn:nth-child(3) { background: var(--tab-2); color: #000; border-bottom-color: var(--tab-2); }
+  .tabs-row .tab-btn:nth-child(2) { background: var(--tab-1); color: var(--sage); border-bottom-color: var(--tab-1); }
+  .tabs-row .tab-btn:nth-child(2).active { color: var(--sage) !important; border-bottom-color: var(--gold) !important; }
+  .tabs-row .tab-btn:nth-child(3) { background: var(--tab-2); color: var(--sage); border-bottom-color: var(--tab-2); }
+  .tabs-row .tab-btn:nth-child(3).active { color: var(--sage) !important; border-bottom-color: var(--gold) !important; }
   .tabs-row .tab-btn:nth-child(4) { background: var(--tab-3); color: #000; border-bottom-color: var(--tab-3); }
   .tabs-row .tab-btn:nth-child(5) { background: var(--tab-4); color: #000; border-bottom-color: var(--tab-4); }
   .tabs-row .tab-btn:nth-child(6) { background: var(--tab-5); color: #000; border-bottom-color: var(--tab-5); }
@@ -211,12 +212,6 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .gate-btn { font-family: var(--sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; background: var(--parch); color: var(--gold); border: 1px solid var(--gold); border-radius: 22px; padding: 10px 24px; cursor: pointer; }
   .gate-btn:hover { background: var(--gold); color: var(--parch); }
   .stale-flag { color: var(--gold); font-style: italic; }
-  .badge-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 10px 16px; font-family: var(--sans); font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-  .legend-item { display: flex; align-items: center; gap: 5px; }
-  .legend-lock-item { display: flex; align-items: center; gap: 6px; margin-left: auto; cursor: pointer; }
-  .legend-lock-item .lock-icon { font-size: 13px; color: #000; }
-  .legend-lock-item .legend-lock-text { color: var(--gold); font-weight: 600; }
-  body.community-member .legend-lock-item { display: none; }
   .article-badge { display: inline-flex; align-items: center; gap: 6px; font-family: var(--sans); font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 8px; }
   .badge-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
   .badge-dot.badge-traditional { background: #1A3A2A; }
@@ -266,23 +261,25 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     .plant-band { padding-bottom: 4px; }
 
     .mob-nav-wrap { position: relative; }
-    .mob-menu-backdrop { display: none; position: fixed; top: 145px; left: 0; right: 0; bottom: 72px; background: rgba(249, 248, 244, 0.88); z-index: 400; }
+    .mob-menu-backdrop { display: none; position: fixed; top: 145px; left: 0; right: 0; bottom: 72px; background: rgba(249, 248, 244, 0.88); z-index: 550; }
     .mob-menu-backdrop.open { display: block; }
     .mob-menu-panel {
-      display: none; position: absolute; top: calc(100% + 8px); right: 0; z-index: 401;
+      display: none; position: absolute; top: calc(100% + 8px); right: 0; z-index: 551;
       width: 220px; background: transparent;
       padding: 0 0 12px; flex-direction: column; gap: 8px;
+      max-height: calc(100vh - 200px); overflow-y: auto;
     }
     .mob-menu-panel.open { display: flex; }
     .mob-menu-item {
       width: 100%; text-align: center; font-family: var(--sans); font-size: 11px; letter-spacing: 1px;
       text-transform: uppercase; color: #000; background: var(--item-color, #fff);
-      border: none; border-radius: 999px 0 0 999px; padding: 11px 14px; cursor: pointer;
+      border: 3px solid transparent; border-radius: 999px 0 0 999px; padding: 11px 14px; cursor: pointer;
       box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-      display: flex; align-items: center; justify-content: center; gap: 6px;
+      display: flex; align-items: center; justify-content: center;
     }
-    .mob-lock { font-size: 12px; color: #000; }
-    body.community-member .mob-lock { display: none; }
+    .mob-menu-item.locked { border-color: var(--gold); }
+    .mob-menu-join { background: var(--green) !important; color: var(--gold) !important; border-color: var(--gold) !important; font-weight: 700; }
+    body.community-member .mob-menu-join { display: none !important; }
     .mob-menu-return { background: var(--green); color: var(--gold); font-weight: 700; }
     .mob-menu-explore-other { background: var(--gold); color: #000; font-weight: 700; }
 
@@ -291,31 +288,11 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     .mob-nav-band {
       display: flex;
       align-items: stretch;
-      justify-content: space-between;
       background: var(--green);
       border-bottom: 2px solid var(--gold);
       flex-shrink: 0;
       transition: background .2s;
-      position: relative;
     }
-    .mob-nav-current {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--sans);
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: #000;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    .mob-nav-current .mob-nav-lock { font-size: 12px; color: #000; }
-    body.community-member .mob-nav-lock { display: none; }
     .mob-nav-back {
       display: flex;
       align-items: center;
@@ -325,6 +302,21 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       text-decoration: none;
       flex-shrink: 0;
     }
+    .mob-nav-current {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #000;
+      padding: 10px 8px;
+      border: 3px solid transparent;
+      white-space: nowrap;
+    }
+    .mob-nav-current.locked { border-color: var(--gold); }
     .mob-nav-explore {
       font-family: var(--sans);
       font-size: 10px;
@@ -357,13 +349,11 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     <div class="plant-band">
       <h1 class="plant-name">{d.name}</h1>
       <p class="plant-sci">{d.scientific_name}</p>
-      {lastUpdated && <p class="plant-updated">Last updated {lastUpdated}</p>}
       <div class="tabs-row" role="tablist">
         {TABS.map(tab => {
           const isGatedTab = gatedTabIds.includes(tab.id);
           return (
-            <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
-              {isGatedTab && <span class="tab-lock">🔒</span>}
+            <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}${isGatedTab ? ' locked' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
               {tab.label}
             </button>
           );
@@ -382,12 +372,13 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       <div class="mob-menu-backdrop" id="mob-menu-overlay"></div>
       <div class="mob-menu-panel" id="mob-menu-panel">
         <button class="mob-menu-item mob-menu-return" id="mob-return-datasheet">Return to Data Sheet</button>
+        <button class="mob-menu-item mob-menu-join" id="mob-join-trigger">Join SABR to Access</button>
         {TABS.filter(t => t.id !== 'datasheet').map((tab, i) => {
           const isGatedTab = gatedTabIds.includes(tab.id);
+          const isDarkGreen = i === 0 || i === 1;
           return (
-            <button class="mob-menu-item" data-id={tab.id} style={`--item-color: var(--tab-${i+1})`}>
+            <button class={`mob-menu-item${isGatedTab ? ' locked' : ''}`} data-id={tab.id} style={`--item-color: var(--tab-${i+1}); ${isDarkGreen ? 'color: var(--sage);' : ''}`}>
               {tab.label}
-              {isGatedTab && <span class="mob-lock">🔒</span>}
             </button>
           );
         })}
@@ -599,16 +590,6 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       const tabColorVar = `var(--tab-${TABS.findIndex(t => t.id === tab.id)})`;
       return (
         <div class="tab-panel" id={`panel-${tab.id}`}>
-          <div class="badge-legend">
-            <span class="legend-item"><span class="badge-dot badge-traditional"></span>Natural / Traditional Medicine</span>
-            <span class="legend-item"><span class="badge-dot badge-industry"></span>Industry / Trade / Regulatory</span>
-            <span class="legend-item"><span class="badge-dot badge-indigenous"></span>Indigenous Knowledge</span>
-            <span class="legend-item"><span class="badge-dot badge-peer-reviewed"></span>Peer-Reviewed Research</span>
-            <span class="legend-lock-item" id="legend-join-trigger">
-              <span class="lock-icon">🔒</span>
-              <span class="legend-lock-text">Join the SABR community to unlock all categories</span>
-            </span>
-          </div>
           <div class="cards-grid">
             {sortedArticles.length > 0 ? (
               sortedArticles.map((article: any, i: number) => (
@@ -659,8 +640,8 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   <footer class="site-footer">
     <div class="ft-label">Connect with</div>
     <div class="ft-btns">
-      <button class="ft-btn" id="btn-suppliers">Suppliers</button>
-      <button class="ft-btn" id="btn-buyers">Buyers</button>
+      <button class="ft-btn" id="btn-suppliers">I am a Buyer</button>
+      <button class="ft-btn" id="btn-buyers">I am a Supplier</button>
     </div>
   </footer>
 
@@ -685,14 +666,17 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     function applyTabColorByIndex(idx) {
       const isDefault = idx === 0;
       const bg = isDefault ? 'var(--green)' : TAB_COLOR_LIST[idx - 1];
-      const color = isDefault ? 'var(--sage)' : '#000';
+      const isDarkGreen = idx === 1 || idx === 2;
+      const color = (isDefault || isDarkGreen) ? 'var(--sage)' : '#000';
       if (mobNavBand) mobNavBand.style.background = bg;
       if (mobExplore) { mobExplore.style.background = bg; mobExplore.style.color = color; }
       if (mobNavCurrent) {
         const activeTab = tabsArr[idx];
-        const label = activeTab ? activeTab.textContent.replace('🔒', '').trim() : 'Data Sheet';
+        const label = activeTab ? activeTab.textContent.trim() : 'Data Sheet';
         const isGated = activeTab && GATED_TAB_IDS.indexOf(activeTab.dataset.id) !== -1;
-        mobNavCurrent.innerHTML = label + (isGated ? ' <span class="mob-nav-lock">🔒</span>' : '');
+        mobNavCurrent.textContent = label;
+        mobNavCurrent.classList.toggle('locked', !!isGated);
+        mobNavCurrent.style.color = color;
       }
     }
 
@@ -790,8 +774,8 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     function promptJoinCommunity() {
       alert('Join the community to unlock all categories. (Signup form coming soon.)');
     }
-    const legendTrigger = $('legend-join-trigger');
-    if (legendTrigger) legendTrigger.addEventListener('click', promptJoinCommunity);
+    const joinTrigger = $('mob-join-trigger');
+    if (joinTrigger) joinTrigger.addEventListener('click', promptJoinCommunity);
     document.querySelectorAll('.gate-btn').forEach(function (btn) {
       btn.addEventListener('click', promptJoinCommunity);
     });
