@@ -92,26 +92,21 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .plant-band { background: var(--parch); display: flex; flex-direction: column; align-items: center; padding: 12px 20px 0; flex-shrink: 0; }
   .plant-name { font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 400; font-style: italic; text-transform: none; letter-spacing: 0; color: var(--gold); line-height: 1.15; margin-bottom: 6px; }
   .plant-sci { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: none; font-style: italic; color: var(--muted); margin-bottom: 10px; }
-  .tabs-row { display: flex; width: 100%; margin-top: 10px; margin-bottom: 6px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
-  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; border: none; border-right: 1px solid var(--border); border-bottom: 3px solid transparent; padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .15s; text-align: center; display: flex; align-items: center; justify-content: center; }
+  .tabs-row { display: flex; width: 100%; margin-top: 10px; margin-bottom: 12px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); position: relative; }
+  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; border: none; border-right: 1px solid var(--border); padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .15s; text-align: center; display: flex; align-items: center; justify-content: center; }
   .tab-btn:last-child { border-right: none; }
-  .tab-btn.locked { box-shadow: inset 0 2px 0 var(--gold), inset 2px 0 0 var(--gold), inset -2px 0 0 var(--gold); }
+  .tab-btn.locked { box-shadow: inset 0 0 0 2px var(--gold); }
   body.community-member .tab-btn.locked { box-shadow: none; }
-  .tab-btn.active { color: #000 !important; border-bottom-color: var(--gold) !important; }
-  .tabs-row .tab-btn:nth-child(1) { background: var(--green); color: var(--sage); border-bottom-color: var(--green); }
-  .tabs-row .tab-btn:nth-child(1).active { color: var(--sage) !important; border-bottom-color: var(--gold) !important; }
-  .tabs-row .tab-btn:nth-child(2) { background: var(--tab-1); color: var(--sage); border-bottom-color: var(--tab-1); }
-  .tabs-row .tab-btn:nth-child(2).active { color: var(--sage) !important; border-bottom-color: var(--gold) !important; }
-  .tabs-row .tab-btn:nth-child(3) { background: var(--tab-2); color: var(--sage); border-bottom-color: var(--tab-2); }
-  .tabs-row .tab-btn:nth-child(3).active { color: var(--sage) !important; border-bottom-color: var(--gold) !important; }
-  .tabs-row .tab-btn:nth-child(4) { background: var(--tab-3); color: #000; border-bottom-color: var(--tab-3); }
-  .tabs-row .tab-btn:nth-child(5) { background: var(--tab-4); color: #000; border-bottom-color: var(--tab-4); }
-  .tabs-row .tab-btn:nth-child(6) { background: var(--tab-5); color: #000; border-bottom-color: var(--tab-5); }
-  .tabs-row .tab-btn:nth-child(7) { background: var(--tab-6); color: #000; border-bottom-color: var(--tab-6); }
-  .tabs-row .tab-btn:nth-child(8) { background: var(--tab-7); color: #000; border-bottom-color: var(--tab-7); }
-  .tabs-row .tab-btn:nth-child(8).active { border-bottom-color: #000 !important; }
-  .tabs-row .tab-btn:nth-child(9) { background: var(--tab-8); color: #000; border-bottom-color: var(--tab-8); }
-  .tabs-row .tab-btn:nth-child(9).active { border-bottom-color: #000 !important; }
+  .tabs-row .tab-btn:nth-child(1) { background: var(--green); color: var(--sage); }
+  .tabs-row .tab-btn:nth-child(2) { background: var(--tab-1); color: var(--sage); }
+  .tabs-row .tab-btn:nth-child(3) { background: var(--tab-2); color: var(--sage); }
+  .tabs-row .tab-btn:nth-child(4) { background: var(--tab-3); color: #000; }
+  .tabs-row .tab-btn:nth-child(5) { background: var(--tab-4); color: #000; }
+  .tabs-row .tab-btn:nth-child(6) { background: var(--tab-5); color: #000; }
+  .tabs-row .tab-btn:nth-child(7) { background: var(--tab-6); color: #000; }
+  .tabs-row .tab-btn:nth-child(8) { background: var(--tab-7); color: #000; }
+  .tabs-row .tab-btn:nth-child(9) { background: var(--tab-8); color: #000; }
+  .active-underline { position: absolute; bottom: -9px; height: 3px; background: var(--gold); transition: left .2s ease, width .2s ease; }
   .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: 70px; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
@@ -136,9 +131,13 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .n-val { font-family: var(--serif); font-size: 12px; color: var(--ink); line-height: 1.3; }
   .n-val.nd { color: #C8C6BE; font-style: italic; font-size: 11px; }
   .ds-right { display: flex; flex-direction: column; }
-  .id-three { display: grid; grid-template-columns: 1fr 1.4fr 1fr; border-bottom: 1px solid var(--border); }
+  .id-three { display: grid; grid-template-columns: 1fr 1fr 1fr 1.2fr; border-bottom: 1px solid var(--border); position: relative; }
   .id-cell { padding: 9px 14px; border-right: 1px solid var(--border); }
   .id-cell:last-child { border-right: none; }
+  .id-cell.spacer { border-right: none; }
+  .web-cta-zone { position: absolute; top: 100%; right: 0; z-index: 50; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding-top: 4px; }
+  .web-cta-pill { font-family: var(--sans); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; background: var(--green); color: var(--gold); border: 2px solid var(--gold); border-radius: 999px 0 0 999px; padding: 9px 20px 9px 16px; cursor: pointer; box-shadow: -2px 4px 10px rgba(0,0,0,0.15); }
+  body.community-member .web-cta-pill { display: none; }
   .block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
   .id-val { font-family: var(--serif); font-size: 16px; color: var(--ink); }
   .id-val.it { font-style: italic; }
@@ -219,7 +218,6 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   .badge-dot.badge-indigenous { background: #CC6600; }
   .badge-dot.badge-peer-reviewed { background: #C3D6CC; border: 1px solid #999; }
   .site-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green); border-top: 2px solid var(--gold); display: flex; align-items: stretch; z-index: 500; }
-  .ft-label { font-family: var(--sans); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--sage); padding: 12px 20px; display: flex; align-items: center; border-right: 1px solid rgba(184,134,11,.3); white-space: nowrap; }
   .ft-btns { display: flex; flex: 1; }
   .ft-btn { flex: 1; padding: 12px 8px; font-family: var(--sans); font-size: 20px; letter-spacing: 2px; text-transform: uppercase; text-align: center; cursor: pointer; border: none; background: transparent; color: var(--gold); transition: background .2s, color .2s; }
   .ft-btn:first-child { border-right: 1px solid rgba(184,134,11,.3); }
@@ -239,24 +237,42 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
 
   .mob-nav-band { display: none; }
   .mob-menu-overlay { display: none; }
+  .mob-join-fixed { display: none; }
 
   @media (max-width: 680px) {
+    .mob-join-fixed {
+      display: none;
+      position: fixed;
+      top: 82px;
+      right: 0;
+      z-index: 450;
+      font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; font-weight: 700;
+      background: var(--green); color: var(--gold);
+      border: none; border-radius: 999px 0 0 999px;
+      padding: 11px 18px 11px 16px; cursor: pointer;
+      box-shadow: -2px 4px 10px rgba(0,0,0,0.2);
+    }
+    .mob-join-fixed.showing { display: block; }
+    body.community-member .mob-join-fixed { display: none !important; }
+
     .tabs-row { display: none; }
     .portal { padding-bottom: 72px; height: auto; overflow: visible; }
     .content-wrap { overflow: visible; padding-bottom: 0; }
     .ds-grid { grid-template-columns: 1fr; }
     .ds-left { border-right: none; border-bottom: 1px solid var(--border); }
     .carousel-wrap { width: auto; aspect-ratio: 1 / 1; height: auto; margin: 8px; }
+    .id-three { grid-template-columns: 1fr; }
+    .id-cell.spacer { display: none; }
+    .web-cta-zone { display: none; }
     .ds-row4 { grid-template-columns: 1fr; }
     .cards-grid { grid-template-columns: 1fr; }
     .stats-map-row { grid-template-columns: 1fr; min-height: auto; }
     .map-col { width: 100%; aspect-ratio: 1 / 1; height: auto; min-height: 0; }
     .key-col { display: none; }
-    .id-three { grid-template-columns: 1fr; }
     .id-three .id-cell { border-right: none; border-bottom: 1px solid var(--border); }
     .site-footer { flex-direction: column; }
-    .ft-label { border-right: none; border-bottom: 1px solid rgba(184,134,11,.3); justify-content: center; }
     .ft-btns { flex-direction: row; }
+    .ft-btn { font-size: 13px; letter-spacing: 1px; padding: 12px 6px; }
 
     .plant-band { padding-bottom: 4px; }
 
@@ -278,8 +294,6 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       display: flex; align-items: center; justify-content: center;
     }
     .mob-menu-item.locked { border-color: var(--gold); }
-    .mob-menu-join { background: var(--green) !important; color: var(--gold) !important; border-color: var(--gold) !important; font-weight: 700; }
-    body.community-member .mob-menu-join { display: none !important; }
     .mob-menu-return { background: var(--green); color: var(--gold); font-weight: 700; }
     .mob-menu-explore-other { background: var(--gold); color: #000; font-weight: 700; }
 
@@ -333,9 +347,11 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     }
   }
   @media (min-width: 681px) {
-    .mob-nav-band, .mob-menu-overlay, .mob-menu-backdrop, .mob-menu-panel { display: none !important; }
+    .mob-nav-band, .mob-menu-overlay, .mob-menu-backdrop, .mob-menu-panel, .mob-join-fixed { display: none !important; }
   }
 </style>
+
+<button class="mob-join-fixed" id="mob-join-fixed-trigger">Join SABR to Access</button>
 
 <div class="portal" data-slug={slug}>
   <div class="sticky-header">
@@ -358,6 +374,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
             </button>
           );
         })}
+        <div class="active-underline" id="active-underline"></div>
       </div>
     </div>
 
@@ -372,7 +389,6 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
       <div class="mob-menu-backdrop" id="mob-menu-overlay"></div>
       <div class="mob-menu-panel" id="mob-menu-panel">
         <button class="mob-menu-item mob-menu-return" id="mob-return-datasheet">Return to Data Sheet</button>
-        <button class="mob-menu-item mob-menu-join" id="mob-join-trigger">Join SABR to Access</button>
         {TABS.filter(t => t.id !== 'datasheet').map((tab, i) => {
           const isGatedTab = gatedTabIds.includes(tab.id);
           const isDarkGreen = i === 0 || i === 1;
@@ -439,6 +455,10 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
             <div class="id-cell">
               <div class="block-lbl">Family</div>
               <div class="id-val">{d.family ?? '—'}</div>
+            </div>
+            <div class="id-cell spacer"></div>
+            <div class="web-cta-zone">
+              <button class="web-cta-pill" id="web-join-trigger">Join SABR to Access</button>
             </div>
           </div>
 
@@ -638,10 +658,9 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
   </div>
 
   <footer class="site-footer">
-    <div class="ft-label">Connect with</div>
     <div class="ft-btns">
-      <button class="ft-btn" id="btn-suppliers">I am a Buyer</button>
-      <button class="ft-btn" id="btn-buyers">I am a Supplier</button>
+      <button class="ft-btn" id="btn-suppliers">Buyers Portal</button>
+      <button class="ft-btn" id="btn-buyers">Suppliers Portal</button>
     </div>
   </footer>
 
@@ -663,6 +682,17 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     const GATED_TAB_IDS = ['legislation', 'intelligence', 'projects', 'wellness', 'innovation', 'ik'];
     const mobNavCurrent = $('mob-nav-current');
 
+    const underlineEl = $('active-underline');
+    function updateUnderline(idx) {
+      const btn = tabsArr[idx];
+      const row = document.querySelector('.tabs-row');
+      if (!btn || !row || !underlineEl) return;
+      const btnRect = btn.getBoundingClientRect();
+      const rowRect = row.getBoundingClientRect();
+      underlineEl.style.left = (btnRect.left - rowRect.left) + 'px';
+      underlineEl.style.width = btnRect.width + 'px';
+    }
+
     function applyTabColorByIndex(idx) {
       const isDefault = idx === 0;
       const bg = isDefault ? 'var(--green)' : TAB_COLOR_LIST[idx - 1];
@@ -678,6 +708,7 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
         mobNavCurrent.classList.toggle('locked', !!isGated);
         mobNavCurrent.style.color = color;
       }
+      updateUnderline(idx);
     }
 
     tabsArr.forEach((t, i) => t.addEventListener('click', () => {
@@ -717,8 +748,17 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     const mobBtn = $('mob-explore-btn');
     const mobOverlay = $('mob-menu-overlay');
     const mobPanel = $('mob-menu-panel');
-    function openMobMenu() { mobOverlay?.classList.add('open'); mobPanel?.classList.add('open'); }
-    function closeMobMenu() { mobOverlay?.classList.remove('open'); mobPanel?.classList.remove('open'); }
+    const mobJoinFixed = $('mob-join-fixed-trigger');
+    function openMobMenu() {
+      mobOverlay?.classList.add('open');
+      mobPanel?.classList.add('open');
+      mobJoinFixed?.classList.remove('showing');
+    }
+    function closeMobMenu() {
+      mobOverlay?.classList.remove('open');
+      mobPanel?.classList.remove('open');
+      mobJoinFixed?.classList.add('showing');
+    }
     mobBtn?.addEventListener('click', openMobMenu);
     mobOverlay?.addEventListener('click', closeMobMenu);
 
@@ -774,11 +814,17 @@ const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
     function promptJoinCommunity() {
       alert('Join the community to unlock all categories. (Signup form coming soon.)');
     }
-    const joinTrigger = $('mob-join-trigger');
-    if (joinTrigger) joinTrigger.addEventListener('click', promptJoinCommunity);
+    if (mobJoinFixed) {
+      mobJoinFixed.addEventListener('click', promptJoinCommunity);
+      mobJoinFixed.classList.add('showing');
+    }
+    const webJoinTrigger = $('web-join-trigger');
+    if (webJoinTrigger) webJoinTrigger.addEventListener('click', promptJoinCommunity);
     document.querySelectorAll('.gate-btn').forEach(function (btn) {
       btn.addEventListener('click', promptJoinCommunity);
     });
+
+    applyTabColorByIndex(0);
 
     function goHomeRememberingPlant() {
       if (currentSlug) sessionStorage.setItem('sabr_last_plant', currentSlug);
