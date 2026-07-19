@@ -4,8 +4,8 @@ export const TABS = [
   { id: 'innovation', label: 'Innovation' },
   { id: 'ik', label: 'IK & Heritage' },
   { id: 'projects', label: 'Projects' },
-  { id: 'agronomy', label: 'Agronomy' },
+  { id: 'intelligence', label: 'Intelligence' },
   { id: 'legislation', label: 'Legislation' },
   { id: 'people', label: 'People' },
-  { id: 'intelligence', label: 'Intelligence' },
+  { id: 'agronomy', label: 'Agronomy' },
 ];
