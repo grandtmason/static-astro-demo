@@ -1,873 +1,98 @@
 ---
-import PLANT_REGISTRY from '../../data/plant_registry.json';
-import Layout from '../../layouts/Layout.astro';
-import NewMap from '../../components/NewMap.astro';
-import BuyerModal from '../../components/modals/BuyerModal.astro';
-import SupplierModal from '../../components/modals/SupplierModal.astro';
 import { getCollection } from 'astro:content';
-import { generatePlantSchema } from '../../utils/seo';
-import { TABS } from '../../utils/constants';
-import COMMON_NAMES from '../../data/common_names.json';
-
-export async function getStaticPaths() {
-  const allPlants = await getCollection('species');
-  return allPlants.map(plant => ({
-    params: { id: plant.slug },
-    props: { plant, slug: plant.slug },
-  }));
-}
-
-const { plant, slug } = Astro.props;
-const d = plant.data;
-const v = (field: any, fallback = '—') => field?.value ?? field ?? fallback;
-
-const images = d?.images || [];
-const displayNames = (COMMON_NAMES as any)[slug] ? Object.entries((COMMON_NAMES as any)[slug]) : [];
-
-const registryEntry = (PLANT_REGISTRY as any)[slug] ?? {};
-const stats = {
-  production: v(registryEntry.stats?.production),
-  revenue: v(registryEntry.stats?.revenue),
-  markets: v(registryEntry.stats?.markets),
-  livelihoods: v(registryEntry.stats?.livelihoods),
-};
-const protection = {
-  gi_year: v(registryEntry.protection?.gi_year),
-  gi_status: v(registryEntry.protection?.gi_status, 'Not yet documented.'),
-  bsa_year: v(registryEntry.protection?.bsa_year),
-  bsa_status: v(registryEntry.protection?.bsa_status, 'Not yet documented.'),
-  organic: v(registryEntry.protection?.organic, 'Not yet documented.'),
-  wild_harvest: v(registryEntry.protection?.wild_harvest, 'Not yet documented.'),
-};
-
-const pillarModules = import.meta.glob('../../data/pillars/*.json', { eager: true });
-const pillarMap: Record<string, any> = {};
-for (const path in pillarModules) {
-  const fileSlug = path.split('/').pop()?.replace('.json', '');
-  if (fileSlug) pillarMap[fileSlug] = (pillarModules[path] as any).default;
-}
-const pillarEntry = pillarMap[slug] ?? {};
-
-const pillarDates = Object.values(pillarEntry)
-  .flatMap((cat: any) => Array.isArray(cat) ? cat : [cat])
-  .map((p: any) => p?.updated_at)
-  .filter(Boolean)
-  .sort()
-  .reverse();
-const lastUpdated = pillarDates[0] ?? null;
-
-const gatedTabIds = ['legislation', 'intelligence', 'projects', 'wellness', 'innovation', 'ik'];
-
-const FORMSPREE_CONNECT = "https://formspree.io/f/xaqzdwyj";
+import Layout from '../layouts/Layout.astro';
+const allPlants = await getCollection('species');
+const plants = allPlants
+  .map(p => ({ 
+    data: p.data, 
+    slug: p.id.replace('/index', '').replace('.md', '') 
+  }))
+  .sort((a, b) => (a.data.name || "").localeCompare(b.data.name || ""));
 ---
-<Layout title={`${d?.name || 'Plant'} | SABR Registry`} schema={generatePlantSchema(d, lastUpdated)}>
+<Layout title="South African Botanical Registry">
+  <div class="hero">
+    <div class="hero-title">South African Botanical Registry</div>
+    <div class="hero-sub">South Africa's medicinal plant heritage</div>
+  </div>
+  <div class="registry">
+    <div class="registry-title">{plants.length} Species Registered</div>
+    <div class="plant-grid">
+      {plants.map(plant => (
+        <a href={`/species/${plant.slug}`} class="plant-card" data-slug={plant.slug} id={`card-${plant.slug}`}>
+          {plant.data.image ? (
+            <div class="plant-card-img">
+              <img src={plant.data.image} alt={plant.data.name || "Plant species"} loading="lazy" />
+            </div>
+          ) : (
+            <div class="plant-card-img-empty">
+              <span>Image coming soon</span>
+            </div>
+          )}
+          <div class="plant-card-body">
+            <div class="plant-card-name">{plant.data.name || "Unnamed Species"}</div>
+            <div class="plant-card-sci">{plant.data.scientific_name || "Unknown Scientific Name"}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+  <div class="footer">
+    <p>South African Botanical Registry · southafricanbotanical.org.za</p>
+  </div>
+  <div class="site-cta-footer">
+    <button class="cta-btn" id="join-community-btn">Join Our Community</button>
+  </div>
+</Layout>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --green:   #1A3A2A;
-    --gold:    #B8860B;
-    --parch:   #F9F8F4;
-    --ink:     #2F2F2F;
-    --muted:   #7A7A7A;
-    --sage:    #9DB8A8;
-    --border:  #E0DED7;
-    --serif:   'EB Garamond', Georgia, serif;
-    --display: 'Cormorant Garamond', Georgia, serif;
-    --sans:    sans-serif;
-    --tab-1: #2A5A40;
-    --tab-2: #6A9E82;
-    --tab-3: #9BB3A8;
-    --tab-4: #C3D6CC;
-    --tab-5: #D9CDA8;
-    --tab-6: #D0BC8A;
-    --tab-7: #C7A96E;
-    --tab-8: #B98F5A;
+  /* Local overrides for index-specific layout */
+  .hero { text-align: center; padding: 60px 24px 50px; border-bottom: 1px solid var(--border, #E1DED8); }
+  .hero-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; font-style: italic; color: var(--green, #1A3A2A); line-height: 1.1; margin-bottom: 20px; }
+  .hero-sub { font-family: sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted, #7A7A7A); }
+  .registry-title { font-family: sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted, #7A7A7A); text-align: left; margin-bottom: 32px; }
+  .registry { max-width: 1200px; margin: 0 auto; padding: 48px 40px 100px; }
+  .plant-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .plant-card { text-decoration: none; display: flex; flex-direction: column; border: 1px solid rgba(184, 134, 11, 0.3); transition: box-shadow .2s, transform .2s; }
+  .plant-card:hover { box-shadow: 0 4px 24px rgba(184,134,11,0.12); transform: translateY(-2px); border-color: rgba(184,134,11,0.7); }
+  .plant-card-img { width: 100%; aspect-ratio: 1/1; overflow: hidden; }
+  .plant-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+  .plant-card:hover .plant-card-img img { transform: scale(1.03); }
+  .plant-card-img-empty { width: 100%; aspect-ratio: 1/1; background: #1A3A2A; display: flex; align-items: center; justify-content: center; }
+  .plant-card-img-empty span { font-family: sans-serif; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: #9DB8A8; }
+  .plant-card-body { padding: 14px 16px 16px; background: #F9F8F4; border-top: 1px solid rgba(184,134,11,0.2); }
+  .plant-card-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; font-style: italic; font-weight: 300; color: #B8860B; line-height: 1; margin-bottom: 4px; }
+  .plant-card-sci { font-family: sans-serif; font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: #7A7A7A; }
+  .plant-card.sabr-highlight { animation: sabr-pulse 1.6s ease-out 1; }
+  @keyframes sabr-pulse {
+    0%   { box-shadow: 0 0 0 4px rgba(184,134,11,0.5); }
+    100% { box-shadow: 0 0 0 4px rgba(184,134,11,0); }
   }
-  body { background: var(--parch); color: var(--ink); font-family: var(--serif); }
-  .portal { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-  .sticky-header { position: sticky; top: 0; z-index: 500; background: var(--parch); flex-shrink: 0; }
-  .top-bar { background: var(--green); border-bottom: 2px solid var(--gold); padding: 9px 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; }
-  .top-bar-back { color: var(--gold); font-family: var(--sans); text-decoration: none; line-height: 1; position: absolute; left: 28px; display: flex; align-items: center; justify-content: center; }
-  .top-bar-title { font-family: var(--sans); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); text-decoration: none; }
-  .plant-band { background: var(--parch); display: flex; flex-direction: column; align-items: center; padding: 12px 20px 0; flex-shrink: 0; }
-  .plant-name { font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 400; font-style: italic; text-transform: none; letter-spacing: 0; color: var(--gold); line-height: 1.15; margin-bottom: 6px; }
-  .plant-sci { font-family: var(--sans); font-size: 11px; letter-spacing: 1px; text-transform: none; font-style: italic; color: var(--muted); margin-bottom: 10px; }
-  .tabs-row { display: flex; width: 100%; margin-top: 10px; margin-bottom: 12px; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); position: relative; }
-  .tab-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; border: none; border-right: 1px solid var(--border); padding: 7px 2px; flex: 1; cursor: pointer; white-space: nowrap; transition: color .15s; text-align: center; display: flex; align-items: center; justify-content: center; }
-  .tab-btn:last-child { border-right: none; }
-  .tab-btn.locked { box-shadow: inset 0 0 0 2px var(--gold); }
-  body.community-member .tab-btn.locked { box-shadow: none; }
-  .tabs-row .tab-btn:nth-child(1) { background: var(--green); color: var(--sage); }
-  .tabs-row .tab-btn:nth-child(2) { background: var(--tab-1); color: var(--sage); }
-  .tabs-row .tab-btn:nth-child(3) { background: var(--tab-2); color: var(--sage); }
-  .tabs-row .tab-btn:nth-child(4) { background: var(--tab-3); color: #000; }
-  .tabs-row .tab-btn:nth-child(5) { background: var(--tab-4); color: #000; }
-  .tabs-row .tab-btn:nth-child(6) { background: var(--tab-5); color: #000; }
-  .tabs-row .tab-btn:nth-child(7) { background: var(--tab-6); color: #000; }
-  .tabs-row .tab-btn:nth-child(8) { background: var(--tab-7); color: #000; }
-  .tabs-row .tab-btn:nth-child(9) { background: var(--tab-8); color: #000; }
-  .active-underline { position: absolute; bottom: -9px; height: 3px; background: var(--gold); transition: left .2s ease, width .2s ease; }
-  .content-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: 70px; }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-  .ds-grid { display: grid; grid-template-columns: 252px 1fr; align-items: stretch; }
-  .ds-left { border-right: 1px solid var(--border); display: flex; flex-direction: column; }
-  .carousel-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-align: center; line-height: 1.8; padding: 0 16px; border: 1px dashed var(--border); }
-  .carousel-img { width: 100%; height: 100%; object-fit: cover; display: none; }
-  .carousel-img.active { display: block; }
-  .carousel-wrap { width: 236px; height: 236px; background: var(--parch); position: relative; overflow: hidden; flex-shrink: 0; outline: 1px solid var(--border); outline-offset: -1px; margin: 8px; }
-  .photo-credit { background: var(--parch); padding: 6px 10px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .photo-credit-lbl { font-family: var(--sans); font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
-  .photo-credit-val { font-family: var(--sans); font-size: 8.5px; color: var(--muted); line-height: 1.4; }
-  .carousel-nav { display: flex; align-items: center; justify-content: space-between; padding: 3px 10px; background: var(--parch); border-bottom: 1px solid var(--border); }
-  .c-arrow { background: none; border: none; color: var(--gold); padding: 0; cursor: pointer; line-height: 1; display: flex; align-items: center; justify-content: center; }
-  .c-arrow:hover { opacity: 0.75; }
-  .c-count { font-family: var(--sans); font-size: 9px; color: var(--muted); }
-  .names-wrap { padding: 8px; flex: 1; }
-  .names-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); padding-bottom: 4px; border-bottom: 1px solid var(--border); margin-bottom: 1px; }
-  .name-row { display: grid; grid-template-columns: 62px 1fr; padding: 2.5px 0; border-bottom: 1px solid #F5F4F0; gap: 4px; align-items: start; }
-  .name-row:last-child { border-bottom: none; }
-  .n-lang { font-family: var(--sans); font-size: 8px; color: var(--gold); text-transform: uppercase; letter-spacing: .3px; padding-top: 1px; }
-  .n-val { font-family: var(--serif); font-size: 12px; color: var(--ink); line-height: 1.3; }
-  .n-val.nd { color: #C8C6BE; font-style: italic; font-size: 11px; }
-  .ds-right { display: flex; flex-direction: column; }
-  .id-three { display: grid; grid-template-columns: 1fr 1fr 1fr 1.2fr; border-bottom: 1px solid var(--border); position: relative; }
-  .id-cell { padding: 9px 14px; border-right: 1px solid var(--border); }
-  .id-cell:last-child { border-right: none; }
-  .id-cell.spacer { border-right: none; }
-  .web-cta-zone { position: absolute; top: calc(100% + 10px); z-index: 60; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
-  .web-cta-pill { font-family: var(--sans); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; background: var(--green); color: var(--gold); border: 2px solid var(--gold); border-radius: 999px 0 0 999px; padding: 9px 20px 9px 16px; cursor: pointer; box-shadow: -2px 4px 10px rgba(0,0,0,0.15); white-space: nowrap; }
-  body.community-member .web-cta-pill { display: none; }
-  .block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
-  .id-val { font-family: var(--serif); font-size: 16px; color: var(--ink); }
-  .id-val.it { font-style: italic; }
-  .native-block { padding: 9px 14px; border-bottom: 1px solid var(--border); }
-  .native-val { font-family: var(--serif); font-size: 14px; font-style: normal; color: var(--ink); line-height: 1.65; margin-top: 3px; }
-  .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; }
-  .stat-cell { padding: 8px 14px; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; min-height: 58px; }
-  .stat-cell:last-child { border-right: none; }
-  .stat-val { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.3px; color: var(--green); margin-top: auto; line-height: 1; }
-  .prot-block { padding: 9px 0; }
-  .prot-block-lbl { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; padding: 0 14px; }
-  .prot-row { display: flex; align-items: flex-start; padding: 4px 0; border-bottom: 1px solid #F5F4F0; }
-  .prot-row:last-child { border-bottom: none; }
-  .prot-badge { font-family: var(--sans); font-size: 8px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; flex-shrink: 0; white-space: nowrap; color: #000; width: 108px; text-align: center; display: flex; align-items: center; justify-content: center; border-radius: 0; }
-  .prot-text { font-family: var(--serif); font-size: 13px; color: var(--ink); line-height: 1.55; padding: 4px 14px; }
-  .intro-block { padding: 10px 14px; border-bottom: none; }
-  .intro-text { font-family: var(--serif); font-size: 13.5px; line-height: 1.78; color: var(--ink); margin-top: 4px; }
-  .stats-map-row { display: grid; grid-template-columns: 1fr 400px 170px; border-bottom: 1px solid var(--border); align-items: stretch; }
-  .stats-col { display: flex; flex-direction: column; border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
-  .map-col { border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; min-height: 280px; }
-  .key-col { padding: 8px 10px; display: flex; flex-direction: column; width: 170px; }
-  .key-section-lbl { font-family: var(--sans); font-size: 8.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-  .key-prov-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-  .key-swatch { width: 12px; height: 12px; flex-shrink: 0; border: 0.5px solid rgba(0,0,0,0.1); }
-  .key-abbr { font-family: var(--sans); font-size: 8.5px; letter-spacing: 1px; color: var(--green); font-weight: 500; width: 26px; flex-shrink: 0; }
-  .key-name { font-family: var(--sans); font-size: 10.5px; color: var(--muted); line-height: 1.3; }
-  .key-divider { border-top: 1px solid var(--border); margin: 6px 0; }
-  .key-dot-row { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
-  .key-dot { width: 9px; height: 9px; background: var(--gold); border-radius: 50%; flex-shrink: 0; border: 1px solid #fff; }
-  .key-dot-commercial { background: var(--gold); }
-  .key-dot-smallscale { width: 6px; height: 6px; }
-  .key-dot-wild { background: transparent; border: 1.5px solid var(--gold); }
-  .key-dot-org { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; border: 1px solid #fff; display: flex; align-items: center; justify-content: center; }
-  .key-dot-inner { width: 3px; height: 3px; background: var(--green); border-radius: 50%; }
-  .ds-lower { padding: 14px 16px; }
-  .ds-unified-card { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 16px 18px; }
-  .ds-row4 { display: grid; grid-template-columns: 1fr 1fr 1.4fr 0.75fr; gap: 16px; }
-  .ds-sec { border-top: none; padding-top: 0; }
-  .ds-sec-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-  .ds-list { padding-left: 14px; }
-  .ds-list li { font-family: var(--serif); font-size: 13.5px; line-height: 1.55; color: var(--ink); margin-bottom: 2px; }
-  .ds-val { font-family: var(--serif); font-size: 13.5px; line-height: 1.65; color: var(--ink); }
-  .ik-block { background: var(--parch); border: 1px solid var(--border); padding: 13px 16px; margin-top: 14px !important; }
-  .ik-lbl { font-family: var(--sans); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-  .ik-val { font-family: var(--serif); font-size: 14px; line-height: 1.8; color: var(--ink); font-style: normal; }
-  .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px; }
-  .card { background: #fff; border: 1px solid var(--border); border-top: 2px solid var(--gold); padding: 16px 18px; }
-  .card.dark { background: var(--green); border-top-color: var(--gold); }
-  .c-tag   { font-family: var(--sans); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
-  .c-hl    { font-size: 15px; color: var(--ink); line-height: 1.45; margin-bottom: 6px; font-style: italic; }
-  .c-tsr   { font-family: var(--sans); font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
-  .article-card { grid-column: 1 / -1; }
-  .article-editorial-frame { border: 1px solid; border-radius: 3px; padding: 14px 16px; margin-bottom: 14px; background: rgba(255,255,255,0.4); }
-  .article-title { font-family: var(--serif); font-size: 18px; font-weight: 600; font-style: italic; color: var(--ink); line-height: 1.35; margin-bottom: 8px; }
-  .article-teaser { font-family: var(--serif); font-size: 14px; font-style: normal; color: var(--muted); line-height: 1.55; margin-bottom: 0; }
-  .read-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
-  .read-btn { font-family: var(--sans); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; background: transparent; color: var(--gold); border: 1px solid var(--gold); border-radius: 16px; padding: 5px 16px; cursor: pointer; }
-  .read-btn:hover { background: var(--gold); color: var(--parch); }
-  .read-indicator { font-family: var(--sans); font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); font-style: italic; }
-  .article-body-wrap { position: relative; display: none; margin-top: 12px; }
-  .article-body-wrap.expanded { display: block; }
-  .article-body { font-family: var(--serif); font-size: 14px; line-height: 1.75; color: var(--ink); white-space: pre-line; }
-  .article-body-wrap.gated .article-body { max-height: 90px; overflow: hidden; filter: blur(4px); user-select: none; }
-  .gate-overlay {
-    position: absolute; inset: 0; top: -20px;
-    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-    padding-bottom: 14px;
-    background: linear-gradient(to bottom, rgba(249,248,244,0) 0%, rgba(249,248,244,0.92) 45%, var(--parch) 75%);
-  }
-  .gate-text { font-family: var(--sans); font-size: 11px; letter-spacing: 0.8px; color: var(--gold); text-align: center; margin-bottom: 10px; padding: 0 20px; }
-  .gate-btn { font-family: var(--sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; background: var(--parch); color: var(--gold); border: 1px solid var(--gold); border-radius: 22px; padding: 10px 24px; cursor: pointer; }
-  .gate-btn:hover { background: var(--gold); color: var(--parch); }
-  .stale-flag { color: var(--gold); font-style: italic; }
-  .article-badge { display: inline-flex; align-items: center; gap: 6px; font-family: var(--sans); font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 8px; }
-  .badge-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
-  .badge-dot.badge-traditional { background: #1A3A2A; }
-  .badge-dot.badge-industry { background: #C7A96E; }
-  .badge-dot.badge-indigenous { background: #CC6600; }
-  .badge-dot.badge-peer-reviewed { background: #C3D6CC; border: 1px solid #999; }
-  .site-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--green); border-top: 2px solid var(--gold); display: flex; align-items: stretch; z-index: 500; }
-  .ft-btns { display: flex; flex: 1; }
-  .ft-btn { flex: 1; padding: 12px 8px; font-family: var(--sans); font-size: 20px; letter-spacing: 2px; text-transform: uppercase; text-align: center; cursor: pointer; border: none; background: transparent; color: var(--gold); transition: background .2s, color .2s; }
-  .ft-btn:first-child { border-right: 1px solid rgba(184,134,11,.3); }
-  .ft-btn:hover { background: var(--gold); color: var(--green); }
-  :global(.modal-overlay) { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; align-items: center; justify-content: center; }
-  :global(.modal-overlay.open) { display: flex; }
-  :global(.modal) { background: #fff; border-top: 3px solid var(--gold); padding: 32px 36px; width: 100%; max-width: 480px; position: relative; }
-  :global(.modal-close) { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--muted); }
-  :global(.modal h2) { font-family: var(--display); font-size: 1.5rem; font-style: italic; color: var(--green); margin-bottom: 6px; }
-  :global(.modal p) { font-family: var(--sans); font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
-  :global(.m-field) { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
-  :global(.m-field label) { font-family: var(--sans); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
-  :global(.m-field input), :global(.m-field textarea) { padding: 8px 10px; font-family: var(--sans); font-size: 13px; border: 1px solid var(--border); background: var(--parch); color: var(--ink); outline: none; width: 100%; }
-  :global(.m-field textarea) { height: 80px; resize: vertical; }
-  :global(.m-submit) { width: 100%; padding: 12px; background: var(--gold); color: var(--green); border: none; font-family: var(--sans); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; cursor: pointer; margin-top: 8px; }
-  :global(.m-thanks) { display: none; text-align: center; padding: 20px 0; font-family: var(--sans); font-size: 11px; color: var(--gold); letter-spacing: 1px; }
 
-  .mob-nav-band { display: none; }
-  .mob-menu-overlay { display: none; }
-  .mob-join-fixed { display: none; }
+  .site-cta-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--parch, #F9F8F4); border-top: 2px solid var(--gold, #B8860B); z-index: 410; display: block; }
+  .cta-btn { width: 100%; padding: 14px; font-family: sans-serif; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; background: transparent; border: none; color: var(--gold, #B8860B); cursor: pointer; }
 
-  @media (max-width: 680px) {
-    .mob-join-fixed {
-      display: none;
-      position: fixed;
-      top: 0;
-      right: 0;
-      z-index: 450;
-      font-family: var(--sans); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 700;
-      background: var(--green); color: var(--gold);
-      border: none; border-radius: 999px 0 0 999px;
-      padding: 11px 18px 11px 16px; cursor: pointer;
-      box-shadow: -2px 4px 10px rgba(0,0,0,0.2);
-      max-width: 78vw;
-      white-space: normal;
-      line-height: 1.3;
-      text-align: right;
+  @media (max-width: 768px) {
+    .hero {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 400;
+      background: var(--parch, #F9F8F4);
+      padding: 18px 24px 14px;
+      border-bottom: 2px solid var(--gold, #B8860B);
     }
-    .mob-join-fixed.showing { display: block; }
-    body.community-member .mob-join-fixed { display: none !important; }
-
-    .tabs-row { display: none; }
-    .portal { padding-bottom: 72px; height: auto; overflow: visible; }
-    .content-wrap { overflow: visible; padding-bottom: 0; }
-    .ds-grid { grid-template-columns: 1fr; }
-    .ds-left { border-right: none; border-bottom: 1px solid var(--border); }
-    .carousel-wrap { width: auto; aspect-ratio: 1 / 1; height: auto; margin: 8px; }
-    .id-three { grid-template-columns: 1fr; }
-    .id-cell.spacer { display: none; }
-    .ds-row4 { grid-template-columns: 1fr; }
-    .cards-grid { grid-template-columns: 1fr; }
-    .stats-map-row { grid-template-columns: 1fr; min-height: auto; }
-    .map-col { width: 100%; aspect-ratio: 1 / 1; height: auto; min-height: 0; }
-    .key-col { display: none; }
-    .id-three .id-cell { border-right: none; border-bottom: 1px solid var(--border); }
-    .site-footer { flex-direction: column; }
-    .ft-btns { flex-direction: row; }
-    .ft-btn { font-size: 13px; letter-spacing: 1px; padding: 12px 6px; }
-
-    .plant-band { padding-bottom: 4px; }
-
-    .mob-nav-wrap { position: relative; }
-    .mob-menu-backdrop { display: none; position: fixed; top: 145px; left: 0; right: 0; bottom: 72px; background: rgba(249, 248, 244, 0.88); z-index: 550; }
-    .mob-menu-backdrop.open { display: block; }
-    .mob-menu-panel {
-      display: none; position: absolute; top: calc(100% + 8px); right: 0; z-index: 551;
-      width: 220px; background: transparent;
-      padding: 0 0 12px; flex-direction: column; gap: 8px;
-      max-height: calc(100vh - 200px); overflow-y: auto;
-    }
-    .mob-menu-panel.open { display: flex; }
-    .mob-menu-item {
-      width: 100%; text-align: center; font-family: var(--sans); font-size: 11px; letter-spacing: 1px;
-      text-transform: uppercase; color: #000; background: var(--item-color, #fff);
-      border: 3px solid transparent; border-radius: 999px 0 0 999px; padding: 11px 14px; cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .mob-menu-item.locked { border-color: var(--gold); }
-    .mob-menu-return { background: var(--green); color: var(--gold); font-weight: 700; }
-    .mob-menu-explore-other { background: var(--gold); color: #000; font-weight: 700; }
-
-    .top-bar-back { display: none; }
-
-    .mob-nav-band {
-      display: flex;
-      align-items: stretch;
-      background: var(--green);
-      border-bottom: 2px solid var(--gold);
-      flex-shrink: 0;
-      transition: background .2s;
-    }
-    .mob-nav-back {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 20px;
-      color: var(--gold);
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-    .mob-nav-current {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--sans);
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: #000;
-      padding: 10px 8px;
-      border: 3px solid transparent;
-      white-space: nowrap;
-    }
-    .mob-nav-current.locked { border-color: var(--gold); }
-    .mob-nav-explore {
-      font-family: var(--sans);
-      font-size: 10px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      color: var(--sage);
-      background: none;
-      border: none;
-      border-left: 1px solid rgba(184,134,11,.3);
-      padding: 10px 0;
-      min-width: 140px;
-      text-align: center;
-      cursor: pointer;
-    }
-  }
-  @media (min-width: 681px) {
-    .mob-nav-band, .mob-menu-overlay, .mob-menu-backdrop, .mob-menu-panel, .mob-join-fixed { display: none !important; }
+    .hero-title { font-size: 1.15rem; margin-bottom: 8px; white-space: nowrap; }
+    .hero-sub { font-size: 9px; }
+    .registry { padding: 95px 20px 100px; }
+    .registry-title { margin-bottom: 32px; }
+    .plant-grid { grid-template-columns: 1fr; }
   }
 </style>
 
-<button class="mob-join-fixed" id="mob-join-fixed-trigger">Join SABR to Access Community Content</button>
-
-<div class="portal" data-slug={slug}>
-  <div class="sticky-header">
-    <div class="top-bar">
-      <a href="/" class="top-bar-back" id="top-bar-back-link" aria-label="Back to Registry">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-      </a>
-      <a href="/" class="top-bar-title" id="top-bar-title-link">South African Botanical Registry</a>
-    </div>
-
-    <div class="plant-band">
-      <h1 class="plant-name">{d.name}</h1>
-      <p class="plant-sci">{d.scientific_name}</p>
-      <div class="tabs-row" role="tablist">
-        {TABS.map(tab => {
-          const isGatedTab = gatedTabIds.includes(tab.id);
-          return (
-            <button class={`tab-btn${tab.id === 'datasheet' ? ' active' : ''}${isGatedTab ? ' locked' : ''}`} data-id={tab.id} role="tab" aria-selected={tab.id === 'datasheet' ? 'true' : 'false'} aria-controls={`panel-${tab.id}`}>
-              {tab.label}
-            </button>
-          );
-        })}
-        <div class="active-underline" id="active-underline"></div>
-        <div class="web-cta-zone">
-          <button class="web-cta-pill" id="web-join-trigger">Join SABR to Access Community Content</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="mob-nav-wrap">
-      <div class="mob-nav-band">
-        <a href="/" class="mob-nav-back" id="mob-nav-back-link" aria-label="Back to Registry">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-        </a>
-        <span class="mob-nav-current" id="mob-nav-current">Data Sheet</span>
-        <button class="mob-nav-explore" id="mob-explore-btn">Explore</button>
-      </div>
-      <div class="mob-menu-backdrop" id="mob-menu-overlay"></div>
-      <div class="mob-menu-panel" id="mob-menu-panel">
-        <button class="mob-menu-item mob-menu-return" id="mob-return-datasheet">Return to Data Sheet</button>
-        {TABS.filter(t => t.id !== 'datasheet').map((tab, i) => {
-          const isGatedTab = gatedTabIds.includes(tab.id);
-          const isDarkGreen = i === 0 || i === 1;
-          return (
-            <button class={`mob-menu-item${isGatedTab ? ' locked' : ''}`} data-id={tab.id} style={`--item-color: var(--tab-${i+1}); ${isDarkGreen ? 'color: var(--sage);' : ''}`}>
-              {tab.label}
-            </button>
-          );
-        })}
-        <button class="mob-menu-item mob-menu-explore-other" id="mob-explore-other">Explore Other Plants</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="content-wrap" id="content-wrap">
-    <div class="tab-panel active" id="panel-datasheet">
-      <div class="ds-grid">
-        <div class="ds-left">
-          <div class="carousel-wrap" id="carousel-wrap">
-            {images.length > 0 ? (
-              images.map((img: any, i: number) => (
-                <img src={img.src} alt={`${d.name} — photograph ${i + 1}`} class={`carousel-img${i === 0 ? ' active' : ''}`} data-index={i} loading="lazy" />
-              ))
-            ) : (
-              <span class="carousel-empty">Plant photography<br/>coming soon</span>
-            )}
-          </div>
-          <div class="photo-credit">
-            <div class="photo-credit-lbl">Photo Credit</div>
-            <div class="photo-credit-val">
-              {images.length > 0 && images[0].credit ? images[0].credit : '—'}
-            </div>
-          </div>
-          <div class="carousel-nav">
-            <button class="c-arrow" id="c-prev" aria-label="Previous">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <span class="c-count" id="c-count">1 of {images.length > 0 ? images.length : 1}</span>
-            <button class="c-arrow" id="c-next" aria-label="Next">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </div>
-          <div class="names-wrap">
-            <div class="names-lbl">Common Names</div>
-            {displayNames.map(([lang, name]: [string, string]) => (
-              <div class="name-row">
-                <div class="n-lang">{lang}</div>
-                <div class={`n-val${name === 'not documented' ? ' nd' : ''}`}>{name}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div class="ds-right">
-          <div class="id-three">
-            <div class="id-cell">
-              <div class="block-lbl">Common Name</div>
-              <div class="id-val">{d.name}</div>
-            </div>
-            <div class="id-cell">
-              <div class="block-lbl">Scientific Name</div>
-              <div class="id-val it">{d.scientific_name}</div>
-            </div>
-            <div class="id-cell">
-              <div class="block-lbl">Family</div>
-              <div class="id-val">{d.family ?? '—'}</div>
-            </div>
-            <div class="id-cell spacer"></div>
-          </div>
-
-          <div class="native-block">
-            <div class="block-lbl">Native Region</div>
-            <div class="native-val">{v(registryEntry.native_region)}</div>
-          </div>
-
-          <div class="stats-map-row">
-            <div class="stats-col">
-              <div class="stats-row">
-                <div class="stat-cell">
-                  <div class="block-lbl">Annual<br/>Production</div>
-                  <div class="stat-val">{stats.production}</div>
-                </div>
-                <div class="stat-cell">
-                  <div class="block-lbl">Export Revenue</div>
-                  <div class="stat-val">{stats.revenue}</div>
-                </div>
-                <div class="stat-cell">
-                  <div class="block-lbl">Export Markets</div>
-                  <div class="stat-val">{stats.markets}</div>
-                </div>
-                <div class="stat-cell">
-                  <div class="block-lbl">Livelihoods</div>
-                  <div class="stat-val">{stats.livelihoods}</div>
-                </div>
-              </div>
-              <div class="prot-block">
-                <div class="prot-block-lbl">Protection &amp; Benefit Sharing</div>
-                <div class="prot-row">
-                  <span class="prot-badge" style="background: var(--tab-3);">{protection.gi_year}</span>
-                  <span class="prot-text">{protection.gi_status}</span>
-                </div>
-                <div class="prot-row">
-                  <span class="prot-badge" style="background: var(--tab-4);">{protection.bsa_year}</span>
-                  <span class="prot-text">{protection.bsa_status}</span>
-                </div>
-                <div class="prot-row">
-                  <span class="prot-badge" style="background: var(--tab-5);">Organic</span>
-                  <span class="prot-text">{protection.organic}</span>
-                </div>
-                <div class="prot-row">
-                  <span class="prot-badge" style="background: var(--tab-6);">Wild Harvest</span>
-                  <span class="prot-text">{protection.wild_harvest}</span>
-                </div>
-              </div>
-            </div>
-            <div class="map-col">
-              <NewMap slug={slug} />
-            </div>
-            <div class="key-col">
-              <div class="key-section-lbl">Provinces</div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#2A5A40"></span><span class="key-abbr">EC</span><span class="key-name">Eastern Cape</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#6A9E82"></span><span class="key-abbr">FS</span><span class="key-name">Free State</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#C2D4CA"></span><span class="key-abbr">GT</span><span class="key-name">Gauteng</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#E4EDE8"></span><span class="key-abbr">KZN</span><span class="key-name">KwaZulu-Natal</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#EDE9E0"></span><span class="key-abbr">LIM</span><span class="key-name">Limpopo</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#E8DFC8"></span><span class="key-abbr">MP</span><span class="key-name">Mpumalanga</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#DDD0B0"></span><span class="key-abbr">NC</span><span class="key-name">Northern Cape</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#D4C598"></span><span class="key-abbr">NW</span><span class="key-name">North West</span></div>
-              <div class="key-prov-row"><span class="key-swatch" style="background:#C8BA88"></span><span class="key-abbr">WC</span><span class="key-name">Western Cape</span></div>
-              <div class="key-divider"></div>
-              <div class="key-section-lbl">Key</div>
-              <div class="key-dot-row"><span class="key-dot key-dot-commercial"></span><span class="key-name">Commercial</span></div>
-              <div class="key-dot-row"><span class="key-dot key-dot-smallscale"></span><span class="key-name">Small-scale</span></div>
-              <div class="key-dot-row"><span class="key-dot key-dot-wild"></span><span class="key-name">Wild harvest</span></div>
-              <div class="key-dot-row"><span class="key-dot-org"><span class="key-dot-inner"></span></span><span class="key-name">Certified organic</span></div>
-            </div>
-          </div>
-
-          {d.introduction && (
-            <div class="intro-block">
-              <div class="block-lbl">Introduction</div>
-              <p class="intro-text">{d.introduction}</p>
-            </div>
-          )}
-          {(d.cultivation?.climate || d.cultivation?.regions) && (
-            <div class="intro-block">
-              <div class="block-lbl">Cultivation</div>
-              {d.cultivation?.climate && <p class="intro-text" style="margin-bottom:4px">{d.cultivation.climate}</p>}
-              {d.cultivation?.regions && <p class="intro-text">{Array.isArray(d.cultivation.regions) ? d.cultivation.regions.join(', ') : d.cultivation.regions}</p>}
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div class="ds-lower">
-        <div class="ds-unified-card">
-        {!!(d.medicinal_properties?.active_compounds?.length || d.medicinal_properties?.traditional_uses?.length || d.medicinal_properties?.clinically_validated?.length || d.cultivation?.commercial) && (
-          <div class="ds-row4">
-            {!!d.medicinal_properties?.active_compounds?.length && (
-              <div class="ds-sec">
-                <div class="ds-sec-lbl">Active Compounds</div>
-                <ul class="ds-list">{d.medicinal_properties.active_compounds.map((c: string) => <li>{c}</li>)}</ul>
-              </div>
-            )}
-            {!!d.medicinal_properties?.traditional_uses?.length && (
-              <div class="ds-sec">
-                <div class="ds-sec-lbl">Traditional Uses</div>
-                <ul class="ds-list">{d.medicinal_properties.traditional_uses.map((u: string) => <li>{u}</li>)}</ul>
-              </div>
-            )}
-            {!!d.medicinal_properties?.clinically_validated?.length && (
-              <div class="ds-sec">
-                <div class="ds-sec-lbl">Clinically Validated</div>
-                <ul class="ds-list">{d.medicinal_properties.clinically_validated.map((val: string) => <li>{val}</li>)}</ul>
-              </div>
-            )}
-            {d.cultivation?.commercial && (
-              <div class="ds-sec">
-                <div class="ds-sec-lbl">Commercial &amp; Trade Notes</div>
-                <p class="ds-val">{d.cultivation.commercial}</p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {d.indigenous_knowledge && (
-          <div class="ik-block">
-            <div class="ik-lbl">Indigenous Knowledge</div>
-            <p class="ik-val">{d.indigenous_knowledge}</p>
-          </div>
-        )}
-        </div>
-      </div>
-    </div>
-
-    {TABS.filter(t => t.id !== 'datasheet').map(tab => {
-      const isGated = gatedTabIds.includes(tab.id);
-      const rawEntry = pillarEntry[tab.id];
-      const articles = Array.isArray(rawEntry) ? rawEntry : (rawEntry ? [rawEntry] : []);
-      const sortedArticles = [...articles].sort((a: any, b: any) => (b.updated_at || '').localeCompare(a.updated_at || ''));
-      const STALE_MONTHS = 6;
-      const isStale = (dateStr: string) => {
-        if (!dateStr) return false;
-        const then = new Date(dateStr);
-        const now = new Date();
-        const months = (now.getFullYear() - then.getFullYear()) * 12 + (now.getMonth() - then.getMonth());
-        return months >= STALE_MONTHS;
-      };
-      const badgeLabel = (b: string) => {
-        if (b === 'traditional') return 'Natural / Traditional Medicine';
-        if (b === 'industry') return 'Industry / Trade / Regulatory';
-        if (b === 'indigenous') return 'Indigenous Knowledge';
-        if (b === 'peer-reviewed') return 'Peer-Reviewed Research';
-        return null;
-      };
-      const tabColorVar = `var(--tab-${TABS.findIndex(t => t.id === tab.id)})`;
-      return (
-        <div class="tab-panel" id={`panel-${tab.id}`}>
-          <div class="cards-grid">
-            {sortedArticles.length > 0 ? (
-              sortedArticles.map((article: any, i: number) => (
-                <div class="card article-card">
-                  <div class="c-tag">{tab.label}</div>
-                  <div class="article-editorial-frame" style={`border-color: ${tabColorVar}`}>
-                    {article.badge && badgeLabel(article.badge) && (
-                      <div class="article-badge">
-                        <span class={`badge-dot badge-${article.badge}`}></span>
-                        {badgeLabel(article.badge)}
-                      </div>
-                    )}
-                    <div class="article-title">{article.title}</div>
-                    <p class="article-teaser">{article.teaser}</p>
-                    <div class="read-row">
-                      <button class="read-btn" data-article-id={`${slug}-${tab.id}-${i}`} data-gated={isGated ? 'true' : 'false'} data-gate-category={tab.id}>Read</button>
-                      <span class="read-indicator" data-article-id={`${slug}-${tab.id}-${i}`} style="display:none;">Already read</span>
-                    </div>
-                  </div>
-                  <div class={`article-body-wrap${isGated ? ' gated' : ''}`} data-article-id={`${slug}-${tab.id}-${i}`}>
-                    <p class="article-body">{article.body}</p>
-                    {isGated && (
-                      <div class="gate-overlay">
-                        <p class="gate-text">Join the community to unlock all categories</p>
-                        <button class="gate-btn" data-gate-category={tab.id}>Join Free</button>
-                      </div>
-                    )}
-                  </div>
-                  <div class="c-tsr">
-                    {article.updated_at && <span>Updated {article.updated_at}</span>}
-                    {isStale(article.updated_at) && <span class="stale-flag"> · May be outdated — check for newer coverage</span>}
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div class="card">
-                <div class="c-tag">{tab.label}</div>
-                <div class="c-hl">Content for {d.name} is being curated.</div>
-                <div class="c-tsr">Check back soon for updates.</div>
-              </div>
-            )}
-          </div>
-        </div>
-      );
-    })}
-  </div>
-
-  <footer class="site-footer">
-    <div class="ft-btns">
-      <button class="ft-btn" id="btn-suppliers">Buyers Portal</button>
-      <button class="ft-btn" id="btn-buyers">Suppliers Portal</button>
-    </div>
-  </footer>
-
-  <BuyerModal plant={plant} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
-  <SupplierModal plant={plant} FORMSPREE_CONNECT={FORMSPREE_CONNECT} />
-</div>
-
 <script is:inline>
   (function () {
-    function $(id) { return document.getElementById(id); }
-    const tabs = document.querySelectorAll('.tab-btn');
-    const panels = document.querySelectorAll('.tab-panel');
-    const currentSlug = document.querySelector('.portal')?.dataset.slug || '';
-
-    const TAB_COLOR_LIST = ['var(--tab-1)','var(--tab-2)','var(--tab-3)','var(--tab-4)','var(--tab-5)','var(--tab-6)','var(--tab-7)','var(--tab-8)'];
-    const tabsArr = Array.from(tabs);
-    const mobExplore = $('mob-explore-btn');
-    const mobNavBand = document.querySelector('.mob-nav-band');
-    const GATED_TAB_IDS = ['legislation', 'intelligence', 'projects', 'wellness', 'innovation', 'ik'];
-    const mobNavCurrent = $('mob-nav-current');
-
-    const underlineEl = $('active-underline');
-    function updateUnderline(idx) {
-      const btn = tabsArr[idx];
-      const row = document.querySelector('.tabs-row');
-      if (!btn || !row || !underlineEl) return;
-      const btnRect = btn.getBoundingClientRect();
-      const rowRect = row.getBoundingClientRect();
-      underlineEl.style.left = (btnRect.left - rowRect.left) + 'px';
-      underlineEl.style.width = btnRect.width + 'px';
-    }
-
-    function applyTabColorByIndex(idx) {
-      const isDefault = idx === 0;
-      const bg = isDefault ? 'var(--green)' : TAB_COLOR_LIST[idx - 1];
-      const isDarkGreen = idx === 1 || idx === 2;
-      const color = (isDefault || isDarkGreen) ? 'var(--sage)' : '#000';
-      if (mobNavBand) mobNavBand.style.background = bg;
-      if (mobExplore) { mobExplore.style.background = bg; mobExplore.style.color = color; }
-      if (mobNavCurrent) {
-        const activeTab = tabsArr[idx];
-        const label = activeTab ? activeTab.textContent.trim() : 'Data Sheet';
-        const isGated = activeTab && GATED_TAB_IDS.indexOf(activeTab.dataset.id) !== -1;
-        mobNavCurrent.textContent = label;
-        mobNavCurrent.classList.toggle('locked', !!isGated);
-        mobNavCurrent.style.color = color;
-      }
-      updateUnderline(idx);
-    }
-
-    tabsArr.forEach((t, i) => t.addEventListener('click', () => {
-      const id = t.dataset.id;
-      tabsArr.forEach(x => { const on = x.dataset.id === id; x.classList.toggle('active', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
-      panels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
-      applyTabColorByIndex(i);
-      $('content-wrap')?.scrollTo(0, 0);
-    }));
-
-    const imgs = document.querySelectorAll('.carousel-img');
-    const counter = $('c-count');
-    let cIdx = 0;
-    function showImg(i) {
-      imgs.forEach((img, n) => img.classList.toggle('active', n === i));
-      if (counter) counter.textContent = `${i + 1} of ${imgs.length}`;
-      cIdx = i;
-    }
-    $('c-prev')?.addEventListener('click', () => showImg((cIdx - 1 + imgs.length) % imgs.length));
-    $('c-next')?.addEventListener('click', () => showImg((cIdx + 1) % imgs.length));
-
-    $('btn-suppliers')?.addEventListener('click', () => {
-      $('modal-suppliers')?.classList.remove('open');
-      $('modal-buyers')?.classList.add('open');
-    });
-    $('btn-buyers')?.addEventListener('click', () => {
-      $('modal-buyers')?.classList.remove('open');
-      $('modal-suppliers')?.classList.add('open');
-    });
-    document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => $(`modal-${btn.dataset.close}`)?.classList.remove('open')));
-    document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }));
-
-    ['suppliers', 'buyers'].forEach(type => {
-      $(`form-${type}`)?.addEventListener('submit', async e => {
-        e.preventDefault();
-        const form = e.target;
-        try { await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } }); } catch (err) {}
-        form.style.display = 'none';
-        $(`thanks-${type}`).style.display = 'block';
-      });
-    });
-
-    const mobBtn = $('mob-explore-btn');
-    const mobOverlay = $('mob-menu-overlay');
-    const mobPanel = $('mob-menu-panel');
-    const mobJoinFixed = $('mob-join-fixed-trigger');
-    function openMobMenu() {
-      mobOverlay?.classList.add('open');
-      mobPanel?.classList.add('open');
-      mobJoinFixed?.classList.remove('showing');
-    }
-    function closeMobMenu() {
-      mobOverlay?.classList.remove('open');
-      mobPanel?.classList.remove('open');
-      mobJoinFixed?.classList.add('showing');
-    }
-    mobBtn?.addEventListener('click', openMobMenu);
-    mobOverlay?.addEventListener('click', closeMobMenu);
-
-    $('mob-return-datasheet')?.addEventListener('click', () => {
-      tabsArr.forEach(x => { const on = x.dataset.id === 'datasheet'; x.classList.toggle('active', on); });
-      panels.forEach(p => p.classList.toggle('active', p.id === 'panel-datasheet'));
-      applyTabColorByIndex(0);
-      closeMobMenu();
-      $('content-wrap')?.scrollTo(0, 0);
-    });
-
-    document.querySelectorAll('.mob-menu-item[data-id]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        const id = btn.dataset.id;
-        const idx = tabsArr.findIndex(x => x.dataset.id === id);
-        tabsArr.forEach(x => x.classList.toggle('active', x.dataset.id === id));
-        panels.forEach(p => p.classList.toggle('active', p.id === `panel-${id}`));
-        if (idx >= 0) applyTabColorByIndex(idx);
-        closeMobMenu();
-        $('content-wrap')?.scrollTo(0, 0);
-      });
-    });
-
-    const READ_KEY = 'sabr_read_articles';
-    function getReadSet() {
-      try { return new Set(JSON.parse(localStorage.getItem(READ_KEY) || '[]')); } catch (err) { return new Set(); }
-    }
-    function markRead(id) {
-      const s = getReadSet();
-      s.add(id);
-      localStorage.setItem(READ_KEY, JSON.stringify(Array.from(s)));
-    }
-    const readSet = getReadSet();
-    document.querySelectorAll('.read-btn').forEach(function (btn) {
-      const id = btn.dataset.articleId;
-      const wrap = document.querySelector('.article-body-wrap[data-article-id="' + id + '"]');
-      const indicator = document.querySelector('.read-indicator[data-article-id="' + id + '"]');
-      if (readSet.has(id) && indicator && document.body.classList.contains('community-member')) {
-        indicator.style.display = 'inline';
-      }
-      btn.addEventListener('click', function () {
-        const isExpanded = wrap ? wrap.classList.toggle('expanded') : false;
-        btn.textContent = isExpanded ? 'Hide' : 'Read';
-        const isGated = wrap ? wrap.classList.contains('gated') : false;
-        const isUnlocked = document.body.classList.contains('community-member');
-        if (isExpanded && (!isGated || isUnlocked)) {
-          markRead(id);
-          if (indicator) indicator.style.display = 'inline';
-        }
-      });
-    });
-
-    function promptJoinCommunity() {
-      alert('Join the community to unlock all categories. (Signup form coming soon.)');
-    }
-    if (mobJoinFixed) {
-      mobJoinFixed.addEventListener('click', promptJoinCommunity);
-      mobJoinFixed.classList.add('showing');
-    }
-    const webJoinTrigger = $('web-join-trigger');
-    if (webJoinTrigger) webJoinTrigger.addEventListener('click', promptJoinCommunity);
-    document.querySelectorAll('.gate-btn').forEach(function (btn) {
-      btn.addEventListener('click', promptJoinCommunity);
-    });
-
-    applyTabColorByIndex(0);
-
-    function positionWebCta() {
-      const ctaZone = document.querySelector('.web-cta-zone');
-      const legTab = document.querySelector('.tabs-row [data-id="legislation"]');
-      const row = document.querySelector('.tabs-row');
-      if (!ctaZone || !legTab || !row) return;
-      const legRect = legTab.getBoundingClientRect();
-      const rowRect = row.getBoundingClientRect();
-      ctaZone.style.right = (rowRect.right - legRect.right) + 'px';
-    }
-    positionWebCta();
-    window.addEventListener('resize', positionWebCta);
-
-    function positionMobJoin() {
-      if (!mobJoinFixed) return;
-      const band = document.querySelector('.mob-nav-band');
-      if (band && window.innerWidth <= 680) {
-        const rect = band.getBoundingClientRect();
-        mobJoinFixed.style.top = rect.bottom + 'px';
-      }
-    }
-    positionMobJoin();
-    window.addEventListener('resize', positionMobJoin);
-
-    function goHomeRememberingPlant() {
-      if (currentSlug) sessionStorage.setItem('sabr_last_plant', currentSlug);
-    }
-    $('top-bar-back-link')?.addEventListener('click', goHomeRememberingPlant);
-    $('top-bar-title-link')?.addEventListener('click', goHomeRememberingPlant);
-    $('mob-nav-back-link')?.addEventListener('click', goHomeRememberingPlant);
-    $('mob-explore-other')?.addEventListener('click', function () {
-      goHomeRememberingPlant();
-      window.location.href = '/';
-    });
+    const lastPlant = sessionStorage.getItem('sabr_last_plant');
+    if (!lastPlant) return;
+    sessionStorage.removeItem('sabr_last_plant');
+    const card = document.getElementById(`card-${lastPlant}`);
+    if (!card) return;
+    card.scrollIntoView({ block: 'center', behavior: 'instant' });
+    card.classList.add('sabr-highlight');
   })();
 </script>
-</Layout>
